@@ -10,12 +10,38 @@ import {
 
 import TeamMap from '../Utilities/TeamMap';
 
+import moment from 'moment';
+
 class ScoresPage extends React.Component {
 
     constructor(props){
         super(props);
         var ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2,
+        });
+    }
+
+    componentWillMount(){
+        this.fetchGames();
+    }
+
+    fetchGames(){
+        var date = moment().format('L');
+        date = date.split('/');
+        var month = date[0];
+        var day = date[1];
+        var year = date[2];
+        // date = year+month+day; //actual
+        // date= '20160101'; //for dev
+        var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/'+date+'/games.json';
+        fetch(url)
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+            var games = jsonResponse['sports_content']['games']['game'];
+            console.log(games);
+        })
+        .catch((error) => {
+            console.log(error);
         });
     }
 
