@@ -5,20 +5,32 @@ import {
   View,
   Image,
   StyleSheet,
+  ListView,
 } from 'react-native';
 
+import TeamMap from '../Utilities/TeamMap';
+
 class ScoresPage extends React.Component {
-  render() {
-      return(
-          <View>
-            <Text> Scores will go here </Text>
-            <Image
-                style={styles.logo}
-                source={require('../Assets/Images/chi.png')}
-            />
-          </View>
-      )
-  }
+
+    constructor(props){
+        super(props);
+        var ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2,
+        });
+    }
+
+
+    render() {
+        return(
+            <View>
+                <Text> Scores will go here </Text>
+                <Image
+                    style={styles.logo}
+                    source={require('../Assets/Images/chi.png')}
+                />
+            </View>
+        )
+    }
 };
 
 var styles = StyleSheet.create({
