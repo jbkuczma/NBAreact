@@ -3,16 +3,52 @@ import {
   AppRegistry,
   Text,
   View,
+  StyleSheet,
 } from 'react-native';
+
+import Button from '../Components/Button';
 
 class StandingsPage extends React.Component {
   render() {
       return(
-          <View>
-            <Text> Conference standings will go here </Text>
+          <View style={styles.view}>
+            <View style={styles.buttonContainer}>
+                <Button text="Eastern" style={styles.easternButton}/>
+                <Button text="Western" style={styles.westernButton}/>
+            </View>
           </View>
       )
   }
 };
+
+var styles = StyleSheet.create({
+    view: {
+        flex:2,
+        // backgroundColor: '#ed805e',
+    },
+    buttonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+    },
+    easternButton: {
+        color: '#FFFFFF',
+        // backgroundColor: '#0067AC',
+        backgroundColor: '#536DFE',
+        width: 200,
+        height: 35,
+        textAlign: 'center',
+        flex: 1,
+    },
+    westernButton: {
+        color: '#FFFFFF',
+        // backgroundColor: '#ED254B',
+        backgroundColor: '#FF5252',
+        width: 200,
+        height: 35,
+        textAlign: 'center',
+    },
+});
 
 module.exports = StandingsPage;
