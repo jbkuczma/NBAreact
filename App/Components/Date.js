@@ -42,9 +42,11 @@ var styles = StyleSheet.create({
         padding: 35,
     },
     dateText: {
+        fontSize: 20,
         marginTop: 20,
+        textAlign: 'center',
         color: '#FFFFFF',
-    }
+    },
 });
 
 module.exports = Date;
