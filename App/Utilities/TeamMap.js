@@ -6,7 +6,7 @@ module.exports = {
     city: 'Atlanta',
     team: 'Hawks',
     color: '#E03A3E',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/atl.png')
   },
   bkn: {
@@ -14,7 +14,7 @@ module.exports = {
     city: 'Brooklyn',
     team: 'Nets',
     color: '#000',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/bkn.png')
   },
   bos: {
@@ -22,7 +22,7 @@ module.exports = {
     city: 'Boston',
     team: 'Celtics',
     color: '#008348',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/bos.png')
   },
   cha: {
@@ -30,7 +30,7 @@ module.exports = {
     city: 'Charlotte',
     team: 'Hornets',
     color: '#008CA8',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/cha.png')
   },
   chi: {
@@ -38,7 +38,7 @@ module.exports = {
     city: 'Chicago',
     team: 'Bulls',
     color: '#CE1141',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/chi.png')
   },
   cle: {
@@ -46,7 +46,7 @@ module.exports = {
     city: 'Cleveland',
     team: 'Cavaliers',
     color: '#860038',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/cle.png')
   },
   dal: {
@@ -54,7 +54,7 @@ module.exports = {
     city: 'Dallas',
     team: 'Mavericks',
     color: '#007DC5',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/dal.png')
   },
   den: {
@@ -62,7 +62,7 @@ module.exports = {
     city: 'Denver',
     team: 'Nuggets',
     color: '#FFB20F',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/den.png')
   },
   det: {
@@ -70,7 +70,7 @@ module.exports = {
     city: 'Detroit',
     team: 'Pistons',
     color: '#006BB6',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/det.png')
   },
   gsw: {
@@ -78,7 +78,7 @@ module.exports = {
     city: 'Golden State',
     team: 'Warriors',
     color: '#FDB927',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/gsw.png')
   },
   hou: {
@@ -86,7 +86,7 @@ module.exports = {
     city: 'Houston',
     team: 'Rockets',
     color: '#CE1141',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/hou.png'),
     logo2: require('../Assets/Images/hou2.png')
   },
@@ -95,7 +95,7 @@ module.exports = {
     city: 'Indiana',
     team: 'Pacers',
     color: '#FFC633',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/ind.png')
   },
   lac: {
@@ -103,7 +103,7 @@ module.exports = {
     city: 'Los Angeles',
     team: 'Clippers',
     color: '#222',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/lac.png')
   },
   lal: {
@@ -111,7 +111,7 @@ module.exports = {
     city: 'Los Angeles',
     team: 'Lakers',
     color: '#552582',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/lal.png')
   },
   mem: {
@@ -119,7 +119,7 @@ module.exports = {
     city: 'Memphis',
     team: 'Grizzlies',
     color: '#6189B9',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/mem.png')
   },
   mia: {
@@ -127,7 +127,7 @@ module.exports = {
     city: 'Miami',
     team: 'Heat',
     color: '#98002E',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/mia.png')
   },
   mil: {
@@ -135,7 +135,7 @@ module.exports = {
     city: 'Milwaukee',
     team: 'Bucks',
     color: '#00471B',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/mil.png')
   },
   min: {
@@ -143,7 +143,7 @@ module.exports = {
     city: 'Minnesota',
     team: 'Timberwolves',
     color: '#005083',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/min.png')
   },
   nop: {
@@ -151,7 +151,7 @@ module.exports = {
     city: 'New Orleans',
     team: 'Pelicans',
     color: '#002B5C',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/nop.png')
   },
   nyk: {
@@ -159,7 +159,7 @@ module.exports = {
     city: 'New York',
     team: 'Knicks',
     color: '#F58426',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/nyk.png')
   },
   okc: {
@@ -167,7 +167,7 @@ module.exports = {
     city: 'Oklahoma City',
     team: 'Thunder',
     color: '#F05133',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/okc.png')
   },
   orl: {
@@ -175,7 +175,7 @@ module.exports = {
     city: 'Orlando',
     team: 'Magic',
     color: '#007DC5',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/orl.png')
   },
   phi: {
@@ -183,7 +183,7 @@ module.exports = {
     city: 'Philadelphia',
     team: '76ers',
     color: '#006BB6',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/phi.png')
   },
   phx: {
@@ -191,7 +191,7 @@ module.exports = {
     city: 'Phoenix',
     team: 'Suns',
     color: '#E56020',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/phx.png')
   },
   por: {
@@ -199,7 +199,7 @@ module.exports = {
     city: 'Portland',
     team: 'Trail Blazers',
     color: '#000',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/por.png')
   },
   sac: {
@@ -207,7 +207,7 @@ module.exports = {
     city: 'Sacramento',
     team: 'Kings',
     color: '#724C9F',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/sac.png')
   },
   sas: {
@@ -215,7 +215,7 @@ module.exports = {
     city: 'San Antonio',
     team: 'Spurs',
     color: '#B6BFBF',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/sas.png')
   },
   tor: {
@@ -223,7 +223,7 @@ module.exports = {
     city: 'Toronto',
     team: 'Raptors',
     color: '#CE1141',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/tor.png')
   },
   uta: {
@@ -231,7 +231,7 @@ module.exports = {
     city: 'Utah',
     team: 'Jazz',
     color: '#00471B',
-    conf: 'western',
+    conf: 'Western',
     logo: require('../Assets/Images/uta.png')
   },
   was: {
@@ -239,7 +239,7 @@ module.exports = {
     city: 'Washington',
     team: 'Wizards',
     color: '#F5002F',
-    conf: 'eastern',
+    conf: 'Eastern',
     logo: require('../Assets/Images/was.png')
   }
 }
