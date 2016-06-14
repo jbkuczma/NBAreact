@@ -8,7 +8,9 @@ import {
 class StandingsPage extends React.Component {
   render() {
       return(
-          <Text> Conference standings will go here </Text>
+          <View>
+            <Text> Conference standings will go here </Text>
+          </View>
       )
   }
 };
