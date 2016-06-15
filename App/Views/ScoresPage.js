@@ -41,6 +41,7 @@ class ScoresPage extends React.Component {
         var year = date[2];
         // date = year+month+day; //actual
         date= '20160101'; //for dev
+        // date='20160616';
         var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/'+date+'/games.json';
         fetch(url)
         .then((response) => response.json())
@@ -52,7 +53,6 @@ class ScoresPage extends React.Component {
                     dataSource: this.state.dataSource.cloneWithRows(games),
                     loaded: true,
                 });
-                console.log(games);
             }
         })
         .catch((error) => {
@@ -91,6 +91,8 @@ var styles = StyleSheet.create({
     },
     listview: {
         flex: 1,
+        // backgroundColor: '#fefdfb',
+        backgroundColor: '#FCFCFC'
     }
 });
 
