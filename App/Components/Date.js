@@ -43,12 +43,14 @@ class Date extends React.Component {
         var year = date[2];
         // date = year+month+day; //actual
         date= '20160101'; //for dev
+        // date='20160616';
         var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/'+date+'/games.json';
         fetch(url)
         .then((response) => response.json())
         .then((jsonResponse) => {
             if(jsonResponse['sports_content']['games']['game']){
                 var games = jsonResponse['sports_content']['games']['game'];
+                console.log(games);
                 this.setState({
                     numberOfGames: games.length,
                     loaded: true,
@@ -63,6 +65,7 @@ class Date extends React.Component {
 
 
   render() {
+      console.log(this.state.numberOfGames);
       return(
         <View style={styles.dateContainer}>
             <Text style={styles.dateText}> {this.getDate()} </Text>
