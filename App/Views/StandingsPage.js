@@ -1,3 +1,7 @@
+//endpoints
+//url http://data.nba.com/data/json/cms/YEAR/league/standings.json
+// YEAR will be start of season -> ex: 2015/2016 season, YEAR would be 2016
+
 import React, {Component,} from 'react';
 import {
   AppRegistry,
