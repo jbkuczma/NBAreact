@@ -17,7 +17,7 @@ import Date from '../Components/Date';
 class MainWindow extends React.Component {
   render() {
       return(
-          <View>
+          <View style={{flex: 1}}>
             <StatusBar
                 backgroundColor='#FF5722'
                 barStyle= 'light-content'
