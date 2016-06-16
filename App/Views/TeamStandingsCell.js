@@ -60,6 +60,13 @@ var styles = StyleSheet.create({
         height: 40,
         width: 40,
         marginLeft: 10,
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 1,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        }
     },
     numbersForRowContainer: {
         flex:3,
