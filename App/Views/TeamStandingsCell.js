@@ -15,53 +15,63 @@ class TeamStandingsCell extends React.Component {
         var teamStats = team.team_stats;
         // console.log(team);
         return(
-            <View style={
-                {
-                    flex: 1,
-                    height: 50,
-                    // backgroundColor: TeamMap[team.abbreviation.toLowerCase()].color,
-                    marginBottom: 20,
-                    marginRight: 10,
-                    marginLeft: 10,
-                    // overflow: 'hidden',
-                }
-            }>
-                <View style={{flex:1,flexDirection: 'row'}}>
+            <View style={styles.row}>
+                <View style={styles.rowContent}>
                     <View style={{flex: 1}}>
-                    <Image
-                        style={{height: 40,
-                            width: 40,
-                            marginLeft: 10,
-                        }}
+                        <Image
+                            style={styles.logo}
                             source={TeamMap[team.abbreviation.toLowerCase()].logo}
-                    />
+                        />
                     </View>
-                    <View style={{flex:3,flexDirection: 'row',  alignItems: 'center'}}>
+                    <View style={styles.numbersForRowContainer}>
                         <View style={{flex:1}}>
-                        <Text> {teamStats.wins} </Text>
+                            <Text> {teamStats.wins} </Text>
                         </View>
                         <View style={{flex:1}}>
-                        <Text> {teamStats.losses} </Text>
+                            <Text> {teamStats.losses} </Text>
                         </View>
                         <View style={{flex:1}}>
-                        <Text> {teamStats.l10} </Text>
+                            <Text> {teamStats.l10} </Text>
                         </View>
                         <View style={{flex:0.75}}>
-                        <Text> {teamStats.streak} </Text>
+                            <Text> {teamStats.streak} </Text>
                         </View>
                     </View>
                 </View>
-                <View style={{marginLeft: 15,
-                marginRight: 15,
-                height: 1,
-                backgroundColor: '#000',}} />
+                <View style={styles.divider} />
             </View>
         )
     }
 }
 
 var styles = StyleSheet.create({
-
+    row: {
+        flex: 1,
+        height: 50,
+        marginBottom: 20,
+        marginRight: 10,
+        marginLeft: 10,
+    },
+    rowContent: {
+        flex:1,
+        flexDirection: 'row'
+    },
+    logo: {
+        height: 40,
+        width: 40,
+        marginLeft: 10,
+    },
+    numbersForRowContainer: {
+        flex:3,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    divider: {
+        marginLeft: 15,
+        marginRight: 15,
+        height: 1,
+        backgroundColor: '#000',
+    }
 });
 
 module.exports = TeamStandingsCell;
