@@ -50,7 +50,6 @@ class Date extends React.Component {
         .then((jsonResponse) => {
             if(jsonResponse['sports_content']['games']['game']){
                 var games = jsonResponse['sports_content']['games']['game'];
-                console.log(games);
                 this.setState({
                     numberOfGames: games.length,
                     loaded: true,
@@ -65,7 +64,6 @@ class Date extends React.Component {
 
 
   render() {
-      console.log(this.state.numberOfGames);
       return(
         <View style={styles.dateContainer}>
             <Text style={styles.dateText}> {this.getDate()} </Text>
