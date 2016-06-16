@@ -31,7 +31,8 @@ class TeamStandingsCell extends React.Component {
                     <Image
                         style={{height: 40,
                             width: 40,
-                            marginLeft: 10,}}
+                            marginLeft: 10,
+                        }}
                             source={TeamMap[team.abbreviation.toLowerCase()].logo}
                     />
                     </View>

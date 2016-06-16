@@ -7,7 +7,6 @@ import {
   StatusBar,
 } from 'react-native';
 
-// import moment from 'moment-timezone';
 import moment from 'moment';
 
 class Date extends React.Component {
@@ -41,8 +40,8 @@ class Date extends React.Component {
         var month = date[0];
         var day = date[1];
         var year = date[2];
-        // date = year+month+day; //actual
-        date= '20160101'; //for dev
+        date = year+month+day; //actual
+        // date= '20160101'; //for dev
         // date='20160616';
         var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/'+date+'/games.json';
         fetch(url)

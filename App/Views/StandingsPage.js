@@ -12,11 +12,7 @@ import {
 } from 'react-native';
 
 import TeamStandingsCell from './TeamStandingsCell';
-import Button from '../Components/Button';
-// <View style={styles.buttonContainer}>
-//     <Button text="Eastern" style={styles.easternButton}/>
-//     <Button text="Western" style={styles.westernButton}/>
-// </View>
+
 class StandingsPage extends React.Component {
 
     constructor(props){
@@ -58,6 +54,7 @@ class StandingsPage extends React.Component {
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
+                                marginTop: 5,
                                 marginBottom: 10,
                                 marginLeft: 20,
                                 marginRight: 20,
