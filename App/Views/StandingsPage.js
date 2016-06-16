@@ -50,15 +50,7 @@ class StandingsPage extends React.Component {
   render() {
       return(
           <View style={styles.view}>
-                <View style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginTop: 5,
-                                marginBottom: 10,
-                                marginLeft: 20,
-                                marginRight: 20,
-                            }}>
+                <View style={styles.listHeader}>
                     <Text> Team </Text>
                     <Text> Wins </Text>
                     <Text> Losses </Text>
@@ -86,29 +78,14 @@ var styles = StyleSheet.create({
         flex:1,
         backgroundColor: '#FCFCFC'
     },
-    buttonContainer: {
-        flexDirection: 'column',
+    listHeader: {
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        flex: 1,
-    },
-    easternButton: {
-        color: '#FFFFFF',
-        // backgroundColor: '#0067AC',
-        backgroundColor: '#536DFE',
-        width: 200,
-        height: 35,
-        textAlign: 'center',
-        flex: 1,
-    },
-    westernButton: {
-        color: '#FFFFFF',
-        // backgroundColor: '#ED254B',
-        backgroundColor: '#FF5252',
-        width: 200,
-        height: 35,
-        textAlign: 'center',
-        flex: 1,
+        marginTop: 5,
+        marginBottom: 10,
+        marginLeft: 20,
+        marginRight: 20,
     },
     line: {
         marginLeft: 15,
