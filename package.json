@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "standard --verbose | snazzy"
   },
   "dependencies": {
     "moment-timezone": "0.5.4",
@@ -11,5 +12,9 @@
     "react-native": "0.27.2",
     "react-native-router-flux": "^3.30.0",
     "react-native-scrollable-tab-view": "0.4.4"
+  },
+  "devDependencies": {
+    "snazzy": "^4.0.0",
+    "standard": "^7.1.2"
   }
 }

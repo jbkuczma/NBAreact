@@ -1,13 +1,11 @@
+/* eslint-disable semi */
 'use strict';
 
-import React, {
-  Component,
-} from 'react';
-
 import {
-    AppRegistry,
+    AppRegistry
 } from 'react-native';
 
 import NBAreact from './NBAreact';
 
 AppRegistry.registerComponent('NBAreact', () => NBAreact);
+/* eslint-enable semi */
