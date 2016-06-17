@@ -24,8 +24,8 @@ class GameStatsTeam extends React.Component {
         this.state = {
             homeStats: [],
             awayStats: [],
-            homeScores: [],
-            awayScores: [],
+            homeScores: this.props.game.home,
+            awayScores: this.props.game.visitor,
         }
     }
 
@@ -59,37 +59,38 @@ class GameStatsTeam extends React.Component {
         var game = this.props.game;
         var h1 = h2 = h3 = h4 = hFinal = a1 = a2 = a3 = a4 = aFinal = 0;
         // console.log(game);
-        switch(this.state.awayStats.linescores.period.length){
+        console.log(this.state.awayStats);
+        switch(this.state.awayScores.linescores.period.length){
             case 1:
-                a1 = this.state.awayStats.linescores.period[0].score;
+                a1 = this.state.awayScores.linescores.period[0].score;
             case 2:
-                a1 = this.state.awayStats.linescores.period[0].score;
-                a2 = this.state.awayStats.linescores.period[1].score;
+                a1 = this.state.awayScores.linescores.period[0].score;
+                a2 = this.state.awayScores.linescores.period[1].score;
             case 3:
-                a1 = this.state.awayStats.linescores.period[0].score;
-                a2 = this.state.awayStats.linescores.period[1].score;
-                a3 = this.state.awayStats.linescores.period[2].score;
+                a1 = this.state.awayScores.linescores.period[0].score;
+                a2 = this.state.awayScores.linescores.period[1].score;
+                a3 = this.state.awayScores.linescores.period[2].score;
             case 4:
-                a1 = this.state.awayStats.linescores.period[0].score;
-                a2 = this.state.awayStats.linescores.period[1].score;
-                a3 = this.state.awayStats.linescores.period[2].score;
-                a4 = this.state.awayStats.linescores.period[3].score;
+                a1 = this.state.awayScores.linescores.period[0].score;
+                a2 = this.state.awayScores.linescores.period[1].score;
+                a3 = this.state.awayScores.linescores.period[2].score;
+                a4 = this.state.awayScores.linescores.period[3].score;
         }
-        switch(this.state.homeStats.linescores.period.length){
+        switch(this.state.homeScores.linescores.period.length){
             case 1:
-                h1 = this.state.homeStats.linescores.period[0].score;
+                h1 = this.state.homeScores.linescores.period[0].score;
             case 2:
-                h1 = this.state.homeStats.linescores.period[0].score;
-                h2 = this.state.homeStats.linescores.period[1].score;
+                h1 = this.state.homeScores.linescores.period[0].score;
+                h2 = this.state.homeScores.linescores.period[1].score;
             case 3:
-                h1 = this.state.homeStats.linescores.period[0].score;
-                h2 = this.state.homeStats.linescores.period[1].score;
-                h3 = this.state.homeStats.linescores.period[2].score;
+                h1 = this.state.homeScores.linescores.period[0].score;
+                h2 = this.state.homeScores.linescores.period[1].score;
+                h3 = this.state.homeScores.linescores.period[2].score;
             case 4:
-                h1 = this.state.homeStats.linescores.period[0].score;
-                h2 = this.state.homeStats.linescores.period[1].score;
-                h3 = this.state.homeStats.linescores.period[2].score;
-                h4 = this.state.homeStats.linescores.period[3].score;
+                h1 = this.state.homeScores.linescores.period[0].score;
+                h2 = this.state.homeScores.linescores.period[1].score;
+                h3 = this.state.homeScores.linescores.period[2].score;
+                h4 = this.state.homeScores.linescores.period[3].score;
         }
         aFinal = parseInt(a1) + parseInt(a2) + parseInt(a3) + parseInt(a4);
         hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
