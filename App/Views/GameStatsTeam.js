@@ -26,12 +26,12 @@ class GameStatsTeam extends React.Component {
             awayStats: [],
             homeScores: this.props.game.home,
             awayScores: this.props.game.visitor,
+            loaded: false,
         }
     }
 
     componentWillMount(){
         this.getGameStats();
-
     }
 
     getGameStats(){
@@ -47,6 +47,7 @@ class GameStatsTeam extends React.Component {
             this.setState({
                 homeStats: homeStats,
                 awayStats: awayStats,
+                loaded: true,
             });
 
         })
@@ -56,6 +57,9 @@ class GameStatsTeam extends React.Component {
     }
 
     render(){
+        if(!this.state.loaded){
+            return <View><Text> Fetching data </Text></View>;
+        }
         var game = this.props.game;
         var h1 = h2 = h3 = h4 = hFinal = a1 = a2 = a3 = a4 = aFinal = 0;
         // console.log(game);
@@ -132,7 +136,45 @@ class GameStatsTeam extends React.Component {
                 </View>
                 <View style={styles.line} />
                 <View style={styles.body}>
-
+                    <View style={styles.statsColumn}>
+                        <Text> {this.state.awayStats.stats.points} </Text>
+                        <Text> {this.state.awayStats.stats.field_goals_made + '/' + this.state.awayStats.stats.field_goals_attempted + '(' + this.state.awayStats.stats.field_goals_percentage+'%)'} </Text>
+                        <Text> {this.state.awayStats.stats.three_pointers_made + '/' + this.state.awayStats.stats.three_pointers_attempted + '(' + this.state.awayStats.stats.three_pointers_percentage+'%)'} </Text>
+                        <Text> {this.state.awayStats.stats.free_throws_made + '/' + this.state.awayStats.stats.free_throws_attempted + '(' + this.state.awayStats.stats.free_throws_percentage+'%)'} </Text>
+                        <Text> {this.state.awayStats.stats.assists} </Text>
+                        <Text> {this.state.awayStats.stats.rebounds_offensive} </Text>
+                        <Text> {this.state.awayStats.stats.rebounds_defensive} </Text>
+                        <Text> {this.state.awayStats.stats.steals} </Text>
+                        <Text> {this.state.awayStats.stats.blocks} </Text>
+                        <Text> {this.state.awayStats.stats.turnovers} </Text>
+                        <Text> {this.state.awayStats.stats.fouls} </Text>
+                    </View>
+                    <View style={styles.statsColumn}>
+                        <Text> Points </Text>
+                        <Text> Field Goals </Text>
+                        <Text> 3 Pointers </Text>
+                        <Text> Free Throws </Text>
+                        <Text> Assists </Text>
+                        <Text> Offensive Rebounds </Text>
+                        <Text> Defensive Rebounds </Text>
+                        <Text> Steals </Text>
+                        <Text> Blocks </Text>
+                        <Text> Turnovers </Text>
+                        <Text> Fouls </Text>
+                    </View>
+                    <View style={styles.statsColumn}>
+                        <Text> {this.state.homeStats.stats.points} </Text>
+                        <Text> {this.state.homeStats.stats.field_goals_made + '/' + this.state.homeStats.stats.field_goals_attempted + '(' + this.state.homeStats.stats.field_goals_percentage+'%)'} </Text>
+                        <Text> {this.state.homeStats.stats.three_pointers_made + '/' + this.state.homeStats.stats.three_pointers_attempted + '(' + this.state.homeStats.stats.three_pointers_percentage+'%)'} </Text>
+                        <Text> {this.state.homeStats.stats.free_throws_made + '/' + this.state.homeStats.stats.free_throws_attempted + '(' + this.state.homeStats.stats.free_throws_percentage+'%)'} </Text>
+                        <Text> {this.state.homeStats.stats.assists} </Text>
+                        <Text> {this.state.homeStats.stats.rebounds_offensive} </Text>
+                        <Text> {this.state.homeStats.stats.rebounds_defensive} </Text>
+                        <Text> {this.state.homeStats.stats.steals} </Text>
+                        <Text> {this.state.homeStats.stats.blocks} </Text>
+                        <Text> {this.state.homeStats.stats.turnovers} </Text>
+                        <Text> {this.state.homeStats.stats.fouls} </Text>
+                    </View>
                 </View>
             </View>
         )
@@ -172,6 +214,11 @@ var styles = StyleSheet.create({
     body: {
         flex: 1,
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 12,
+        marginRight: 12,
+        marginTop: 10,
+        // marginBottom: 10,
     },
     line: {
         marginLeft: 5,
@@ -211,7 +258,11 @@ var styles = StyleSheet.create({
         flex: 1,
         marginTop: 10,
         marginLeft: 10,
-    }
+    },
+    statsColumn: {
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
 });
 
 module.exports = GameStatsTeam;
