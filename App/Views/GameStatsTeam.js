@@ -24,11 +24,14 @@ class GameStatsTeam extends React.Component {
         this.state = {
             homeStats: [],
             awayStats: [],
+            homeScores: [],
+            awayScores: [],
         }
     }
 
     componentWillMount(){
         this.getGameStats();
+
     }
 
     getGameStats(){
@@ -45,6 +48,7 @@ class GameStatsTeam extends React.Component {
                 homeStats: homeStats,
                 awayStats: awayStats,
             });
+
         })
         .catch((error) => {
             console.log(error);
@@ -54,7 +58,41 @@ class GameStatsTeam extends React.Component {
     render(){
         var game = this.props.game;
         var h1 = h2 = h3 = h4 = hFinal = a1 = a2 = a3 = a4 = aFinal = 0;
-        console.log(game);
+        // console.log(game);
+        switch(this.state.awayStats.linescores.period.length){
+            case 1:
+                a1 = this.state.awayStats.linescores.period[0].score;
+            case 2:
+                a1 = this.state.awayStats.linescores.period[0].score;
+                a2 = this.state.awayStats.linescores.period[1].score;
+            case 3:
+                a1 = this.state.awayStats.linescores.period[0].score;
+                a2 = this.state.awayStats.linescores.period[1].score;
+                a3 = this.state.awayStats.linescores.period[2].score;
+            case 4:
+                a1 = this.state.awayStats.linescores.period[0].score;
+                a2 = this.state.awayStats.linescores.period[1].score;
+                a3 = this.state.awayStats.linescores.period[2].score;
+                a4 = this.state.awayStats.linescores.period[3].score;
+        }
+        switch(this.state.homeStats.linescores.period.length){
+            case 1:
+                h1 = this.state.homeStats.linescores.period[0].score;
+            case 2:
+                h1 = this.state.homeStats.linescores.period[0].score;
+                h2 = this.state.homeStats.linescores.period[1].score;
+            case 3:
+                h1 = this.state.homeStats.linescores.period[0].score;
+                h2 = this.state.homeStats.linescores.period[1].score;
+                h3 = this.state.homeStats.linescores.period[2].score;
+            case 4:
+                h1 = this.state.homeStats.linescores.period[0].score;
+                h2 = this.state.homeStats.linescores.period[1].score;
+                h3 = this.state.homeStats.linescores.period[2].score;
+                h4 = this.state.homeStats.linescores.period[3].score;
+        }
+        aFinal = parseInt(a1) + parseInt(a2) + parseInt(a3) + parseInt(a4);
+        hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
         return(
             <View style={styles.main}>
                 <View style={styles.scoreboardHeader}>
@@ -66,13 +104,22 @@ class GameStatsTeam extends React.Component {
                 </View>
                 <View style={styles.quarterScores}>
                     <View style={styles.awayScores}>
-                        <Text style={{marginTop: 15}}> {this.state.awayStats.abbreviation} </Text>
+                        <Text style={{marginTop: 5}}> {this.state.awayStats.abbreviation} </Text>
+                        <Text style={{marginTop: 5}}> {a1} </Text>
+                        <Text style={{marginTop: 5}}> {a2} </Text>
+                        <Text style={{marginTop: 5}}> {a3} </Text>
+                        <Text style={{marginTop: 5}}> {a4} </Text>
+                        <Text style={{marginTop: 5}}> {aFinal} </Text>
                     </View>
                     <View style={styles.line} />
                     <View style={styles.homeScores}>
                         <Text style={{marginBottom: 15}}> {this.state.homeStats.abbreviation} </Text>
+                        <Text style={{marginBottom: 15}}> {h1} </Text>
+                        <Text style={{marginBottom: 15}}> {h2} </Text>
+                        <Text style={{marginBottom: 15}}> {h3} </Text>
+                        <Text style={{marginBottom: 15}}> {h4} </Text>
+                        <Text style={{marginBottom: 15}}> {hFinal} </Text>
                     </View>
-                    <View style={styles.verticalScores} />
                 </View>
                 <View style={styles.line} />
                 <View style={styles.head}>
@@ -107,10 +154,10 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 70,
+        marginLeft: 85,
         marginRight: 30,
         marginTop: 10,
-        marginBottom: -20,
+        marginBottom: -5,
     },
     head: {
         // flex: 1,
@@ -148,12 +195,18 @@ var styles = StyleSheet.create({
     },
     awayScores: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 40,
+        marginRight: 30,
         flex: 1,
         marginTop: 10,
         marginLeft: 10,
     },
     homeScores: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 40,
+        marginRight: 30,
         flex: 1,
         marginTop: 10,
         marginLeft: 10,
