@@ -13,25 +13,40 @@ import {
   View,
   StyleSheet,
   Image,
+  TouchableHighlight,
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import TeamMap from '../Utilities/TeamMap';
+import GameStatsPage from './GameStatsPage';
 
 class GameCell extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+
+    goToGameStats(game){
+        Actions.GameStats({game: game});
+    }
+
     render(){
         var game = this.props.game;
         var homeTeam = game.home;
         var awayTeam = game.visitor;
         return(
-            <View style={
-                {
-                    backgroundColor: TeamMap[homeTeam.abbreviation.toLowerCase()].color,
-                    marginBottom: 10,
-                    marginRight: 30,
-                    marginLeft: 30,
-                    overflow: 'hidden',
+            <View>
+                <TouchableHighlight style={
+                    {
+                        backgroundColor: TeamMap[homeTeam.abbreviation.toLowerCase()].color,
+                        marginBottom: 10,
+                        marginRight: 30,
+                        marginLeft: 30,
+                        overflow: 'hidden',
+                    }
                 }
-            }>
+                onPress={this.goToGameStats.bind(this, game)}>
                 <View style={styles.container}>
                     <View style={styles.teamInfo}>
                         <Image
@@ -58,6 +73,7 @@ class GameCell extends React.Component {
                         <Text style={styles.teamText2}> {homeTeam.nickname}</Text>
                     </View>
                 </View>
+                </TouchableHighlight>
             </View>
         )
     }
