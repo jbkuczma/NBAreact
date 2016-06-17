@@ -1,27 +1,20 @@
-//http://data.nba.com/data/10s/json/cms/noseason/game/${gameDate}/${gameId}/boxscore.json
+/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
+// http://data.nba.com/data/10s/json/cms/noseason/game/${gameDate}/${gameId}/boxscore.json
 
-import React, {Component,} from 'react';
+import React from 'react';
 import {
-  AppRegistry,
   Text,
   View,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
+  StyleSheet
 } from 'react-native';
 
 import ScrollableTabView, {
-    DefaultTabBar,
+    DefaultTabBar
 } from 'react-native-scrollable-tab-view';
 
-import TeamMap from '../Utilities/TeamMap';
 import GameStatsTeam from './GameStatsTeam';
 
 class GameStatsPage extends React.Component {
-
-    constructor(props){
-        super(props);
-    }
 
     // componentWillMount(){
     //     this.getGameStats();
@@ -42,31 +35,32 @@ class GameStatsPage extends React.Component {
     //     });
     // }
 
-    render(){
-        var game = this.props.game;
-        return(
-            <View style={styles.main}>
-                <ScrollableTabView
-                    renderTabBar={() => <DefaultTabBar style={{marginTop: 62, backgroundColor: '#0288D1', borderColor: '#0288D1'}}/>}
-                    tabBarActiveTextColor='#FFFFFF'
-                    tabBarInactiveTextColor='#e5e5e5'
-                    tabBarUnderlineColor='#b3dbf1'
-                >
-                    <GameStatsTeam tabLabel='Teams' game={game}/>
-                    <Text tabLabel='Players'> there </Text>
-                </ScrollableTabView>
-            </View>
-        )
-    }
+  render(){
+    var game = this.props.game;
+    return (
+      <View style={styles.main}>
+        <ScrollableTabView
+          renderTabBar={() => <DefaultTabBar style={{marginTop: 62, backgroundColor: '#0288D1', borderColor: '#0288D1'}} />}
+          tabBarActiveTextColor='#FFFFFF'
+          tabBarInactiveTextColor='#e5e5e5'
+          tabBarUnderlineColor='#b3dbf1'
+        >
+          <GameStatsTeam tabLabel='Teams' game={game} />
+          <Text tabLabel='Players'> there </Text>
+        </ScrollableTabView>
+      </View>
+    )
+  }
 }
 
 var styles = StyleSheet.create({
-    main: {
-        flex: 1,
+  main: {
+    flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        backgroundColor: '#FCFCFC',
-    }
+    backgroundColor: '#FCFCFC'
+  }
 });
 
 module.exports = GameStatsPage;
+/* eslint-enable semi, space-before-function-paren, space-before-blocks*/

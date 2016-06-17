@@ -1,7 +1,8 @@
-'use strict';
+/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
+'use strict'
 
 module.exports = {
-    atl: {
+  atl: {
     id: 1610612737,
     city: 'Atlanta',
     team: 'Hawks',
@@ -243,3 +244,4 @@ module.exports = {
     logo: require('../Assets/Images/was.png')
   }
 }
+/* eslint-enable semi, space-before-function-paren, space-before-blocks*/

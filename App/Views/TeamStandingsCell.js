@@ -1,84 +1,85 @@
-import React, {Component,} from 'react';
+/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
+import React from 'react';
 import {
-  AppRegistry,
   Text,
   View,
   StyleSheet,
-  Image,
+  Image
 } from 'react-native';
 
 import TeamMap from '../Utilities/TeamMap';
 
 class TeamStandingsCell extends React.Component {
-    render(){
-        var team = this.props.team;
-        var teamStats = team.team_stats;
-        // console.log(team);
-        return(
-            <View style={styles.row}>
-                <View style={styles.rowContent}>
-                    <View style={{flex: 1}}>
-                        <Image
-                            style={styles.logo}
-                            source={TeamMap[team.abbreviation.toLowerCase()].logo}
-                        />
-                    </View>
-                    <View style={styles.numbersForRowContainer}>
-                        <View style={{flex:1}}>
-                            <Text> {teamStats.wins} </Text>
-                        </View>
-                        <View style={{flex:1}}>
-                            <Text> {teamStats.losses} </Text>
-                        </View>
-                        <View style={{flex:1}}>
-                            <Text> {teamStats.l10} </Text>
-                        </View>
-                        <View style={{flex:0.75}}>
-                            <Text> {teamStats.streak} </Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.divider} />
+  render(){
+    var team = this.props.team;
+    var teamStats = team.team_stats;
+    // console.log(team);
+    return (
+      <View style={styles.row}>
+        <View style={styles.rowContent}>
+          <View style={{flex: 1}}>
+            <Image
+              style={styles.logo}
+              source={TeamMap[team.abbreviation.toLowerCase()].logo}
+            />
+          </View>
+          <View style={styles.numbersForRowContainer}>
+            <View style={{flex:1}}>
+              <Text> {teamStats.wins} </Text>
             </View>
-        )
-    }
+            <View style={{flex:1}}>
+              <Text> {teamStats.losses} </Text>
+            </View>
+            <View style={{flex:1}}>
+              <Text> {teamStats.l10} </Text>
+            </View>
+            <View style={{flex:0.75}}>
+              <Text> {teamStats.streak} </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.divider} />
+      </View>
+    )
+  }
 }
 
 var styles = StyleSheet.create({
-    row: {
-        flex: 1,
-        height: 50,
-        marginBottom: 20,
-        marginRight: 10,
-        marginLeft: 10,
-    },
-    rowContent: {
-        flex:1,
-        flexDirection: 'row'
-    },
-    logo: {
-        height: 40,
-        width: 40,
-        marginLeft: 10,
-        shadowColor: "#000000",
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 1,
-            width: 0
-        }
-    },
-    numbersForRowContainer: {
-        flex:3,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    divider: {
-        marginLeft: 15,
-        marginRight: 15,
-        height: 1,
-        backgroundColor: '#000',
+  row: {
+    flex: 1,
+    height: 50,
+    marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10
+  },
+  rowContent: {
+    flex:1,
+    flexDirection: 'row'
+  },
+  logo: {
+    height: 40,
+    width: 40,
+    marginLeft: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 0
     }
+  },
+  numbersForRowContainer: {
+    flex:3,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  divider: {
+    marginLeft: 15,
+    marginRight: 15,
+    height: 1,
+    backgroundColor: '#000'
+  }
 });
 
 module.exports = TeamStandingsCell;
+/* eslint-enable semi, space-before-function-paren, space-before-blocks*/

@@ -1,11 +1,7 @@
-import React, {Component,} from 'react';
+/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
+import React from 'react';
 import {
-  Text,
-  View,
-  StyleSheet,
-  PixelRatio,
-  Platform,
-  Navigator,
+  StyleSheet
 } from 'react-native';
 
 import {Scene, Router} from 'react-native-router-flux';
@@ -22,9 +18,9 @@ class NBAreact extends React.Component {
   render() {
     return (
       <Router>
-        <Scene key="root">
-          <Scene key="Main" component={MainWindow} initial={true} hideNavBar={true}/>
-          <Scene key="GameStats" component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
+        <Scene key='root'>
+          <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
+          <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
         </Scene>
       </Router>
     )
@@ -32,12 +28,10 @@ class NBAreact extends React.Component {
 };
 
 var styles = StyleSheet.create({
-   // gameStatsPage: {
-   //     backgroundColor: '#FCFCFC',
-   // },
-   gameStatsPageTab: {
-       backgroundColor: '#03A9F4',
-   },
+  gameStatsPageTab: {
+    backgroundColor: '#03A9F4'
+  }
 });
 
 module.exports = NBAreact;
+/* eslint-enable semi, space-before-function-paren, space-before-blocks*/
