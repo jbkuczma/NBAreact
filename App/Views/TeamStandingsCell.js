@@ -24,16 +24,16 @@ class TeamStandingsCell extends React.Component {
             />
           </View>
           <View style={styles.numbersForRowContainer}>
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
               <Text> {teamStats.wins} </Text>
             </View>
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
               <Text> {teamStats.losses} </Text>
             </View>
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
               <Text> {teamStats.l10} </Text>
             </View>
-            <View style={{flex:0.75}}>
+            <View style={{flex: 0.75}}>
               <Text> {teamStats.streak} </Text>
             </View>
           </View>
@@ -53,14 +53,14 @@ var styles = StyleSheet.create({
     marginLeft: 10
   },
   rowContent: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row'
   },
   logo: {
     height: 40,
     width: 40,
     marginLeft: 10,
-    shadowColor: "#000000",
+    shadowColor: '#000000',
     shadowOpacity: 0.8,
     shadowRadius: 1,
     shadowOffset: {
@@ -69,7 +69,7 @@ var styles = StyleSheet.create({
     }
   },
   numbersForRowContainer: {
-    flex:3,
+    flex: 3,
     flexDirection: 'row',
     alignItems: 'center'
   },

@@ -40,7 +40,7 @@ class StandingsPage extends React.Component {
       var standings = jsonResponse.sports_content.standings.team;
       this.setState({
         standings: standings,
-        dataSource: this.state.dataSource.cloneWithRows(standings),
+        dataSource: this.state.dataSource.cloneWithRows(standings)
       });
     })
     .catch((error) => {
@@ -75,7 +75,7 @@ class StandingsPage extends React.Component {
 
 var styles = StyleSheet.create({
   view: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FCFCFC'
   },
   listHeader: {

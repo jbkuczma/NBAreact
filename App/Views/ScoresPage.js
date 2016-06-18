@@ -16,7 +16,7 @@ class ScoresPage extends React.Component {
   constructor(props){
     super(props);
     var ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
+      rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
       refreshing: false,
@@ -43,7 +43,7 @@ class ScoresPage extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      if(jsonResponse['sports_content']['games']['game']){
+      if (jsonResponse['sports_content']['games']['game']){
         var games = jsonResponse['sports_content']['games']['game'];
         this.setState({
           db: games,

@@ -47,7 +47,7 @@ class GameStatsTeam extends React.Component {
   }
 
   render(){
-    if(!this.state.loaded){
+    if (!this.state.loaded){
       return <View><Text> Fetching data </Text></View>;
     }
     // var game = this.props.game;
@@ -96,7 +96,7 @@ class GameStatsTeam extends React.Component {
     }
     aFinal = parseInt(a1) + parseInt(a2) + parseInt(a3) + parseInt(a4);
     hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
-    return(
+    return (
       <View style={styles.main}>
         <View style={styles.scoreboardHeader}>
           <Text> Q1 </Text>
