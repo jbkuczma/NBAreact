@@ -5,8 +5,11 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native';
+
+import TeamMap from '../Utilities/TeamMap';
 
 class GameStatsTeam extends React.Component {
 
@@ -53,7 +56,7 @@ class GameStatsTeam extends React.Component {
     // var game = this.props.game;
     var h1, h2, h3, h4, hFinal, a1, a2, a3, a4, aFinal = 0;
     // console.log(game);
-    // console.log(this.state.awayStats);
+    console.log(this.state.awayStats);
     switch (this.state.awayScores.linescores.period.length){
       case 1:
         a1 = this.state.awayScores.linescores.period[0].score;
@@ -116,21 +119,27 @@ class GameStatsTeam extends React.Component {
           </View>
           <View style={styles.line} />
           <View style={styles.homeScores}>
-            <Text style={{marginBottom: 15}}> {this.state.homeStats.abbreviation} </Text>
-            <Text style={{marginBottom: 15}}> {h1} </Text>
-            <Text style={{marginBottom: 15}}> {h2} </Text>
-            <Text style={{marginBottom: 15}}> {h3} </Text>
-            <Text style={{marginBottom: 15}}> {h4} </Text>
-            <Text style={{marginBottom: 15}}> {hFinal} </Text>
+            <Text style={{marginBottom: 5}}> {this.state.homeStats.abbreviation} </Text>
+            <Text style={{marginBottom: 5}}> {h1} </Text>
+            <Text style={{marginBottom: 5}}> {h2} </Text>
+            <Text style={{marginBottom: 5}}> {h3} </Text>
+            <Text style={{marginBottom: 5}}> {h4} </Text>
+            <Text style={{marginBottom: 5}}> {hFinal} </Text>
           </View>
         </View>
         <View style={styles.line} />
         <View style={styles.head}>
-          <Text> {this.state.awayStats.nickname} </Text>
+          <Image
+            style={{height: 70, width: 70}}
+            source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
+          />
           <View style={styles.vertical} />
           <Text> Stats </Text>
           <View style={styles.vertical} />
-          <Text> {this.state.homeStats.nickname} </Text>
+          <Image
+            style={{height: 70, width: 70}}
+            source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
+          />
         </View>
         <View style={styles.line} />
         <View style={styles.body}>
@@ -199,11 +208,12 @@ var styles = StyleSheet.create({
     marginBottom: -5
   },
   head: {
-        // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 10,
-    marginRight: 10,
+    // justifyContent: 'center',
+    alignItems: 'center', // orignal not here <- for vertical lines
+    marginLeft: 30, // orignal 10
+    marginRight: 30, // orignal 10
     marginTop: 10,
     marginBottom: 10
   },
