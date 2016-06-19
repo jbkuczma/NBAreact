@@ -8,6 +8,7 @@ import {Scene, Router} from 'react-native-router-flux';
 
 import MainWindow from './App/Views/MainWindow';
 import GameStatsPage from './App/Views/GameStatsPage';
+import TeamStatsPage from './App/Views/TeamStatsPage';
 
 class NBAreact extends React.Component {
   // render() {
@@ -21,6 +22,7 @@ class NBAreact extends React.Component {
         <Scene key='root'>
           <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
           <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
+          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} />
         </Scene>
       </Router>
     )

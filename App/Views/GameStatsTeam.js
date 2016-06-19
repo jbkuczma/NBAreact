@@ -10,6 +10,8 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import TeamMap from '../Utilities/TeamMap';
 
 class GameStatsTeam extends React.Component {
@@ -133,7 +135,7 @@ class GameStatsTeam extends React.Component {
         </View>
         <View style={styles.line} />
         <View style={styles.head}>
-          <TouchableHighlight onPress={ () => console.log('go to away team stats page. replace with actions route')} underlayColor='#FFFFFF'>
+          <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
               style={{height: 70, width: 70}}
               source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
@@ -142,7 +144,7 @@ class GameStatsTeam extends React.Component {
           <View style={styles.vertical} />
           <Text> Stats </Text>
           <View style={styles.vertical} />
-          <TouchableHighlight onPress={ () => console.log('go to home team stats page. replace with actions route')} underlayColor='#FFFFFF'>
+          <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.homeStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
               style={{height: 70, width: 70}}
               source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
