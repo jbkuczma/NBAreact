@@ -60,9 +60,19 @@ class GameStatsTeam extends React.Component {
       return <View><Text> Fetching data </Text></View>;
     }
     // var game = this.props.game;
-    var h1, h2, h3, h4, hFinal, a1, a2, a3, a4, aFinal = 0;
+    var h1 = 0;
+    var h2 = 0;
+    var h3 = 0;
+    var h4 = 0;
+    var hFinal = 0;
+    var a1 = 0;
+    var a2 = 0;
+    var a3 = 0;
+    var a4 = 0;
+    var aFinal = 0;
     // console.log(game);
     // console.log(this.state.awayStats);
+    if(this.state.awayScores.linescores && this.state.homeScores.linescores){
     switch (this.state.awayScores.linescores.period.length){
       case 1:
         a1 = this.state.awayScores.linescores.period[0].score;
@@ -81,6 +91,9 @@ class GameStatsTeam extends React.Component {
         a2 = this.state.awayScores.linescores.period[1].score;
         a3 = this.state.awayScores.linescores.period[2].score;
         a4 = this.state.awayScores.linescores.period[3].score;
+        break;
+      default:
+        a1, a2, a3, a4 = 0;
         break;
     }
     switch (this.state.homeScores.linescores.period.length){
@@ -102,7 +115,11 @@ class GameStatsTeam extends React.Component {
         h3 = this.state.homeScores.linescores.period[2].score;
         h4 = this.state.homeScores.linescores.period[3].score;
         break;
+      default:
+        h1, h2, h3, h4 = 0;
+        break;
     }
+}
     aFinal = parseInt(a1) + parseInt(a2) + parseInt(a3) + parseInt(a4);
     hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
     return (
@@ -154,17 +171,17 @@ class GameStatsTeam extends React.Component {
         <View style={styles.line} />
         <View style={styles.body}>
           <View style={styles.statsColumn}>
-            <Text> {this.state.awayStats.stats.points} </Text>
-            <Text> {this.state.awayStats.stats.field_goals_made + '/' + this.state.awayStats.stats.field_goals_attempted + '(' + this.state.awayStats.stats.field_goals_percentage + '%)'} </Text>
-            <Text> {this.state.awayStats.stats.three_pointers_made + '/' + this.state.awayStats.stats.three_pointers_attempted + '(' + this.state.awayStats.stats.three_pointers_percentage + '%)'} </Text>
-            <Text> {this.state.awayStats.stats.free_throws_made + '/' + this.state.awayStats.stats.free_throws_attempted + '(' + this.state.awayStats.stats.free_throws_percentage + '%)'} </Text>
-            <Text> {this.state.awayStats.stats.assists} </Text>
-            <Text> {this.state.awayStats.stats.rebounds_offensive} </Text>
-            <Text> {this.state.awayStats.stats.rebounds_defensive} </Text>
-            <Text> {this.state.awayStats.stats.steals} </Text>
-            <Text> {this.state.awayStats.stats.blocks} </Text>
-            <Text> {this.state.awayStats.stats.turnovers} </Text>
-            <Text> {this.state.awayStats.stats.fouls} </Text>
+            <Text> {this.state.awayStats.stats.points === '' ? '0' : this.state.awayStats.stats.points} </Text>
+            <Text> {this.state.awayStats.stats.field_goals_made === '' ? '-' : this.state.awayStats.stats.field_goals_made + '/' + this.state.awayStats.stats.field_goals_attempted + '(' + this.state.awayStats.stats.field_goals_percentage + '%)'} </Text>
+            <Text> {this.state.awayStats.stats.three_pointers_made === '' ? '-' : this.state.awayStats.stats.three_pointers_made + '/' + this.state.awayStats.stats.three_pointers_attempted + '(' + this.state.awayStats.stats.three_pointers_percentage + '%)'} </Text>
+            <Text> {this.state.awayStats.stats.free_throws_made === '' ? '-' : this.state.awayStats.stats.free_throws_made + '/' + this.state.awayStats.stats.free_throws_attempted + '(' + this.state.awayStats.stats.free_throws_percentage + '%)'} </Text>
+            <Text> {this.state.awayStats.stats.assists === '' ? '0' : this.state.awayStats.stats.assists} </Text>
+            <Text> {this.state.awayStats.stats.rebounds_offensive === '' ? '0' : this.state.awayStats.stats.rebounds_offensive} </Text>
+            <Text> {this.state.awayStats.stats.rebounds_defensive === '' ? '0' : this.state.awayStats.stats.rebounds_defensive} </Text>
+            <Text> {this.state.awayStats.stats.steals === '' ? '0' : this.state.awayStats.stats.steals} </Text>
+            <Text> {this.state.awayStats.stats.blocks === '' ? '0' : this.state.awayStats.stats.blocks} </Text>
+            <Text> {this.state.awayStats.stats.turnovers === '' ? '0' : this.state.awayStats.stats.turnovers} </Text>
+            <Text> {this.state.awayStats.stats.fouls === ''  ? '0' : this.state.awayStats.stats.fouls} </Text>
           </View>
           <View style={styles.statsColumn}>
             <Text> Points </Text>
@@ -180,17 +197,17 @@ class GameStatsTeam extends React.Component {
             <Text> Fouls </Text>
           </View>
           <View style={styles.statsColumn}>
-            <Text> {this.state.homeStats.stats.points} </Text>
-            <Text> {this.state.homeStats.stats.field_goals_made + '/' + this.state.homeStats.stats.field_goals_attempted + '(' + this.state.homeStats.stats.field_goals_percentage + '%)'} </Text>
-            <Text> {this.state.homeStats.stats.three_pointers_made + '/' + this.state.homeStats.stats.three_pointers_attempted + '(' + this.state.homeStats.stats.three_pointers_percentage + '%)'} </Text>
-            <Text> {this.state.homeStats.stats.free_throws_made + '/' + this.state.homeStats.stats.free_throws_attempted + '(' + this.state.homeStats.stats.free_throws_percentage + '%)'} </Text>
-            <Text> {this.state.homeStats.stats.assists} </Text>
-            <Text> {this.state.homeStats.stats.rebounds_offensive} </Text>
-            <Text> {this.state.homeStats.stats.rebounds_defensive} </Text>
-            <Text> {this.state.homeStats.stats.steals} </Text>
-            <Text> {this.state.homeStats.stats.blocks} </Text>
-            <Text> {this.state.homeStats.stats.turnovers} </Text>
-            <Text> {this.state.homeStats.stats.fouls} </Text>
+            <Text> {this.state.homeStats.stats.points === '' ? '0' : this.state.homeStats.stats.points} </Text>
+            <Text> {this.state.homeStats.stats.field_goals_made === '' ? '-' : this.state.homeStats.stats.field_goals_made + '/' + this.state.homeStats.stats.field_goals_attempted + '(' + this.state.homeStats.stats.field_goals_percentage + '%)'} </Text>
+            <Text> {this.state.homeStats.stats.three_pointers_made === '' ? '-' : this.state.homeStats.stats.three_pointers_made + '/' + this.state.homeStats.stats.three_pointers_attempted + '(' + this.state.homeStats.stats.three_pointers_percentage + '%)'} </Text>
+            <Text> {this.state.homeStats.stats.free_throws_made === '' ? '-' : this.state.homeStats.stats.free_throws_made + '/' + this.state.homeStats.stats.free_throws_attempted + '(' + this.state.homeStats.stats.free_throws_percentage + '%)'} </Text>
+            <Text> {this.state.homeStats.stats.assists === '' ? '0' : this.state.homeStats.stats.assists} </Text>
+            <Text> {this.state.homeStats.stats.rebounds_offensive === '' ? '0' : this.state.homeStats.stats.rebounds_offensive} </Text>
+            <Text> {this.state.homeStats.stats.rebounds_defensive === '' ? '0' : this.state.homeStats.stats.rebounds_defensive} </Text>
+            <Text> {this.state.homeStats.stats.steals === '' ? '0' : this.state.homeStats.stats.steals} </Text>
+            <Text> {this.state.homeStats.stats.blocks === '' ? '0' : this.state.homeStats.stats.blocks} </Text>
+            <Text> {this.state.homeStats.stats.turnovers === '' ? '0' : this.state.homeStats.stats.turnovers} </Text>
+            <Text> {this.state.homeStats.stats.fouls === ''  ? '0' : this.state.homeStats.stats.fouls} </Text>
           </View>
         </View>
       </View>

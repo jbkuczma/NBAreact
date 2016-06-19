@@ -11,18 +11,13 @@ import GameStatsPage from './App/Views/GameStatsPage';
 import TeamStatsPage from './App/Views/TeamStatsPage';
 
 class NBAreact extends React.Component {
-  // render() {
-  //     return (
-  //         <MainWindow />
-  //     )
-  // }
   render() {
     return (
       <Router>
         <Scene key='root'>
           <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
           <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
-          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} />
+          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} navigationBarStyle={styles.teamPageTab}/>
         </Scene>
       </Router>
     )
@@ -32,6 +27,9 @@ class NBAreact extends React.Component {
 var styles = StyleSheet.create({
   gameStatsPageTab: {
     backgroundColor: '#03A9F4'
+  },
+  teamPageTab: {
+    backgroundColor: '#4CAF50' // would prefer to use team color but not sure how
   }
 });
 

@@ -46,9 +46,12 @@ class GameStatsTeam extends React.Component {
   }
 
   render(){
+    var teamColor = TeamMap[this.props.team].color;
     return (
-      <View>
-        <Text> team stats page </Text>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ backgroundColor: '#FCFCFC' }}>
+          <Text> team stats page </Text>
+         </View>
       </View>
     )
   }
