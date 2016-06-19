@@ -37,9 +37,10 @@ class GameCell extends React.Component {
           marginBottom: 10,
           marginRight: 30,
           marginLeft: 30,
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
           onPress={this.goToGameStats.bind(this, game)}
+          underlayColor='#FFFFFF'
         >
           <View style={styles.container}>
             <View style={styles.teamInfo}>
