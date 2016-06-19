@@ -17,13 +17,14 @@ class NBAreact extends React.Component {
         <Scene key='root'>
           <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
           <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
-          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} navigationBarStyle={styles.teamPageTab}/>
+          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} navigationBarStyle={styles.teamPageTab} backButtonImage={require('./App/Assets/Images/back_button_green.png')}/>
         </Scene>
       </Router>
     )
   }
 };
 
+// want backButtonImage = './App/Assets/Images/back_button_green.png' for TeamStats
 var styles = StyleSheet.create({
   gameStatsPageTab: {
     backgroundColor: '#03A9F4'
