@@ -6,7 +6,8 @@ import {
   Text,
   View,
   StyleSheet,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
 import TeamMap from '../Utilities/TeamMap';
@@ -20,6 +21,8 @@ class GameStatsTeam extends React.Component {
       awayStats: [],
       homeScores: this.props.game.home,
       awayScores: this.props.game.visitor,
+      homeRecord: '',
+      awayRecord: '',
       loaded: false
     }
   }
@@ -36,6 +39,7 @@ class GameStatsTeam extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      console.log(jsonResponse);
       var homeStats = jsonResponse.sports_content.game.home;
       var awayStats = jsonResponse.sports_content.game.visitor;
       this.setState({
@@ -56,7 +60,7 @@ class GameStatsTeam extends React.Component {
     // var game = this.props.game;
     var h1, h2, h3, h4, hFinal, a1, a2, a3, a4, aFinal = 0;
     // console.log(game);
-    console.log(this.state.awayStats);
+    // console.log(this.state.awayStats);
     switch (this.state.awayScores.linescores.period.length){
       case 1:
         a1 = this.state.awayScores.linescores.period[0].score;
@@ -129,17 +133,21 @@ class GameStatsTeam extends React.Component {
         </View>
         <View style={styles.line} />
         <View style={styles.head}>
-          <Image
-            style={{height: 70, width: 70}}
-            source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
-          />
+          <TouchableHighlight onPress={ () => console.log('go to away team stats page. replace with actions route')} underlayColor='#FFFFFF'>
+            <Image
+              style={{height: 70, width: 70}}
+              source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
+            />
+          </TouchableHighlight>
           <View style={styles.vertical} />
           <Text> Stats </Text>
           <View style={styles.vertical} />
-          <Image
-            style={{height: 70, width: 70}}
-            source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
-          />
+          <TouchableHighlight onPress={ () => console.log('go to home team stats page. replace with actions route')} underlayColor='#FFFFFF'>
+            <Image
+              style={{height: 70, width: 70}}
+              source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
+            />
+          </TouchableHighlight>
         </View>
         <View style={styles.line} />
         <View style={styles.body}>
