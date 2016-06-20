@@ -15,20 +15,150 @@ import {
   Image
 } from 'react-native';
 
+import TeamMap from '../Utilities/TeamMap';
+
 class PlayerCell extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+          basicPlayerInfo: []
+      };
+  }
+
+  // componentWillMount(){
+  //   this.getBasicPlayerInfo();
+  // }
+
+  // it's a start, will have to tweak
+  getBasicPlayerInfo(){
+    var season = '2015-16'; // IMPORTANT
+    var teamID = TeamMap[this.props.team].id;
+    var url = 'http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=' + season + '&TeamID=' + teamID; //<-- basic player info, position, number, height, weight, etc.
+    fetch(url)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      console.log(jsonResponse);
+      this.setState({
+        basicPlayerInfo: jsonResponse.resultSets[0].rowSet
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   render(){
     var player = this.props.player;
-    console.log(player);
+    // console.log(player);
     return (
-      <View>
-        <Text> fill with player info </Text>
+      <View style={styles.body}>
+        <View style={styles.imageBlock}>
+          <Image
+            source={{uri: 'http://stats.nba.com/media/players/230x185/' + player[1] + '.png'}}
+            style={styles.playerImage}
+          />
+        </View>
+
+        <View style={styles.playerPositionNumber}>
+          <Text style={{fontSize: 12}}> {player[2]} </Text>
+          <Text style={{fontSize: 9}}> Position/# </Text>
+        </View>
+
+        <View style={styles.data}>
+          <View style={styles.playerData}>
+            <Text style={{fontSize: 10, marginRight: 10}}> Age: 25</Text>
+            <Text style={{fontSize: 10, marginRight: 10}}> Height: 6</Text>
+            <Text style={{fontSize: 10, marginRight: 10}}> Weight: 190</Text>
+          </View>
+          <View style={styles.playerGameData1}>
+            <View style={styles.playerDataItem}>
+              <Text style={styles.playerDataNumber}> {player[3]}</Text>
+              <Text style={styles.playerDataLabel}> GP </Text>
+            </View>
+            <View style={styles.playerDataItem}>
+              <Text style={styles.playerDataNumber}> {player[7]}</Text>
+              <Text style={styles.playerDataLabel}> MIN </Text>
+            </View>
+          </View>
+          <View style={styles.playerGameData}>
+            <View style={styles.playerDataItem}>
+              <Text style={styles.playerDataNumber}> {player[27]}</Text>
+              <Text style={styles.playerDataLabel}> PPG </Text>
+            </View>
+            <View style={styles.playerDataItem}>
+              <Text style={styles.playerDataNumber}> {player[19]}</Text>
+              <Text style={styles.playerDataLabel}> RPG </Text>
+            </View>
+            <View style={styles.playerDataItem}>
+              <Text style={styles.playerDataNumber}> {player[20]}</Text>
+              <Text style={styles.playerDataLabel}> APG </Text>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }
 }
 
 var styles = StyleSheet.create({
+  body: {
+     height: 60,
+     backgroundColor: '#FCFCFC',
+     flexDirection: 'row',
+     borderColor: '#E1E1E1',
+     borderBottomWidth: 0.5,
+  },
+  imageBlock: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  playerImage: {
+    height: 50,
+    width: 50,
+    marginTop: 5,
+    marginLeft: 2,
+    borderRadius: 25
+  },
+  playerPositionNumber: {
+    marginLeft: 3,
+    flex: 2,
+    justifyContent: 'center'
+  },
+  data: {
+    flex: 3,
+    justifyContent: 'center'
+  },
+  playerData: {
+    flexDirection: 'row'
+  },
+  playerGameData1: {
+    marginTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  playerGameData: {
+    flexDirection: 'row'
+  },
+  playerDataItem: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    marginRight: 10
+  },
+  playerDataNumber: {
+    color: '#404a5a',
+    fontSize: 12,
+    fontWeight: 'bold',
+    position: 'relative',
+    top: 1
+  },
+  playerDataLabel: {
+    color: '#4a5669',
+    fontSize: 10,
+    fontWeight: '200'
+  }
+
+
+
 
 });
 

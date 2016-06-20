@@ -35,18 +35,18 @@ class GameStatsTeam extends React.Component {
   }
 
   rankingSuffix(number){
-    switch(parseInt(number)){
+    switch (parseInt(number)){
       case 1:
-        return "1st";
+        return '1st';
         break;
       case 2:
-        return "2nd";
+        return '2nd';
         break;
       case 3:
-        return "3rd";
+        return '3rd';
         break;
       default:
-        return number+'th';
+        return number + 'th';
         break;
     }
   }
@@ -144,11 +144,12 @@ class GameStatsTeam extends React.Component {
           </View>
         </View>
         <ListView
-          style={{backgroundColor: '#FCFCFC', height: windowHeight, marginTop: 15}}
+          style={{backgroundColor: '#FCFCFC', height: windowHeight-240, marginTop: 15}}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
             <PlayerCell
               player={rowData}
+              team={this.props.team}
             //   onPress={() => this.props.goToGameStats(rowData)}
             />
           }
@@ -166,15 +167,15 @@ var styles = StyleSheet.create({
     backgroundColor: '#FCFCFC'
   },
   header: {
-      marginTop: 62,
-      height: 100,
-      flexDirection: 'row'
+    marginTop: 62,
+    height: 100,
+    flexDirection: 'row'
   },
   city: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      flex: 1.5,
-      marginLeft: 15
+    flexDirection: 'column',
+    justifyContent: 'center',
+    flex: 1.5,
+    marginLeft: 15
   },
   logo: {
     flex: 1,
