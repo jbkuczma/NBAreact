@@ -41,7 +41,8 @@ class Date extends React.Component {
     date = year + month + day; // actual
     // date = '20160101'; // for dev
     // date = '20160616';
-    var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
+    // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
+    var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
@@ -54,7 +55,12 @@ class Date extends React.Component {
       }
     })
     .catch((error) => {
-      console.log(error);
+      if(error instanceof SyntaxError){
+        this.setState({
+          numberOfGames: 0,
+          loaded: true
+        });
+      }
     });
   }
 
