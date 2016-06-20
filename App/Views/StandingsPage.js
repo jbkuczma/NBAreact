@@ -11,6 +11,8 @@ import {
   ListView
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import TeamStandingsCell from './TeamStandingsCell';
 
 class StandingsPage extends React.Component {
@@ -64,7 +66,8 @@ class StandingsPage extends React.Component {
           renderRow={(rowData, sectionID, rowID) =>
             <TeamStandingsCell
               team={rowData}
-              // onPress={() => this.props.onPress(rowData)}
+              onPress={() => this.props.onPress(rowData)}
+            //   onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})}
             />
           }
         />

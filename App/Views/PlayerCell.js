@@ -15,41 +15,37 @@ import {
   Image
 } from 'react-native';
 
-import TeamMap from '../Utilities/TeamMap';
-
 class PlayerCell extends React.Component {
   constructor(props){
-      super(props);
-      this.state = {
-          basicPlayerInfo: []
-      };
+    super(props);
+    this.state = {
+      basicPlayerInfo: []
+    };
   }
 
-  // componentWillMount(){
-  //   this.getBasicPlayerInfo();
-  // }
+  componentWillMount(){
+    this.setBasicInfo();
+  }
 
-  // it's a start, will have to tweak
-  getBasicPlayerInfo(){
-    var season = '2015-16'; // IMPORTANT
-    var teamID = TeamMap[this.props.team].id;
-    var url = 'http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=' + season + '&TeamID=' + teamID; //<-- basic player info, position, number, height, weight, etc.
-    fetch(url)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      console.log(jsonResponse);
-      this.setState({
-        basicPlayerInfo: jsonResponse.resultSets[0].rowSet
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  setBasicInfo(){
+    var roster = this.props.roster;
+    var playerName = this.props.player[2];
+    for (var i = 0; i < roster.length; i++){
+      if (roster[i][3] === playerName){
+        this.setState({
+          basicPlayerInfo: roster[i]
+        });
+        break;
+      }
+    }
   }
 
   render(){
     var player = this.props.player;
-    // console.log(player);
+    var roster = this.props.roster;
+    if (this.state.basicPlayerInfo === []){
+      return <View><Text> fetching data </Text></View>
+    }
     return (
       <View style={styles.body}>
         <View style={styles.imageBlock}>
@@ -60,15 +56,17 @@ class PlayerCell extends React.Component {
         </View>
 
         <View style={styles.playerPositionNumber}>
-          <Text style={{fontSize: 12}}> {player[2]} </Text>
-          <Text style={{fontSize: 9}}> Position/# </Text>
+          <Text style={{fontSize: 10}}> {player[2]} </Text>
+          <Text style={{fontSize: 9}}> #{this.state.basicPlayerInfo[4]}</Text>
+          <Text style={{fontSize: 9}}> {this.state.basicPlayerInfo[5]}</Text>
+          <Text style={{fontSize: 8}}> Years Pro: {this.state.basicPlayerInfo[10]}</Text>
         </View>
 
         <View style={styles.data}>
           <View style={styles.playerData}>
-            <Text style={{fontSize: 10, marginRight: 10}}> Age: 25</Text>
-            <Text style={{fontSize: 10, marginRight: 10}}> Height: 6</Text>
-            <Text style={{fontSize: 10, marginRight: 10}}> Weight: 190</Text>
+            <Text style={{fontSize: 10, marginRight: 10}}> Age: {this.state.basicPlayerInfo[9]}</Text>
+            <Text style={{fontSize: 10, marginRight: 10}}> Height: {this.state.basicPlayerInfo[6]}</Text>
+            <Text style={{fontSize: 10, marginRight: 10}}> Weight: {this.state.basicPlayerInfo[7]}</Text>
           </View>
           <View style={styles.playerGameData1}>
             <View style={styles.playerDataItem}>
@@ -102,11 +100,11 @@ class PlayerCell extends React.Component {
 
 var styles = StyleSheet.create({
   body: {
-     height: 60,
-     backgroundColor: '#FCFCFC',
-     flexDirection: 'row',
-     borderColor: '#E1E1E1',
-     borderBottomWidth: 0.5,
+    height: 60,
+    backgroundColor: '#FCFCFC',
+    flexDirection: 'row',
+    borderColor: '#E1E1E1',
+    borderBottomWidth: 0.5
   },
   imageBlock: {
     flex: 1,
@@ -126,6 +124,7 @@ var styles = StyleSheet.create({
   },
   data: {
     flex: 3,
+    marginRight: 5,
     justifyContent: 'center'
   },
   playerData: {
@@ -156,10 +155,6 @@ var styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '200'
   }
-
-
-
-
 });
 
 module.exports = PlayerCell;
