@@ -30,6 +30,7 @@ class GameStatsTeam extends React.Component {
       teamStatsRecord: [],
       teamStatsLeague: [],
       playerStats: [],
+      playersBasicStats: [],
       dataSource: ds.cloneWithRows([]),
     }
   }
@@ -54,6 +55,7 @@ class GameStatsTeam extends React.Component {
   componentWillMount(){
     this.getTeamStats();
     this.getPlayers();
+    this.getBasicPlayerInfo();
   }
 
   getTeamStats(){
@@ -65,7 +67,7 @@ class GameStatsTeam extends React.Component {
     .then((response) => response.json())
     .then((jsonResponse) => {
       this.setState({
-        loaded: true,
+        // loaded: true,
         teamStatsRecord: jsonResponse.resultSets[0].rowSet,
         teamStatsLeague: jsonResponse.resultSets[1].rowSet
       });
@@ -83,10 +85,26 @@ class GameStatsTeam extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      console.log(jsonResponse);
       this.setState({
         playerStats: jsonResponse.resultSets[1].rowSet,
         dataSource: this.state.dataSource.cloneWithRows(jsonResponse.resultSets[1].rowSet)
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  getBasicPlayerInfo(){
+    var season = '2015-16'; // IMPORTANT
+    var teamID = TeamMap[this.props.team].id;
+    var url = 'http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=' + season + '&TeamID=' + teamID; // <-- basic player info, position, number, height, weight, etc.
+    fetch(url)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      this.setState({
+        playersBasicStats: jsonResponse.resultSets[0].rowSet,
+        loaded: true
       });
     })
     .catch((error) => {
@@ -99,8 +117,6 @@ class GameStatsTeam extends React.Component {
     if (!this.state.loaded){
       return <View><Text> Fetching data </Text></View>;
     }
-    // console.log(this.state.teamStatsRecord);
-    // console.log(this.state.teamStatsLeague);
     return (
       <View style={styles.body}>
         <View style={[styles.header, {backgroundColor: TeamMap[this.state.teamStatsRecord[0][4].toLowerCase()].color}]}>
@@ -117,8 +133,8 @@ class GameStatsTeam extends React.Component {
           <View style={styles.rankings1}>
             <Text style={styles.leagueRankingsText}> Wins: {this.state.teamStatsRecord[0][8]} </Text>
             <Text style={styles.leagueRankingsText}> Losses: {this.state.teamStatsRecord[0][9]} </Text>
-            <Text style={styles.leagueRankingsText}> {this.rankingSuffix(this.state.teamStatsRecord[0][12])} in the {this.state.teamStatsRecord[0][5]} </Text>
-            <Text style={styles.leagueRankingsText}> {this.rankingSuffix(this.state.teamStatsRecord[0][11])} in the {this.state.teamStatsRecord[0][6]} </Text>
+            <Text style={styles.leagueRankingsText}> {this.rankingSuffix(this.state.teamStatsRecord[0][11])} in the {this.state.teamStatsRecord[0][5]} </Text>
+            <Text style={styles.leagueRankingsText}> {this.rankingSuffix(this.state.teamStatsRecord[0][12])} in the {this.state.teamStatsRecord[0][6]} </Text>
           </View>
         </View>
         <View style={styles.teamStatsRankings}>
@@ -144,12 +160,13 @@ class GameStatsTeam extends React.Component {
           </View>
         </View>
         <ListView
-          style={{backgroundColor: '#FCFCFC', height: windowHeight-240, marginTop: 15}}
+          style={{backgroundColor: '#FCFCFC', height: windowHeight - 240, marginTop: 15}}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
             <PlayerCell
               player={rowData}
               team={this.props.team}
+              roster={this.state.playersBasicStats}
             //   onPress={() => this.props.goToGameStats(rowData)}
             />
           }
@@ -182,9 +199,9 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   rankings1: {
-      flex: 1.5,
-      justifyContent: 'center',
-      marginRight: 15
+    flex: 1.5,
+    justifyContent: 'center',
+    marginRight: 15
   },
   leagueRankingsText: {
     fontWeight: '400',
