@@ -57,7 +57,14 @@ class GameStatsTeam extends React.Component {
 
   render(){
     if (!this.state.loaded){
-      return <View><Text> Fetching data </Text></View>;
+      return (
+        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
+          <Image
+            source={require('../Assets/Images/ring.gif')}
+            style={{width: 70, height: 70}}
+          />
+        </View>
+      )
     }
     // var game = this.props.game;
     var h1 = 0;

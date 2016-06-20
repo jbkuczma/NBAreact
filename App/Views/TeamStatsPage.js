@@ -115,7 +115,14 @@ class GameStatsTeam extends React.Component {
   render(){
     var teamColor = TeamMap[this.props.team].color;
     if (!this.state.loaded){
-      return <View><Text> Fetching data </Text></View>;
+      return (
+        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
+          <Image
+            source={require('../Assets/Images/ring.gif')}
+            style={{width: 70, height: 70}}
+          />
+        </View>
+      )
     }
     return (
       <View style={styles.body}>
