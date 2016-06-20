@@ -53,6 +53,7 @@ class GameCell extends React.Component {
             </View>
             <View style={styles.gameInfo}>
               <Text style={styles.gameInfoText}> {game.period_time.period_status} </Text>
+              <Text style={{color: '#FFFFFF', fontSize: 12, marginBottom: -15}}> {(game.period_time.game_clock === '' || game.period_time.period_status === 'Halftime') ? '' : game.period_time.game_clock} </Text>
               <View style={styles.gameScoresView}>
                 <Text style={styles.gameScores}> {awayTeam.score} </Text>
                 <View style={styles.divider} />

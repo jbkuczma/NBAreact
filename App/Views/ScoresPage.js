@@ -24,10 +24,41 @@ class ScoresPage extends React.Component {
       dataSource: ds.cloneWithRows([]),
       loaded: false
     }
+    this.onRefresh = this.onRefresh.bind(this);
   }
 
   componentWillMount(){
     this.fetchGames();
+  }
+
+  onRefresh(){
+    this.setState({loaded: false});
+    // this.fetchGames();
+    var date = moment().format('L');
+    date = date.split('/');
+    var month = date[0];
+    var day = date[1];
+    var year = date[2];
+        // date = year+month+day; //actual
+        // date = '20160101'; //for dev
+    date = '20160619';
+    // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
+    var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
+    fetch(url)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if (jsonResponse['sports_content']['games']['game']){
+        var games = jsonResponse['sports_content']['games']['game'];
+        this.setState({
+          db: games,
+          dataSource: this.state.dataSource.cloneWithRows(games),
+          loaded: true
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   fetchGames(){
@@ -36,10 +67,11 @@ class ScoresPage extends React.Component {
     var month = date[0];
     var day = date[1];
     var year = date[2];
-        date = year+month+day; //actual
+        // date = year+month+day; //actual
         // date = '20160101'; //for dev
-    // date = '20160616';
-    var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
+    date = '20160619';
+    // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
+    var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
@@ -64,7 +96,7 @@ class ScoresPage extends React.Component {
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
-              // onRefresh={this.onRefresh.bind(this)}
+              onRefresh={this.onRefresh.bind(this)}
             />
           }
           style={styles.listview}
