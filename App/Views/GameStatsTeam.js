@@ -76,8 +76,7 @@ class GameStatsTeam extends React.Component {
     var a3 = 0;
     var a4 = 0;
     var aFinal = 0;
-    // console.log(game);
-    // console.log(this.state.awayStats);
+    // js standard these switch statements
     if(this.state.awayScores.linescores && this.state.homeScores.linescores){
     switch (this.state.awayScores.linescores.period.length){
       case 1:

@@ -7,7 +7,7 @@ import {
   View,
   StyleSheet,
   Image,
-  TouchableHighlight
+  ListView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
@@ -18,6 +18,9 @@ class GameStatsPlayers extends React.Component {
 
   constructor(props){
     super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
     this.state = {
       loaded: false,
       homePlayerStats: [],
@@ -53,7 +56,9 @@ class GameStatsPlayers extends React.Component {
   }
 
   render(){
+      // this.props.game.vistor/home.abbreviation/nickname/team_key
     var game = this.props.game;
+    // console.log(game);
     if (!this.state.loaded){
       return (
         <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
@@ -67,7 +72,12 @@ class GameStatsPlayers extends React.Component {
     console.log(this.state.homePlayerStats);
     return (
       <View>
-        <Text> hi how are ya? </Text>
+        <View>
+          <Text> {game.visitor.city} </Text>
+        </View>
+        <View>
+          <Text> {game.home.city} </Text>
+        </View>
       </View>
     )
   }
