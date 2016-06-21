@@ -13,6 +13,7 @@ import ScrollableTabView, {
 } from 'react-native-scrollable-tab-view';
 
 import GameStatsTeam from './GameStatsTeam';
+import GameStatsPlayers from './GameStatsPlayers';
 
 class GameStatsPage extends React.Component {
 
@@ -27,7 +28,7 @@ class GameStatsPage extends React.Component {
           tabBarUnderlineColor='#b3dbf1'
         >
           <GameStatsTeam tabLabel='Teams' game={game} />
-          <Text tabLabel='Players'> there </Text>
+          <GameStatsPlayers tabLabel='Players' game={game}/>
         </ScrollableTabView>
       </View>
     )

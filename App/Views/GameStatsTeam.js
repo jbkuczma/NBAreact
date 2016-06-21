@@ -41,7 +41,6 @@ class GameStatsTeam extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      console.log(jsonResponse);
       var homeStats = jsonResponse.sports_content.game.home;
       var awayStats = jsonResponse.sports_content.game.visitor;
       this.setState({
