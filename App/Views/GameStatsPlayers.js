@@ -18,20 +18,33 @@ class GameStatsPlayers extends React.Component {
 
   constructor(props){
     super(props);
-    var ds = new ListView.DataSource({
+    var ds1 = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    // var ds2 = new ListView.DataSource({
+    //   rowHasChanged: (r1, r2) => r1 !== r2
+    // });
+    var ds2 = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2,
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
     });
     this.state = {
       loaded: false,
       homePlayerStats: [],
-      awayPlayerStats: []
+      awayPlayerStats: [],
+      allPlayers: {},
+    //   awayPlayersDataSource: ds1.cloneWithRows([]),
+    //   homePlayersDataSource: ds2.cloneWithRows([])
+      allPlayersDataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
+        sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+      })
     };
   }
 
   componentWillMount(){
     this.getGamePlayerStats();
   }
-
 
   getGamePlayerStats(){
     var game = this.props.game;
@@ -41,13 +54,19 @@ class GameStatsPlayers extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
-      console.log(jsonResponse);
       var homePlayers = jsonResponse.sports_content.game.home.players.player;
       var awayPlayers = jsonResponse.sports_content.game.visitor.players.player;
+      var allPlayers = {};
+      allPlayers[game.visitor.city] = awayPlayers;
+      allPlayers[game.home.city] = homePlayers;
       this.setState({
         loaded: true,
         homePlayerStats: homePlayers,
-        awayPlayerStats: awayPlayers
+        awayPlayerStats: awayPlayers,
+        allPlayers: allPlayers,
+        // awayPlayersDataSource: this.state.awayPlayersDataSource.cloneWithRows(awayPlayers),
+        // homePlayersDataSource: this.state.homePlayersDataSource.cloneWithRows(homePlayers)
+        allPlayersDataSource: this.state.allPlayersDataSource.cloneWithRowsAndSections(allPlayers)
       });
     })
     .catch((error) => {
@@ -73,11 +92,18 @@ class GameStatsPlayers extends React.Component {
     return (
       <View>
         <View>
-          <Text> {game.visitor.city} </Text>
+
+          <ListView
+            dataSource={this.state.allPlayersDataSource}
+            renderRow={(rowData, sectionID, rowID) =>
+              <View><Text> 1 </Text></View>
+            }
+            renderSectionHeader={(rowData, sectionID, rowID) =>
+              <View><Text> {sectionID} </Text></View>
+            }
+          />
         </View>
-        <View>
-          <Text> {game.home.city} </Text>
-        </View>
+
       </View>
     )
   }
