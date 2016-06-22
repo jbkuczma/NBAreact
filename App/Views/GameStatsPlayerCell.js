@@ -59,7 +59,7 @@ class GameStatsPlayerCell extends React.Component {
 
 var styles = StyleSheet.create({
   body: {
-    height: 60,
+    height: 70,
     backgroundColor: '#FCFCFC',
     flexDirection: 'row',
     borderColor: '#E1E1E1',
@@ -70,8 +70,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   playerImage: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     marginTop: 3,
     marginLeft: 2,
     borderRadius: 25
