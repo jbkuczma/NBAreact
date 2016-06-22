@@ -1,6 +1,8 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
 
 // http://stats.nba.com/media/players/230x185/${player.id}.png
+
+// player stats for season: http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=PLAYER_ID&Season=SEASON&SeasonType=Regular+Season
 import React from 'react';
 import {
   Text,
@@ -10,9 +12,6 @@ import {
 } from 'react-native';
 
 class GameStatsPlayerCell extends React.Component {
-  constructor(props){
-    super(props);
-  }
 
   render(){
     var player = this.props.player;
@@ -25,30 +24,30 @@ class GameStatsPlayerCell extends React.Component {
           />
         </View>
         <View style={styles.playerName}>
-          <Text style={{fontSize: 12}}> {player.first_name} {player.last_name}</Text>
-          <Text style={{fontSize: 10}}> #{player.jersey_number} </Text>
-          <Text style={{fontSize: 10}}> {player.position_short} </Text>
+          <Text style={{fontSize: 14}}> {player.first_name} {player.last_name}</Text>
+          <Text style={{fontSize: 12}}> #{player.jersey_number} </Text>
+          <Text style={{fontSize: 12}}> {player.position_short} </Text>
         </View>
         <View style={styles.gameStats}>
           <View style={styles.statsLine1}>
             <View style={styles.gameStatsItem}>
-              <Text> {player.minutes} </Text>
-              <Text> MINUTES PLAYED </Text>
+              <Text style={styles.itemNumber}> {player.minutes} </Text>
+              <Text style={styles.itemLabel}> MINUTES PLAYED </Text>
             </View>
           </View>
 
           <View style={styles.statsLine2}>
             <View style={styles.gameStatsItem}>
-              <Text> {player.points} </Text>
-              <Text> PTS </Text>
+              <Text style={styles.itemNumber}> {player.points} </Text>
+              <Text style={styles.itemLabel}> PTS </Text>
             </View>
             <View style={styles.gameStatsItem}>
-              <Text> {parseInt(player.rebounds_offensive) + parseInt(player.rebounds_defensive)} </Text>
-              <Text> REB </Text>
+              <Text style={styles.itemNumber}> {parseInt(player.rebounds_offensive) + parseInt(player.rebounds_defensive)} </Text>
+              <Text style={styles.itemLabel}> REB </Text>
             </View>
             <View style={styles.gameStatsItem}>
-              <Text> {player.assists} </Text>
-              <Text> AST </Text>
+              <Text style={styles.itemNumber}> {player.assists} </Text>
+              <Text style={styles.itemLabel}> AST </Text>
             </View>
           </View>
 
@@ -99,8 +98,20 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   statsLine2: {
-     flexDirection: 'row',
-     justifyContent: 'center'
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  itemNumber: {
+    fontSize: 14,
+    fontWeight: '500',
+    position: 'relative',
+    top: 1,
+    color: '#2c333f'
+  },
+  itemLabel: {
+    fontSize: 12,
+    fontWeight: '200',
+    color: '#16191f'
   }
 });
 
