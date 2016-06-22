@@ -159,7 +159,7 @@ class GameStatsTeam extends React.Component {
         <View style={styles.head}>
           <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
-              style={{height: 70, width: 70}}
+              style={styles.logo}
               source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
             />
           </TouchableHighlight>
@@ -168,7 +168,7 @@ class GameStatsTeam extends React.Component {
           <View style={styles.vertical} />
           <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.homeStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
-              style={{height: 70, width: 70}}
+              style={styles.logo}
               source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
             />
           </TouchableHighlight>
@@ -248,6 +248,17 @@ var styles = StyleSheet.create({
     marginRight: 30, // orignal 10
     marginTop: 10,
     marginBottom: 10
+  },
+  logo: {
+    width: 70,
+    height: 70,
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   body: {
     flex: 1,
