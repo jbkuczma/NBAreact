@@ -6,13 +6,17 @@ import {
   Text,
   View,
   StyleSheet,
-  Image,
-  ListView
+  ListView,
+  Dimensions,
+  Image
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 
 import TeamMap from '../Utilities/TeamMap';
+import GameStatsPlayerCell from './GameStatsPlayerCell';
+
+let windowHeight = Dimensions.get('window').height;
 
 class GameStatsPlayers extends React.Component {
 
@@ -77,7 +81,8 @@ class GameStatsPlayers extends React.Component {
   render(){
       // this.props.game.vistor/home.abbreviation/nickname/team_key
     var game = this.props.game;
-    // console.log(game);
+    var awayTeamColor = TeamMap[this.props.game.visitor.abbreviation.toLowerCase()].color;
+    var homeTeamColor = TeamMap[this.props.game.home.abbreviation.toLowerCase()].color;
     if (!this.state.loaded){
       return (
         <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
@@ -88,29 +93,40 @@ class GameStatsPlayers extends React.Component {
         </View>
       )
     }
-    console.log(this.state.homePlayerStats);
     return (
       <View>
         <View>
-
           <ListView
+            style={{height: windowHeight - 112}}
             dataSource={this.state.allPlayersDataSource}
             renderRow={(rowData, sectionID, rowID) =>
-              <View><Text> 1 </Text></View>
+              <GameStatsPlayerCell
+                player={rowData}
+              />
             }
             renderSectionHeader={(rowData, sectionID, rowID) =>
-              <View><Text> {sectionID} </Text></View>
+              <View style={[styles.header, TeamMap[this.props.game.visitor.abbreviation.toLowerCase()].city === sectionID ? {backgroundColor: awayTeamColor} : {backgroundColor: homeTeamColor}]}>
+                <Text style={styles.headerText}> {sectionID} </Text>
+              </View>
             }
           />
         </View>
-
       </View>
     )
   }
 }
 
 var styles = StyleSheet.create({
-
+  header: {
+    height: 50,
+    backgroundColor: '#e2e2e2'
+  },
+  headerText: {
+     alignSelf: 'center',
+     marginTop: 10,
+     fontSize: 16,
+     color: '#FFFFFF'
+  }
 });
 
 module.exports = GameStatsPlayers;
