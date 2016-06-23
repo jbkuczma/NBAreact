@@ -8,14 +8,23 @@ import {
   Text,
   View,
   StyleSheet,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 class GameStatsPlayerCell extends React.Component {
+
+  goToIndividualPlayerPage(player){
+    Actions.IndividualPlayerPage({player: player});
+  }
 
   render(){
     var player = this.props.player;
     return (
+      <View>
+      <TouchableHighlight onPress={this.goToIndividualPlayerPage.bind(this, player)} underlayColor='#FFFFFF'>
       <View style={styles.body}>
         <View style={styles.imageBlock}>
           <Image
@@ -52,6 +61,8 @@ class GameStatsPlayerCell extends React.Component {
           </View>
 
         </View>
+      </View>
+      </TouchableHighlight>
       </View>
     )
   }
