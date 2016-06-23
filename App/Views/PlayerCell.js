@@ -5,7 +5,6 @@
 // teamDetail: http://stats.nba.com/stats/teamplayerdashboard?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PaceAdjust=N&PerMode=PerGame&Period=0&PlusMinus=N&Rank=N&Season=${season}&SeasonSegment=&SeasonType=Regular+Season&TeamID=${id}&VsConference=&VsDivision= <-- player stats for season
 // teamDetailBasic: `http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=${season}&TeamID=${id} <-- basic player info, position, number, height, weight, etc.
 
-
 // http://stats.nba.com/media/players/230x185/${player.id}.png
 import React from 'react';
 import {
@@ -42,59 +41,60 @@ class PlayerCell extends React.Component {
 
   render(){
     var player = this.props.player;
-    var roster = this.props.roster;
     if (this.state.basicPlayerInfo === []){
       return <View><Text> fetching data </Text></View>
     }
-    return (
-      <View style={styles.body}>
-        <View style={styles.imageBlock}>
-          <Image
-            source={{uri: 'http://stats.nba.com/media/players/230x185/' + player[1] + '.png'}}
-            style={styles.playerImage}
-          />
-        </View>
-
-        <View style={styles.playerPositionNumber}>
-          <Text style={{fontSize: 10}}> {player[2]} </Text>
-          <Text style={{fontSize: 9}}> #{this.state.basicPlayerInfo[4]}</Text>
-          <Text style={{fontSize: 9}}> {this.state.basicPlayerInfo[5]}</Text>
-          <Text style={{fontSize: 8}}> Years Pro: {this.state.basicPlayerInfo[10]}</Text>
-        </View>
-
-        <View style={styles.data}>
-          <View style={styles.playerData}>
-            <Text style={{fontSize: 10, marginRight: 10}}> Age: {this.state.basicPlayerInfo[9]}</Text>
-            <Text style={{fontSize: 10, marginRight: 10}}> Height: {this.state.basicPlayerInfo[6]}</Text>
-            <Text style={{fontSize: 10, marginRight: 10}}> Weight: {this.state.basicPlayerInfo[7]}</Text>
+    if (parseInt(this.state.basicPlayerInfo[4])){ // if no number is returned, they are no longer on the team despite callback response
+      return (
+        <View style={styles.body}>
+          <View style={styles.imageBlock}>
+            <Image
+              source={{uri: 'http://stats.nba.com/media/players/230x185/' + player[1] + '.png'}}
+              style={styles.playerImage}
+            />
           </View>
-          <View style={styles.playerGameData1}>
-            <View style={styles.playerDataItem}>
-              <Text style={styles.playerDataNumber}> {player[3]}</Text>
-              <Text style={styles.playerDataLabel}> GP </Text>
-            </View>
-            <View style={styles.playerDataItem}>
-              <Text style={styles.playerDataNumber}> {player[7]}</Text>
-              <Text style={styles.playerDataLabel}> MIN </Text>
-            </View>
+          <View style={styles.playerPositionNumber}>
+            <Text style={{fontSize: 10}}> {player[2]} </Text>
+            <Text style={{fontSize: 9}}> #{this.state.basicPlayerInfo[4]}</Text>
+            <Text style={{fontSize: 9}}> {this.state.basicPlayerInfo[5]}</Text>
+            <Text style={{fontSize: 8}}> Years Pro: {this.state.basicPlayerInfo[10]}</Text>
           </View>
-          <View style={styles.playerGameData}>
-            <View style={styles.playerDataItem}>
-              <Text style={styles.playerDataNumber}> {player[27]}</Text>
-              <Text style={styles.playerDataLabel}> PPG </Text>
+          <View style={styles.data}>
+            <View style={styles.playerData}>
+              <Text style={{fontSize: 10, marginRight: 10}}> Age: {this.state.basicPlayerInfo[9]}</Text>
+              <Text style={{fontSize: 10, marginRight: 10}}> Height: {this.state.basicPlayerInfo[6]}</Text>
+              <Text style={{fontSize: 10, marginRight: 10}}> Weight: {this.state.basicPlayerInfo[7]}</Text>
             </View>
-            <View style={styles.playerDataItem}>
-              <Text style={styles.playerDataNumber}> {player[19]}</Text>
-              <Text style={styles.playerDataLabel}> RPG </Text>
+            <View style={styles.playerGameData1}>
+              <View style={styles.playerDataItem}>
+                <Text style={styles.playerDataNumber}> {player[3]}</Text>
+                <Text style={styles.playerDataLabel}> GP </Text>
+              </View>
+              <View style={styles.playerDataItem}>
+                <Text style={styles.playerDataNumber}> {player[7]}</Text>
+                <Text style={styles.playerDataLabel}> MIN </Text>
+              </View>
             </View>
-            <View style={styles.playerDataItem}>
-              <Text style={styles.playerDataNumber}> {player[20]}</Text>
-              <Text style={styles.playerDataLabel}> APG </Text>
+            <View style={styles.playerGameData}>
+              <View style={styles.playerDataItem}>
+                <Text style={styles.playerDataNumber}> {player[27]}</Text>
+                <Text style={styles.playerDataLabel}> PPG </Text>
+              </View>
+              <View style={styles.playerDataItem}>
+                <Text style={styles.playerDataNumber}> {player[19]}</Text>
+                <Text style={styles.playerDataLabel}> RPG </Text>
+              </View>
+              <View style={styles.playerDataItem}>
+                <Text style={styles.playerDataNumber}> {player[20]}</Text>
+                <Text style={styles.playerDataLabel}> APG </Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    )
+      )
+    } else {
+      return null
+    }
   }
 }
 
