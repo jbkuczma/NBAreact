@@ -8,11 +8,6 @@ import {
 
 class Button extends React.Component {
 
-    // go to page that holds table of conference standings
-  onPress(){
-    console.log('pressed');
-  }
-
   render(){
     return (
       <View>

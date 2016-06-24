@@ -38,8 +38,8 @@ class ScoresPage extends React.Component {
     var month = date[0];
     var day = date[1];
     var year = date[2];
-    date = year+month+day; //actual
-        // date = '20160101'; //for dev
+    // date = year+month+day; //actual
+        date = '20160101'; //for dev
     // date = '20160619';
     // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
@@ -71,8 +71,8 @@ class ScoresPage extends React.Component {
     var month = date[0];
     var day = date[1];
     var year = date[2];
-    date = year+month+day; //actual
-        // date = '20160101'; //for dev
+    // date = year+month+day; //actual
+        date = '20160101'; //for dev
     // date = '20160619';
     // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
