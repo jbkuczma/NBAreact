@@ -20,13 +20,15 @@ class IndividualPlayerPage extends React.Component {
 
   constructor(props){
     super(props);
-    const width = {pts: 30};
     this.state = {
       loaded: false,
       gameStats: [],
-      pts: new Animated.Value(width.pts),
       currentIndex: 0
     }
+  }
+
+  componentWillMount(){
+    this.getGameStatsForYear();
   }
 
   getGameStatsForYear(){
@@ -35,10 +37,18 @@ class IndividualPlayerPage extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
+        console.log(jsonResponse);
+        var width = this.getWidth(jsonResponse.resultSets[0].rowSet[0]);
       this.setState({
         gameStats: jsonResponse.resultSets[0].rowSet,
         loaded: true,
-        width: this.getWidth(jsonResponse.resultSets[0].rowSet[0])
+        pts: new Animated.Value(width.pts),
+        ast: new Animated.Value(width.ast),
+        reb: new Animated.Value(width.reb),
+        stl: new Animated.Value(width.stl),
+        blk: new Animated.Value(width.blk),
+        to: new Animated.Value(width.to),
+        min: new Animated.Value(width.min)
       });
     })
     .catch((error) => {
@@ -47,26 +57,32 @@ class IndividualPlayerPage extends React.Component {
   }
 
   getWidth(data){
+      const mapper = {pts: 24, min: 6, reb: 18, ast: 19, stl: 20, blk: 21, to: 22};
       const deviceWidth = Dimensions.get('window').width;
       const maxWidth = 350;
-      const indicators = ['pts'];
+      const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min'];
       const unit = {
-        ptsUnit: Math.floor(maxWidth / 45)
+        ptsUnit: Math.floor(maxWidth / 45),
+        astUnit: Math.floor(maxWidth / 15),
+        rebUnit: Math.floor(maxWidth / 18),
+        stlUnit: Math.floor(maxWidth / 6),
+        blkUnit: Math.floor(maxWidth / 7),
+        toUnit: Math.floor(maxWidth / 10),
+        minUnit: Math.floor(maxWidth / 60)
       };
       let width = {};
       let widthCap; // Give with a max cap
       indicators.forEach(item => {
-        widthCap = data[item] * unit[`${item}Unit`] || 5
+        widthCap = data[mapper[item]] * unit[`${item}Unit`] || 5
         width[item] = widthCap <= (deviceWidth - 50) ? widthCap : (deviceWidth - 50)
       });
-
       return width
   }
 
   handleAnimation(index){
     const timing = Animated.timing;
-    const width = {pts: Math.random() * (350 - 20) + 20};
-    const indicators = ['pts'];
+    const width = this.getWidth(this.state.gameStats[index]);
+    const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min'];
     Animated.parallel(indicators.map(item => {
       return timing(this.state[item], {toValue: width[item]})
     })).start();
@@ -75,25 +91,23 @@ class IndividualPlayerPage extends React.Component {
     });
   }
 
-  onLeft(){
-     if(this.state.currentIndex < this.state.gameStats.length - 1 && this.state.currentIndex !== 0){
-         this.handleAnimation(this.state.currentIndex - 1);
-     }
-  }
-
   onRight(){
-      if(this.state.currentIndex >= 0 && this.state.currentIndex < this.state.gameStats.length){
-          this.handleAnimation(this.state.currentIndex + 1);
-      }
+    if(this.state.currentIndex > 0){
+      this.handleAnimation(this.state.currentIndex - 1);
+    }
   }
 
-  componentWillMount(){
-    this.getGameStatsForYear();
+  onLeft(){
+    if(this.state.currentIndex < this.state.gameStats.length - 1){
+      this.handleAnimation(this.state.currentIndex + 1);
+    }
   }
 
   render(){
     var player = this.props.player;
-    const {pts} = this.state;
+    var nextAvailable = this.state.currentIndex === 0 ? 0 : 1;
+    var previousAvailable = this.state.currentIndex === this.state.gameStats.length - 1 ? 0 : 1;
+    const {pts, ast, reb, stl, blk, to, min} = this.state;
     if (!this.state.loaded || this.state.gameStats === []){
       return (
         <View style={{flex: 1, justifyContent: 'center',alignItems: 'center', backgroundColor: '#FCFCFC'}}>
@@ -132,12 +146,78 @@ class IndividualPlayerPage extends React.Component {
                 <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][24]}</Text>
               </View>
             </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Rebounds</Text>
+              <View style={styles.itemData}>
+                {reb &&
+                  <Animated.View style={[styles.bar, styles.points, {width: reb}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][18]}</Text>
+              </View>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Assists</Text>
+              <View style={styles.itemData}>
+                {pts &&
+                  <Animated.View style={[styles.bar, styles.points, {width: ast}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][19]}</Text>
+              </View>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Steals</Text>
+              <View style={styles.itemData}>
+                {stl &&
+                  <Animated.View style={[styles.bar, styles.points, {width: stl}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][20]}</Text>
+              </View>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Blocks</Text>
+              <View style={styles.itemData}>
+                {blk &&
+                  <Animated.View style={[styles.bar, styles.points, {width: blk}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][21]}</Text>
+              </View>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Turnovers</Text>
+              <View style={styles.itemData}>
+                {to &&
+                  <Animated.View style={[styles.bar, styles.points, {width: to}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][22]}</Text>
+              </View>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Minutes</Text>
+              <View style={styles.itemData}>
+                {min &&
+                  <Animated.View style={[styles.bar, styles.points, {width: min}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][6]}</Text>
+              </View>
+            </View>
 
 
+            <View style={styles.date}>
+            <TouchableHighlight onPress={this.onLeft.bind(this)} underlayColor='#FFFFFF' style={{opacity: previousAvailable}}>
+            <Image
+              source={require('../Assets/Images/left_arrow.png')}
+              style={{width: 40, height: 40, alignSelf: 'flex-start'}}
+            />
+            </TouchableHighlight>
+            <Text style={styles.dateText}> {this.state.gameStats[this.state.currentIndex][3]} </Text>
+            <TouchableHighlight onPress={this.onRight.bind(this)} underlayColor='#FFFFFF' style={{opacity: nextAvailable}}>
+            <Image
+              source={require('../Assets/Images/right_arrow.png')}
+              style={{width: 40, height: 40, alignSelf: 'flex-end'}}
+            />
+            </TouchableHighlight>
+            </View>
 
-            <Text onPress={this.onRight.bind(this)}>Click me to test animation going forward in array!</Text>
-            <Text> {this.state.gameStats[this.state.currentIndex][3]} </Text>
-            <Text onPress={this.onLeft.bind(this)}>Click me to test animation going backwards in array!</Text>
 
           </View>
         </View>
@@ -214,6 +294,18 @@ var styles = StyleSheet.create({
   dataNumber: {
     color: '#CBCBCB',
     fontSize: 14
+  },
+  //
+  date: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flex: 1
+  },
+  dateText: {
+      fontSize: 24,
+      textAlign: 'center',
+      marginTop: 6,
+      fontWeight: '200'
   }
 });
 
