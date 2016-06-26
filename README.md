@@ -15,6 +15,10 @@ NBA app created with React Native (still in active development). Feel free to тн
 
 [Drawing charts in React-Native without any library](https://medium.com/@wwayne_me/let-s-drawing-charts-in-react-native-without-any-library-4c20ba38d8ab#.omrlj0xpx)
 
+#Endpoints
+
+Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma/NBAreact/blob/master/ENDPOINTS.md).
+
 # Getting Started
 
     npm install -g react-native-cli 
