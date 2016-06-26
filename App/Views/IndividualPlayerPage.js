@@ -44,7 +44,13 @@ class IndividualPlayerPage extends React.Component {
         stl: new Animated.Value(width.stl),
         blk: new Animated.Value(width.blk),
         to: new Animated.Value(width.to),
-        min: new Animated.Value(width.min)
+        min: new Animated.Value(width.min),
+        fgm: new Animated.Value(width.fgm),
+        fga: new Animated.Value(width.fga),
+        _3pm: new Animated.Value(width._3pm),
+        _3pa: new Animated.Value(width._3pa),
+        ftm: new Animated.Value(width.ftm),
+        fta: new Animated.Value(width.fta)
       });
     })
     .catch((error) => {
@@ -53,10 +59,10 @@ class IndividualPlayerPage extends React.Component {
   }
 
   getWidth(data){
-    const mapper = {pts: 24, min: 6, reb: 18, ast: 19, stl: 20, blk: 21, to: 22}; // position in data where those values can be found
+    const mapper = {pts: 24, min: 6, reb: 18, ast: 19, stl: 20, blk: 21, to: 22, fgm: 7, fga: 8, _3pm: 10, _3pa: 11, ftm: 13, fta: 14}; // position in data where those values can be found
     const deviceWidth = Dimensions.get('window').width;
     const maxWidth = 350;
-    const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min'];
+    const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min', 'fgm', 'fga', '_3pm', '_3pa', 'ftm', 'fta'];
     const unit = {
       ptsUnit: Math.floor(maxWidth / 45),
       astUnit: Math.floor(maxWidth / 15),
@@ -64,12 +70,18 @@ class IndividualPlayerPage extends React.Component {
       stlUnit: Math.floor(maxWidth / 6),
       blkUnit: Math.floor(maxWidth / 7),
       toUnit: Math.floor(maxWidth / 10),
-      minUnit: Math.floor(maxWidth / 60)
+      minUnit: Math.floor(maxWidth / 60),
+      fgmUnit: Math.floor(maxWidth / 50),
+      fgaUnit: Math.floor(maxWidth / 46),
+      _3pmUnit: Math.floor(maxWidth / 50),
+      _3paUnit: Math.floor(maxWidth / 46),
+      ftmUnit: Math.floor(maxWidth / 50),
+      ftaUnit: Math.floor(maxWidth / 46)
     };
     let width = {};
     let widthCap; // Give with a max cap
     indicators.forEach(item => {
-      widthCap = data[mapper[item]] * unit[`${item}Unit`] || 5;
+      widthCap = data[mapper[item]] * unit[`${item}Unit`] || 0; //nothing is displayed if value is 0
       width[item] = widthCap <= (deviceWidth - 50) ? widthCap : (deviceWidth - 50);
     });
     return width
@@ -78,7 +90,7 @@ class IndividualPlayerPage extends React.Component {
   handleAnimation(index){
     const timing = Animated.timing;
     const width = this.getWidth(this.state.gameStats[index]);
-    const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min'];
+    const indicators = ['pts', 'ast', 'reb', 'stl', 'blk', 'to', 'min', 'fgm', 'fga', '_3pm', '_3pa', 'ftm', 'fta'];
     Animated.parallel(indicators.map(item => {
       return timing(this.state[item], {toValue: width[item]});
     })).start();
@@ -103,7 +115,7 @@ class IndividualPlayerPage extends React.Component {
     var player = this.props.player;
     var nextAvailable = this.state.currentIndex === 0 ? 0 : 1;
     var previousAvailable = this.state.currentIndex === this.state.gameStats.length - 1 ? 0 : 1;
-    const {pts, ast, reb, stl, blk, to, min} = this.state;
+    const {pts, ast, reb, stl, blk, to, min, fgm, fga, _3pm, _3pa, ftm, fta} = this.state;
     if (!this.state.loaded || this.state.gameStats === []){
       return (
         <View style={{flex: 1, justifyContent: 'center',alignItems: 'center', backgroundColor: '#FCFCFC'}}>
@@ -194,10 +206,38 @@ class IndividualPlayerPage extends React.Component {
             </View>
           </View>
 
+          <View style={styles.statItem}>
+            <Text style={styles.itemLabel}>FGM/FGA </Text>
+            <View style={styles.itemData}>
+                <Animated.View style={[styles.bar, styles.attempted, {width: fga}]} />
+                <Animated.View style={[styles.bar, styles.fgm, styles.overlayBar, {width: fgm}]} />
+              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][7]}/{this.state.gameStats[this.state.currentIndex][8]}</Text>
+            </View>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.itemLabel}>3PM/3PA </Text>
+            <View style={styles.itemData}>
+                <Animated.View style={[styles.bar, styles.attempted, {width: _3pa}]} />
+                <Animated.View style={[styles.bar, styles._3pm, styles.overlayBar, {width: _3pm}]} />
+              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][10]}/{this.state.gameStats[this.state.currentIndex][11]}</Text>
+            </View>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.itemLabel}>FTM/FTA </Text>
+            <View style={styles.itemData}>
+                <Animated.View style={[styles.bar, styles.attempted, {width: fta}]} />
+                <Animated.View style={[styles.bar, styles.ftm, styles.overlayBar, {width: ftm}]} />
+              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][13]}/{this.state.gameStats[this.state.currentIndex][14]}</Text>
+            </View>
+          </View>
+
+
+
+
+
           <View style={{alignItems: 'center', marginTop: 5}}>
             <Text style={styles.gameStatus}> {this.state.gameStats[this.state.currentIndex][5]} {this.state.gameStats[this.state.currentIndex][4].slice(3)} </Text>
           </View>
-
           <View style={styles.date}>
             <TouchableHighlight onPress={this.onLeft.bind(this)} underlayColor='#FFFFFF' style={{opacity: previousAvailable}}>
               <Image
@@ -213,7 +253,6 @@ class IndividualPlayerPage extends React.Component {
               />
             </TouchableHighlight>
           </View>
-          <Text> create some sort of shot chart for player(really would like to implement this idea) </Text>
         </View>
       </View>
     )
@@ -263,7 +302,7 @@ var styles = StyleSheet.create({
   // play around with
   statItem: {
     flexDirection: 'column',
-    marginBottom: 5,
+    marginBottom: 2,
     paddingHorizontal: 10,
     marginTop: 2
   },
@@ -283,6 +322,11 @@ var styles = StyleSheet.create({
     borderRadius: 5,
     height: 10,
     marginRight: 9
+  },
+  overlayBar: {
+    position: 'absolute',
+    top: 3.5,
+    left: 0
   },
   points: {
     backgroundColor: '#EC644B'
@@ -304,6 +348,18 @@ var styles = StyleSheet.create({
   },
   minutes: {
     backgroundColor: '#8AA8AD'
+  },
+  fgm: {
+    backgroundColor: '#ff8557'
+  },
+  attempted: {
+    backgroundColor: '#8e8499'
+  },
+  _3pm: {
+    backgroundColor: '#95E7ED'
+  },
+  ftm: {
+    backgroundColor: '#FFEB3B'
   },
   dataNumber: {
     color: '#CBCBCB',
