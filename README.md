@@ -4,6 +4,11 @@
 # NBAreact
 NBA app created with React Native (still in active development). Feel free to ⭐ this repo!
 
+Known bugs:
+
+* Android
+* Pre-iPhone 6
+
 ![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
 
 # Resources Used
