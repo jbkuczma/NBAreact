@@ -1,4 +1,5 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
+console.disableYellowBox = true;
 import React from 'react';
 import {
   View,

@@ -9,6 +9,8 @@ import {
 import moment from 'moment';
 import DatePicker from 'react-native-datepicker';
 
+STORE = require('../Utilities/Store');
+
 class Date extends React.Component {
 
   constructor(props){
@@ -19,6 +21,7 @@ class Date extends React.Component {
       date: moment().format('L'),
       dateWithDay: ''
     }
+    STORE.date = moment().format('L');
   }
 
   componentWillMount(){
@@ -37,7 +40,6 @@ class Date extends React.Component {
 
   fetchGames(){
     var date = this.state.date;
-    console.log(date);
     if(date.indexOf('-') > -1){
       date = date.split('-');
     }else{
@@ -49,7 +51,7 @@ class Date extends React.Component {
     var day = date[1];
     var year = date[2];
     date = year + month + day; // actual
-    console.log(date);
+    STORE.date = date;
     // date = '20160101'; // for dev
     // date = '20160616';
     // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';

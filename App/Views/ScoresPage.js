@@ -11,6 +11,8 @@ import GameCell from './GameCell';
 
 import moment from 'moment';
 
+var STORE = require('../Utilities/Store');
+
 class ScoresPage extends React.Component {
 
   constructor(props){
@@ -19,6 +21,7 @@ class ScoresPage extends React.Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
+      date: STORE.date,
       refreshing: false,
       db: [],
       dataSource: ds.cloneWithRows([]),
@@ -31,15 +34,25 @@ class ScoresPage extends React.Component {
     this.fetchGames();
   }
 
+  // not sure if this is the 'proper react way' but it seems to be working
+  componentDidMount(){
+    setInterval( () => {
+      if(this.state.date.toString() !== STORE.date){
+        this.fetchGames();
+      }
+    }, 1000);
+  }
+
   onRefresh(){
     this.setState({loaded: false});
-    var date = moment().format('L');
+    // var date = moment().format('L');
+    var date = STORE.date;
     date = date.split('/');
     var month = date[0];
     var day = date[1];
     var year = date[2];
-    // date = year+month+day; //actual
-        date = '20160101'; //for dev
+    date = year+month+day; //actual
+        // date = '20160101'; //for dev
     // date = '20160619';
     // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
@@ -66,13 +79,14 @@ class ScoresPage extends React.Component {
   }
 
   fetchGames(){
-    var date = moment().format('L');
+    // var date = moment().format('L');
+    var date = STORE.date;
     date = date.split('/');
     var month = date[0];
     var day = date[1];
     var year = date[2];
     // date = year+month+day; //actual
-        date = '20160101'; //for dev
+        // date = '20160101'; //for dev
     // date = '20160619';
     // var url = 'http://data.nba.com/data/1h/json/cms/noseason/scoreboard/' + date + '/games.json';
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
@@ -84,7 +98,8 @@ class ScoresPage extends React.Component {
         this.setState({
           db: games,
           dataSource: this.state.dataSource.cloneWithRows(games),
-          loaded: true
+          loaded: true,
+          date: date
         });
       }
     })
@@ -92,7 +107,8 @@ class ScoresPage extends React.Component {
       if(error instanceof SyntaxError){
         this.setState({
           db: [],
-          loaded: true
+          loaded: true,
+          date: date
         });
       }
     });

@@ -71,12 +71,12 @@ class IndividualPlayerPage extends React.Component {
       blkUnit: Math.floor(maxWidth / 7),
       toUnit: Math.floor(maxWidth / 10),
       minUnit: Math.floor(maxWidth / 60),
-      fgmUnit: Math.floor(maxWidth / 50),
-      fgaUnit: Math.floor(maxWidth / 46),
-      _3pmUnit: Math.floor(maxWidth / 50),
-      _3paUnit: Math.floor(maxWidth / 46),
-      ftmUnit: Math.floor(maxWidth / 50),
-      ftaUnit: Math.floor(maxWidth / 46)
+      fgmUnit: Math.floor(maxWidth / 55),
+      fgaUnit: Math.floor(maxWidth / 55),
+      _3pmUnit: Math.floor(maxWidth / 55),
+      _3paUnit: Math.floor(maxWidth / 55),
+      ftmUnit: Math.floor(maxWidth / 55),
+      ftaUnit: Math.floor(maxWidth / 55)
     };
     let width = {};
     let widthCap; // Give with a max cap
