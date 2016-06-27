@@ -4,7 +4,7 @@
 # NBAreact
 NBA app created with React Native (still in active development). Feel free to ⭐ this repo!
 
-![nbareact_demo](https://cloud.githubusercontent.com/assets/12615090/16211120/9404386c-370d-11e6-804a-acc2fbced2d9.gif)
+![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
 
 # Resources Used
 [React Native](https://github.com/facebook/react-native)
