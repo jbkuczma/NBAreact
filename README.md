@@ -21,7 +21,7 @@ Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma
 
 # Getting Started
 
-    npm install -g react-native-cli 
+    npm install -g react-native-cli
     git clone https://github.com/jbkuczma/NBAreact.git && cd NBAreact
     npm install
 
