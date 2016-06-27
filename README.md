@@ -13,6 +13,8 @@ NBA app created with React Native (still in active development). Feel free to тн
 
 [React-Native-Scrollable-Tab-View](https://github.com/skv-headless/react-native-scrollable-tab-view)
 
+[React-Native-Datepicker](https://github.com/xgfe/react-native-datepicker)
+
 [Drawing charts in React-Native without any library](https://medium.com/@wwayne_me/let-s-drawing-charts-in-react-native-without-any-library-4c20ba38d8ab#.omrlj0xpx)
 
 #Endpoints
