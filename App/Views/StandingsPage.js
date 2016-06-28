@@ -1,5 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-// endpoints
 // url http://data.nba.com/data/json/cms/YEAR/league/standings.json <-- LEAGUE standings
 // YEAR will be start of season -> ex: 2015/2016 season, YEAR would be 2016
 
@@ -10,8 +9,6 @@ import {
   StyleSheet,
   ListView
 } from 'react-native';
-
-import { Actions } from 'react-native-router-flux';
 
 import TeamStandingsCell from './TeamStandingsCell';
 

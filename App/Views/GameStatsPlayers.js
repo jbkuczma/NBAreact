@@ -1,6 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-//  http://data.nba.com/data/10s/json/cms/noseason/game/${gameDate}/${gameId}/boxscore.json
-// http://stats.nba.com/stats/shotchartdetail?Period=0&VsConference=&LeagueID=00&LastNGames=0&TeamID=0&Position=&Location=&Outcome=&ContextMeasure=FGA&DateFrom=&StartPeriod=&DateTo=&OpponentTeamID=0&ContextFilter=&RangeType=&Season=SEASON&AheadBehind=&PlayerID=PLAYER_ID&EndRange=&VsDivision=&PointDiff=&RookieYear=&GameSegment=&Month=0&ClutchTime=&StartRange=&EndPeriod=&SeasonType=Regular+Season&SeasonSegment=&GameID=
 import React from 'react';
 import {
   Text,
@@ -11,8 +9,6 @@ import {
   Image
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
-
 import TeamMap from '../Utilities/TeamMap';
 import GameStatsPlayerCell from './GameStatsPlayerCell';
 
@@ -22,23 +18,11 @@ class GameStatsPlayers extends React.Component {
 
   constructor(props){
     super(props);
-    var ds1 = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    // var ds2 = new ListView.DataSource({
-    //   rowHasChanged: (r1, r2) => r1 !== r2
-    // });
-    var ds2 = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-    });
     this.state = {
       loaded: false,
       homePlayerStats: [],
       awayPlayerStats: [],
       allPlayers: {},
-    //   awayPlayersDataSource: ds1.cloneWithRows([]),
-    //   homePlayersDataSource: ds2.cloneWithRows([])
       allPlayersDataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2
@@ -68,8 +52,6 @@ class GameStatsPlayers extends React.Component {
         homePlayerStats: homePlayers,
         awayPlayerStats: awayPlayers,
         allPlayers: allPlayers,
-        // awayPlayersDataSource: this.state.awayPlayersDataSource.cloneWithRows(awayPlayers),
-        // homePlayersDataSource: this.state.homePlayersDataSource.cloneWithRows(homePlayers)
         allPlayersDataSource: this.state.allPlayersDataSource.cloneWithRowsAndSections(allPlayers)
       });
     })
@@ -79,13 +61,11 @@ class GameStatsPlayers extends React.Component {
   }
 
   render(){
-      // this.props.game.vistor/home.abbreviation/nickname/team_key
-    var game = this.props.game;
     var awayTeamColor = TeamMap[this.props.game.visitor.abbreviation.toLowerCase()].color;
     var homeTeamColor = TeamMap[this.props.game.home.abbreviation.toLowerCase()].color;
     if (!this.state.loaded){
       return (
-        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
@@ -122,10 +102,10 @@ var styles = StyleSheet.create({
     backgroundColor: '#e2e2e2'
   },
   headerText: {
-     alignSelf: 'center',
-     marginTop: 10,
-     fontSize: 16,
-     color: '#FFFFFF'
+    alignSelf: 'center',
+    marginTop: 10,
+    fontSize: 16,
+    color: '#FFFFFF'
   }
 });
 

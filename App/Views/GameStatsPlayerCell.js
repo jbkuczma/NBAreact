@@ -24,45 +24,43 @@ class GameStatsPlayerCell extends React.Component {
     var player = this.props.player;
     return (
       <View>
-      <TouchableHighlight onPress={this.goToIndividualPlayerPage.bind(this, player)} underlayColor='#FFFFFF'>
-      <View style={styles.body}>
-        <View style={styles.imageBlock}>
-          <Image
-            source={{uri: 'http://stats.nba.com/media/players/230x185/' + player.person_id + '.png'}}
-            style={styles.playerImage}
-          />
-        </View>
-        <View style={styles.playerName}>
-          <Text style={{fontSize: 14}}> {player.first_name} {player.last_name}</Text>
-          <Text style={{fontSize: 12}}> #{player.jersey_number} </Text>
-          <Text style={{fontSize: 12}}> {player.position_short} </Text>
-        </View>
-        <View style={styles.gameStats}>
-          <View style={styles.statsLine1}>
-            <View style={styles.gameStatsItem}>
-              <Text style={styles.itemNumber}> {player.minutes} </Text>
-              <Text style={styles.itemLabel}> MINUTES PLAYED </Text>
+        <TouchableHighlight onPress={this.goToIndividualPlayerPage.bind(this, player)} underlayColor='#FFFFFF'>
+          <View style={styles.body}>
+            <View style={styles.imageBlock}>
+              <Image
+                source={{uri: 'http://stats.nba.com/media/players/230x185/' + player.person_id + '.png'}}
+                style={styles.playerImage}
+              />
+            </View>
+            <View style={styles.playerName}>
+              <Text style={{fontSize: 14}}> {player.first_name} {player.last_name}</Text>
+              <Text style={{fontSize: 12}}> #{player.jersey_number} </Text>
+              <Text style={{fontSize: 12}}> {player.position_short} </Text>
+            </View>
+            <View style={styles.gameStats}>
+              <View style={styles.statsLine1}>
+                <View style={styles.gameStatsItem}>
+                  <Text style={styles.itemNumber}> {player.minutes} </Text>
+                  <Text style={styles.itemLabel}> MINUTES PLAYED </Text>
+                </View>
+              </View>
+              <View style={styles.statsLine2}>
+                <View style={styles.gameStatsItem}>
+                  <Text style={styles.itemNumber}> {player.points} </Text>
+                  <Text style={styles.itemLabel}> PTS </Text>
+                </View>
+                <View style={styles.gameStatsItem}>
+                  <Text style={styles.itemNumber}> {parseInt(player.rebounds_offensive) + parseInt(player.rebounds_defensive)} </Text>
+                  <Text style={styles.itemLabel}> REB </Text>
+                </View>
+                <View style={styles.gameStatsItem}>
+                  <Text style={styles.itemNumber}> {player.assists} </Text>
+                  <Text style={styles.itemLabel}> AST </Text>
+                </View>
+              </View>
             </View>
           </View>
-
-          <View style={styles.statsLine2}>
-            <View style={styles.gameStatsItem}>
-              <Text style={styles.itemNumber}> {player.points} </Text>
-              <Text style={styles.itemLabel}> PTS </Text>
-            </View>
-            <View style={styles.gameStatsItem}>
-              <Text style={styles.itemNumber}> {parseInt(player.rebounds_offensive) + parseInt(player.rebounds_defensive)} </Text>
-              <Text style={styles.itemLabel}> REB </Text>
-            </View>
-            <View style={styles.gameStatsItem}>
-              <Text style={styles.itemNumber}> {player.assists} </Text>
-              <Text style={styles.itemLabel}> AST </Text>
-            </View>
-          </View>
-
-        </View>
-      </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
       </View>
     )
   }

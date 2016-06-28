@@ -1,9 +1,7 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-// http://data.nba.com/data/10s/json/cms/noseason/game/${gameDate}/${gameId}/boxscore.json
 
 import React from 'react';
 import {
-  Text,
   View,
   StyleSheet
 } from 'react-native';
@@ -28,7 +26,7 @@ class GameStatsPage extends React.Component {
           tabBarUnderlineColor='#b3dbf1'
         >
           <GameStatsTeam tabLabel='Teams' game={game} />
-          <GameStatsPlayers tabLabel='Players' game={game}/>
+          <GameStatsPlayers tabLabel='Players' game={game} />
         </ScrollableTabView>
       </View>
     )

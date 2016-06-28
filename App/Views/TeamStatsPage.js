@@ -1,8 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-// teamInfo: http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=${id}&season=${season} <-- could get wins/losses, stat ranking
-// teamDetail: http://stats.nba.com/stats/teamplayerdashboard?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PaceAdjust=N&PerMode=PerGame&Period=0&PlusMinus=N&Rank=N&Season=${season}&SeasonSegment=&SeasonType=Regular+Season&TeamID=${id}&VsConference=&VsDivision= <-- player stats for season
-// teamDetailBasic: `http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=${season}&TeamID=${id} <-- basic player info, position, number, height, weight, etc.
-
 import React from 'react';
 import {
   Text,
@@ -31,7 +27,7 @@ class GameStatsTeam extends React.Component {
       teamStatsLeague: [],
       playerStats: [],
       playersBasicStats: [],
-      dataSource: ds.cloneWithRows([]),
+      dataSource: ds.cloneWithRows([])
     }
   }
 
@@ -39,16 +35,12 @@ class GameStatsTeam extends React.Component {
     switch (parseInt(number)){
       case 1:
         return '1st';
-        break;
       case 2:
         return '2nd';
-        break;
       case 3:
         return '3rd';
-        break;
       default:
         return number + 'th';
-        break;
     }
   }
 
@@ -113,10 +105,9 @@ class GameStatsTeam extends React.Component {
   }
 
   render(){
-    var teamColor = TeamMap[this.props.team].color;
     if (!this.state.loaded){
       return (
-        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}

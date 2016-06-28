@@ -57,7 +57,7 @@ class GameStatsTeam extends React.Component {
   render(){
     if (!this.state.loaded){
       return (
-        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
@@ -65,7 +65,6 @@ class GameStatsTeam extends React.Component {
         </View>
       )
     }
-    // var game = this.props.game;
     var h1 = 0;
     var h2 = 0;
     var h3 = 0;
@@ -76,55 +75,60 @@ class GameStatsTeam extends React.Component {
     var a3 = 0;
     var a4 = 0;
     var aFinal = 0;
-    // js standard these switch statements
-    if(this.state.awayScores.linescores && this.state.homeScores.linescores){
-    switch (this.state.awayScores.linescores.period.length){
-      case 1:
-        a1 = this.state.awayScores.linescores.period[0].score;
-        break;
-      case 2:
-        a1 = this.state.awayScores.linescores.period[0].score;
-        a2 = this.state.awayScores.linescores.period[1].score;
-        break;
-      case 3:
-        a1 = this.state.awayScores.linescores.period[0].score;
-        a2 = this.state.awayScores.linescores.period[1].score;
-        a3 = this.state.awayScores.linescores.period[2].score;
-        break;
-      case 4:
-        a1 = this.state.awayScores.linescores.period[0].score;
-        a2 = this.state.awayScores.linescores.period[1].score;
-        a3 = this.state.awayScores.linescores.period[2].score;
-        a4 = this.state.awayScores.linescores.period[3].score;
-        break;
-      default:
-        a1, a2, a3, a4 = 0;
-        break;
+    if (this.state.awayScores.linescores && this.state.homeScores.linescores){
+      switch (this.state.awayScores.linescores.period.length){
+        case 1:
+          a1 = this.state.awayScores.linescores.period[0].score;
+          break;
+        case 2:
+          a1 = this.state.awayScores.linescores.period[0].score;
+          a2 = this.state.awayScores.linescores.period[1].score;
+          break;
+        case 3:
+          a1 = this.state.awayScores.linescores.period[0].score;
+          a2 = this.state.awayScores.linescores.period[1].score;
+          a3 = this.state.awayScores.linescores.period[2].score;
+          break;
+        case 4:
+          a1 = this.state.awayScores.linescores.period[0].score;
+          a2 = this.state.awayScores.linescores.period[1].score;
+          a3 = this.state.awayScores.linescores.period[2].score;
+          a4 = this.state.awayScores.linescores.period[3].score;
+          break;
+        default:
+          a1 = 0;
+          a2 = 0;
+          a3 = 0;
+          a4 = 0;
+          break;
+      }
+      switch (this.state.homeScores.linescores.period.length){
+        case 1:
+          h1 = this.state.homeScores.linescores.period[0].score;
+          break;
+        case 2:
+          h1 = this.state.homeScores.linescores.period[0].score;
+          h2 = this.state.homeScores.linescores.period[1].score;
+          break;
+        case 3:
+          h1 = this.state.homeScores.linescores.period[0].score;
+          h2 = this.state.homeScores.linescores.period[1].score;
+          h3 = this.state.homeScores.linescores.period[2].score;
+          break;
+        case 4:
+          h1 = this.state.homeScores.linescores.period[0].score;
+          h2 = this.state.homeScores.linescores.period[1].score;
+          h3 = this.state.homeScores.linescores.period[2].score;
+          h4 = this.state.homeScores.linescores.period[3].score;
+          break;
+        default:
+          h1 = 0;
+          h2 = 0;
+          h3 = 0;
+          h4 = 0;
+          break;
+      }
     }
-    switch (this.state.homeScores.linescores.period.length){
-      case 1:
-        h1 = this.state.homeScores.linescores.period[0].score;
-        break;
-      case 2:
-        h1 = this.state.homeScores.linescores.period[0].score;
-        h2 = this.state.homeScores.linescores.period[1].score;
-        break;
-      case 3:
-        h1 = this.state.homeScores.linescores.period[0].score;
-        h2 = this.state.homeScores.linescores.period[1].score;
-        h3 = this.state.homeScores.linescores.period[2].score;
-        break;
-      case 4:
-        h1 = this.state.homeScores.linescores.period[0].score;
-        h2 = this.state.homeScores.linescores.period[1].score;
-        h3 = this.state.homeScores.linescores.period[2].score;
-        h4 = this.state.homeScores.linescores.period[3].score;
-        break;
-      default:
-        h1, h2, h3, h4 = 0;
-        break;
-    }
-}
     aFinal = parseInt(a1) + parseInt(a2) + parseInt(a3) + parseInt(a4);
     hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
     return (
@@ -157,7 +161,7 @@ class GameStatsTeam extends React.Component {
         </View>
         <View style={styles.line} />
         <View style={styles.head}>
-          <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
+          <TouchableHighlight onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
               style={styles.logo}
               source={TeamMap[this.state.awayStats.team_key.toLowerCase()].logo}
@@ -166,7 +170,7 @@ class GameStatsTeam extends React.Component {
           <View style={styles.vertical} />
           <Text> Stats </Text>
           <View style={styles.vertical} />
-          <TouchableHighlight onPress={ () => Actions.TeamStats({team: this.state.homeStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
+          <TouchableHighlight onPress={() => Actions.TeamStats({team: this.state.homeStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
             <Image
               style={styles.logo}
               source={TeamMap[this.state.homeStats.team_key.toLowerCase()].logo}
@@ -186,7 +190,7 @@ class GameStatsTeam extends React.Component {
             <Text> {this.state.awayStats.stats.steals === '' ? '0' : this.state.awayStats.stats.steals} </Text>
             <Text> {this.state.awayStats.stats.blocks === '' ? '0' : this.state.awayStats.stats.blocks} </Text>
             <Text> {this.state.awayStats.stats.turnovers === '' ? '0' : this.state.awayStats.stats.turnovers} </Text>
-            <Text> {this.state.awayStats.stats.fouls === ''  ? '0' : this.state.awayStats.stats.fouls} </Text>
+            <Text> {this.state.awayStats.stats.fouls === '' ? '0' : this.state.awayStats.stats.fouls} </Text>
           </View>
           <View style={styles.statsColumn}>
             <Text> Points </Text>
@@ -212,7 +216,7 @@ class GameStatsTeam extends React.Component {
             <Text> {this.state.homeStats.stats.steals === '' ? '0' : this.state.homeStats.stats.steals} </Text>
             <Text> {this.state.homeStats.stats.blocks === '' ? '0' : this.state.homeStats.stats.blocks} </Text>
             <Text> {this.state.homeStats.stats.turnovers === '' ? '0' : this.state.homeStats.stats.turnovers} </Text>
-            <Text> {this.state.homeStats.stats.fouls === ''  ? '0' : this.state.homeStats.stats.fouls} </Text>
+            <Text> {this.state.homeStats.stats.fouls === '' ? '0' : this.state.homeStats.stats.fouls} </Text>
           </View>
         </View>
       </View>
@@ -237,7 +241,7 @@ var styles = StyleSheet.create({
     marginLeft: 77,
     marginRight: 30,
     marginTop: 10,
-    marginBottom: -5,
+    marginBottom: -5
   },
   head: {
     flexDirection: 'row',

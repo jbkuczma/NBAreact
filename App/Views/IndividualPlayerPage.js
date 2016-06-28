@@ -1,7 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-// player stats for season: http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=PLAYER_ID&Season=SEASON&SeasonType=Regular+Season
-// http://stats.nba.com/stats/shotchartdetail?Period=0&VsConference=&LeagueID=00&LastNGames=0&TeamID=0&Position=&Location=&Outcome=&ContextMeasure=FGA&DateFrom=&StartPeriod=&DateTo=&OpponentTeamID=0&ContextFilter=&RangeType=&Season=SEASON&AheadBehind=&PlayerID=PLAYER_ID&EndRange=&VsDivision=&PointDiff=&RookieYear=&GameSegment=&Month=0&ClutchTime=&StartRange=&EndPeriod=&SeasonType=Regular+Season&SeasonSegment=&GameID= // SHOTS TAKEN
-// http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=PLAYER_ID&Season=SEASON&SeasonType=Regular+Season // STATS FOR EACH GAME
 import React from 'react';
 import {
   Text,
@@ -82,7 +79,7 @@ class IndividualPlayerPage extends React.Component {
     let width = {};
     let widthCap; // Give with a max cap
     indicators.forEach(item => {
-      widthCap = data[mapper[item]] * unit[`${item}Unit`] || 0; //nothing is displayed if value is 0
+      widthCap = data[mapper[item]] * unit[`${item}Unit`] || 0; // nothing is displayed if value is 0
       width[item] = widthCap <= (deviceWidth - 50) ? widthCap : (deviceWidth - 50);
     });
     return width
@@ -119,7 +116,7 @@ class IndividualPlayerPage extends React.Component {
     const {pts, ast, reb, stl, blk, to, min, fgm, fga, _3pm, _3pa, ftm, fta} = this.state;
     if (!this.state.loaded || this.state.gameStats === []){
       return (
-        <View style={{flex: 1, justifyContent: 'center',alignItems: 'center', backgroundColor: '#FCFCFC'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FCFCFC'}}>
           <Image
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
@@ -143,119 +140,113 @@ class IndividualPlayerPage extends React.Component {
           </View>
         </View>
         <ScrollView style={{flex: 1}}>
-        <View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Points</Text>
-            <View style={styles.itemData}>
-              {pts &&
-                <Animated.View style={[styles.bar, styles.points, {width: pts}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][24]}</Text>
+          <View>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Points</Text>
+              <View style={styles.itemData}>
+                {pts &&
+                  <Animated.View style={[styles.bar, styles.points, {width: pts}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][24]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Rebounds</Text>
-            <View style={styles.itemData}>
-              {reb &&
-                <Animated.View style={[styles.bar, styles.rebounds, {width: reb}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][18]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Rebounds</Text>
+              <View style={styles.itemData}>
+                {reb &&
+                  <Animated.View style={[styles.bar, styles.rebounds, {width: reb}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][18]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Assists</Text>
-            <View style={styles.itemData}>
-              {ast &&
-                <Animated.View style={[styles.bar, styles.assists, {width: ast}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][19]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Assists</Text>
+              <View style={styles.itemData}>
+                {ast &&
+                  <Animated.View style={[styles.bar, styles.assists, {width: ast}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][19]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Steals</Text>
-            <View style={styles.itemData}>
-              {stl &&
-                <Animated.View style={[styles.bar, styles.steals, {width: stl}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][20]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Steals</Text>
+              <View style={styles.itemData}>
+                {stl &&
+                  <Animated.View style={[styles.bar, styles.steals, {width: stl}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][20]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Blocks</Text>
-            <View style={styles.itemData}>
-              {blk &&
-                <Animated.View style={[styles.bar, styles.blocks, {width: blk}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][21]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Blocks</Text>
+              <View style={styles.itemData}>
+                {blk &&
+                  <Animated.View style={[styles.bar, styles.blocks, {width: blk}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][21]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Turnovers</Text>
-            <View style={styles.itemData}>
-              {to &&
-                <Animated.View style={[styles.bar, styles.turnovers, {width: to}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][22]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Turnovers</Text>
+              <View style={styles.itemData}>
+                {to &&
+                  <Animated.View style={[styles.bar, styles.turnovers, {width: to}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][22]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>Minutes</Text>
-            <View style={styles.itemData}>
-              {min &&
-                <Animated.View style={[styles.bar, styles.minutes, {width: min}]} />
-              }
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][6]}</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>Minutes</Text>
+              <View style={styles.itemData}>
+                {min &&
+                  <Animated.View style={[styles.bar, styles.minutes, {width: min}]} />
+                }
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][6]}</Text>
+              </View>
             </View>
-          </View>
-
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>FGM/FGA </Text>
-            <View style={styles.itemData}>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>FGM/FGA </Text>
+              <View style={styles.itemData}>
                 <Animated.View style={[styles.bar, styles.attempted, {width: fga}]} />
                 <Animated.View style={[styles.bar, styles.fgm, styles.overlayBar, {width: fgm}]} />
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][7]}/{this.state.gameStats[this.state.currentIndex][8]}</Text>
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][7]}/{this.state.gameStats[this.state.currentIndex][8]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>3PM/3PA </Text>
-            <View style={styles.itemData}>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>3PM/3PA </Text>
+              <View style={styles.itemData}>
                 <Animated.View style={[styles.bar, styles.attempted, {width: _3pa}]} />
                 <Animated.View style={[styles.bar, styles._3pm, styles.overlayBar, {width: _3pm}]} />
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][10]}/{this.state.gameStats[this.state.currentIndex][11]}</Text>
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][10]}/{this.state.gameStats[this.state.currentIndex][11]}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.itemLabel}>FTM/FTA </Text>
-            <View style={styles.itemData}>
+            <View style={styles.statItem}>
+              <Text style={styles.itemLabel}>FTM/FTA </Text>
+              <View style={styles.itemData}>
                 <Animated.View style={[styles.bar, styles.attempted, {width: fta}]} />
                 <Animated.View style={[styles.bar, styles.ftm, styles.overlayBar, {width: ftm}]} />
-              <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][13]}/{this.state.gameStats[this.state.currentIndex][14]}</Text>
+                <Text style={styles.dataNumber}> {this.state.gameStats[this.state.currentIndex][13]}/{this.state.gameStats[this.state.currentIndex][14]}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: 'center', marginTop: 5}}>
+              <Text style={styles.gameStatus}> {this.state.gameStats[this.state.currentIndex][5]} {this.state.gameStats[this.state.currentIndex][4].slice(3)} </Text>
+            </View>
+            <View style={styles.date}>
+              <TouchableHighlight onPress={this.onLeft.bind(this)} underlayColor='#FFFFFF' style={{opacity: previousAvailable}}>
+                <Image
+                  source={require('../Assets/Images/left_arrow.png')}
+                  style={{width: 40, height: 40, alignSelf: 'flex-start'}}
+                />
+              </TouchableHighlight>
+              <Text style={styles.dateText}> {this.state.gameStats[this.state.currentIndex][3]} </Text>
+              <TouchableHighlight onPress={this.onRight.bind(this)} underlayColor='#FFFFFF' style={{opacity: nextAvailable}}>
+                <Image
+                  source={require('../Assets/Images/right_arrow.png')}
+                  style={{width: 40, height: 40, alignSelf: 'flex-end'}}
+                />
+              </TouchableHighlight>
             </View>
           </View>
-
-
-
-
-
-          <View style={{alignItems: 'center', marginTop: 5}}>
-            <Text style={styles.gameStatus}> {this.state.gameStats[this.state.currentIndex][5]} {this.state.gameStats[this.state.currentIndex][4].slice(3)} </Text>
-          </View>
-          <View style={styles.date}>
-            <TouchableHighlight onPress={this.onLeft.bind(this)} underlayColor='#FFFFFF' style={{opacity: previousAvailable}}>
-              <Image
-                source={require('../Assets/Images/left_arrow.png')}
-                style={{width: 40, height: 40, alignSelf: 'flex-start'}}
-              />
-            </TouchableHighlight>
-            <Text style={styles.dateText}> {this.state.gameStats[this.state.currentIndex][3]} </Text>
-            <TouchableHighlight onPress={this.onRight.bind(this)} underlayColor='#FFFFFF' style={{opacity: nextAvailable}}>
-              <Image
-                source={require('../Assets/Images/right_arrow.png')}
-                style={{width: 40, height: 40, alignSelf: 'flex-end'}}
-              />
-            </TouchableHighlight>
-          </View>
-        </View>
         </ScrollView>
       </View>
     )
