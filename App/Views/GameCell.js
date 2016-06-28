@@ -100,7 +100,7 @@ var styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   teamText2: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
     color: '#FFFFFF'
   },
