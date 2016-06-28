@@ -10,7 +10,8 @@ import {
   Image,
   Dimensions,
   Animated,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } from 'react-native';
 
 class IndividualPlayerPage extends React.Component {
@@ -141,6 +142,7 @@ class IndividualPlayerPage extends React.Component {
             <Text style={{color: 'white', fontWeight: '200', fontSize: 24}}> {this.props.player.position_full}</Text>
           </View>
         </View>
+        <ScrollView style={{flex: 1}}>
         <View>
           <View style={styles.statItem}>
             <Text style={styles.itemLabel}>Points</Text>
@@ -254,6 +256,7 @@ class IndividualPlayerPage extends React.Component {
             </TouchableHighlight>
           </View>
         </View>
+        </ScrollView>
       </View>
     )
   }

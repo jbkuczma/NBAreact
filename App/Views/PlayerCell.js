@@ -118,12 +118,12 @@ var styles = StyleSheet.create({
     borderRadius: 25
   },
   playerPositionNumber: {
-    marginLeft: 3,
+    marginLeft: 15,
     flex: 2,
     justifyContent: 'center'
   },
   data: {
-    flex: 3,
+    flex: 5,
     marginRight: 5,
     justifyContent: 'center'
   },

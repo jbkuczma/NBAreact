@@ -138,21 +138,21 @@ class GameStatsTeam extends React.Component {
         </View>
         <View style={styles.quarterScores}>
           <View style={styles.awayScores}>
-            <Text style={{marginTop: 5}}> {this.state.awayStats.abbreviation} </Text>
-            <Text style={{marginTop: 5}}> {a1} </Text>
-            <Text style={{marginTop: 5}}> {a2} </Text>
-            <Text style={{marginTop: 5}}> {a3} </Text>
-            <Text style={{marginTop: 5}}> {a4} </Text>
-            <Text style={{marginTop: 5}}> {aFinal} </Text>
+            <Text> {this.state.awayStats.abbreviation} </Text>
+            <Text> {a1} </Text>
+            <Text> {a2} </Text>
+            <Text> {a3} </Text>
+            <Text> {a4} </Text>
+            <Text> {aFinal} </Text>
           </View>
           <View style={styles.line} />
           <View style={styles.homeScores}>
-            <Text style={{marginBottom: 5}}> {this.state.homeStats.abbreviation} </Text>
-            <Text style={{marginBottom: 5}}> {h1} </Text>
-            <Text style={{marginBottom: 5}}> {h2} </Text>
-            <Text style={{marginBottom: 5}}> {h3} </Text>
-            <Text style={{marginBottom: 5}}> {h4} </Text>
-            <Text style={{marginBottom: 5}}> {hFinal} </Text>
+            <Text> {this.state.homeStats.abbreviation} </Text>
+            <Text> {h1} </Text>
+            <Text> {h2} </Text>
+            <Text> {h3} </Text>
+            <Text> {h4} </Text>
+            <Text> {hFinal} </Text>
           </View>
         </View>
         <View style={styles.line} />
@@ -194,8 +194,8 @@ class GameStatsTeam extends React.Component {
             <Text> 3 Pointers </Text>
             <Text> Free Throws </Text>
             <Text> Assists </Text>
-            <Text> Offensive Rebounds </Text>
-            <Text> Defensive Rebounds </Text>
+            <Text> O. Rebounds </Text>
+            <Text> D. Rebounds </Text>
             <Text> Steals </Text>
             <Text> Blocks </Text>
             <Text> Turnovers </Text>
@@ -234,10 +234,10 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginLeft: 85,
+    marginLeft: 77,
     marginRight: 30,
     marginTop: 10,
-    marginBottom: -5
+    marginBottom: -5,
   },
   head: {
     flexDirection: 'row',
@@ -310,7 +310,8 @@ var styles = StyleSheet.create({
   },
   statsColumn: {
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   }
 });
 
