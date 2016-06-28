@@ -66,11 +66,11 @@ class PlayerCell extends React.Component {
               <Text style={{fontSize: 10, marginRight: 10}}> Weight: {this.state.basicPlayerInfo[7]}</Text>
             </View>
             <View style={styles.playerGameData1}>
-              <View style={styles.playerDataItem}>
+              <View style={[styles.playerDataItem, {flex: 2}]}>
                 <Text style={styles.playerDataNumber}> {player[3]}</Text>
                 <Text style={styles.playerDataLabel}> GP </Text>
               </View>
-              <View style={styles.playerDataItem}>
+              <View style={[styles.playerDataItem, {flex: 1}]}>
                 <Text style={styles.playerDataNumber}> {player[7]}</Text>
                 <Text style={styles.playerDataLabel}> MIN </Text>
               </View>
@@ -141,7 +141,8 @@ var styles = StyleSheet.create({
   playerDataItem: {
     alignItems: 'flex-end',
     flexDirection: 'row',
-    marginRight: 10
+    marginRight: 10,
+    flex: 1
   },
   playerDataNumber: {
     color: '#404a5a',
