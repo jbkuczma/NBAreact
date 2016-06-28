@@ -78,9 +78,15 @@ class Date extends React.Component {
   }
 
   handleDateChange(date){
+      date2 = date.split('-');
+      var month = date2[0];
+      var day = date2[1];
+      var year = date2[2];
+      date2 = year + '-' + month + '-' + day;
+      var dateDay = moment(date2).format('LLLL').slice(0, moment(date2).format('LLLL').lastIndexOf(','));
     this.setState({
       date: date,
-      dateWithDay: moment(date).format('LLLL').slice(0, moment(date).format('LLLL').lastIndexOf(','))
+      dateWithDay: dateDay
     },function(){this.fetchGames();});
   }
 
