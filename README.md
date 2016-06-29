@@ -8,7 +8,7 @@ Known bugs:
 
 * Android
 * Pre-iPhone 5s
-* Games for past season (This app is primarily for the current season. Some features do not work with historical data)
+* Games for past season (This app is primarily for the current NBA season. As of now, some features do not work with historical data)
 
 ![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
 
