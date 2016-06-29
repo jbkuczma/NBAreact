@@ -1,8 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-
-// http://stats.nba.com/media/players/230x185/${player.id}.png
-
-// player stats for season: http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=PLAYER_ID&Season=SEASON&SeasonType=Regular+Season
 import React from 'react';
 import {
   Text,
@@ -86,8 +82,8 @@ var styles = StyleSheet.create({
     borderRadius: 25
   },
   playerName: {
-    marginLeft: 3,
-    flex: 1.5,
+    marginLeft: 8,
+    flex: 2,
     justifyContent: 'center'
   },
   gameStats: {

@@ -286,7 +286,7 @@ var styles = StyleSheet.create({
     }
   },
   playerName: {
-    flex: 2,
+    flex: 3,
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
