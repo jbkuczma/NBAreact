@@ -116,7 +116,11 @@ class Date extends React.Component {
               dateInput: {
                 borderWidth: 0,
                 opacity: 0
+              },
+              dateTouchBody: {
+                flexDirection: 'column',
               }
+
             }}
             onDateChange={(date) => { this.handleDateChange(date) }}
           />
@@ -130,10 +134,12 @@ var styles = StyleSheet.create({
   dateContainer: {
     backgroundColor: '#FF5722',
     padding: 35,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flex: 1
   },
   dateText: {
-    fontSize: 20,
+    fontSize: 17,
+    fontWeight: '500',
     marginTop: 20,
     textAlign: 'center',
     color: '#FFFFFF'
