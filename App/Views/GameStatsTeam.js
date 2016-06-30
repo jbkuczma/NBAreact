@@ -232,7 +232,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FCFCFC'
   },
   quarterScores: {
-    flex: 0.2
+    flex: 0.3
   },
   scoreboardHeader: {
     flexDirection: 'row',
