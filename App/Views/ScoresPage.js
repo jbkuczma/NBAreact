@@ -4,7 +4,9 @@ import {
   View,
   StyleSheet,
   ListView,
-  RefreshControl
+  RefreshControl,
+  Image,
+  Text
 } from 'react-native';
 
 import GameCell from './GameCell';
@@ -115,6 +117,27 @@ class ScoresPage extends React.Component {
   }
 
   render() {
+    if (!this.state.loaded){
+      return (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            source={require('../Assets/Images/ring.gif')}
+            style={{width: 70, height: 70}}
+          />
+        </View>
+      )
+    }
+    if (!this.state.db.length > 0){
+      return (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+          <Image
+            source={require('../Assets/Images/nba.png')}
+            style={{height: 250, width: 110}}
+          />
+          <Text> No games today </Text>
+        </View>
+      )
+    }
     return (
       <View style={{flex: 1}}>
         <ListView
