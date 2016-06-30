@@ -11,6 +11,8 @@ import {
   ScrollView
 } from 'react-native';
 
+var STORE = require('../Utilities/Store');
+
 class IndividualPlayerPage extends React.Component {
 
   constructor(props){
@@ -27,7 +29,7 @@ class IndividualPlayerPage extends React.Component {
   }
 
   getGameStatsForYear(){
-    var season = '2015-16'; // IMPORTANT
+    var season = STORE.season; // IMPORTANT
     var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=+' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Regular+Season';
     fetch(url)
     .then((response) => response.json())

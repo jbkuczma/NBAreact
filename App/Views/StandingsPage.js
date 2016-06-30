@@ -10,6 +10,8 @@ import {
   ListView
 } from 'react-native';
 
+var STORE = require('../Utilities/Store');
+
 import TeamStandingsCell from './TeamStandingsCell';
 
 class StandingsPage extends React.Component {
@@ -31,7 +33,7 @@ class StandingsPage extends React.Component {
   }
 
   fetchStandings(){
-    var year = 2015; // IMPORTANT
+    var year = STORE.year; // IMPORTANT
     var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
     fetch(url)
     .then((response) => response.json())
