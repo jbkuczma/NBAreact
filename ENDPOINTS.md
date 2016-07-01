@@ -41,3 +41,7 @@ League Standings
 Games on given date
 
     http://data.nba.com/data/5s/json/cms/noseason/scoreboard/{DATE}/games.json
+
+All players in the league
+
+    http://stats.nba.com/stats/commonallplayers?LeagueID=00&IsOnlyCurrentSeason=1&Season={SEASON}
