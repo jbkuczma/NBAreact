@@ -143,14 +143,12 @@ var styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     color: '#FFFFFF'
-    // marginLeft: 70
   },
   numberOfGamesText: {
     fontSize: 12,
     marginTop: 10,
     textAlign: 'center',
     color: '#FFFFFF'
-    // marginLeft: 70
   }
 });
 

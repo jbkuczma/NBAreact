@@ -61,7 +61,6 @@ class GameStatsTeam extends React.Component {
     .then((response) => response.json())
     .then((jsonResponse) => {
       this.setState({
-        // loaded: true,
         teamStatsRecord: jsonResponse.resultSets[0].rowSet,
         teamStatsLeague: jsonResponse.resultSets[1].rowSet
       });
@@ -90,7 +89,7 @@ class GameStatsTeam extends React.Component {
   }
 
   getBasicPlayerInfo(){
-    var season = STORE.season; 
+    var season = STORE.season;
     var teamID = TeamMap[this.props.team].id;
     var url = 'http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=' + season + '&TeamID=' + teamID; // <-- basic player info, position, number, height, weight, etc.
     fetch(url)
@@ -167,7 +166,6 @@ class GameStatsTeam extends React.Component {
               player={rowData}
               team={this.props.team}
               roster={this.state.playersBasicStats}
-            //   onPress={() => this.props.goToGameStats(rowData)}
             />
           }
         />
@@ -178,8 +176,6 @@ class GameStatsTeam extends React.Component {
 
 var styles = StyleSheet.create({
   body: {
-    // flex: 2,
-    // marginTop: 62
     flexDirection: 'column',
     backgroundColor: '#FCFCFC'
   },

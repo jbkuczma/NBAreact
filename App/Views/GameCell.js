@@ -76,8 +76,6 @@ var styles = StyleSheet.create({
     borderRadius: 5,
     flex: 1,
     flexDirection: 'row'
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
   },
   teamInfo: {
     alignItems: 'center',

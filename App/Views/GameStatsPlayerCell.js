@@ -88,8 +88,6 @@ var styles = StyleSheet.create({
   },
   gameStats: {
     flex: 3,
-    // flexDirection: 'row',
-    // justifyContent: 'space-between'
     justifyContent: 'center'
   },
   gameStatsItem: {

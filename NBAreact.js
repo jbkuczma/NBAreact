@@ -26,7 +26,6 @@ class NBAreact extends React.Component {
   }
 };
 
-// want backButtonImage = './App/Assets/Images/back_button_green.png' for TeamStats
 var styles = StyleSheet.create({
   gameStatsPageTab: {
     backgroundColor: '#03A9F4'

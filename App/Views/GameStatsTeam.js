@@ -1,5 +1,4 @@
 /* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-//  http://data.nba.com/data/10s/json/cms/noseason/game/${gameDate}/${gameId}/boxscore.json
 
 import React from 'react';
 import {
@@ -227,8 +226,6 @@ class GameStatsTeam extends React.Component {
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
     backgroundColor: '#FCFCFC'
   },
   quarterScores: {
@@ -246,10 +243,9 @@ var styles = StyleSheet.create({
   head: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // justifyContent: 'center',
-    alignItems: 'center', // orignal not here <- for vertical lines
-    marginLeft: 30, // orignal 10
-    marginRight: 30, // orignal 10
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30,
     marginTop: 10,
     marginBottom: 10
   },
@@ -271,7 +267,6 @@ var styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 12,
     marginTop: 10
-        // marginBottom: 10,
   },
   line: {
     marginLeft: 5,

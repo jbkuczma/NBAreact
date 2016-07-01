@@ -274,7 +274,6 @@ var styles = StyleSheet.create({
     marginLeft: 30
   },
   playerImage: {
-    //  flex: 1.5,
     height: 100,
     width: 100,
     borderRadius: 50,

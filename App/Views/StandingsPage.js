@@ -33,7 +33,7 @@ class StandingsPage extends React.Component {
   }
 
   fetchStandings(){
-    var year = STORE.year; // IMPORTANT
+    var year = STORE.year;
     var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
     fetch(url)
     .then((response) => response.json())
@@ -60,13 +60,11 @@ class StandingsPage extends React.Component {
         </View>
         <View style={styles.line} />
         <ListView
-          // style={styles.listview}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
             <TeamStandingsCell
               team={rowData}
               onPress={() => this.props.onPress(rowData)}
-            //   onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})}
             />
           }
         />
