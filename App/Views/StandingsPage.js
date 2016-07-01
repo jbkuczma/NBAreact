@@ -22,6 +22,7 @@ class StandingsPage extends React.Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
+      year: STORE.year,
       standings: [],
       dataSource: ds.cloneWithRows([]),
       loaded: false
@@ -32,6 +33,14 @@ class StandingsPage extends React.Component {
     this.fetchStandings();
   }
 
+  componentDidMount(){
+    setInterval( () => {
+      if(this.state.year !== STORE.year){
+        this.fetchStandings();
+      }
+    }, 1000);
+  }
+
   fetchStandings(){
     var year = STORE.year;
     var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
@@ -40,6 +49,7 @@ class StandingsPage extends React.Component {
     .then((jsonResponse) => {
       var standings = jsonResponse.sports_content.standings.team;
       this.setState({
+        year: year,
         standings: standings,
         dataSource: this.state.dataSource.cloneWithRows(standings)
       });

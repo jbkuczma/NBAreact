@@ -73,12 +73,22 @@ class Date extends React.Component {
   }
 
   handleDateChange(date){
+    var currentSeason = STORE.season;
     var date2 = date.split('-');
     var month = date2[0];
     var day = date2[1];
     var year = date2[2];
     date2 = year + '-' + month + '-' + day;
     var dateDay = moment(date2).format('LLLL').slice(0, moment(date2).format('LLLL').lastIndexOf(','));
+    if (month >= 10 && month <= 12){
+      STORE.year = year;
+      let currentSeasonArray = currentSeason.split('');
+      STORE.season = year + '-' + currentSeasonArray[2] + (parseInt(currentSeasonArray[3]) + 1);
+    } else {
+      STORE.year = parseInt(year) - 1;
+      let currentSeasonArray = year.split('');
+      STORE.season = (parseInt(year) - 1) + '-' + currentSeasonArray[2] + currentSeasonArray[3];
+    }
     this.setState({
       date: date,
       dateWithDay: dateDay
