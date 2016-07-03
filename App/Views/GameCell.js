@@ -23,6 +23,15 @@ class GameCell extends React.Component {
     var game = this.props.game;
     var homeTeam = game.home;
     var awayTeam = game.visitor;
+    /* will cause the number of games to be inconsistent with the number of game cells
+       displayed, but the game cells that aren't displayed are for games with
+       teams that aren't in the NBA. Only seems to be an off-season/minor league (D-Team?)
+       issue.
+    */
+    if (!TeamMap[awayTeam.abbreviation.toLowerCase()] || !TeamMap[homeTeam.abbreviation.toLowerCase()]){
+      return null;
+    }
+    
     return (
       <View>
         <TouchableHighlight style={{
