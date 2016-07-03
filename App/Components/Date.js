@@ -72,6 +72,19 @@ class Date extends React.Component {
     });
   }
 
+  fetchPlayers(){
+    var url = 'http://stats.nba.com/stats/commonallplayers?LeagueID=00&IsOnlyCurrentSeason=1&Season=' + STORE.season;
+    fetch(url)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      var players = jsonResponse['resultSets'][0]['rowSet'];
+      STORE.playersInSeason = players;
+    })
+    .catch((error) => {
+      STORE.playersInSeason = [];
+    });
+  }
+
   handleDateChange(date){
     var currentSeason = STORE.season;
     var date2 = date.split('-');
@@ -92,7 +105,7 @@ class Date extends React.Component {
     this.setState({
       date: date,
       dateWithDay: dateDay
-    }, function(){ this.fetchGames(); });
+    }, function(){ this.fetchGames(); this.fetchPlayers();});
   }
 
   render() {

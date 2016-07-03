@@ -56,7 +56,11 @@ class GameStatsPlayers extends React.Component {
       });
     })
     .catch((error) => {
-      console.log(error);
+      this.setState({
+        loaded: true,
+        allPlayers: [],
+        allPlayersDataSource: this.state.allPlayersDataSource.cloneWithRowsAndSections([])
+      });
     });
   }
 
@@ -70,6 +74,13 @@ class GameStatsPlayers extends React.Component {
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
+        </View>
+      )
+    }
+    if(this.state.loaded && this.state.allPlayers.length === 0){
+      return (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text> There was an error retrieving your data </Text>
         </View>
       )
     }
