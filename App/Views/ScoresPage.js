@@ -27,7 +27,8 @@ class ScoresPage extends React.Component {
       refreshing: false,
       db: [],
       dataSource: ds.cloneWithRows([]),
-      loaded: false
+      loaded: false,
+      gamesToday: false
     }
     this.onRefresh = this.onRefresh.bind(this);
   }
@@ -62,7 +63,8 @@ class ScoresPage extends React.Component {
         this.setState({
           db: games,
           dataSource: this.state.dataSource.cloneWithRows(games),
-          loaded: true
+          loaded: true,
+          date: date
         });
       }
     })
@@ -70,7 +72,8 @@ class ScoresPage extends React.Component {
       if(error instanceof SyntaxError){
         this.setState({
           db: [],
-          loaded: true
+          loaded: true,
+          date: date
         });
       }
     });
@@ -88,11 +91,13 @@ class ScoresPage extends React.Component {
     .then((jsonResponse) => {
       if (jsonResponse['sports_content']['games']['game']){
         var games = jsonResponse['sports_content']['games']['game'];
+        var gamesToday = games.length > 0 ? true : false;
         this.setState({
           db: games,
           dataSource: this.state.dataSource.cloneWithRows(games),
           loaded: true,
-          date: date
+          date: date,
+          gamesToday: gamesToday
         });
       }
     })
@@ -101,14 +106,15 @@ class ScoresPage extends React.Component {
         this.setState({
           db: [],
           loaded: true,
-          date: date
+          date: date,
+          gamesToday: gamesToday
         });
       }
     });
   }
 
   render() {
-    if (!this.state.loaded){
+    if (!this.state.loaded && this.state.db.length === 0){ // maybe this.state.db.length === 0 is not needed
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
@@ -118,7 +124,7 @@ class ScoresPage extends React.Component {
         </View>
       )
     }
-    if (!this.state.db.length > 0){
+    if (!this.state.db.length > 0 && !this.state.gamesToday){
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
           <Image
