@@ -107,7 +107,7 @@ class ScoresPage extends React.Component {
           db: [],
           loaded: true,
           date: date,
-          gamesToday: gamesToday
+          gamesToday: false
         });
       }
     });
@@ -131,7 +131,7 @@ class ScoresPage extends React.Component {
             source={require('../Assets/Images/nba.png')}
             style={{height: 250, width: 110}}
           />
-          <Text> No games today </Text>
+          <Text> No games today 😢</Text>
         </View>
       )
     }
