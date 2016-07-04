@@ -80,7 +80,7 @@ class GameStatsPlayers extends React.Component {
     if(this.state.loaded && this.state.allPlayers.length === 0){
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text> There was an error retrieving your data </Text>
+          <Text> Player data should be available at tipoff </Text>
         </View>
       )
     }
