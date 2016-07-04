@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 var STORE = require('../Utilities/Store');
+var playoffStats = [];
 
 class IndividualPlayerPage extends React.Component {
 
@@ -25,7 +26,22 @@ class IndividualPlayerPage extends React.Component {
   }
 
   componentWillMount(){
+    this.getPlayoffStats();
+    setTimeout(() => {},1000);
     this.getGameStatsForYear();
+  }
+
+  getPlayoffStats(){
+      var season = STORE.season; // IMPORTANT
+      var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=+' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Playoffs';
+      fetch(url)
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        playoffStats = jsonResponse.resultSets[0].rowSet;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getGameStatsForYear(){
@@ -34,9 +50,15 @@ class IndividualPlayerPage extends React.Component {
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
+      var games = jsonResponse.resultSets[0].rowSet;
       var width = this.getWidth(jsonResponse.resultSets[0].rowSet[0]);
+      if (playoffStats.length > 0){
+        var stats = playoffStats.concat(games);
+      }else{
+        var stats = games;
+      }
       this.setState({
-        gameStats: jsonResponse.resultSets[0].rowSet,
+        gameStats: stats,
         loaded: true,
         pts: new Animated.Value(width.pts),
         ast: new Animated.Value(width.ast),
