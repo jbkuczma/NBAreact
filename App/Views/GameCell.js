@@ -29,9 +29,8 @@ class GameCell extends React.Component {
        issue.
     */
     if (!TeamMap[awayTeam.abbreviation.toLowerCase()] || !TeamMap[homeTeam.abbreviation.toLowerCase()]){
-      return null;
+        return null;
     }
-    
     return (
       <View>
         <TouchableHighlight style={{
