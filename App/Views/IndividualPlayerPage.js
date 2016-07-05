@@ -21,6 +21,7 @@ class IndividualPlayerPage extends React.Component {
     this.state = {
       loaded: false,
       gameStats: [],
+      noStats: false,
       currentIndex: 0
     }
   }
@@ -40,23 +41,26 @@ class IndividualPlayerPage extends React.Component {
         playoffStats = jsonResponse.resultSets[0].rowSet;
       })
       .catch((error) => {
-        console.log(error);
+        this.setState({
+          loaded: true,
+          noStats: true
+        });
       });
   }
 
   getGameStatsForYear(){
     var season = STORE.season; // IMPORTANT
-    var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=+' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Regular+Season';
+    var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Regular+Season';
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
       var games = jsonResponse.resultSets[0].rowSet;
-      var width = this.getWidth(jsonResponse.resultSets[0].rowSet[0]);
       if (playoffStats.length > 0){
         var stats = playoffStats.concat(games);
       }else{
         var stats = games;
       }
+      var width = this.getWidth(stats[0]);
       this.setState({
         gameStats: stats,
         loaded: true,
@@ -76,7 +80,10 @@ class IndividualPlayerPage extends React.Component {
       });
     })
     .catch((error) => {
-      console.log(error);
+      this.setState({
+        loaded: true,
+        noStats: true
+      });
     });
   }
 
@@ -145,6 +152,13 @@ class IndividualPlayerPage extends React.Component {
             source={require('../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
+        </View>
+      )
+    }
+    if (this.state.noStats){
+      return (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FCFCFC'}}>
+          <Text> No player data available </Text>
         </View>
       )
     }
