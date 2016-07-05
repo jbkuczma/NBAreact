@@ -7,8 +7,6 @@ NBA app created with React Native (still in active development).
 Known bugs:
 
 * Android
-* Pre-iPhone 5s
-* Games for past seasons (This app is primarily for the current NBA season. As of now, some features do not work with historical data. It seems that the endpoints return data for the current and past 3 seasons.)
 * Game data may be delayed for some games.
 
 ![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
