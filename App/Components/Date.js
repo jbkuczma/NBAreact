@@ -73,7 +73,7 @@ class Date extends React.Component {
   }
 
   fetchPlayers(){
-    var url = 'http://stats.nba.com/stats/commonallplayers?LeagueID=00&IsOnlyCurrentSeason=1&Season=' + STORE.season;
+    var url = 'http://stats.nba.com/stats/commonallplayers?LeagueID=00&IsOnlyCurrentSeason=1&Season=' + STORE.seasonForPlayerIDLookup;
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {

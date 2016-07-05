@@ -32,9 +32,18 @@ class IndividualPlayerPage extends React.Component {
     this.getGameStatsForYear();
   }
 
+  getPersonID(){
+    for (var i = 0; i < STORE.playersInSeason.length; i++){
+      if (STORE.playersInSeason[i][6] === this.props.player.player_code){
+        return STORE.playersInSeason[i][0];
+      }
+    }
+  }
+
   getPlayoffStats(){
       var season = STORE.season; // IMPORTANT
-      var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=+' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Playoffs';
+      var id = this.props.player.person_id || this.getPersonID();
+      var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=+' + id + '&Season=' + season + '&SeasonType=Playoffs';
       fetch(url)
       .then((response) => response.json())
       .then((jsonResponse) => {
@@ -50,7 +59,8 @@ class IndividualPlayerPage extends React.Component {
 
   getGameStatsForYear(){
     var season = STORE.season; // IMPORTANT
-    var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=' + this.props.player.person_id + '&Season=' + season + '&SeasonType=Regular+Season';
+    var id = this.props.player.person_id === undefined ? this.getPersonID() : this.props.player.person_id;
+    var url = 'http://stats.nba.com/stats/playergamelog?LeagueID=00&PerMode=PerGame&PlayerID=' + id + '&Season=' + season + '&SeasonType=Regular+Season';
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
@@ -142,6 +152,7 @@ class IndividualPlayerPage extends React.Component {
 
   render(){
     var player = this.props.player;
+    var id = player.person_id === undefined ? this.getPersonID() : player.person_id;
     var nextAvailable = this.state.currentIndex === 0 ? 0 : 1;
     var previousAvailable = this.state.currentIndex === this.state.gameStats.length - 1 ? 0 : 1;
     const {pts, ast, reb, stl, blk, to, min, fgm, fga, _3pm, _3pa, ftm, fta} = this.state;
@@ -167,7 +178,7 @@ class IndividualPlayerPage extends React.Component {
         <View style={styles.header}>
           <View style={styles.imageBlock}>
             <Image
-              source={{uri: 'http://stats.nba.com/media/players/230x185/' + player.person_id + '.png'}}
+              source={{uri: 'http://stats.nba.com/media/players/230x185/' + id + '.png'}}
               style={styles.playerImage}
             />
           </View>

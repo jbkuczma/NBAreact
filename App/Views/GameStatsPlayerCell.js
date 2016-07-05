@@ -10,21 +10,32 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
+var STORE = require('../Utilities/Store');
+
 class GameStatsPlayerCell extends React.Component {
 
   goToIndividualPlayerPage(player){
     Actions.IndividualPlayerPage({player: player});
   }
 
+  getPersonID(){
+    for (var i = 0; i < STORE.playersInSeason.length; i++){
+      if (STORE.playersInSeason[i][6] === this.props.player.player_code){
+        return STORE.playersInSeason[i][0];
+      }
+    }
+  }
+
   render(){
     var player = this.props.player;
+    var id = player.person_id === undefined ? this.getPersonID() : player.person_id;
     return (
       <View>
         <TouchableHighlight onPress={this.goToIndividualPlayerPage.bind(this, player)} underlayColor='#FFFFFF'>
           <View style={styles.body}>
             <View style={styles.imageBlock}>
               <Image
-                source={{uri: 'http://stats.nba.com/media/players/230x185/' + player.person_id + '.png'}}
+                source={{uri: 'http://stats.nba.com/media/players/230x185/' + id + '.png'}}
                 style={styles.playerImage}
               />
             </View>
