@@ -4,7 +4,8 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
 
 import ScrollableTabView, {
@@ -20,6 +21,7 @@ class MainWindow extends React.Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar
+          hidden={Platform.OS === 'android' ? true : false}
           backgroundColor='#FF5722'
           barStyle='light-content'
         />
