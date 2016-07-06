@@ -32,6 +32,7 @@ class GameStatsTeam extends React.Component {
     this.getGameStats();
   }
 
+  // retrieves game stats for a specific game
   getGameStats(){
     var game = this.props.game;
     var date = game.date;

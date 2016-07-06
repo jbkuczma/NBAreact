@@ -33,6 +33,7 @@ class GameStatsTeam extends React.Component {
     }
   }
 
+  // adds suffix to a number for league ranking. ex: 1 -> 1st
   rankingSuffix(number){
     switch (parseInt(number)){
       case 1:

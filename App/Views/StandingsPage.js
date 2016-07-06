@@ -41,6 +41,7 @@ class StandingsPage extends React.Component {
     }, 1000);
   }
 
+  // retrieves league standings for a given year
   fetchStandings(){
     var year = STORE.year;
     var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
@@ -58,6 +59,7 @@ class StandingsPage extends React.Component {
       console.log(error);
     });
   }
+  
   render() {
     return (
       <View style={styles.view}>

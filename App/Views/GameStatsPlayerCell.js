@@ -18,6 +18,11 @@ class GameStatsPlayerCell extends React.Component {
     Actions.IndividualPlayerPage({player: player});
   }
 
+  /* used for historical stats since a player id isn't returned with historical data.
+   * STORE.playersInSeason is an array with every player in current season. player_code is
+   * essentially the player's name, so we look up the player_code in the array and get
+   * the player id
+   */
   getPersonID(){
     for (var i = 0; i < STORE.playersInSeason.length; i++){
       if (STORE.playersInSeason[i][6] === this.props.player.player_code){

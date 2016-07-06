@@ -32,6 +32,11 @@ class IndividualPlayerPage extends React.Component {
     this.getGameStatsForYear();
   }
 
+  /* used for historical stats since a player id isn't returned with historical data.
+   * STORE.playersInSeason is an array with every player in current season. player_code is
+   * essentially the player's name, so we look up the player_code in the array and get
+   * the player id
+   */
   getPersonID(){
     for (var i = 0; i < STORE.playersInSeason.length; i++){
       if (STORE.playersInSeason[i][6] === this.props.player.player_code){
@@ -40,6 +45,7 @@ class IndividualPlayerPage extends React.Component {
     }
   }
 
+  // retrieves playoff stats, if any, for a player
   getPlayoffStats(){
       var season = STORE.season; // IMPORTANT
       var id = this.props.player.person_id || this.getPersonID();
@@ -57,6 +63,7 @@ class IndividualPlayerPage extends React.Component {
       });
   }
 
+  // retrieves game stats for every game the player played in during the season
   getGameStatsForYear(){
     var season = STORE.season; // IMPORTANT
     var id = this.props.player.person_id === undefined ? this.getPersonID() : this.props.player.person_id;
@@ -97,6 +104,7 @@ class IndividualPlayerPage extends React.Component {
     });
   }
 
+  // determines the proper width for each stat bar
   getWidth(data){
     const mapper = {pts: 24, min: 6, reb: 18, ast: 19, stl: 20, blk: 21, to: 22, fgm: 7, fga: 8, _3pm: 10, _3pa: 11, ftm: 13, fta: 14}; // position in data where those values can be found
     const deviceWidth = Dimensions.get('window').width;
@@ -126,6 +134,7 @@ class IndividualPlayerPage extends React.Component {
     return width
   }
 
+  // animates the bar graphs
   handleAnimation(index){
     const timing = Animated.timing;
     const width = this.getWidth(this.state.gameStats[index]);

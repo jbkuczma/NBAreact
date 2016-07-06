@@ -46,6 +46,7 @@ class ScoresPage extends React.Component {
     }, 1000);
   }
 
+  // refresh control to update game stats
   onRefresh(){
     this.setState({loaded: false});
     var date = STORE.date;
@@ -79,6 +80,7 @@ class ScoresPage extends React.Component {
     });
   }
 
+  // retrieves games being played for a date. date is in YYYYMMDD format
   fetchGames(){
     var date = STORE.date;
     date = date.split('/');

@@ -19,6 +19,7 @@ class PlayerCell extends React.Component {
     this.setBasicInfo();
   }
 
+  // finds the player's stats from the team roster and uses that data to fill in the player cell
   setBasicInfo(){
     var roster = this.props.roster;
     var playerName = this.props.player[2];
@@ -37,7 +38,7 @@ class PlayerCell extends React.Component {
     if (this.state.basicPlayerInfo === []){
       return <View><Text> fetching data </Text></View>
     }
-    if (parseInt(this.state.basicPlayerInfo[4])){ // if no number is returned, they are no longer on the team despite callback response
+    if (parseInt(this.state.basicPlayerInfo[4])){ // if no jersey number is returned, they are no longer on the team despite callback response. if this happens, we skip over them
       return (
         <View style={styles.body}>
           <View style={styles.imageBlock}>
