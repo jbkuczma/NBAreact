@@ -129,21 +129,25 @@ class Date extends React.Component {
         </View>
         <View style={{backgroundColor: '#FF5722', flex: 0.25, justifyContent: 'center', alignItems: 'center'}}>
           <DatePicker
-            style={{width: 10, marginTop: 20}}
+            style={{width: 100}}
             date={this.state.date}
             mode='date'
             format='MM-DD-YYYY'
             confirmBtnText='Confirm'
             cancelBtnText='Cancel'
+            iconSource={require('../Assets/Images/calendar.png')}
             customStyles={{
               dateInput: {
                 borderWidth: 0,
                 opacity: 0
               },
               dateTouchBody: {
-                flexDirection: 'column',
+                flexDirection: 'column'
+              },
+              dateIcon: {
+                width: 25,
+                height: 25
               }
-
             }}
             onDateChange={(date) => { this.handleDateChange(date) }}
           />
