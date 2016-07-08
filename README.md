@@ -33,3 +33,5 @@ Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma
     npm install
 
     react-native run-ios
+    or
+    react-native run-android (make sure an emulator is currently running)
