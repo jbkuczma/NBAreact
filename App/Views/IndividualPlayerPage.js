@@ -8,7 +8,8 @@ import {
   Dimensions,
   Animated,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  Platform
 } from 'react-native';
 
 var STORE = require('../Utilities/Store');
@@ -376,7 +377,7 @@ var styles = StyleSheet.create({
   },
   overlayBar: {
     position: 'absolute',
-    top: 3.5,
+    top: Platform.OS === 'android' ? 4.5 : 3.5,
     left: 0
   },
   points: {
