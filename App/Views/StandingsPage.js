@@ -7,7 +7,8 @@ import {
   Text,
   View,
   StyleSheet,
-  ListView
+  ListView,
+  Platform
 } from 'react-native';
 
 var STORE = require('../Utilities/Store');
@@ -59,7 +60,7 @@ class StandingsPage extends React.Component {
       console.log(error);
     });
   }
-  
+
   render() {
     return (
       <View style={styles.view}>
@@ -88,7 +89,7 @@ class StandingsPage extends React.Component {
 var styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: '#FCFCFC'
+    backgroundColor: Platform.OS === 'android' ? '#d8dade' : '#FCFCFC'
   },
   listHeader: {
     flexDirection: 'row',
