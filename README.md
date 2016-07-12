@@ -6,7 +6,6 @@ NBA app created with React Native (still in active development).
 
 Known bugs:
 
-* Android
 * Game data may be delayed for some games.
 
 ![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
