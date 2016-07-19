@@ -2,7 +2,8 @@
 ![](https://david-dm.org/jbkuczma/NBAreact.svg)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 # NBAreact
-NBA app created with React Native (still in active development).
+NBA app created with React Native (still in active development). Find a bug or want to leave feedback? Open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
+
 
 Known bugs:
 
