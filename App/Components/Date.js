@@ -127,7 +127,7 @@ class Date extends React.Component {
             }
           </Text>
           <Text style={styles.summerLeagueText}>
-            {moment().format('L').split('/')[0] === '07' && this.state.numberOfGames !== 0 ?
+            {STORE.date.split('/')[0] === '07' && this.state.numberOfGames !== 0 ?
               'Some games may not be displayed due to Summer League play' : ''
             }
           </Text>
