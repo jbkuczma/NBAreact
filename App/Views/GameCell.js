@@ -78,7 +78,7 @@ class GameCell extends React.Component {
 
 var styles = StyleSheet.create({
   container: {
-    height: 90,
+    height: 100,
     marginHorizontal: 12,
     marginBottom: 10,
     borderRadius: 5,
@@ -87,7 +87,8 @@ var styles = StyleSheet.create({
   },
   teamInfo: {
     alignItems: 'center',
-    flex: 2
+    flex: 2,
+    marginTop: 4
   },
   awayText: {
     flex: 1.5,
@@ -99,8 +100,8 @@ var styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   teamText2: {
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: 11,
+    fontWeight: '300',
     color: '#FFFFFF'
   },
   homeText: {
@@ -115,7 +116,8 @@ var styles = StyleSheet.create({
   },
   gameInfo: {
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flex: 2
   },
   gameInfoText: {
     color: '#FFFFFF',
@@ -123,7 +125,7 @@ var styles = StyleSheet.create({
   },
   gameScoresView: {
     flexDirection: 'row',
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     marginTop: 17
   },
