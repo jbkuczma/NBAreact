@@ -126,6 +126,11 @@ class Date extends React.Component {
               })()
             }
           </Text>
+          <Text style={styles.summerLeagueText}>
+            {moment().format('L').split('/')[0] === '07' && this.state.numberOfGames !== 0 ?
+              'Some games may not be displayed due to Summer League play' : ''
+            }
+          </Text>
         </View>
         <View style={{backgroundColor: '#FF5722', flex: 0.25, justifyContent: 'center', alignItems: 'center'}}>
           <DatePicker
@@ -174,6 +179,12 @@ var styles = StyleSheet.create({
   numberOfGamesText: {
     fontSize: 12,
     marginTop: 10,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  summerLeagueText: {
+    fontSize: 10,
+    marginTop: 5,
     textAlign: 'center',
     color: '#FFFFFF'
   }
