@@ -14,6 +14,7 @@ module.exports = {
   season: '2015-16',
   seasonForPlayerIDLookup: '2015-16',
   year: 2015,
-  playersInSeason: []
+  playersInSeason: [],
+  navBarColorForTeamPage: '#4CAF50'
 };
 /* eslint-enable semi */

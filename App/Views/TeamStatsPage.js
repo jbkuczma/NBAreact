@@ -9,6 +9,8 @@ import {
   Dimensions
 } from 'react-native';
 
+import {Actions} from 'react-native-router-flux'
+
 import TeamMap from '../Utilities/TeamMap';
 import PlayerCell from './PlayerCell';
 
@@ -48,9 +50,15 @@ class GameStatsTeam extends React.Component {
   }
 
   componentWillMount(){
+    this.changeNavBarColor();
     this.getTeamStats();
     this.getPlayers();
     this.getBasicPlayerInfo();
+  }
+
+  changeNavBarColor(){
+    STORE.navBarColorForTeamPage = TeamMap[this.props.team].color;
+    Actions.refresh({navigationBarStyle: {backgroundColor: STORE.navBarColorForTeamPage, borderBottomWidth: 0}});
   }
 
   getTeamStats(){
