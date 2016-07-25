@@ -2,14 +2,10 @@
 ![](https://david-dm.org/jbkuczma/NBAreact.svg)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 # NBAreact
-NBA app created with React Native (still in active development). Find a bug or want to leave feedback? Open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
+An iOS and Android NBA app created with React Native (still in active development). Find a bug or want to leave feedback? Open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
 
-
-Known bugs:
-
-* Game data may be delayed for some games.
-
-![nbareact_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact.gif)
+![nbareact_ios_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact_iOS.gif)
+![nbareact_android_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact_Android.gif)
 
 # Resources Used
 [React Native](https://github.com/facebook/react-native)
