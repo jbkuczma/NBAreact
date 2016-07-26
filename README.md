@@ -18,6 +18,14 @@ An iOS and Android NBA app created with React Native (still in active developmen
 
 [Drawing charts in React-Native without any library](https://medium.com/@wwayne_me/let-s-drawing-charts-in-react-native-without-any-library-4c20ba38d8ab#.omrlj0xpx)
 
+[Icon Template](https://appicontemplate.com/ios9/)
+
+[Basketball used in Icon](https://www.iconfinder.com/icons/315758/basketball_icon)
+
+[Android Icons](http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html)
+
+[iOS Icons](https://makeappicon.com/)
+
 #Endpoints
 
 Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma/NBAreact/blob/master/ENDPOINTS.md).
