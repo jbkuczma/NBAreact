@@ -134,32 +134,32 @@ class GameStatsTeam extends React.Component {
     return (
       <View style={styles.main}>
         <View style={styles.scoreHead}>
-        <View style={styles.scoreboardHeader}>
-          <Text style={{flex: 1}}> Q1 </Text>
-          <Text style={{flex: 1}}> Q2 </Text>
-          <Text style={{flex: 1}}> Q3 </Text>
-          <Text style={{flex: 1}}> Q4 </Text>
-          <Text style={{flex: 1}}> Final </Text>
-        </View>
-        <View style={styles.quarterScores}>
-          <View style={styles.teamScores}>
-            <Text style={{flex: 1}}> {this.state.awayStats.abbreviation} </Text>
-            <Text style={{flex: 1}}> {a1} </Text>
-            <Text style={{flex: 1}}> {a2} </Text>
-            <Text style={{flex: 1}}> {a3} </Text>
-            <Text style={{flex: 1}}> {a4} </Text>
-            <Text style={{flex: 1}}> {aFinal} </Text>
+          <View style={styles.scoreboardHeader}>
+            <Text style={{flex: 1}}> Q1 </Text>
+            <Text style={{flex: 1}}> Q2 </Text>
+            <Text style={{flex: 1}}> Q3 </Text>
+            <Text style={{flex: 1}}> Q4 </Text>
+            <Text style={{flex: 1}}> Final </Text>
           </View>
-          <View style={styles.teamScores}>
-            <Text style={{flex: 1}}> {this.state.homeStats.abbreviation} </Text>
-            <Text style={{flex: 1}}> {h1} </Text>
-            <Text style={{flex: 1}}> {h2} </Text>
-            <Text style={{flex: 1}}> {h3} </Text>
-            <Text style={{flex: 1}}> {h4} </Text>
-            <Text style={{flex: 1}}> {hFinal} </Text>
+          <View style={styles.quarterScores}>
+            <View style={styles.teamScores}>
+              <Text style={{flex: 1}}> {this.state.awayStats.abbreviation} </Text>
+              <Text style={{flex: 1}}> {a1} </Text>
+              <Text style={{flex: 1}}> {a2} </Text>
+              <Text style={{flex: 1}}> {a3} </Text>
+              <Text style={{flex: 1}}> {a4} </Text>
+              <Text style={{flex: 1}}> {aFinal} </Text>
+            </View>
+            <View style={styles.teamScores}>
+              <Text style={{flex: 1}}> {this.state.homeStats.abbreviation} </Text>
+              <Text style={{flex: 1}}> {h1} </Text>
+              <Text style={{flex: 1}}> {h2} </Text>
+              <Text style={{flex: 1}}> {h3} </Text>
+              <Text style={{flex: 1}}> {h4} </Text>
+              <Text style={{flex: 1}}> {hFinal} </Text>
+            </View>
           </View>
         </View>
-    </View>
         <View style={styles.line} />
         <View style={styles.head}>
           <TouchableHighlight onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
