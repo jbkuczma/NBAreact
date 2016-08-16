@@ -18,6 +18,8 @@ An iOS and Android NBA app created with React Native (still in active developmen
 
 [Drawing charts in React-Native without any library](https://medium.com/@wwayne_me/let-s-drawing-charts-in-react-native-without-any-library-4c20ba38d8ab#.omrlj0xpx)
 
+[Create a custom splash screen](https://medium.com/@jvlobo/change-default-launch-screen-in-react-native-ios-app-544f94f1e947#.pnt190kb8)
+
 [Icon Template](https://appicontemplate.com/ios9/)
 
 [Basketball used in Icon](https://www.iconfinder.com/icons/315758/basketball_icon)
