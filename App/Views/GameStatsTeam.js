@@ -241,7 +241,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginLeft: 77,
+    marginLeft: 75,
     marginRight: 30,
     marginTop: 10,
     marginBottom: -5,
