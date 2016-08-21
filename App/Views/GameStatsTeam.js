@@ -141,22 +141,24 @@ class GameStatsTeam extends React.Component {
             <Text style={{flex: 1}}> Q4 </Text>
             <Text style={{flex: 1}}> Final </Text>
           </View>
+          <View style={styles.line} />
           <View style={styles.quarterScores}>
             <View style={styles.teamScores}>
-              <Text style={{flex: 1}}> {this.state.awayStats.abbreviation} </Text>
-              <Text style={{flex: 1}}> {a1} </Text>
-              <Text style={{flex: 1}}> {a2} </Text>
-              <Text style={{flex: 1}}> {a3} </Text>
-              <Text style={{flex: 1}}> {a4} </Text>
-              <Text style={{flex: 1}}> {aFinal} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {this.state.awayStats.abbreviation} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {a1} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {a2} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {a3} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {a4} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {aFinal} </Text>
             </View>
+            <View style={styles.line} />
             <View style={styles.teamScores}>
-              <Text style={{flex: 1}}> {this.state.homeStats.abbreviation} </Text>
-              <Text style={{flex: 1}}> {h1} </Text>
-              <Text style={{flex: 1}}> {h2} </Text>
-              <Text style={{flex: 1}}> {h3} </Text>
-              <Text style={{flex: 1}}> {h4} </Text>
-              <Text style={{flex: 1}}> {hFinal} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {this.state.homeStats.abbreviation} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {h1} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {h2} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {h3} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {h4} </Text>
+              <Text style={{flex: 1, alignSelf: 'center'}}> {hFinal} </Text>
             </View>
           </View>
         </View>
@@ -232,7 +234,7 @@ var styles = StyleSheet.create({
   },
   quarterScores: {
     flex: 1,
-    marginLeft: 15
+    // marginLeft: 15
   },
   scoreHead: {
       flex: 0.5
@@ -302,8 +304,9 @@ var styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 30,
     flex: 1,
-    marginTop: 10,
-    marginLeft: 10,
+    // marginTop: 10,
+    marginLeft: 20,
+    // backgroundColor: 'red'
   },
   statsColumn: {
     flexDirection: 'column',
