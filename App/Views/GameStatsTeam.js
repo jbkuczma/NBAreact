@@ -165,15 +165,27 @@ class GameStatsTeam extends React.Component {
             </View>
             <View style={styles.line} />
             <View style={styles.teamScores}>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {this.state.homeStats.abbreviation} </Text>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {h1} </Text>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {h2} </Text>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {h3} </Text>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {h4} </Text>
-              <Text style={{flex: 1, alignSelf: 'center'}}> {hFinal} </Text>
+                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {this.state.homeStats.abbreviation} </Text>
+                </View>
+                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {h1} </Text>
+                </View>
+                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {h2} </Text>
+                </View>
+                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {h3} </Text>
+                </View>
+                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {h4} </Text>
+                </View>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text> {hFinal} </Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
         <View style={styles.line} />
         <View style={styles.head}>
           <TouchableHighlight onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
@@ -255,8 +267,8 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginLeft: 75,
-    marginRight: 30,
+    marginLeft: 90,
+    // marginRight: 20,
     marginTop: 10,
     marginBottom: -5,
     flex: 0.5
