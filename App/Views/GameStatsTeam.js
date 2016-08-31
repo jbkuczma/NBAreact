@@ -178,27 +178,27 @@ class GameStatsTeam extends React.Component {
             </View>
             <View style={styles.line} />
             <View style={styles.teamScores}>
-                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {this.state.homeStats.abbreviation} </Text>
-                </View>
-                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {h1} </Text>
-                </View>
-                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {h2} </Text>
-                </View>
-                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {h3} </Text>
-                </View>
-                <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {h4} </Text>
-                </View>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text> {hFinal} </Text>
-                </View>
+              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {this.state.homeStats.abbreviation} </Text>
+              </View>
+              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {h1} </Text>
+              </View>
+              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {h2} </Text>
+              </View>
+              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {h3} </Text>
+              </View>
+              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {h4} </Text>
+              </View>
+              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text> {hFinal} </Text>
               </View>
             </View>
           </View>
+        </View>
         <View style={styles.line} />
         <View style={styles.head}>
           <TouchableHighlight onPress={() => Actions.TeamStats({team: this.state.awayStats.abbreviation.toLowerCase()})} underlayColor='#FFFFFF'>
@@ -270,7 +270,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FCFCFC'
   },
   quarterScores: {
-    flex: 1,
+    flex: 1
     // marginLeft: 15
   },
   scoreHead: {
@@ -344,8 +344,7 @@ var styles = StyleSheet.create({
     marginRight: 30,
     flex: 1,
     // marginTop: 10,
-    marginLeft: 20,
-    // backgroundColor: 'red'
+    marginLeft: 20
   },
   statsColumn: {
     flexDirection: 'column',
