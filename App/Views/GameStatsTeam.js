@@ -135,11 +135,24 @@ class GameStatsTeam extends React.Component {
       <View style={styles.main}>
         <View style={styles.scoreHead}>
           <View style={styles.scoreboardHeader}>
-            <Text style={{flex: 1}}> Q1 </Text>
-            <Text style={{flex: 1}}> Q2 </Text>
-            <Text style={{flex: 1}}> Q3 </Text>
-            <Text style={{flex: 1}}> Q4 </Text>
-            <Text style={{flex: 1}}> Final </Text>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> Q1 </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> Q2 </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> Q3 </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> Q4 </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text> Final </Text>
+            </View>
           </View>
           <View style={styles.line} />
           <View style={styles.quarterScores}>
@@ -265,12 +278,14 @@ var styles = StyleSheet.create({
   },
   scoreboardHeader: {
     flexDirection: 'row',
+    justifyContent: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 90,
-    // marginRight: 20,
+    // marginLeft: 75,
+    // marginRight: 15,
+    marginLeft: 12,
+    marginRight: 20,
     marginTop: 10,
-    marginBottom: -5,
+    // marginBottom: -5,
     flex: 0.5
   },
   head: {
