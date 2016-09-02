@@ -135,65 +135,65 @@ class GameStatsTeam extends React.Component {
       <View style={styles.main}>
         <View style={styles.scoreHead}>
           <View style={styles.scoreboardHeader}>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text> </Text>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text />
             </View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.scoreboardHeaderLabel}>
               <Text> Q1 </Text>
             </View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.scoreboardHeaderLabel}>
               <Text> Q2 </Text>
             </View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.scoreboardHeaderLabel}>
               <Text> Q3 </Text>
             </View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.scoreboardHeaderLabel}>
               <Text> Q4 </Text>
             </View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.scoreboardHeaderLabel}>
               <Text> Final </Text>
             </View>
           </View>
           <View style={styles.line} />
           <View style={styles.quarterScores}>
             <View style={styles.teamScores}>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {this.state.awayStats.abbreviation} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {a1} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {a2} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {a3} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {a4} </Text>
               </View>
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCellEnd}>
                 <Text> {aFinal} </Text>
               </View>
             </View>
             <View style={styles.line} />
             <View style={styles.teamScores}>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {this.state.homeStats.abbreviation} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {h1} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {h2} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {h3} </Text>
               </View>
-              <View style={{borderRightWidth: 1, borderRightColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCell}>
                 <Text> {h4} </Text>
               </View>
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.teamQuarterCellEnd}>
                 <Text> {hFinal} </Text>
               </View>
             </View>
@@ -288,6 +288,11 @@ var styles = StyleSheet.create({
     // marginBottom: -5,
     flex: 0.5
   },
+  scoreboardHeaderLabel: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   head: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -345,6 +350,18 @@ var styles = StyleSheet.create({
     flex: 1,
     // marginTop: 10,
     marginLeft: 20
+  },
+  teamQuarterCell: {
+    borderRightWidth: 1,
+    borderRightColor: '#000',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  teamQuarterCellEnd: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   statsColumn: {
     flexDirection: 'column',
