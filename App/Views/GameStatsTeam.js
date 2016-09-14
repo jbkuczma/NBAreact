@@ -133,30 +133,70 @@ class GameStatsTeam extends React.Component {
     hFinal = parseInt(h1) + parseInt(h2) + parseInt(h3) + parseInt(h4);
     return (
       <View style={styles.main}>
-        <View style={styles.scoreboardHeader}>
-          <Text> Q1 </Text>
-          <Text> Q2 </Text>
-          <Text> Q3 </Text>
-          <Text> Q4 </Text>
-          <Text> Final </Text>
-        </View>
-        <View style={styles.quarterScores}>
-          <View style={styles.awayScores}>
-            <Text> {this.state.awayStats.abbreviation} </Text>
-            <Text> {a1} </Text>
-            <Text> {a2} </Text>
-            <Text> {a3} </Text>
-            <Text> {a4} </Text>
-            <Text> {aFinal} </Text>
+        <View style={styles.scoreHead}>
+          <View style={styles.scoreboardHeader}>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text />
+            </View>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text> Q1 </Text>
+            </View>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text> Q2 </Text>
+            </View>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text> Q3 </Text>
+            </View>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text> Q4 </Text>
+            </View>
+            <View style={styles.scoreboardHeaderLabel}>
+              <Text> Final </Text>
+            </View>
           </View>
           <View style={styles.line} />
-          <View style={styles.homeScores}>
-            <Text> {this.state.homeStats.abbreviation} </Text>
-            <Text> {h1} </Text>
-            <Text> {h2} </Text>
-            <Text> {h3} </Text>
-            <Text> {h4} </Text>
-            <Text> {hFinal} </Text>
+          <View style={styles.quarterScores}>
+            <View style={styles.teamScores}>
+              <View style={styles.teamQuarterCell}>
+                <Text> {this.state.awayStats.abbreviation} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {a1} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {a2} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {a3} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {a4} </Text>
+              </View>
+              <View style={styles.teamQuarterCellEnd}>
+                <Text> {aFinal} </Text>
+              </View>
+            </View>
+            <View style={styles.line} />
+            <View style={styles.teamScores}>
+              <View style={styles.teamQuarterCell}>
+                <Text> {this.state.homeStats.abbreviation} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {h1} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {h2} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {h3} </Text>
+              </View>
+              <View style={styles.teamQuarterCell}>
+                <Text> {h4} </Text>
+              </View>
+              <View style={styles.teamQuarterCellEnd}>
+                <Text> {hFinal} </Text>
+              </View>
+            </View>
           </View>
         </View>
         <View style={styles.line} />
@@ -230,16 +270,28 @@ var styles = StyleSheet.create({
     backgroundColor: '#FCFCFC'
   },
   quarterScores: {
-    flex: 0.3
+    flex: 1
+    // marginLeft: 15
+  },
+  scoreHead: {
+      flex: 0.5
   },
   scoreboardHeader: {
     flexDirection: 'row',
+    justifyContent: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 77,
-    marginRight: 30,
+    // marginLeft: 75,
+    // marginRight: 15,
+    marginLeft: 12,
+    marginRight: 20,
     marginTop: 10,
-    marginBottom: -5
+    // marginBottom: -5,
+    flex: 0.5
+  },
+  scoreboardHeaderLabel: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   head: {
     flexDirection: 'row',
@@ -290,23 +342,26 @@ var styles = StyleSheet.create({
     width: 1,
     backgroundColor: '#000'
   },
-  awayScores: {
+  teamScores: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 40,
     marginRight: 30,
     flex: 1,
-    marginTop: 10,
-    marginLeft: 10
+    // marginTop: 10,
+    marginLeft: 20
   },
-  homeScores: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 40,
-    marginRight: 30,
+  teamQuarterCell: {
+    borderRightWidth: 1,
+    borderRightColor: '#000',
     flex: 1,
-    marginTop: 10,
-    marginLeft: 10
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  teamQuarterCellEnd: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   statsColumn: {
     flexDirection: 'column',
