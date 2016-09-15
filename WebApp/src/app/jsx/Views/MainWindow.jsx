@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Date from '../Components/Date.jsx';
+import GamesWindow from './Games/GamesWindow.jsx';
+import LeaugeStandingsWindow from './Standings/LeagueStandingsWindow.jsx';
 
 export default class MainWindow extends React.Component {
   render () {
@@ -13,10 +15,10 @@ export default class MainWindow extends React.Component {
                     <Tab> Standings </Tab>
                 </TabList>
                 <TabPanel>
-                    <h2> the games that are being played will be here</h2>
+                    <GamesWindow />
                 </TabPanel>
                 <TabPanel>
-                    <h2> league standings will be here </h2>
+                    <LeaugeStandingsWindow />
                 </TabPanel>
             </Tabs>
         </div>
