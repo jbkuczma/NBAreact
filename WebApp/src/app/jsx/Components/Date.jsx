@@ -1,11 +1,9 @@
 import React from 'react';
-import moment from 'moment';
-import flatpickr from 'flatpickr';
 
 export default class Date extends React.Component {
 
   setDate() {
-      var date1 = moment().format('LLLL');
+      var date1 = this.props.date;
       date1 = date1.split(' ');
       var day = date1[0].replace(',','');
       var dayNum = date1[2].replace(',','');
