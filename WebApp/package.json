@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "server": "python -m SimpleHTTPServer 8000"
   },
   "author": "James Kuczmarski",
   "license": "MIT",

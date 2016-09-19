@@ -4,7 +4,7 @@ export default class GameCell extends React.Component {
   render () {
     return(
         <div id='gameCell'>
-            <p> game cell for {this.props.team} </p>
+            <p> game cell </p>
         </div>
     )
   }

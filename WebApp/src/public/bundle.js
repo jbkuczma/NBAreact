@@ -27447,14 +27447,18 @@
 	    }
 	
 	    _createClass(GamesWindow, [{
+	        key: 'renderGameCells',
+	        value: function renderGameCells() {}
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            console.log(this.props.games);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_GameCell2.default, null),
-	                _react2.default.createElement(_GameCell2.default, null)
+	                this.props.games.map(function (game) {
+	                    return _react2.default.createElement(_GameCell2.default, { game: game, key: game.id });
+	                })
 	            );
 	        }
 	    }]);
@@ -27509,9 +27513,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          ' game cell for ',
-	          this.props.team,
-	          ' '
+	          ' game cell '
 	        )
 	      );
 	    }
