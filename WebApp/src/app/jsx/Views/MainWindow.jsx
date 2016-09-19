@@ -12,7 +12,8 @@ export default class MainWindow extends React.Component {
       this.state = {
           numberOfGames: 0,
           date: moment().format('LLLL'),
-          games: []
+          games: [],
+          loaded: false
       }
   }
 
@@ -22,17 +23,18 @@ export default class MainWindow extends React.Component {
     var month = date[0];
     var day = date[1];
     var year = date[2];
-    var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
+    date = '20160315'; //dev
+    // https://crossorigin.me is the proxy.
+    var url = 'https://crossorigin.me/http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
     fetch(url)
     .then((response) => response.json())
     .then((jsonResponse) => {
       if (jsonResponse['sports_content']['games']['game']){
-          console.log(jsonResponse);
         var games = jsonResponse['sports_content']['games']['game'];
         this.setState({
           games: games,
-          date: date,
-          numberOfGames: game.length
+          numberOfGames: games.length,
+          loaded: true
         });
       }
     })
@@ -40,12 +42,12 @@ export default class MainWindow extends React.Component {
       if(error instanceof SyntaxError){
         this.setState({
           games: [],
-          date: date,
           numberOfGames: 0
         });
       }
     });
   }
+
   componentWillMount(){
       this.getGames();
   }
@@ -53,14 +55,16 @@ export default class MainWindow extends React.Component {
   render () {
     return(
         <div id="mainWindow">
-            <Date numberOfGames={this.state.numberOfGames} date={this.state.date}/>
+            <div>
+                <Date numberOfGames={this.state.numberOfGames} date={this.state.date}/>
+            </div>
             <Tabs>
                 <TabList>
                     <Tab> Games </Tab>
                     <Tab> Standings </Tab>
                 </TabList>
                 <TabPanel>
-                    <GamesWindow />
+                    {!this.state.loaded ? <p> Fetching games </p> : <GamesWindow games={this.state.games} /> }
                 </TabPanel>
                 <TabPanel>
                     <LeaugeStandingsWindow />

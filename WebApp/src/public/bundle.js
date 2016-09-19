@@ -21999,19 +21999,19 @@
 	
 	var _reactTabs = __webpack_require__(/*! react-tabs */ 173);
 	
-	var _moment = __webpack_require__(/*! moment */ 184);
+	var _moment = __webpack_require__(/*! moment */ 183);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _Date = __webpack_require__(/*! ../Components/Date.jsx */ 183);
+	var _Date = __webpack_require__(/*! ../Components/Date.jsx */ 185);
 	
 	var _Date2 = _interopRequireDefault(_Date);
 	
-	var _GamesWindow = __webpack_require__(/*! ./Games/GamesWindow.jsx */ 189);
+	var _GamesWindow = __webpack_require__(/*! ./Games/GamesWindow.jsx */ 186);
 	
 	var _GamesWindow2 = _interopRequireDefault(_GamesWindow);
 	
-	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 190);
+	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 188);
 	
 	var _LeagueStandingsWindow2 = _interopRequireDefault(_LeagueStandingsWindow);
 	
@@ -22034,7 +22034,8 @@
 	        _this.state = {
 	            numberOfGames: 0,
 	            date: (0, _moment2.default)().format('LLLL'),
-	            games: []
+	            games: [],
+	            loaded: false
 	        };
 	        return _this;
 	    }
@@ -22049,24 +22050,24 @@
 	            var month = date[0];
 	            var day = date[1];
 	            var year = date[2];
-	            var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
+	            date = '20160315'; //dev
+	            // https://crossorigin.me is the proxy.
+	            var url = 'https://crossorigin.me/http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
 	            fetch(url).then(function (response) {
 	                return response.json();
 	            }).then(function (jsonResponse) {
 	                if (jsonResponse['sports_content']['games']['game']) {
-	                    console.log(jsonResponse);
 	                    var games = jsonResponse['sports_content']['games']['game'];
 	                    _this2.setState({
 	                        games: games,
-	                        date: date,
-	                        numberOfGames: game.length
+	                        numberOfGames: games.length,
+	                        loaded: true
 	                    });
 	                }
 	            }).catch(function (error) {
 	                if (error instanceof SyntaxError) {
 	                    _this2.setState({
 	                        games: [],
-	                        date: date,
 	                        numberOfGames: 0
 	                    });
 	                }
@@ -22083,7 +22084,11 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { id: 'mainWindow' },
-	                _react2.default.createElement(_Date2.default, { numberOfGames: this.state.numberOfGames, date: this.state.date }),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_Date2.default, { numberOfGames: this.state.numberOfGames, date: this.state.date })
+	                ),
 	                _react2.default.createElement(
 	                    _reactTabs.Tabs,
 	                    null,
@@ -22104,7 +22109,11 @@
 	                    _react2.default.createElement(
 	                        _reactTabs.TabPanel,
 	                        null,
-	                        _react2.default.createElement(_GamesWindow2.default, null)
+	                        !this.state.loaded ? _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' Fetching games '
+	                        ) : _react2.default.createElement(_GamesWindow2.default, { games: this.state.games })
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactTabs.TabPanel,
@@ -23046,97 +23055,6 @@
 
 /***/ },
 /* 183 */
-/*!*****************************************!*\
-  !*** ./src/app/jsx/Components/Date.jsx ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Date = function (_React$Component) {
-	    _inherits(Date, _React$Component);
-	
-	    function Date() {
-	        _classCallCheck(this, Date);
-	
-	        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
-	    }
-	
-	    _createClass(Date, [{
-	        key: 'setDate',
-	        value: function setDate() {
-	            var date1 = this.props.date;
-	            date1 = date1.split(' ');
-	            var day = date1[0].replace(',', '');
-	            var dayNum = date1[2].replace(',', '');
-	            var month = date1[1];
-	            var combinedDate = day + ', ' + month + ' ' + dayNum;
-	            return combinedDate;
-	        }
-	    }, {
-	        key: 'setNumberOfGames',
-	        value: function setNumberOfGames() {
-	            var numberOfGames = parseInt(this.props.numberOfGames, 10);
-	            switch (numberOfGames === 0) {
-	                case true:
-	                    return 'There are no games today';
-	                case false:
-	                    switch (numberOfGames === 1) {
-	                        case true:
-	                            return 'There is 1 game today';
-	                        case false:
-	                            return 'There are ' + numberOfGames + ' games today';
-	                    }
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    ' ',
-	                    this.setDate(),
-	                    ' '
-	                ),
-	                _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    ' ',
-	                    this.setNumberOfGames()
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return Date;
-	}(_react2.default.Component);
-	
-	exports.default = Date;
-
-/***/ },
-/* 184 */
 /*!****************************!*\
   !*** ./~/moment/moment.js ***!
   \****************************/
@@ -27376,10 +27294,10 @@
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 185)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 184)(module)))
 
 /***/ },
-/* 185 */
+/* 184 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -27398,10 +27316,98 @@
 
 
 /***/ },
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */
+/* 185 */
+/*!*****************************************!*\
+  !*** ./src/app/jsx/Components/Date.jsx ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Date = function (_React$Component) {
+	    _inherits(Date, _React$Component);
+	
+	    function Date() {
+	        _classCallCheck(this, Date);
+	
+	        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+	    }
+	
+	    _createClass(Date, [{
+	        key: 'setDate',
+	        value: function setDate() {
+	            var date1 = this.props.date;
+	            date1 = date1.split(' ');
+	            var day = date1[0].replace(',', '');
+	            var dayNum = date1[2].replace(',', '');
+	            var month = date1[1];
+	            var combinedDate = day + ', ' + month + ' ' + dayNum;
+	            return combinedDate;
+	        }
+	    }, {
+	        key: 'setNumberOfGames',
+	        value: function setNumberOfGames() {
+	            var numberOfGames = parseInt(this.props.numberOfGames, 10);
+	            switch (numberOfGames === 0) {
+	                case true:
+	                    return 'There are no games today';
+	                case false:
+	                    switch (numberOfGames === 1) {
+	                        case true:
+	                            return 'There is 1 game today';
+	                        case false:
+	                            return 'There are ' + numberOfGames + ' games today';
+	                    }
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    ' ',
+	                    this.setDate(),
+	                    ' '
+	                ),
+	                _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    ' ',
+	                    this.setNumberOfGames()
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Date;
+	}(_react2.default.Component);
+	
+	exports.default = Date;
+
+/***/ },
+/* 186 */
 /*!*************************************************!*\
   !*** ./src/app/jsx/Views/Games/GamesWindow.jsx ***!
   \*************************************************/
@@ -27419,7 +27425,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GameCell = __webpack_require__(/*! ./GameCell.jsx */ 191);
+	var _GameCell = __webpack_require__(/*! ./GameCell.jsx */ 187);
 	
 	var _GameCell2 = _interopRequireDefault(_GameCell);
 	
@@ -27443,6 +27449,7 @@
 	    _createClass(GamesWindow, [{
 	        key: 'render',
 	        value: function render() {
+	            console.log(this.props.games);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -27458,63 +27465,7 @@
 	exports.default = GamesWindow;
 
 /***/ },
-/* 190 */
-/*!***************************************************************!*\
-  !*** ./src/app/jsx/Views/Standings/LeagueStandingsWindow.jsx ***!
-  \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LeagueStandingsWindow = function (_React$Component) {
-	  _inherits(LeagueStandingsWindow, _React$Component);
-	
-	  function LeagueStandingsWindow() {
-	    _classCallCheck(this, LeagueStandingsWindow);
-	
-	    return _possibleConstructorReturn(this, (LeagueStandingsWindow.__proto__ || Object.getPrototypeOf(LeagueStandingsWindow)).apply(this, arguments));
-	  }
-	
-	  _createClass(LeagueStandingsWindow, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' current league standings will be displayed here '
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return LeagueStandingsWindow;
-	}(_react2.default.Component);
-	
-	exports.default = LeagueStandingsWindow;
-
-/***/ },
-/* 191 */
+/* 187 */
 /*!**********************************************!*\
   !*** ./src/app/jsx/Views/Games/GameCell.jsx ***!
   \**********************************************/
@@ -27570,6 +27521,62 @@
 	}(_react2.default.Component);
 	
 	exports.default = GameCell;
+
+/***/ },
+/* 188 */
+/*!***************************************************************!*\
+  !*** ./src/app/jsx/Views/Standings/LeagueStandingsWindow.jsx ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LeagueStandingsWindow = function (_React$Component) {
+	  _inherits(LeagueStandingsWindow, _React$Component);
+	
+	  function LeagueStandingsWindow() {
+	    _classCallCheck(this, LeagueStandingsWindow);
+	
+	    return _possibleConstructorReturn(this, (LeagueStandingsWindow.__proto__ || Object.getPrototypeOf(LeagueStandingsWindow)).apply(this, arguments));
+	  }
+	
+	  _createClass(LeagueStandingsWindow, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          ' current league standings will be displayed here '
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return LeagueStandingsWindow;
+	}(_react2.default.Component);
+	
+	exports.default = LeagueStandingsWindow;
 
 /***/ }
 /******/ ]);
