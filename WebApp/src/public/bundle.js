@@ -27452,7 +27452,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props.games);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -27478,7 +27477,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27496,30 +27495,68 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var GameCell = function (_React$Component) {
-	  _inherits(GameCell, _React$Component);
+	    _inherits(GameCell, _React$Component);
 	
-	  function GameCell() {
-	    _classCallCheck(this, GameCell);
+	    function GameCell() {
+	        _classCallCheck(this, GameCell);
 	
-	    return _possibleConstructorReturn(this, (GameCell.__proto__ || Object.getPrototypeOf(GameCell)).apply(this, arguments));
-	  }
-	
-	  _createClass(GameCell, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'gameCell' },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' game cell '
-	        )
-	      );
+	        return _possibleConstructorReturn(this, (GameCell.__proto__ || Object.getPrototypeOf(GameCell)).apply(this, arguments));
 	    }
-	  }]);
 	
-	  return GameCell;
+	    _createClass(GameCell, [{
+	        key: 'render',
+	        value: function render() {
+	            console.log(this.props.game);
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'row' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'gameCell' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-4' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' team logo '
+	                        ),
+	                        this.props.game.visitor.city,
+	                        this.props.game.visitor.nickname
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-4' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' Quarter and game time here '
+	                        ),
+	                        this.props.game.visitor.score,
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' divider here '
+	                        ),
+	                        this.props.game.home.score
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-4' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' team logo '
+	                        ),
+	                        this.props.game.home.city,
+	                        this.props.game.home.nickname
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return GameCell;
 	}(_react2.default.Component);
 	
 	exports.default = GameCell;

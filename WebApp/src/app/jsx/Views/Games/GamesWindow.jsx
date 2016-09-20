@@ -7,7 +7,6 @@ export default class GamesWindow extends React.Component {
 
   }
   render () {
-      console.log(this.props.games);
     return(
         <div>
             {this.props.games.map(function(game){
