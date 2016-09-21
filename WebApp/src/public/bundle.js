@@ -22011,7 +22011,7 @@
 	
 	var _GamesWindow2 = _interopRequireDefault(_GamesWindow);
 	
-	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 188);
+	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 220);
 	
 	var _LeagueStandingsWindow2 = _interopRequireDefault(_LeagueStandingsWindow);
 	
@@ -27447,9 +27447,6 @@
 	    }
 	
 	    _createClass(GamesWindow, [{
-	        key: 'renderGameCells',
-	        value: function renderGameCells() {}
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -27486,6 +27483,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _TeamMap = __webpack_require__(/*! ./../../../utilities/TeamMap.js */ 188);
+	
+	var _TeamMap2 = _interopRequireDefault(_TeamMap);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27507,6 +27508,9 @@
 	        key: 'render',
 	        value: function render() {
 	            console.log(this.props.game);
+	            var baseImageURL = "src/app/images/";
+	            var awayLogo = baseImageURL + this.props.game.visitor.abbreviation.toLowerCase() + '.png';
+	            var homeLogo = baseImageURL + this.props.game.home.abbreviation.toLowerCase() + '.png';
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'row' },
@@ -27516,11 +27520,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'col-xs-4' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            ' team logo '
-	                        ),
+	                        _react2.default.createElement('img', { src: awayLogo }),
 	                        this.props.game.visitor.city,
 	                        this.props.game.visitor.nickname
 	                    ),
@@ -27543,11 +27543,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'col-xs-4' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            ' team logo '
-	                        ),
+	                        _react2.default.createElement('img', { src: homeLogo }),
 	                        this.props.game.home.city,
 	                        this.props.game.home.nickname
 	                    )
@@ -27563,6 +27559,259 @@
 
 /***/ },
 /* 188 */
+/*!**************************************!*\
+  !*** ./src/app/utilities/TeamMap.js ***!
+  \**************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	  atl: {
+	    id: 1610612737,
+	    city: 'Atlanta',
+	    team: 'Hawks',
+	    color: '#E03A3E',
+	    conf: 'Eastern'
+	  },
+	  bkn: {
+	    id: 1610612751,
+	    city: 'Brooklyn',
+	    team: 'Nets',
+	    color: '#000',
+	    conf: 'Eastern'
+	  },
+	  bos: {
+	    id: 1610612738,
+	    city: 'Boston',
+	    team: 'Celtics',
+	    color: '#008348',
+	    conf: 'Eastern'
+	  },
+	  cha: {
+	    id: 1610612766,
+	    city: 'Charlotte',
+	    team: 'Hornets',
+	    color: '#008CA8',
+	    conf: 'Eastern'
+	  },
+	  chi: {
+	    id: 1610612741,
+	    city: 'Chicago',
+	    team: 'Bulls',
+	    color: '#CE1141',
+	    conf: 'Eastern'
+	  },
+	  cle: {
+	    id: 1610612739,
+	    city: 'Cleveland',
+	    team: 'Cavaliers',
+	    color: '#860038',
+	    conf: 'Eastern'
+	  },
+	  dal: {
+	    id: 1610612742,
+	    city: 'Dallas',
+	    team: 'Mavericks',
+	    color: '#007DC5',
+	    conf: 'Western'
+	  },
+	  den: {
+	    id: 1610612743,
+	    city: 'Denver',
+	    team: 'Nuggets',
+	    color: '#FFB20F',
+	    conf: 'Western'
+	  },
+	  det: {
+	    id: 1610612765,
+	    city: 'Detroit',
+	    team: 'Pistons',
+	    color: '#006BB6',
+	    conf: 'Eastern'
+	  },
+	  gsw: {
+	    id: 1610612744,
+	    city: 'Golden State',
+	    team: 'Warriors',
+	    color: '#FDB927',
+	    conf: 'Western'
+	  },
+	  hou: {
+	    id: 1610612745,
+	    city: 'Houston',
+	    team: 'Rockets',
+	    color: '#CE1141',
+	    conf: 'Western'
+	  },
+	  ind: {
+	    id: 1610612754,
+	    city: 'Indiana',
+	    team: 'Pacers',
+	    color: '#FFC633',
+	    conf: 'Eastern'
+	  },
+	  lac: {
+	    id: 1610612746,
+	    city: 'Los Angeles',
+	    team: 'Clippers',
+	    color: '#222',
+	    conf: 'Western'
+	  },
+	  lal: {
+	    id: 1610612747,
+	    city: 'Los Angeles',
+	    team: 'Lakers',
+	    color: '#552582',
+	    conf: 'Western'
+	  },
+	  mem: {
+	    id: 1610612763,
+	    city: 'Memphis',
+	    team: 'Grizzlies',
+	    color: '#6189B9',
+	    conf: 'Western'
+	  },
+	  mia: {
+	    id: 1610612748,
+	    city: 'Miami',
+	    team: 'Heat',
+	    color: '#98002E',
+	    conf: 'Eastern'
+	  },
+	  mil: {
+	    id: 1610612749,
+	    city: 'Milwaukee',
+	    team: 'Bucks',
+	    color: '#00471B',
+	    conf: 'Eastern'
+	  },
+	  min: {
+	    id: 1610612750,
+	    city: 'Minnesota',
+	    team: 'Timberwolves',
+	    color: '#005083',
+	    conf: 'Western'
+	  },
+	  nop: {
+	    id: 1610612740,
+	    city: 'New Orleans',
+	    team: 'Pelicans',
+	    color: '#002B5C',
+	    conf: 'Western'
+	  },
+	  nyk: {
+	    id: 1610612752,
+	    city: 'New York',
+	    team: 'Knicks',
+	    color: '#F58426',
+	    conf: 'Eastern'
+	  },
+	  okc: {
+	    id: 1610612760,
+	    city: 'Oklahoma City',
+	    team: 'Thunder',
+	    color: '#F05133',
+	    conf: 'Western'
+	  },
+	  orl: {
+	    id: 1610612753,
+	    city: 'Orlando',
+	    team: 'Magic',
+	    color: '#007DC5',
+	    conf: 'Eastern'
+	  },
+	  phi: {
+	    id: 1610612755,
+	    city: 'Philadelphia',
+	    team: '76ers',
+	    color: '#006BB6',
+	    conf: 'Eastern'
+	  },
+	  phx: {
+	    id: 1610612756,
+	    city: 'Phoenix',
+	    team: 'Suns',
+	    color: '#E56020',
+	    conf: 'Western'
+	  },
+	  por: {
+	    id: 1610612757,
+	    city: 'Portland',
+	    team: 'Trail Blazers',
+	    color: '#000',
+	    conf: 'Western'
+	  },
+	  sac: {
+	    id: 1610612758,
+	    city: 'Sacramento',
+	    team: 'Kings',
+	    color: '#724C9F',
+	    conf: 'Western'
+	  },
+	  sas: {
+	    id: 1610612759,
+	    city: 'San Antonio',
+	    team: 'Spurs',
+	    color: '#B6BFBF',
+	    conf: 'Western'
+	  },
+	  tor: {
+	    id: 1610612761,
+	    city: 'Toronto',
+	    team: 'Raptors',
+	    color: '#CE1141',
+	    conf: 'Eastern'
+	  },
+	  uta: {
+	    id: 1610612762,
+	    city: 'Utah',
+	    team: 'Jazz',
+	    color: '#00471B',
+	    conf: 'Western'
+	  },
+	  was: {
+	    id: 1610612764,
+	    city: 'Washington',
+	    team: 'Wizards',
+	    color: '#F5002F',
+	    conf: 'Eastern'
+	  }
+	};
+
+/***/ },
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */
 /*!***************************************************************!*\
   !*** ./src/app/jsx/Views/Standings/LeagueStandingsWindow.jsx ***!
   \***************************************************************/

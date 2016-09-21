@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = {
   atl: {
     id: 1610612737,
@@ -7,7 +5,7 @@ module.exports = {
     team: 'Hawks',
     color: '#E03A3E',
     conf: 'Eastern',
-    logo: require('./images/atl.png')
+    // logo: require('../images/atl.png')
   },
   bkn: {
     id: 1610612751,
@@ -15,7 +13,7 @@ module.exports = {
     team: 'Nets',
     color: '#000',
     conf: 'Eastern',
-    logo: require('./images/bkn.png')
+    // logo: require('../images/bkn.png')
   },
   bos: {
     id: 1610612738,
@@ -23,7 +21,7 @@ module.exports = {
     team: 'Celtics',
     color: '#008348',
     conf: 'Eastern',
-    logo: require('./images/bos.png')
+    // logo: require('../images/bos.png')
   },
   cha: {
     id: 1610612766,
@@ -31,7 +29,7 @@ module.exports = {
     team: 'Hornets',
     color: '#008CA8',
     conf: 'Eastern',
-    logo: require('./images/cha.png')
+    // logo: require('../images/cha.png')
   },
   chi: {
     id: 1610612741,
@@ -39,7 +37,7 @@ module.exports = {
     team: 'Bulls',
     color: '#CE1141',
     conf: 'Eastern',
-    logo: require('./images/chi.png')
+    // logo: require('../images/chi.png')
   },
   cle: {
     id: 1610612739,
@@ -47,7 +45,7 @@ module.exports = {
     team: 'Cavaliers',
     color: '#860038',
     conf: 'Eastern',
-    logo: require('./images/cle.png')
+    // logo: require('../images/cle.png')
   },
   dal: {
     id: 1610612742,
@@ -55,7 +53,7 @@ module.exports = {
     team: 'Mavericks',
     color: '#007DC5',
     conf: 'Western',
-    logo: require('./images/dal.png')
+    // logo: require('../images/dal.png')
   },
   den: {
     id: 1610612743,
@@ -63,7 +61,7 @@ module.exports = {
     team: 'Nuggets',
     color: '#FFB20F',
     conf: 'Western',
-    logo: require('./images/den.png')
+    // logo: require('../images/den.png')
   },
   det: {
     id: 1610612765,
@@ -71,7 +69,7 @@ module.exports = {
     team: 'Pistons',
     color: '#006BB6',
     conf: 'Eastern',
-    logo: require('./images/det.png')
+    // logo: require('../images/det.png')
   },
   gsw: {
     id: 1610612744,
@@ -79,7 +77,7 @@ module.exports = {
     team: 'Warriors',
     color: '#FDB927',
     conf: 'Western',
-    logo: require('./images/gsw.png')
+    // logo: require('../images/gsw.png')
   },
   hou: {
     id: 1610612745,
@@ -87,8 +85,8 @@ module.exports = {
     team: 'Rockets',
     color: '#CE1141',
     conf: 'Western',
-    logo: require('./images/hou.png'),
-    logo2: require('./images/hou2.png')
+    // logo: require('../images/hou.png'),
+    // logo2: require('../images/hou2.png')
   },
   ind: {
     id: 1610612754,
@@ -96,7 +94,7 @@ module.exports = {
     team: 'Pacers',
     color: '#FFC633',
     conf: 'Eastern',
-    logo: require('./images/ind.png')
+    // logo: require('../images/ind.png')
   },
   lac: {
     id: 1610612746,
@@ -104,7 +102,7 @@ module.exports = {
     team: 'Clippers',
     color: '#222',
     conf: 'Western',
-    logo: require('./images/lac.png')
+    // logo: require('../images/lac.png')
   },
   lal: {
     id: 1610612747,
@@ -112,7 +110,7 @@ module.exports = {
     team: 'Lakers',
     color: '#552582',
     conf: 'Western',
-    logo: require('./images/lal.png')
+    // logo: require('../images/lal.png')
   },
   mem: {
     id: 1610612763,
@@ -120,7 +118,7 @@ module.exports = {
     team: 'Grizzlies',
     color: '#6189B9',
     conf: 'Western',
-    logo: require('./images/mem.png')
+    // logo: require('../images/mem.png')
   },
   mia: {
     id: 1610612748,
@@ -128,7 +126,7 @@ module.exports = {
     team: 'Heat',
     color: '#98002E',
     conf: 'Eastern',
-    logo: require('./images/mia.png')
+    // logo: require('../images/mia.png')
   },
   mil: {
     id: 1610612749,
@@ -136,7 +134,7 @@ module.exports = {
     team: 'Bucks',
     color: '#00471B',
     conf: 'Eastern',
-    logo: require('./images/mil.png')
+    // logo: require('../images/mil.png')
   },
   min: {
     id: 1610612750,
@@ -144,7 +142,7 @@ module.exports = {
     team: 'Timberwolves',
     color: '#005083',
     conf: 'Western',
-    logo: require('./images/min.png')
+    // logo: require('../images/min.png')
   },
   nop: {
     id: 1610612740,
@@ -152,7 +150,7 @@ module.exports = {
     team: 'Pelicans',
     color: '#002B5C',
     conf: 'Western',
-    logo: require('./images/nop.png')
+    // logo: require('../images/nop.png')
   },
   nyk: {
     id: 1610612752,
@@ -160,7 +158,7 @@ module.exports = {
     team: 'Knicks',
     color: '#F58426',
     conf: 'Eastern',
-    logo: require('./images/nyk.png')
+    // logo: require('../images/nyk.png')
   },
   okc: {
     id: 1610612760,
@@ -168,7 +166,7 @@ module.exports = {
     team: 'Thunder',
     color: '#F05133',
     conf: 'Western',
-    logo: require('./images/okc.png')
+    // logo: require('../images/okc.png')
   },
   orl: {
     id: 1610612753,
@@ -176,7 +174,7 @@ module.exports = {
     team: 'Magic',
     color: '#007DC5',
     conf: 'Eastern',
-    logo: require('./images/orl.png')
+    // logo: require('../images/orl.png')
   },
   phi: {
     id: 1610612755,
@@ -184,7 +182,7 @@ module.exports = {
     team: '76ers',
     color: '#006BB6',
     conf: 'Eastern',
-    logo: require('./images/phi.png')
+    // logo: require('../images/phi.png')
   },
   phx: {
     id: 1610612756,
@@ -192,7 +190,7 @@ module.exports = {
     team: 'Suns',
     color: '#E56020',
     conf: 'Western',
-    logo: require('./images/phx.png')
+    // logo: require('../images/phx.png')
   },
   por: {
     id: 1610612757,
@@ -200,7 +198,7 @@ module.exports = {
     team: 'Trail Blazers',
     color: '#000',
     conf: 'Western',
-    logo: require('./images/por.png')
+    // logo: require('../images/por.png')
   },
   sac: {
     id: 1610612758,
@@ -208,7 +206,7 @@ module.exports = {
     team: 'Kings',
     color: '#724C9F',
     conf: 'Western',
-    logo: require('./images/sac.png')
+    // logo: require('../images/sac.png')
   },
   sas: {
     id: 1610612759,
@@ -216,7 +214,7 @@ module.exports = {
     team: 'Spurs',
     color: '#B6BFBF',
     conf: 'Western',
-    logo: require('./images/sas.png')
+    // logo: require('../images/sas.png')
   },
   tor: {
     id: 1610612761,
@@ -224,7 +222,7 @@ module.exports = {
     team: 'Raptors',
     color: '#CE1141',
     conf: 'Eastern',
-    logo: require('./images/tor.png')
+    // logo: require('../images/tor.png')
   },
   uta: {
     id: 1610612762,
@@ -232,7 +230,7 @@ module.exports = {
     team: 'Jazz',
     color: '#00471B',
     conf: 'Western',
-    logo: require('./images/uta.png')
+    // logo: require('../images/uta.png')
   },
   was: {
     id: 1610612764,
@@ -240,6 +238,6 @@ module.exports = {
     team: 'Wizards',
     color: '#F5002F',
     conf: 'Eastern',
-    logo: require('./images/was.png')
+    // logo: require('../images/was.png')
   }
 }

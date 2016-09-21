@@ -3,9 +3,6 @@ import GameCell from './GameCell.jsx';
 
 export default class GamesWindow extends React.Component {
 
-  renderGameCells(){
-
-  }
   render () {
     return(
         <div>
