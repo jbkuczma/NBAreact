@@ -22011,7 +22011,7 @@
 	
 	var _GamesWindow2 = _interopRequireDefault(_GamesWindow);
 	
-	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 220);
+	var _LeagueStandingsWindow = __webpack_require__(/*! ./Standings/LeagueStandingsWindow.jsx */ 188);
 	
 	var _LeagueStandingsWindow2 = _interopRequireDefault(_LeagueStandingsWindow);
 	
@@ -27483,7 +27483,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TeamMap = __webpack_require__(/*! ./../../../utilities/TeamMap.js */ 188);
+	var _TeamMap = __webpack_require__(/*! ./../../../utilities/TeamMap.js */ 189);
 	
 	var _TeamMap2 = _interopRequireDefault(_TeamMap);
 	
@@ -27511,18 +27511,44 @@
 	            var baseImageURL = "src/app/images/";
 	            var awayLogo = baseImageURL + this.props.game.visitor.abbreviation.toLowerCase() + '.png';
 	            var homeLogo = baseImageURL + this.props.game.home.abbreviation.toLowerCase() + '.png';
+	            var styles = {
+	                logo: {
+	                    'maxHeight': '230px',
+	                    'maxWidth': '230px'
+	                },
+	                gameContainer: {
+	                    'height': '300px',
+	                    'backgroundColor': _TeamMap2.default[this.props.game.home.abbreviation.toLowerCase()].color,
+	                    'marginTop': '25px'
+	                },
+	                team: {
+	                    'verticalAlign': 'middle'
+	                }
+	            };
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'row' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { id: 'gameCell' },
+	                    { id: 'gameCell', style: styles.gameContainer },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-xs-4' },
-	                        _react2.default.createElement('img', { src: awayLogo }),
-	                        this.props.game.visitor.city,
-	                        this.props.game.visitor.nickname
+	                        { className: 'col-xs-4', style: styles.team },
+	                        _react2.default.createElement('img', { src: awayLogo, className: 'img-responsive center-block', style: styles.logo }),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' ',
+	                            this.props.game.visitor.city,
+	                            ' '
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' ',
+	                            this.props.game.visitor.nickname,
+	                            ' '
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -27542,10 +27568,22 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-xs-4' },
-	                        _react2.default.createElement('img', { src: homeLogo }),
-	                        this.props.game.home.city,
-	                        this.props.game.home.nickname
+	                        { className: 'col-xs-4', style: styles.team },
+	                        _react2.default.createElement('img', { src: homeLogo, className: 'img-responsive center-block', style: styles.logo }),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' ',
+	                            this.props.game.home.city,
+	                            ' '
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' ',
+	                            this.props.game.home.nickname,
+	                            ' '
+	                        )
 	                    )
 	                )
 	            );
@@ -27559,6 +27597,62 @@
 
 /***/ },
 /* 188 */
+/*!***************************************************************!*\
+  !*** ./src/app/jsx/Views/Standings/LeagueStandingsWindow.jsx ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LeagueStandingsWindow = function (_React$Component) {
+	  _inherits(LeagueStandingsWindow, _React$Component);
+	
+	  function LeagueStandingsWindow() {
+	    _classCallCheck(this, LeagueStandingsWindow);
+	
+	    return _possibleConstructorReturn(this, (LeagueStandingsWindow.__proto__ || Object.getPrototypeOf(LeagueStandingsWindow)).apply(this, arguments));
+	  }
+	
+	  _createClass(LeagueStandingsWindow, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          ' current league standings will be displayed here '
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return LeagueStandingsWindow;
+	}(_react2.default.Component);
+	
+	exports.default = LeagueStandingsWindow;
+
+/***/ },
+/* 189 */
 /*!**************************************!*\
   !*** ./src/app/utilities/TeamMap.js ***!
   \**************************************/
@@ -27778,93 +27872,6 @@
 	    conf: 'Eastern'
 	  }
 	};
-
-/***/ },
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */
-/*!***************************************************************!*\
-  !*** ./src/app/jsx/Views/Standings/LeagueStandingsWindow.jsx ***!
-  \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LeagueStandingsWindow = function (_React$Component) {
-	  _inherits(LeagueStandingsWindow, _React$Component);
-	
-	  function LeagueStandingsWindow() {
-	    _classCallCheck(this, LeagueStandingsWindow);
-	
-	    return _possibleConstructorReturn(this, (LeagueStandingsWindow.__proto__ || Object.getPrototypeOf(LeagueStandingsWindow)).apply(this, arguments));
-	  }
-	
-	  _createClass(LeagueStandingsWindow, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' current league standings will be displayed here '
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return LeagueStandingsWindow;
-	}(_react2.default.Component);
-	
-	exports.default = LeagueStandingsWindow;
 
 /***/ }
 /******/ ]);
