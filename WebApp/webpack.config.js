@@ -5,7 +5,9 @@ var BUILD_DIR = path.resolve(__dirname, 'src/public'); //build file output
 var APP_DIR = path.resolve(__dirname, 'src/app'); //app codebase
 
 var config = {
-  entry: APP_DIR + '/jsx/app.jsx',
+  entry: [
+      APP_DIR + '/jsx/app.jsx'
+  ],
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
@@ -15,7 +17,7 @@ var config = {
       {
         test : /\.jsx?/,
         include : APP_DIR,
-        loader : 'babel'
+        loaders : ['babel']
       }
     ]
   }
