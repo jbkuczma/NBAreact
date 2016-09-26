@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "localhost:8080/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -27622,7 +27622,8 @@
 	                },
 	                team: {
 	                    'verticalAlign': 'middle'
-	                }
+	                },
+	                gameTimeBlock: {}
 	            };
 	            return _react2.default.createElement(
 	                'div',
@@ -27651,7 +27652,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-xs-4' },
+	                        { className: 'col-xs-4', style: styles.gameTimeBlock },
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
@@ -27660,7 +27661,7 @@
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            ' test test test '
+	                            ' test test '
 	                        ),
 	                        this.props.game.visitor.score,
 	                        _react2.default.createElement(

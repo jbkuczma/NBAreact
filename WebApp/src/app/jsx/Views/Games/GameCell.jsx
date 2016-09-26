@@ -17,10 +17,14 @@ export default class GameCell extends React.Component {
             'width': '100%',
             'height': '300px',
             'backgroundColor': TeamMap[this.props.game.home.abbreviation.toLowerCase()].color,
-            'marginTop': '25px'
+            'marginTop': '25px',
+            'color': '#FFFFFF'
         },
         team: {
             'verticalAlign': 'middle'
+        },
+        gameTimeBlock: {
+
         }
     }
     return(
@@ -31,10 +35,8 @@ export default class GameCell extends React.Component {
                     <p> {this.props.game.visitor.city} </p>
                     <p> {this.props.game.visitor.nickname} </p>
                 </div>
-                <div className="col-xs-4">
+                <div className="col-xs-4" style={styles.gameTimeBlock}>
                     <p> Quarter and game time here </p>
-                    <p> test test test </p>
-
                     {this.props.game.visitor.score}
                     <p> divider here </p>
                     {this.props.game.home.score}
