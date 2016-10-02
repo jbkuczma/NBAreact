@@ -23,7 +23,8 @@ export default class MainWindow extends React.Component {
     var month = date[0];
     var day = date[1];
     var year = date[2];
-    date = '20160315'; //dev
+    date = year+month+day;
+    date = '20161001';
     // https://crossorigin.me is the proxy.
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
     // fetch(url)

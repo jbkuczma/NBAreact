@@ -11,40 +11,67 @@ export default class GameCell extends React.Component {
         logo: {
             'maxWidth': '100%',
             'height': 'auto',
-            'maxHeight': '230px',
+            'maxHeight': '180px',
+            'marginTop': '30px'
         },
         gameContainer: {
+            'textAlign': 'center',
             'width': '100%',
             'height': '300px',
             'backgroundColor': TeamMap[this.props.game.home.abbreviation.toLowerCase()].color,
             'marginTop': '25px',
-            'color': '#FFFFFF'
+            'color': '#FFFFFF',
         },
         team: {
             'verticalAlign': 'middle'
         },
         gameTimeBlock: {
-
+            'marginTop': '20px',
+            'height': '125px',
+            'fontSize': '1.5em',
+            'textAlign': 'center'
+        },
+        scoreBlock: {
+            'height': '125px',
+            'fontSize': '24px'
+        },
+        awayScoreArea: {
+            'borderRight': 'solid #FFFFFF'
+        },
+        fontLight: {
+            'fontWeight': '200'
+        },
+        r: {
+            'margin': 'auto',
+            'width': '95%'
         }
     }
     return(
-        <div className="row">
+        <div className="row" style={styles.r}>
             <div id='gameCell' style={styles.gameContainer}>
                 <div className="col-xs-4" style={styles.team}>
                     <img src={awayLogo}  style={styles.logo}/>
-                    <p> {this.props.game.visitor.city} </p>
-                    <p> {this.props.game.visitor.nickname} </p>
+                    <h4 style={styles.fontLight}> {this.props.game.visitor.city} </h4>
+                    <h3> {this.props.game.visitor.nickname} </h3>
                 </div>
-                <div className="col-xs-4" style={styles.gameTimeBlock}>
-                    <p> Quarter and game time here </p>
-                    {this.props.game.visitor.score}
-                    <p> divider here </p>
-                    {this.props.game.home.score}
+                <div className="col-xs-4">
+                    <div className="row" style={styles.gameTimeBlock}>
+                        <p> {this.props.game.period_time.period_status} </p>
+                        <p> {(this.props.game.period_time.game_clock === '' || this.props.game.period_time.period_status === 'Halftime') ? '' : this.props.game.period_time.game_clock} </p>
+                    </div>
+                    <div className="row" style={styles.scoreBlock}>
+                        <section className="col-xs-6" style={styles.awayScoreArea}>
+                            {this.props.game.visitor.score}
+                        </section>
+                        <section className="col-xs-6">
+                            {this.props.game.home.score}
+                        </section>
+                    </div>
                 </div>
                 <div className="col-xs-4" style={styles.team}>
                     <img src={homeLogo}  style={styles.logo}/>
-                    <p> {this.props.game.home.city} </p>
-                    <p> {this.props.game.home.nickname} </p>
+                    <h4 style={styles.fontLight}> {this.props.game.home.city} </h4>
+                    <h3> {this.props.game.home.nickname} </h3>
                 </div>
             </div>
         </div>
