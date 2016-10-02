@@ -11,9 +11,9 @@ import moment from 'moment';
 */
 module.exports = {
   date: moment().format('L'),
-  season: '2015-16',
-  seasonForPlayerIDLookup: '2015-16',
-  year: 2015,
+  season: '2016-17',
+  seasonForPlayerIDLookup: '2016-17',
+  year: 2016,
   playersInSeason: [],
   navBarColorForTeamPage: '#4CAF50'
 };
