@@ -61,10 +61,10 @@ export default class GameCell extends React.Component {
                     </div>
                     <div className="row" style={styles.scoreBlock}>
                         <section className="col-xs-6" style={styles.awayScoreArea}>
-                            {this.props.game.visitor.score}
+                            {!this.props.game.visitor.score ? '0' : this.props.game.visitor.score}
                         </section>
                         <section className="col-xs-6">
-                            {this.props.game.home.score}
+                            {!this.props.game.home.score ? '0' : this.props.game.home.score}
                         </section>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    font-family: 'Inconsolata', monospace;
 }
 #mainWindow {
     text-align: center;
