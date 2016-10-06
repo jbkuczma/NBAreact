@@ -1,9 +1,31 @@
 import React from 'react';
+import GameStatsWindow from '../GameStats/GameStatsWindow.jsx';
 import TeamMap from './../../../utilities/TeamMap.js';
 
 export default class GameCell extends React.Component {
+
+  constructor(props){
+      super(props);
+      this.state = {
+          openStats: false
+      };
+      this.openGameStats = this.openGameStats.bind(this);
+  }
+
+  openGameStats(){
+    this.setState({
+        openStats: true
+    });
+  }
+
+  controlModal(){
+      this.setState({
+          openStats: false
+      });
+  }
+
   render () {
-    console.log(this.props.game);
+    // console.log(this.props.game);
     const baseImageURL = "src/app/images/";
     const awayLogo = baseImageURL+this.props.game.visitor.abbreviation.toLowerCase()+'.png';
     const homeLogo = baseImageURL+this.props.game.home.abbreviation.toLowerCase()+'.png';
@@ -41,13 +63,15 @@ export default class GameCell extends React.Component {
         fontLight: {
             'fontWeight': '200'
         },
-        r: {
+        box: {
             'margin': 'auto',
             'width': '95%'
         }
     }
+    const stats = (this.state.openStats ? <GameStatsWindow game={this.props.game} visible = {this.state.openStats} controlModal={this.controlModal.bind(this)}/> : null);
     return(
-        <div className="row" style={styles.r}>
+        <div className="row" style={styles.box} onClick={this.openGameStats}>
+            {stats}
             <div id='gameCell' style={styles.gameContainer}>
                 <div className="col-xs-4" style={styles.team}>
                     <img src={awayLogo}  style={styles.logo}/>
