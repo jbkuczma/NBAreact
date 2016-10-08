@@ -7,7 +7,8 @@ export default class GameCell extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-          openStats: false
+          openStats: false,
+          gameStats: []
       };
       this.openGameStats = this.openGameStats.bind(this);
   }
@@ -24,8 +25,43 @@ export default class GameCell extends React.Component {
       });
   }
 
+  componentWillMount(){
+      this.getGameStats();
+  }
+
+  getGameStats(){
+      let _this = this;
+      let date = this.props.game.date;
+      let gameID = this.props.game.id;
+      var url = 'http://data.nba.com/data/10s/json/cms/noseason/game/' + date + '/' + gameID + '/boxscore.json';
+      var url2 = 'https://json2jsonp.com/?url='+ url + '&callback=callback';
+      $.ajax({
+          url: url2,
+          dataType: 'jsonp',
+        //   jsonpCallback: 'callback',
+          type: 'GET',
+          success: function (data) {
+              _this.setState({
+                gameStats: data.sports_content.game
+              });
+          },
+          failure: function() {
+              console.log('here');
+              _this.setState({
+                gameStats: []
+              });
+          },
+          error: function(error) {
+              console.log(error);
+          }
+      });
+  }
+
+  callback(data){
+      console.log(data);
+  }
+
   render () {
-    // console.log(this.props.game);
     const baseImageURL = "src/app/images/";
     const awayLogo = baseImageURL+this.props.game.visitor.abbreviation.toLowerCase()+'.png';
     const homeLogo = baseImageURL+this.props.game.home.abbreviation.toLowerCase()+'.png';
@@ -68,7 +104,7 @@ export default class GameCell extends React.Component {
             'width': '95%'
         }
     }
-    const stats = (this.state.openStats ? <GameStatsWindow game={this.props.game} visible = {this.state.openStats} controlModal={this.controlModal.bind(this)}/> : null);
+    const stats = (this.state.openStats ? <GameStatsWindow game={this.props.game} gameStats = {this.state.gameStats} visible = {this.state.openStats} controlModal={this.controlModal.bind(this)}/> : null);
     return(
         <div className="row" style={styles.box} onClick={this.openGameStats}>
             {stats}

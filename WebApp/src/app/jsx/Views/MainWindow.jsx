@@ -24,29 +24,9 @@ export default class MainWindow extends React.Component {
     var day = date[1];
     var year = date[2];
     date = month;
+    date = '20161007'
     // https://crossorigin.me is the proxy.
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
-    // fetch(url)
-    // .then((response) => response.json())
-    // .then((jsonResponse) => {
-    //   if (jsonResponse['sports_content']['games']['game']){
-    //     var games = jsonResponse['sports_content']['games']['game'];
-    //     this.setState({
-    //       games: games,
-    //       numberOfGames: games.length,
-    //       loaded: true
-    //     });
-    //   }
-    // })
-    // .catch((error) => {
-    //   if(error instanceof SyntaxError){
-    //     this.setState({
-    //       games: [],
-    //       numberOfGames: 0,
-    //       loaded: true
-    //     });
-    //   }
-    // });
     let _this = this;
     var url2 = 'https://json2jsonp.com/?url='+ url + '&callback=callback';
     $.ajax({
