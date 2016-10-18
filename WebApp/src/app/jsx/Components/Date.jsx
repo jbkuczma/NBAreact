@@ -27,6 +27,7 @@ export default class Date extends React.Component {
         <div>
             <h3> {this.setDate()} </h3>
             <h4> {this.setNumberOfGames()}</h4>
+            <h5> * Data available after tipoff * </h5>
         </div>
     )
   }

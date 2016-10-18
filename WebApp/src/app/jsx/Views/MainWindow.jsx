@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import Date from '../Components/Date.jsx';
 import GamesWindow from './Games/GamesWindow.jsx';
-import LeaugeStandingsWindow from './Standings/LeagueStandingsWindow.jsx';
+import LeagueStandingsWindow from './Standings/LeagueStandingsWindow.jsx';
 
 export default class MainWindow extends React.Component {
 
@@ -13,7 +13,9 @@ export default class MainWindow extends React.Component {
           numberOfGames: 0,
           date: moment().format('LLLL'),
           games: [],
-          loaded: false
+          standings: [],
+          loaded: false,
+          loadedStandings: false
       }
   }
 
@@ -24,7 +26,7 @@ export default class MainWindow extends React.Component {
     var day = date[1];
     var year = date[2];
     date = month;
-    date = '20161007'
+    // date = '20161007'
     // https://crossorigin.me is the proxy.
     var url = 'http://data.nba.com/data/5s/json/cms/noseason/scoreboard/' + date + '/games.json';
     let _this = this;
@@ -63,8 +65,35 @@ export default class MainWindow extends React.Component {
     });
   }
 
+  getStandings(){
+      let year = '2016';
+      var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
+      let _this = this;
+      var url2 = 'https://json2jsonp.com/?url='+ url + '&callback=callback2';
+      $.ajax({
+          url: url2,
+          dataType: 'jsonp',
+          jsonpCallback: 'callback2',
+          type: 'GET',
+          success: function (data) {
+              var standings = data['sports_content']['standings']['team'];
+              _this.setState({
+                standings: standings,
+                loadedStandings: true
+              });
+          },
+          failure: function() {
+              _this.setState({
+                standings: [],
+                loadedStandings: true
+              });
+          }
+      });
+  }
+
   componentWillMount(){
       this.getGames();
+      this.getStandings();
   }
 
   render () {
@@ -82,7 +111,7 @@ export default class MainWindow extends React.Component {
                     {!this.state.loaded ? <p> Fetching games </p> : <GamesWindow games={this.state.games} /> }
                 </TabPanel>
                 <TabPanel>
-                    <LeaugeStandingsWindow />
+                    {!this.state.loadedStandings ? <p> Fetching standings </p> : <LeagueStandingsWindow standings={this.state.standings} /> }
                 </TabPanel>
             </Tabs>
         </div>
