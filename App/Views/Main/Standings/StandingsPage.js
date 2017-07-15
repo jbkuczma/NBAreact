@@ -11,7 +11,7 @@ import {
   Platform
 } from 'react-native';
 
-var STORE = require('../Utilities/Store');
+var STORE = require('../../../Utilities/Store');
 
 import TeamStandingsCell from './TeamStandingsCell';
 

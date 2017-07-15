@@ -12,9 +12,9 @@ import ScrollableTabView, {
     DefaultTabBar
 } from 'react-native-scrollable-tab-view';
 
-import ScoresPage from './ScoresPage';
-import StandingsPage from './StandingsPage';
-import Date from '../Components/Date';
+import ScoresPage from './Scores/ScoresPage';
+import StandingsPage from './Standings/StandingsPage';
+import Date from '../../Components/Date';
 
 class MainWindow extends React.Component {
   render() {

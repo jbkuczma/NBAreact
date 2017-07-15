@@ -10,7 +10,7 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
-var STORE = require('../Utilities/Store');
+var STORE = require('../../Utilities/Store');
 
 class GameStatsPlayerCell extends React.Component {
 

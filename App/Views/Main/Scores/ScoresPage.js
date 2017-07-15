@@ -13,7 +13,7 @@ import GameCell from './GameCell';
 
 import moment from 'moment';
 
-var STORE = require('../Utilities/Store');
+var STORE = require('../../../Utilities/Store');
 
 class ScoresPage extends React.Component {
 

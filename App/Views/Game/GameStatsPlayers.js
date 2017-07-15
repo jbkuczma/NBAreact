@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-native';
 
-import TeamMap from '../Utilities/TeamMap';
+import TeamMap from '../../Utilities/TeamMap';
 import GameStatsPlayerCell from './GameStatsPlayerCell';
 
 let windowHeight = Dimensions.get('window').height;
