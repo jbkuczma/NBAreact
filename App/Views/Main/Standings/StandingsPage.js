@@ -7,7 +7,7 @@ import {
   Text,
   View,
   StyleSheet,
-  ListView,
+  FlatList,
   Platform
 } from 'react-native';
 
@@ -19,7 +19,7 @@ class StandingsPage extends React.Component {
 
   constructor(props){
     super(props);
-    var ds = new ListView.DataSource({
+    var ds = new FlatList.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
@@ -72,7 +72,7 @@ class StandingsPage extends React.Component {
           <Text> Streak </Text>
         </View>
         <View style={styles.line} />
-        <ListView
+        <FlatList
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
             <TeamStandingsCell

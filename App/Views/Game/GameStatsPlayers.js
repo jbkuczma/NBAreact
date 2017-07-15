@@ -4,7 +4,7 @@ import {
   Text,
   View,
   StyleSheet,
-  ListView,
+  FlatList,
   Dimensions,
   Image
 } from 'react-native';
@@ -23,7 +23,7 @@ class GameStatsPlayers extends React.Component {
       homePlayerStats: [],
       awayPlayerStats: [],
       allPlayers: {},
-      allPlayersDataSource: new ListView.DataSource({
+      allPlayersDataSource: new FlatList.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2
       })
@@ -88,7 +88,7 @@ class GameStatsPlayers extends React.Component {
     return (
       <View>
         <View>
-          <ListView
+          <FlatList
             style={{height: windowHeight - 112}}
             dataSource={this.state.allPlayersDataSource}
             renderRow={(rowData, sectionID, rowID) =>
