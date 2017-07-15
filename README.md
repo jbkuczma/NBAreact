@@ -28,9 +28,9 @@ An iOS and Android NBA app created with React Native (still in active developmen
 
 [iOS Icons](https://makeappicon.com/)
 
-#Endpoints
+# Endpoints
 
-Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma/NBAreact/blob/master/ENDPOINTS.md).
+Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma/NBAreact/blob/master/docs/ENDPOINTS.md).
 
 # Getting Started
 
