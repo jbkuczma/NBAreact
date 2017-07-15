@@ -6,10 +6,10 @@ import {
 
 import {Scene, Router} from 'react-native-router-flux';
 
-import MainWindow from './App/Views/MainWindow';
-import GameStatsPage from './App/Views/GameStatsPage';
-import TeamStatsPage from './App/Views/TeamStatsPage';
-import IndividualPlayerPage from './App/Views/IndividualPlayerPage';
+import MainWindow from './App/Views/Main/MainWindow';
+import GameStatsPage from './App/Views/Game/GameStatsPage';
+import TeamStatsPage from './App/Views/Team/TeamStatsPage';
+import IndividualPlayerPage from './App/Views/Player/IndividualPlayerPage';
 
 var STORE = require('./App/Utilities/Store');
 
