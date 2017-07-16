@@ -7,12 +7,12 @@
     "test": "standard --verbose | snazzy"
   },
   "dependencies": {
-    "moment-timezone": "0.5.4",
-    "react": "15.1.0",
-    "react-native": "0.27.2",
-    "react-native-datepicker": "^1.2.2",
-    "react-native-router-flux": "^3.30.0",
-    "react-native-scrollable-tab-view": "0.4.4"
+    "moment-timezone": ">=0.5.4",
+    "react": ">=15.6.1",
+    "react-native": "^0.46.3",
+    "react-native-datepicker": ">=1.2.2",
+    "react-native-router-flux": ">=3.30.0",
+    "react-native-scrollable-tab-view": "^0.7.4"
   },
   "devDependencies": {
     "snazzy": "^4.0.0",
