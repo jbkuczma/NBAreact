@@ -6,12 +6,12 @@ import {
 
 import {Scene, Router} from 'react-native-router-flux';
 
-import MainWindow from './App/Views/Main/MainWindow';
-import GameStatsPage from './App/Views/Game/GameStatsPage';
-import TeamStatsPage from './App/Views/Team/TeamStatsPage';
-import IndividualPlayerPage from './App/Views/Player/IndividualPlayerPage';
+import MainWindow from './Views/Main/MainWindow';
+import GameStatsPage from './Views/Game/GameStatsPage';
+import TeamStatsPage from './Views/Team/TeamStatsPage';
+import IndividualPlayerPage from './Views/Player/IndividualPlayerPage';
 
-var STORE = require('./App/Utilities/Store');
+var STORE = require('./Utilities/Store');
 
 class NBAreact extends React.Component {
   render() {

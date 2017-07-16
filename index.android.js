@@ -5,7 +5,7 @@ import {
     AppRegistry
 } from 'react-native';
 
-import NBAreact from './NBAreact';
+import NBAreact from './App/NBAreact';
 
 AppRegistry.registerComponent('NBAreact', () => NBAreact);
 /* eslint-enable semi */
