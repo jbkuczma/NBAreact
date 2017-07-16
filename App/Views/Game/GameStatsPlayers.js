@@ -4,7 +4,7 @@ import {
   Text,
   View,
   StyleSheet,
-  FlatList,
+  ListView,
   Dimensions,
   Image
 } from 'react-native';
@@ -72,7 +72,7 @@ class GameStatsPlayers extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
-            source={require('../Assets/Images/ring.gif')}
+            source={require('../../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
         </View>
@@ -88,7 +88,7 @@ class GameStatsPlayers extends React.Component {
     return (
       <View>
         <View>
-          <FlatList
+          <ListView
             style={{height: windowHeight - 112}}
             dataSource={this.state.allPlayersDataSource}
             renderRow={(rowData, sectionID, rowID) =>

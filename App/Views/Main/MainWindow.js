@@ -30,7 +30,7 @@ class MainWindow extends React.Component {
           renderTabBar={() => <DefaultTabBar style={styles.tabBar2} />}
           tabBarActiveTextColor='#FFFFFF'
           tabBarInactiveTextColor='#e5e5e5'
-          tabBarUnderlineColor='#FFCCBC'
+          tabBarUnderlineStyle={styles.underline}
         >
           <ScoresPage tabLabel='Scores' />
           <StandingsPage tabLabel='Standings' />
@@ -43,6 +43,9 @@ class MainWindow extends React.Component {
 var styles = StyleSheet.create({
   tabBar2: {
     backgroundColor: '#E64A19'
+  },
+  underline: {
+    backgroundColor: '#FFCCBC'
   }
 });
 

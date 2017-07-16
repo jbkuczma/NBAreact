@@ -3,7 +3,7 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  FlatList,
+  ListView,
   RefreshControl,
   Image,
   Text
@@ -19,7 +19,7 @@ class ScoresPage extends React.Component {
 
   constructor(props){
     super(props);
-    var ds = new FlatList.DataSource({
+    var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
@@ -120,7 +120,7 @@ class ScoresPage extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
-            source={require('../Assets/Images/ring.gif')}
+            source={require('../../../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
         </View>
@@ -130,7 +130,7 @@ class ScoresPage extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
           <Image
-            source={require('../Assets/Images/nba.png')}
+            source={require('../../../Assets/Images/nba.png')}
             style={{height: 250, width: 110}}
           />
           <Text> No games today 😢</Text>
@@ -139,7 +139,7 @@ class ScoresPage extends React.Component {
     }
     return (
       <View style={{flex: 1}}>
-        <FlatList
+        <ListView
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}

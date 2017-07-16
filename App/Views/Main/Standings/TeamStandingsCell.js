@@ -8,7 +8,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import TeamMap from '../Utilities/TeamMap';
+import TeamMap from '../../../Utilities/TeamMap';
 
 import { Actions } from 'react-native-router-flux';
 

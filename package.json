@@ -8,11 +8,13 @@
   },
   "dependencies": {
     "moment-timezone": ">=0.5.4",
-    "react": ">=15.6.1",
-    "react-native": "^0.46.3",
+    "react": "15.4.1",
+    "react-native": "0.42.3",
     "react-native-datepicker": ">=1.2.2",
-    "react-native-router-flux": ">=3.30.0",
-    "react-native-scrollable-tab-view": "^0.7.4"
+    "react-native-router-flux": "3.30.0",
+    "react-native-scrollable-tab-view": "^0.7.4",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "snazzy": "^4.0.0",
