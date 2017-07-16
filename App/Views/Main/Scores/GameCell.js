@@ -11,7 +11,7 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
-import TeamMap from '../../Utilities/TeamMap';
+import TeamMap from '../../../Utilities/TeamMap';
 
 class GameCell extends React.Component {
 

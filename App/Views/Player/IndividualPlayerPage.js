@@ -12,7 +12,7 @@ import {
   Platform
 } from 'react-native';
 
-var STORE = require('../Utilities/Store');
+var STORE = require('../../Utilities/Store');
 var playoffStats = [];
 
 class IndividualPlayerPage extends React.Component {
@@ -170,7 +170,7 @@ class IndividualPlayerPage extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FCFCFC'}}>
           <Image
-            source={require('../Assets/Images/ring.gif')}
+            source={require('../../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
         </View>
@@ -293,14 +293,14 @@ class IndividualPlayerPage extends React.Component {
             <View style={styles.date}>
               <TouchableHighlight onPress={this.onLeft.bind(this)} underlayColor='#FFFFFF' style={{opacity: previousAvailable}}>
                 <Image
-                  source={require('../Assets/Images/left_arrow.png')}
+                  source={require('../../Assets/Images/left_arrow.png')}
                   style={{width: 40, height: 40, alignSelf: 'flex-start'}}
                 />
               </TouchableHighlight>
               <Text style={styles.dateText}> {this.state.gameStats[this.state.currentIndex][3]} </Text>
               <TouchableHighlight onPress={this.onRight.bind(this)} underlayColor='#FFFFFF' style={{opacity: nextAvailable}}>
                 <Image
-                  source={require('../Assets/Images/right_arrow.png')}
+                  source={require('../../Assets/Images/right_arrow.png')}
                   style={{width: 40, height: 40, alignSelf: 'flex-end'}}
                 />
               </TouchableHighlight>

@@ -7,13 +7,14 @@ import {
   Text,
   View,
   StyleSheet,
-  FlatList,
+  ListView,
   Platform
 } from 'react-native';
 
 var STORE = require('../../../Utilities/Store');
 
 import TeamStandingsCell from './TeamStandingsCell';
+import { getLeagueStandings } from '../../../actions'
 
 class StandingsPage extends React.Component {
 
@@ -44,21 +45,22 @@ class StandingsPage extends React.Component {
 
   // retrieves league standings for a given year
   fetchStandings(){
-    var year = STORE.year;
-    var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
-    fetch(url)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      var standings = jsonResponse.sports_content.standings.team;
-      this.setState({
-        year: year,
-        standings: standings,
-        dataSource: this.state.dataSource.cloneWithRows(standings)
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    dispatch(getLeagueStandings(2015))
+    // var year = STORE.year;
+    // var url = 'http://data.nba.com/data/json/cms/' + year + '/league/standings.json';
+    // fetch(url)
+    // .then((response) => response.json())
+    // .then((jsonResponse) => {
+    //   var standings = jsonResponse.sports_content.standings.team;
+    //   this.setState({
+    //     year: year,
+    //     standings: standings,
+    //     dataSource: this.state.dataSource.cloneWithRows(standings)
+    //   });
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   }
 
   render() {
@@ -72,7 +74,7 @@ class StandingsPage extends React.Component {
           <Text> Streak </Text>
         </View>
         <View style={styles.line} />
-        <FlatList
+        <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
             <TeamStandingsCell

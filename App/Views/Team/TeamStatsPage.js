@@ -5,18 +5,18 @@ import {
   View,
   StyleSheet,
   Image,
-  FlatList,
+  ListView,
   Dimensions
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
 
-import TeamMap from '../Utilities/TeamMap';
+import TeamMap from '../../Utilities/TeamMap';
 import PlayerCell from './PlayerCell';
 
 let windowHeight = Dimensions.get('window').height;
 
-var STORE = require('../Utilities/Store');
+var STORE = require('../../Utilities/Store');
 
 class GameStatsTeam extends React.Component {
 
@@ -119,7 +119,7 @@ class GameStatsTeam extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
-            source={require('../Assets/Images/ring.gif')}
+            source={require('../../Assets/Images/ring.gif')}
             style={{width: 70, height: 70}}
           />
         </View>
@@ -167,7 +167,7 @@ class GameStatsTeam extends React.Component {
             <Text style={styles.itemData}> ({this.rankingSuffix(this.state.teamStatsLeague[0][7])}) </Text>
           </View>
         </View>
-        <FlatList
+        <ListView
           style={{backgroundColor: '#FCFCFC', height: windowHeight - 240, marginTop: 15}}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) =>
