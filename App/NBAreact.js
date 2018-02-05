@@ -1,45 +1,52 @@
-/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-import React from 'react';
+import React, { Component } from 'react'
 import {
-  StyleSheet
-} from 'react-native';
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
-import {Scene, Router} from 'react-native-router-flux';
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' +
+    'Cmd+D or shake for dev menu',
+  android: 'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+})
 
-import MainWindow from './Views/Main/MainWindow';
-import GameStatsPage from './Views/Game/GameStatsPage';
-import TeamStatsPage from './Views/Team/TeamStatsPage';
-import IndividualPlayerPage from './Views/Player/IndividualPlayerPage';
-
-var STORE = require('./Utilities/Store');
-
-class NBAreact extends React.Component {
+type Props = {};
+export default class NBAreact extends Component<Props> {
   render() {
     return (
-      <Router>
-        <Scene key='root'>
-          <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
-          <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
-          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} navigationBarStyle={styles.teamPageTab} backButtonImage={require('./App/Assets/Images/back_button_white.png')}/>
-          <Scene key='IndividualPlayerPage' component={IndividualPlayerPage} hideNavBar={false} navigationBarStyle={styles.playerTab} />
-        </Scene>
-      </Router>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit App.js
+        </Text>
+        <Text style={styles.instructions}>
+          {instructions}
+        </Text>
+      </View>
     )
   }
-};
+}
 
-var styles = StyleSheet.create({
-  gameStatsPageTab: {
-    backgroundColor: '#03A9F4'
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  teamPageTab: {
-    backgroundColor: STORE.navBarColorForTeamPage
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
   },
-  playerTab: {
-    backgroundColor: '#000',
-    borderBottomWidth: 0
-  }
-});
-
-module.exports = NBAreact;
-/* eslint-enable semi, space-before-function-paren, space-before-blocks*/
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+})
