@@ -62,5 +62,5 @@ import TeamsScreen from './components/TeamsScreen'
 export default TabNavigator({
   Scores: { screen: ScoresScreen },
   Standings: { screen: StandingsScreen },
-  Teams: { screen: TeamsScreen },
-});
+  Teams: { screen: TeamsScreen }
+})

@@ -7,6 +7,6 @@ export default class GameCell extends Component<Props> {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text> Game </Text>
       </View>
-    );
+    )
   }
 }

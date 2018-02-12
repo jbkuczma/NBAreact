@@ -13,6 +13,7 @@ const store = createStore(
 )
 
 console.log(store.getState())
+console.disableYellowBox = true // for development
 
 import NBAreact from './App/NBAreact'
 

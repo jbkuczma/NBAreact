@@ -9,11 +9,9 @@ const initialState = {
 const date = (state = initialState, action) => {
   switch(action.type) {
     case 'CHANGE_DATE':
-      return [
-        ...state, {
-          date: action.date
-        }
-      ]
+      return {
+        ...state, date: action.date
+      }
     default:
       return state
   }
