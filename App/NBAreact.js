@@ -53,14 +53,20 @@
 
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator } from 'react-navigation'
 
 import ScoresScreen from './components/ScoresScreen'
+import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
 import TeamsScreen from './components/TeamsScreen'
 
+const ScoresStack = StackNavigator({
+  Home: { screen: ScoresScreen, navigationOptions: { header: null }},
+  Game: { screen: GameDetailScreen },
+})
+
 export default TabNavigator({
-  Scores: { screen: ScoresScreen },
+  Scores: { screen: ScoresStack },
   Standings: { screen: StandingsScreen },
   Teams: { screen: TeamsScreen }
 })
