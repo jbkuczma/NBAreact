@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 import Header from './Header'
@@ -85,7 +86,10 @@ class ScoresScreen extends Component<Props> {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           {
             this.state.loading &&
-            <Text> Loading </Text>
+            <ActivityIndicator
+              size="large"
+              color="#F7971E"
+            />
           }
           {
             (this.state.games && !this.state.loading) &&
