@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native'
 import { connect } from 'react-redux'
 import { changeDate } from '../../actions/actions'
@@ -21,6 +22,7 @@ class Header extends Component<Props> {
     // ex, Tuesday, Oct 10
     const date = new Date(this.props.date)
     const dateArray = date.toDateString().split(' ')
+    // 0 - week day, 1 - month, 2 - date
     return dateArray[0] + ', ' + dateArray[1] + ' ' + dateArray[2]
   }
 
@@ -50,22 +52,22 @@ class Header extends Component<Props> {
         <View style={styles.dateCointainer}>
           <TouchableOpacity onPress={() => { this.handleDateChange('previous') }}>
             <View>
-              <Text> Left </Text>
+              <Text style={{fontSize: 36}}> {'<'} </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.dateCointainerMiddle} onPress={() => { this.handleDateChange('other') }}>
             <View style={{flex: 1}} >
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 18}}> {this.formatDate()} </Text>
+                <Text style={{fontSize: 18, color: '#FFFFFF'}}> {this.formatDate()} </Text>
               </View>
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 16}}> There are X games today </Text>
+                <Text style={{fontSize: 16, color: '#FFFFFF'}}> There are X games today </Text>
               </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => { this.handleDateChange('next') }}>
             <View>
-              <Text> Right </Text>
+              <Text style={{fontSize: 36}}> {'>'} </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -75,18 +77,16 @@ class Header extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  flex1: {
-    flex: 1
-  },
   statusBar: {
     height: (Platform.OS === 'ios') ? 45 : 0,
     backgroundColor: '#F7971E'
+    // backgroundColor: '#000000'
   },
   dateCointainer: {
     height: 75,
     backgroundColor: '#F7971E',
+    // backgroundColor: '#000000',
     flexDirection: 'row',
-    textAlign: 'center',
     justifyContent: 'space-between',
     alignContent: 'center'
   },
@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
   dateCointainerMiddle: {
     justifyContent: 'center',
     flexDirection: 'column',
-    textAlign: 'center'
   },
   dateCointainerRight: {
 
