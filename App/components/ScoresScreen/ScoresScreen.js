@@ -108,6 +108,7 @@ class ScoresScreen extends Component<Props> {
               onRefresh={() => { this.fetchGames() }}
               renderItem={(teams) => (
                 <GameCell
+                  navigator={this.props.navigation}
                   teams={teams}
                 />
               )}

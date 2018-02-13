@@ -5,9 +5,9 @@ export function changeDate(date) {
   }
 }
 
-export function selectGame(game) {
+export function selectGame(selectedGame) {
   return {
     type: 'SELECT_GAME',
-    game
+    selectedGame
   }
 }

@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { connect } from 'react-redux'
+import { selectGame } from '../../actions/actions'
 import TeamMap from '../../utils/TeamMap'
 
-export default class GameCell extends Component<Props> {
+class GameCell extends Component<Props> {
+
+  _selectGame() {
+    const gameID = this.props.teams.item.gameInfo.game_id
+    console.log(gameID)
+    this.props.selectGame(gameID)
+    this.props.navigator.navigate('Game')
+  }
+
   render() {
     const {
       home,
       away,
       gameInfo
     } = this.props.teams.item
-    console.log(home)
 
     return (
-      <TouchableOpacity style={{flexDirection: 'column'}}>
+      <TouchableOpacity style={{flexDirection: 'column'}} onPress={() => { this._selectGame() }}>
         <View style={styles.colorbar}>
           <View style={{ flex: 1, backgroundColor: TeamMap[away.team_abbreviation.toLowerCase()].color, borderTopLeftRadius: 12 }} />
           <View style={{ flex: 1, backgroundColor: TeamMap[home.team_abbreviation.toLowerCase()].color, borderTopRightRadius: 12 }} />
@@ -110,3 +119,20 @@ const styles = StyleSheet.create({
     width: 60,
   }
 })
+
+function mapStateToProps(state) {
+  return {
+
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    selectGame: (selectedGame) => dispatch(selectGame(selectedGame))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GameCell)
