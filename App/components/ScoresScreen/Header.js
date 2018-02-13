@@ -46,9 +46,7 @@ class Header extends Component<Props> {
   render() {
     return (
       <View>
-        <View style={styles.statusBar}>
-
-        </View>
+        <View style={styles.statusBar} />
         <View style={styles.dateCointainer}>
           <TouchableOpacity onPress={() => { this.handleDateChange('previous') }}>
             <View>
@@ -61,7 +59,7 @@ class Header extends Component<Props> {
                 <Text style={{fontSize: 18, color: '#FFFFFF'}}> {this.formatDate()} </Text>
               </View>
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 16, color: '#FFFFFF'}}> There are X games today </Text>
+                <Text style={{fontSize: 16, color: '#FFFFFF'}}> There are {this.props.numberOfGames} games today </Text>
               </View>
             </View>
           </TouchableOpacity>

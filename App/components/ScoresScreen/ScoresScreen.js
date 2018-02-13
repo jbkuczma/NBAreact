@@ -86,7 +86,9 @@ class ScoresScreen extends Component<Props> {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header />
+        <Header
+          numberOfGames={this.state.linescore.length}
+        />
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
             this.state.loading &&
