@@ -13,6 +13,7 @@ class StandingsScreen extends Component<Props> {
     this.nba = new NBA()
     this.state = {
       loading: true,
+      conference: null,
       east: [],
       west: []
     }
@@ -30,6 +31,12 @@ class StandingsScreen extends Component<Props> {
         west: data.league.standard.conference.west,
         loading: false
       })
+    })
+  }
+
+  _selectConference(conference) {
+    this.setState({
+      conference: conference
     })
   }
 
@@ -55,8 +62,20 @@ class StandingsScreen extends Component<Props> {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.conferenceStandings}>
               <View style={styles.conferenceButtons}>
-                <Button title="East" style={styles.eastButton} />
-                <Button title="West" style={styles.westButton} />
+                <View style={styles.eastButton}>
+                  <Button
+                    title="East"
+                    color="#D3D3D3"
+                    onPress={() => { this._selectConference('east') }}
+                  />
+                </View>
+                <View style={styles.westButton}>
+                  <Button
+                    title="West"
+                    color="#D3D3D3"
+                    onPress={() => { this._selectConference('west') }}
+                  />
+                </View>
               </View>
               <View style={styles.header}>
                 <View style={{ flex: 1, marginLeft: 10 }}>
@@ -76,7 +95,7 @@ class StandingsScreen extends Component<Props> {
                 </View>
               </View>
               <FlatList
-                data={this.state.east}
+                data={this.state.conference === 'east' ? this.state.east : this.state.west}
                 keyExtractor={team => team.teamId}
                 renderItem={(team) => (
                   <TeamCell
@@ -101,13 +120,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    marginBottom: 10
   },
   eastButton: {
     flex: 1,
+    backgroundColor: '#1F1F1F',
   },
   westButton: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#1F1F1F'
   },
   conferenceStandings: {
     flex: 1,
