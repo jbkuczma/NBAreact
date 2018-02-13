@@ -50,11 +50,12 @@ class ScoresScreen extends Component<Props> {
     })
     .then((games) => {
       let linescores = games.LineScore
+      let gameInfo = games.GameHeader
       this.setState({
         loading: false,
         date: this.props.date,
         games: games,
-        linescore: this._combineGames(linescores)
+        linescore: this._combineGames(linescores, gameInfo)
       })
     })
     .catch((error) => {
@@ -65,15 +66,18 @@ class ScoresScreen extends Component<Props> {
   // games are returned as a array of objects for each team playing that day
   // even index => home team
   // odd index => away team
-  _combineGames(games) {
+  _combineGames(games, info) {
     let combined = []
+    let infoIndex = 0
     games.forEach((team, index) => {
-      if (index % 2 == 0) {
+      if (index % 2 === 0) {
         let obj = {
           home: team,
-          away: games[index+1]
+          away: games[index+1],
+          gameInfo: info[infoIndex] // relying on data is in order
         }
         combined.push(obj)
+        infoIndex++
       }
     })
     return combined
@@ -83,7 +87,7 @@ class ScoresScreen extends Component<Props> {
     return (
       <View style={{flex: 1}}>
         <Header />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
             this.state.loading &&
             <ActivityIndicator
@@ -96,9 +100,9 @@ class ScoresScreen extends Component<Props> {
             <FlatList
               data={this.state.linescore}
               keyExtractor={game => game.home.game_id}
-              renderItem={(game) => (
+              renderItem={(teams) => (
                 <GameCell
-                  game={game}
+                  teams={teams}
                 />
               )}
             />
