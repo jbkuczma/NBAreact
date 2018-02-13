@@ -69,4 +69,12 @@ export default TabNavigator({
   Scores: { screen: ScoresStack },
   Standings: { screen: StandingsScreen },
   Teams: { screen: TeamsScreen }
+},{
+  tabBarOptions: {
+    activeTintColor: '#F7971E',
+    inactiveTintColor: 'gray',
+    style: {
+      backgroundColor: '#242424',
+    }
+  },
 })
