@@ -90,16 +90,20 @@ class ScoresScreen extends Component<Props> {
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
             this.state.loading &&
-            <ActivityIndicator
-              size="large"
-              color="#F7971E"
-            />
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <ActivityIndicator
+                size="large"
+                color="#F7971E"
+              />
+            </View>
           }
           {
             (this.state.games && !this.state.loading) &&
             <FlatList
               data={this.state.linescore}
               keyExtractor={game => game.home.game_id}
+              refreshing={this.state.loading}
+              onRefresh={() => { this.fetchGames() }}
               renderItem={(teams) => (
                 <GameCell
                   teams={teams}
