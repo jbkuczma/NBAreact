@@ -13,7 +13,7 @@ class StandingsScreen extends Component<Props> {
     this.nba = new NBA()
     this.state = {
       loading: true,
-      conference: null,
+      conference: 'east',
       east: [],
       west: []
     }
@@ -42,7 +42,7 @@ class StandingsScreen extends Component<Props> {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#242424' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#222222' }}>
         <StatusBar
           barStyle="light-content"
         />
@@ -62,14 +62,14 @@ class StandingsScreen extends Component<Props> {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.conferenceStandings}>
               <View style={styles.conferenceButtons}>
-                <View style={styles.eastButton}>
+                <View style={[ styles.eastButton, this.state.conference === 'east' ? styles.active : styles.inactive ]}>
                   <Button
                     title="East"
                     color="#D3D3D3"
                     onPress={() => { this._selectConference('east') }}
                   />
                 </View>
-                <View style={styles.westButton}>
+                <View style={[ styles.westButton, this.state.conference === 'west' ? styles.active : styles.inactive ]}>
                   <Button
                     title="West"
                     color="#D3D3D3"
@@ -120,21 +120,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 15
   },
   eastButton: {
     flex: 1,
-    backgroundColor: '#1F1F1F',
+    backgroundColor: '#1F1F1F'
   },
   westButton: {
     flex: 1,
     backgroundColor: '#1F1F1F'
   },
+  active: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#F7971E'
+  },
+  inactive: {
+
+  },
   conferenceStandings: {
     flex: 1,
   },
   header: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 10
   }
 })
 
