@@ -59,10 +59,58 @@ import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
 import TeamsScreen from './components/TeamsScreen'
+import BoxScore from './components/GameDetailScreen/BoxScore'
+import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
+
+const GameDetailNavigator = TabNavigator({
+  BoxScore: { screen: BoxScore },
+  PlayByPlay: { screen: PlayByPlay }
+}, {
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  tabBarOptions: {
+    activeTintColor: '#ffffff',
+    inactiveTintColor: '#cccccc',
+    inactiveBackgroundColor: '#353539',
+    activeBackgroundColor: '#353539',
+    showIcon: false,
+    indicatorStyle: {
+      borderBottomColor: '#F7971E',
+      borderBottomWidth: 2,
+    },
+    labelStyle:{
+      fontSize: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    style:{
+      backgroundColor: '#353539',
+    },
+    tabStyle: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+  },
+})
 
 const ScoresStack = StackNavigator({
-  Home: { screen: ScoresScreen, navigationOptions: { header: null }},
-  Game: { screen: GameDetailScreen },
+  Home: {
+    screen: ScoresScreen,
+    navigationOptions: { header: null }
+  },
+  Game: {
+    screen: GameDetailNavigator,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#353539',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
 })
 
 export default TabNavigator({

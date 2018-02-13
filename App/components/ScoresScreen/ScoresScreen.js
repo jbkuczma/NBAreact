@@ -3,7 +3,8 @@ import {
   Text,
   View,
   FlatList,
-  ActivityIndicator
+  ActivityIndicator,
+  StatusBar
 } from 'react-native'
 import { connect } from 'react-redux'
 import Header from './Header'
@@ -86,6 +87,9 @@ class ScoresScreen extends Component<Props> {
   render() {
     return (
       <View style={{flex: 1}}>
+        <StatusBar
+          barStyle="light-content"
+        />
         <Header
           numberOfGames={this.state.linescore.length}
         />
