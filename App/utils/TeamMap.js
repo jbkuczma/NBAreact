@@ -86,7 +86,7 @@ module.exports = {
     color: '#CE1141',
     conf: 'Western',
     logo: require('../Assets/Images/hou.png'),
-    logo2: require('../Assets/Images/hou2.png')
+    // logo2: require('../Assets/Images/hou2.png')
   },
   ind: {
     id: 1610612754,

@@ -7,7 +7,7 @@ export default class NBA {
     this.DATA_URL = `https://data.nba.net/`
   }
 
-  nbaFetch = (url) => {
+  nbaFetch = (url, flatten=false) => {
     const options = {
       headers: {
         "accept-encoding": "Accepflate, sdch",
@@ -23,7 +23,7 @@ export default class NBA {
     return new Promise((resolve, reject) => {
       fetch(url, options)
       .then(response => response.json())
-      .then(json => this.flattenResult(json.resultSets || [json.resultSet]))
+      .then(json => flatten ? this.flattenResult(json.resultSets || [json.resultSet]) : resolve(json)) // flatten resultSet for return from stat endpoints
       .then(flattened => resolve(flattened))
       .catch(error => reject(error))
     })
@@ -68,7 +68,7 @@ export default class NBA {
       obj = {...obj, ...defaults} // combine provided object with default object
       const queryString = this.objectToQueryString(obj)
       const url = this.STATS_URL + endpoint + queryString
-      return this.nbaFetch(url)
+      return this.nbaFetch(url, true)
     }
   }
 
