@@ -8,9 +8,10 @@ class GameCell extends Component<Props> {
 
   _selectGame() {
     const gameID = this.props.teams.item.gameInfo.game_id
-    console.log(gameID)
+    const homeTeam = this.props.teams.item.home.team_abbreviation
+    const awayTeam = this.props.teams.item.away.team_abbreviation
     this.props.selectGame(gameID)
-    this.props.navigator.navigate('Game')
+    this.props.navigator.navigate('Game', {home: homeTeam, away: awayTeam})
   }
 
   render() {

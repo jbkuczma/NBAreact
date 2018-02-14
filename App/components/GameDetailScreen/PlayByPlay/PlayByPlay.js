@@ -66,7 +66,8 @@ class PlayByPlay extends Component<Props> {
   // }
 
   _renderPlay(play) {
-    console.log(play)
+    const homeTeam = this.props.navigation.state.params.home
+    const awayTeam = this.props.navigation.state.params.away
     const quarter = 'Q' + play.item.quarter
     const time = play.item.cl
     let description = play.item.de
@@ -76,14 +77,19 @@ class PlayByPlay extends Component<Props> {
     }
     return (
       <View style={styles.playcell}>
+        <View style={{ flex: 3, marginLeft: 10 }}>
+          <Text style={styles.playByPlayText}>
+            { description.includes(awayTeam) ? description : '' }
+          </Text>
+        </View>
         <View style={{ flex: 1 }}>
-          <Text style={{textAlign: 'center'}}>
+          <Text style={styles.playByPlayText}>
             {timeString}
           </Text>
         </View>
-        <View style={{ flex: 4 }}>
-          <Text style={{textAlign: 'center'}}>
-            {description}
+        <View style={{ flex: 3, marginRight: 10 }}>
+          <Text style={styles.playByPlayText}>
+            { description.includes(homeTeam) ? description : '' }
           </Text>
         </View>
       </View>
@@ -91,8 +97,9 @@ class PlayByPlay extends Component<Props> {
   }
 
   render() {
+    console.log(this.props.navigation.state)
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+      <View style={styles.playByPlayContainer}>
          <FlatList
           data={this.state.plays}
           renderItem={(play) => this._renderPlay(play)}
@@ -103,14 +110,28 @@ class PlayByPlay extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  playByPlayContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#151516'
+  },
   playcell: {
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 80,
-    backgroundColor: 'yellow',
-    marginBottom: 5
+    height: 100,
+    backgroundColor: '#1F1F1F',
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  playByPlayText: {
+    textAlign: 'center',
+    color: '#D3D3D3'
   }
 })
 
