@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: '#151516'
+    backgroundColor: '#111111'
   },
   playcell: {
     // flex: 1,

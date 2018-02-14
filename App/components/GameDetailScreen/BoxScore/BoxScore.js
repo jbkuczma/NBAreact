@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
   },
   awayButton: {
     flex: 1,
-    backgroundColor: '#1F1F1F'
+    backgroundColor: '#151516'
   },
   homeButton: {
     flex: 1,
-    backgroundColor: '#1F1F1F'
+    backgroundColor: '#151516'
   },
   active: {
     borderBottomWidth: 1,
