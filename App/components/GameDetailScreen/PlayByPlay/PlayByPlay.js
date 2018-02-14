@@ -100,10 +100,17 @@ class PlayByPlay extends Component<Props> {
     console.log(this.props.navigation.state)
     return (
       <View style={styles.playByPlayContainer}>
-         <FlatList
-          data={this.state.plays}
-          renderItem={(play) => this._renderPlay(play)}
-        />
+        {
+          this.state.plays.length > 0 ?
+            <FlatList
+              data={this.state.plays}
+              renderItem={(play) => this._renderPlay(play)}
+            />
+          :
+            <Text style={styles.playByPlayText}>
+              Play by play available after tip off
+            </Text>
+        }
       </View>
     )
   }
