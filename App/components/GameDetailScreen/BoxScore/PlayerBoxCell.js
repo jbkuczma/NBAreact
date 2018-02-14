@@ -30,7 +30,7 @@ export default class PlayerBoxCell extends Component<Props> {
           </View>
           <View style={styles.boxscoreStatView}>
             <Text style={styles.boxscoreText}>
-              { this.props.player.item.pos ? this.props.player.item.pos : '  ' }
+              { this.props.player.item.pos }
             </Text>
           </View>
           <View style={styles.boxscoreStatView}>
