@@ -27,10 +27,6 @@ class BoxScore extends Component<Props> {
     this.fetchBoxscore()
   }
 
-  _filterPlayers(players, team) {
-
-  }
-
   fetchBoxscore() {
     this.nba.getBoxscore(this.props.gameID, this.props.date)
     .then((data) => {
@@ -59,6 +55,7 @@ class BoxScore extends Component<Props> {
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
+    
     return (
       <ScrollView style={{ flex: 1 }} horizontal={true}>
         <FlatList
