@@ -13,7 +13,11 @@ export default class NBA {
         "accept-encoding": "Accepflate, sdch",
         "accept-language": "he-IL,he;q=0.8,en-US;q=0.6,en;q=0.4",
         "cache-control": "max-age=0",
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
         connection: "keep-alive",
+        // host: "stats.nba.com",
+        // referer: "http://stats.nba.com/",
         "user-agent":
           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
       },
@@ -102,4 +106,54 @@ export default class NBA {
     const url = this.DATA_URL + endpoint
     return this.nbaFetch(url)
   }
+
+  getPlayByPlay = (gameID) => {
+    const endpoint = 'stats/playbyplay?'
+    const defaults = {
+      GameID: gameID,
+      StartPeriod: 1,
+      EndPeriod: 14
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(defaults)
+    return this.nbaFetch(url, true)
+  }
+
+  getPlayByPlayExperimental = async (gameID, date) => {
+    const dateArray = date.split('/')
+    let year = dateArray[2]
+    let day = dateArray[1]
+    let month = dateArray[0]
+
+    day = day.length === 1 ? '0' + day : day
+    month = month.length === 1 ? '0' + month : month
+
+    const formattedDate = year + month + day
+
+    const q1URL = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_boxscore_1.json`
+    const q2URL = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_boxscore_2.json`
+    const q3URL = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_boxscore_3.json`
+    const q4URL = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_boxscore_4.json`
+
+
+  }
+
+  getPlayByPlay = (gameID, season) => {
+    const endpoint = `https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/${season}/scores/pbp/${gameID}_full_pbp.json`
+    console.log(endpoint)
+    return this.nbaFetch(endpoint)
+
+  }
 }
+
+// '/stats/playbyplay?GameID=0021700844&StartPeriod=1&EndPeriod=14
+
+// boxscore
+// date/game_id
+// https://data.nba.net/prod/v1/20180212/0021700844_boxscore.json
+
+// lead tracker
+// date/game_id/_quarter
+// https://data.nba.net/prod/v1/20180212/0021700844_lead_tracker_1.json
+
+// play by play
+// https://data.nba.net/prod/v1/20180212/0021700844_pbp_4.json

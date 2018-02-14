@@ -15,7 +15,6 @@ class TeamCell extends Component<Props> {
 
   render() {
     const team = this.props.team.item
-    console.log(team)
     return (
       <View style={styles.teamcell}>
         <View>
