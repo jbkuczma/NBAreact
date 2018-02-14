@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, FlatList, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, Button, FlatList, ScrollView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import PlayerBoxCell from './PlayerBoxCell'
 import NBA from '../../../utils/nba'
@@ -14,6 +14,7 @@ class BoxScore extends Component<Props> {
 
     this.nba = new NBA()
     this.state = {
+      loading: true,
       boxscore: {},
       homeTeamStats: [],
       awayTeamStats: [],
@@ -33,6 +34,7 @@ class BoxScore extends Component<Props> {
       const homePlayers = ''
       const awayPlayers = ''
       this.setState({
+        loading: false,
         boxscore: data.stats ? data.stats : {},
         homeTeamID: data.basicGameData.hTeam.teamId,
         awayTeamID: data.basicGameData.vTeam.teamId,
@@ -55,7 +57,7 @@ class BoxScore extends Component<Props> {
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
-    
+
     return (
       <ScrollView style={{ flex: 1 }} horizontal={true}>
         <FlatList
@@ -99,10 +101,18 @@ class BoxScore extends Component<Props> {
         }
         <View style={styles.boxscore}>
           {
-            Object.keys(this.state.boxscore).length === 0 ?
-              <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore unavailable </Text>
+            this.state.loading ?
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator
+                  size="large"
+                  color="#F7971E"
+                />
+              </View>
             :
-              this._createBoxscoreTable(this.state.boxscore)
+              Object.keys(this.state.boxscore).length === 0 ?
+                <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
+              :
+                this._createBoxscoreTable(this.state.boxscore)
           }
         </View>
 
