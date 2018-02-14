@@ -47,7 +47,6 @@ class ScoresScreen extends Component<Props> {
   fetchGames = () => {
     this.nba.getGames(this.props.date)
     .then((games) => {
-      console.log(games)
       this.setState({
         loading: false,
         date: this.props.date,

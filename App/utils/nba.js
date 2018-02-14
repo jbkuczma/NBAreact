@@ -154,11 +154,28 @@ export default class NBA {
 
   }
 
+  getBoxscore = (gameID, date) => {
+    const dateArray = date.split('/')
+    let year = dateArray[2]
+    let day = dateArray[1]
+    let month = dateArray[0]
+
+    day = day.length === 1 ? '0' + day : day
+    month = month.length === 1 ? '0' + month : month
+
+    const formattedDate = year + month + day
+    const endpoint = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_boxscore.json`
+
+    return this.nbaFetch(endpoint)
+  }
+
   getPlayByPlay = (gameID, season) => {
     const endpoint = `https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/${season}/scores/pbp/${gameID}_full_pbp.json`
-    console.log(endpoint)
     return this.nbaFetch(endpoint)
+  }
 
+  getPlayImage = (playerID) => {
+    return `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerID}.png`
   }
 }
 

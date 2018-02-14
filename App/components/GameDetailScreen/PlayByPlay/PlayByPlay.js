@@ -70,11 +70,14 @@ class PlayByPlay extends Component<Props> {
     const awayTeam = this.props.navigation.state.params.away
     const quarter = 'Q' + play.item.quarter
     const time = play.item.cl
+    const playerID = play.item.pid
     let description = play.item.de
     let timeString = ''
+
     if (description !== 'Start Period' || description !== 'End Period') {
       timeString = quarter + ' ' + time
     }
+
     return (
       <View style={styles.playcell}>
         <View style={{ flex: 3, marginLeft: 10 }}>
@@ -97,7 +100,6 @@ class PlayByPlay extends Component<Props> {
   }
 
   render() {
-    console.log(this.props.navigation.state)
     return (
       <View style={styles.playByPlayContainer}>
         {

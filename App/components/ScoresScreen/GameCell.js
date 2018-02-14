@@ -24,8 +24,6 @@ class GameCell extends Component<Props> {
       startTimeEastern
     } = this.props.teams.item
 
-    console.log(this.props.teams.item)
-
     return (
       <TouchableOpacity style={{flexDirection: 'column'}} onPress={() => { this._selectGame() }}>
         <View style={styles.colorbar}>
