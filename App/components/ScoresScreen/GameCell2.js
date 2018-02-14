@@ -7,30 +7,25 @@ import TeamMap from '../../utils/TeamMap'
 class GameCell extends Component<Props> {
 
   _selectGame() {
-    const gameID = this.props.teams.item.gameId
-    const homeTeam = this.props.teams.item.hTeam.triCode
-    const awayTeam = this.props.teams.item.vTeam.triCode
+    const gameID = this.props.teams.item.gameInfo.game_id
+    const homeTeam = this.props.teams.item.home.team_abbreviation
+    const awayTeam = this.props.teams.item.away.team_abbreviation
     this.props.selectGame(gameID)
     this.props.navigator.navigate('Game', {home: homeTeam, away: awayTeam})
   }
 
   render() {
-
     const {
-      hTeam,
-      vTeam,
-      clock,
-      period,
-      startTimeEastern
+      home,
+      away,
+      gameInfo
     } = this.props.teams.item
-
-    console.log(this.props.teams.item)
 
     return (
       <TouchableOpacity style={{flexDirection: 'column'}} onPress={() => { this._selectGame() }}>
         <View style={styles.colorbar}>
-          <View style={{ flex: 1, backgroundColor: TeamMap[vTeam.triCode.toLowerCase()].color, borderTopLeftRadius: 12 }} />
-          <View style={{ flex: 1, backgroundColor: TeamMap[hTeam.triCode.toLowerCase()].color, borderTopRightRadius: 12 }} />
+          <View style={{ flex: 1, backgroundColor: TeamMap[away.team_abbreviation.toLowerCase()].color, borderTopLeftRadius: 12 }} />
+          <View style={{ flex: 1, backgroundColor: TeamMap[home.team_abbreviation.toLowerCase()].color, borderTopRightRadius: 12 }} />
         </View>
         <View style={styles.gamecell}>
         <View style={styles.awayTeam}>
@@ -38,41 +33,38 @@ class GameCell extends Component<Props> {
             <View>
               <Image
                 style={styles.logo}
-                source={TeamMap[vTeam.triCode.toLowerCase()].logo}
+                source={TeamMap[away.team_abbreviation.toLowerCase()].logo}
               />
+              {/* <Text> {away.team_abbreviation} </Text> */}
             </View>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {vTeam.score} </Text>
+            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {away.pts} </Text>
           </View>
         </View>
         {
-          clock && period.current != 0 ?
+          home.pts && away.pts ?
             <View style={styles.gameInfo}>
-              <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Q{period.current} </Text>
-              <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {clock} </Text>
+              <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> {gameInfo.live_pc_time} </Text>
+              <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {gameInfo.game_status_text} </Text>
             </View>
           :
-            this.props.teams.item.endTimeUTC ?
-              <View style={styles.gameInfo}>
-                <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Final </Text>
-              </View>
-            :
-              <View style={styles.gameInfo}>
-                <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Tip off </Text>
-                <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {startTimeEastern} </Text>
-              </View>
+            <View style={styles.gameInfo}>
+              <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Tip off </Text>
+              <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {gameInfo.game_status_text} </Text>
+            </View>
         }
         <View style={styles.homeTeam}>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {hTeam.score} </Text>
+            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {home.pts} </Text>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View>
               <Image
                 style={styles.logo}
-                source={TeamMap[hTeam.triCode.toLowerCase()].logo}
+                source={TeamMap[home.team_abbreviation.toLowerCase()].logo}
               />
+              {/* <Text> {home.team_abbreviation} </Text> */}
             </View>
           </View>
         </View>

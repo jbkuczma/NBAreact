@@ -20,7 +20,8 @@ class ScoresScreen extends Component<Props> {
     this.state = {
       date: null,
       loading: true,
-      games: []
+      games: {},
+      linescore: []
     }
   }
 
@@ -45,18 +46,57 @@ class ScoresScreen extends Component<Props> {
   }
 
   fetchGames = () => {
+    // this.nba.getGames({
+    //   gameDate: this.props.date
+    // })
+    // .then((games) => {
+    //   let linescores = games.LineScore
+    //   let gameInfo = games.GameHeader
+    //   this.setState({
+    //     loading: false,
+    //     date: this.props.date,
+    //     games: games,
+    //     linescore: this._combineGames(linescores, gameInfo)
+    //   })
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    // })
     this.nba.getGames(this.props.date)
     .then((games) => {
       console.log(games)
+      let linescores = games.LineScore
+      let gameInfo = games.GameHeader
       this.setState({
         loading: false,
         date: this.props.date,
-        games: games.games,
+        games: games,
+        linescore: this._combineGames(linescores, gameInfo)
       })
     })
     .catch((error) => {
       console.log(error)
     })
+  }
+
+  // games are returned as a array of objects for each team playing that day
+  // even index => home team
+  // odd index => away team
+  _combineGames(games, info) {
+    let combined = []
+    let infoIndex = 0
+    games.forEach((team, index) => {
+      if (index % 2 === 0) {
+        let obj = {
+          home: team,
+          away: games[index+1],
+          gameInfo: info[infoIndex] // relying on data is in order
+        }
+        combined.push(obj)
+        infoIndex++
+      }
+    })
+    return combined
   }
 
   render() {
@@ -66,7 +106,7 @@ class ScoresScreen extends Component<Props> {
           barStyle="light-content"
         />
         <Header
-          numberOfGames={this.state.games.length}
+          numberOfGames={this.state.linescore.length}
         />
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
@@ -81,7 +121,8 @@ class ScoresScreen extends Component<Props> {
           {
             (this.state.games && !this.state.loading) &&
             <FlatList
-              data={this.state.games}
+              data={this.state.linescore}
+              keyExtractor={game => game.home.game_id}
               refreshing={this.state.loading}
               onRefresh={() => { this.fetchGames() }}
               renderItem={(teams) => (

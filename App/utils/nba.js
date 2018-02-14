@@ -76,6 +76,22 @@ export default class NBA {
     }
   }
 
+  getGames = (date) => {
+    const dateArray = date.split('/')
+    let year = dateArray[2]
+    let day = dateArray[1]
+    let month = dateArray[0]
+
+    day = day.length === 1 ? '0' + day : day
+    month = month.length === 1 ? '0' + month : month
+
+    const formattedDate = year + month + day
+
+    const url = `https://data.nba.net/prod/v2/${formattedDate}/scoreboard.json`
+    return this.nbaFetch(url)
+    // https://data.nba.net/prod/v2/20180213/scoreboard.json // more update to date (?)
+  }
+
   getTeam = (obj) => {
     // param {
     //   teamID:
@@ -115,6 +131,7 @@ export default class NBA {
       EndPeriod: 14
     }
     const url = this.STATS_URL + endpoint + this.objectToQueryString(defaults)
+    // plays don't have nice description as function below
     return this.nbaFetch(url, true)
   }
 
@@ -154,6 +171,3 @@ export default class NBA {
 // lead tracker
 // date/game_id/_quarter
 // https://data.nba.net/prod/v1/20180212/0021700844_lead_tracker_1.json
-
-// play by play
-// https://data.nba.net/prod/v1/20180212/0021700844_pbp_4.json
