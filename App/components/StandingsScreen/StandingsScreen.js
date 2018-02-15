@@ -42,7 +42,7 @@ class StandingsScreen extends Component<Props> {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#222222' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000' }}>
         <StatusBar
           barStyle="light-content"
         />
@@ -124,11 +124,12 @@ const styles = StyleSheet.create({
   },
   eastButton: {
     flex: 1,
-    backgroundColor: '#1F1F1F'
+    backgroundColor: '#111111'
+    // backgroundColor: '#1F1F1F'
   },
   westButton: {
     flex: 1,
-    backgroundColor: '#1F1F1F'
+    backgroundColor: '#111111'
   },
   active: {
     borderBottomWidth: 1,

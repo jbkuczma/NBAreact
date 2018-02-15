@@ -70,16 +70,16 @@ const GameDetailNavigator = TabNavigator({
   swipeEnabled: true,
   tabBarOptions: {
     activeTintColor: '#FFFFFF',
-    inactiveTintColor: '#AAAAAA',
+    inactiveTintColor: '#777777',
     inactiveBackgroundColor: '#151516',
-    activeBackgroundColor: '#242424',
+    activeBackgroundColor: '#171717',
     showIcon: false,
     indicatorStyle: {
       borderBottomColor: '#F7971E',
       borderBottomWidth: 2,
     },
     labelStyle:{
-      fontSize: 12,
+      fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -103,7 +103,7 @@ const ScoresStack = StackNavigator({
     navigationOptions: {
       headerTintColor: '#D3D3D3',
       headerStyle: {
-        backgroundColor: '#242424',
+        backgroundColor: '#171717',
         borderBottomWidth: 0
       },
       headerTitleStyle: {
@@ -122,7 +122,7 @@ export default TabNavigator({
     activeTintColor: '#F7971E',
     inactiveTintColor: 'gray',
     style: {
-      backgroundColor: '#242424',
+      backgroundColor: '#171717',
     }
   },
 })
