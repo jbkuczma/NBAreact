@@ -25,7 +25,7 @@ export default class PlayerBoxCell extends Component<Props> {
         <View style= {{ flex: 1, flexDirection: 'row' }}>
           <View style={styles.boxscoreStatNameView}>
             <Text style={styles.boxscoreText}>
-              { this.props.player.item.personId }
+              { this.props.player.item.display_fi_last }
             </Text>
           </View>
           <View style={styles.boxscoreStatView}>

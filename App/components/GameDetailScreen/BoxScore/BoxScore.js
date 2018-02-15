@@ -61,10 +61,34 @@ class BoxScore extends Component<Props> {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
 
+    const updatedPlayers = []
+    console.log(playersToShow)
+
+    // modifying original array; playersToShow
+    playersToShow.forEach((player, index, arr) => {
+      // skip header
+      if (index != 0) {
+        const obj = {
+          PlayerID: player.personId
+        }
+        this.nba.getPlayer(obj)
+        .then((data) => {
+          const newPlayerData = {
+            display_fi_last: data.CommonPlayerInfo[0].display_fi_last
+          }
+          player = {...player, ...newPlayerData}
+          // arr[index] = player
+          updatedPlayers.push(player)
+        })
+      } else {
+        updatedPlayers.push(player)
+      }
+    })
+
     return (
       <ScrollView style={{ flex: 1 }} horizontal={true}>
         <FlatList
-          data={playersToShow}
+          data={updatedPlayers}
           renderItem={(player) => (
             <PlayerBoxCell
               player={player}

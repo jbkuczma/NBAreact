@@ -110,6 +110,13 @@ export default class NBA {
     }
   }
 
+  getPlayer = (obj) => {
+    // http://stats.nba.com/stats/commonplayerinfo?playerID=201942
+    const queryString = this.objectToQueryString(obj)
+    const url = this.STATS_URL + 'stats/commonplayerinfo?' + queryString
+    return this.nbaFetch(url, true)
+  }
+
   getTeams = (year) => {
     // use 2017 for now
     const endpoint = `prod/v1/${year}/teams.json`
