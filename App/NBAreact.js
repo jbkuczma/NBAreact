@@ -59,12 +59,14 @@ import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
 import TeamsScreen from './components/TeamsScreen'
+import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
 
 const GameDetailNavigator = TabNavigator({
-  BoxScore: { screen: BoxScore },
-  PlayByPlay: { screen: PlayByPlay }
+  'Team Stats': { screen: TeamStats},
+  'Boxscore': { screen: BoxScore },
+  'Play by Play': { screen: PlayByPlay }
 }, {
   tabBarPosition: 'top',
   swipeEnabled: true,

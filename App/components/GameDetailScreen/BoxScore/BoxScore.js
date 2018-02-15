@@ -62,7 +62,6 @@ class BoxScore extends Component<Props> {
     })
 
     const updatedPlayers = []
-    console.log(playersToShow)
 
     // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
@@ -89,8 +88,9 @@ class BoxScore extends Component<Props> {
       <ScrollView style={{ flex: 1 }} horizontal={true}>
         <FlatList
           data={updatedPlayers}
-          renderItem={(player) => (
+          renderItem={(player, idx) => (
             <PlayerBoxCell
+              key={idx}
               player={player}
             />
           )}

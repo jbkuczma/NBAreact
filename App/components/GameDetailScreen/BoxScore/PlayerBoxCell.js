@@ -7,10 +7,10 @@ export default class PlayerBoxCell extends Component<Props> {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           {
-            this.props.player.item.map((headerCategory) => {
+            this.props.player.item.map((headerCategory, idx) => {
               const viewWidth = (headerCategory === 'Player' ? 120 : 60) // extra space for player name
               return (
-                <View style={[styles.boxscoreHeaderView, { width: viewWidth }]}>
+                <View style={[styles.boxscoreHeaderView, { width: viewWidth }]} key={idx}>
                   <Text style={styles.boxscoreText}>
                     { headerCategory }
                   </Text>
