@@ -24,11 +24,16 @@ class GameCell extends Component<Props> {
       startTimeEastern
     } = this.props.teams.item
 
+    const awayTeamColor = TeamMap[vTeam.triCode.toLowerCase()] ? TeamMap[vTeam.triCode.toLowerCase()].color : '#1C3F80'
+    const awayTeamLogo  = TeamMap[vTeam.triCode.toLowerCase()] ? TeamMap[vTeam.triCode.toLowerCase()].logo : require('../../Assets/Images/nba.png')
+    const homeTeamColor = TeamMap[hTeam.triCode.toLowerCase()] ? TeamMap[hTeam.triCode.toLowerCase()].color : '#BE0E2C'
+    const homeTeamLogo  = TeamMap[hTeam.triCode.toLowerCase()] ? TeamMap[hTeam.triCode.toLowerCase()].logo : require('../../Assets/Images/nba.png')
+
     return (
       <TouchableOpacity style={{flexDirection: 'column'}} onPress={() => { this._selectGame() }}>
         <View style={styles.colorbar}>
-          <View style={{ flex: 1, backgroundColor: TeamMap[vTeam.triCode.toLowerCase()].color, borderTopLeftRadius: 12 }} />
-          <View style={{ flex: 1, backgroundColor: TeamMap[hTeam.triCode.toLowerCase()].color, borderTopRightRadius: 12 }} />
+          <View style={{ flex: 1, backgroundColor: awayTeamColor, borderTopLeftRadius: 12 }} />
+          <View style={{ flex: 1, backgroundColor: homeTeamColor, borderTopRightRadius: 12 }} />
         </View>
         <View style={styles.gamecell}>
         <View style={styles.awayTeam}>
@@ -36,7 +41,7 @@ class GameCell extends Component<Props> {
             <View>
               <Image
                 style={styles.logo}
-                source={TeamMap[vTeam.triCode.toLowerCase()].logo}
+                source={awayTeamLogo}
               />
             </View>
           </View>
@@ -69,7 +74,7 @@ class GameCell extends Component<Props> {
             <View>
               <Image
                 style={styles.logo}
-                source={TeamMap[hTeam.triCode.toLowerCase()].logo}
+                source={homeTeamLogo}
               />
             </View>
           </View>
