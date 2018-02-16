@@ -44,6 +44,10 @@ class Header extends Component<Props> {
   }
 
   render() {
+
+    const numberOfGamesText = this.props.numberOfGames === 0 ? `There are no games today` :
+      this.props.numberOfGames === 1 ? `There is 1 game today` : `There are ${this.props.numberOfGames} games today`
+
     return (
       <View>
         <View style={styles.statusBar} />
@@ -59,7 +63,7 @@ class Header extends Component<Props> {
                 <Text style={{fontSize: 18, color: '#FFFFFF'}}> {this.formatDate()} </Text>
               </View>
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 16, color: '#FFFFFF'}}> There are {this.props.numberOfGames} games today </Text>
+                <Text style={{fontSize: 16, color: '#FFFFFF'}}> {numberOfGamesText} </Text>
               </View>
             </View>
           </TouchableOpacity>
