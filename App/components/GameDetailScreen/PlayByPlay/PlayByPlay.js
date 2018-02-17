@@ -22,7 +22,7 @@ class PlayByPlay extends Component<Props> {
     this.nba.getPlayByPlay(this.props.gameID, this.props.season)
     .then((data) => {
       let plays = this._cleanPlays(data.g.pd) // returns an array of arrays for each quarter
-      plays = [].concat.apply([], plays).reverse() // flatten array of arrays into a single array
+      plays = [].concat.apply([], plays).reverse() // flatten array of arrays into a single array, show most recent play (end of array) first
       this.setState({
         plays: plays
       })
@@ -66,8 +66,8 @@ class PlayByPlay extends Component<Props> {
   // }
 
   _renderPlay(play) {
-    const homeTeam = this.props.navigation.state.params.home
-    const awayTeam = this.props.navigation.state.params.away
+    const homeTeam = this.props.homeTeam.teamID
+    const awayTeam = this.props.awayTeam.teamID
     const quarter = 'Q' + play.item.quarter
     const time = play.item.cl
     const playerID = play.item.pid
@@ -148,9 +148,11 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    gameID: state.scores.selectedGame,
+    gameID: state.scores.selectedGame.gameID,
     date: state.date.date,
-    season: state.date.season
+    season: state.date.season,
+    homeTeam: state.scores.selectedGame.homeTeam,
+    awayTeam: state.scores.selectedGame.awayTeam
   }
 }
 
