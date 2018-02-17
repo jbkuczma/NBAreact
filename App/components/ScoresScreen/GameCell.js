@@ -13,18 +13,17 @@ class GameCell extends Component<Props> {
     const gameData = {
       gameID: gameID,
       homeTeam: {
-        abbreviation: awayTeam,
+        abbreviation: homeTeam,
         teamID: this.props.teams.item.hTeam.teamId
       },
       awayTeam: {
-        abbreviation: homeTeam,
+        abbreviation: awayTeam,
         teamID: this.props.teams.item.vTeam.teamId
       }
     }
-    this.props.selectGame(gameData)
-    // this.props.navigator.navigate('Game', {home: homeTeam, away: awayTeam})
-    this.props.navigator.navigate('Game')
 
+    this.props.selectGame(gameData)
+    this.props.navigator.navigate('Game')
   }
 
   render() {

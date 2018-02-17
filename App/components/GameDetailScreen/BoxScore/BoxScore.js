@@ -51,6 +51,7 @@ class BoxScore extends Component<Props> {
     if (players[0] === players[1] && players[0].personId === undefined && players[1].personId === undefined) {
       players.shift() // if we already have the headers as the first element, there will be a duplicate array of headers added. in that case one of the copies should be removed
     }
+
     const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
