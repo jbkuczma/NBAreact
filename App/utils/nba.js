@@ -184,13 +184,46 @@ export default class NBA {
   getPlayImage = (playerID) => {
     return `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerID}.png`
   }
+
+  getLeadTrackerForQuarter = (gameID, date, quarter) => {
+    const dateArray = date.split('/')
+    let year = dateArray[2]
+    let day = dateArray[1]
+    let month = dateArray[0]
+
+    day = day.length === 1 ? '0' + day : day
+    month = month.length === 1 ? '0' + month : month
+
+    const formattedDate = year + month + day
+    const endpoint = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_lead_tracker_${quarter}.json`
+    return this.nbaFetch(endpoint)
+  }
+
+  getLeadTrackerForGame = (gameID, date) => {
+    return Promise.all([
+      this.getLeadTrackerForQuarter(gameID, date, 1),
+      this.getLeadTrackerForQuarter(gameID, date, 2),
+      this.getLeadTrackerForQuarter(gameID, date, 3),
+      this.getLeadTrackerForQuarter(gameID, date, 4),
+    ]).then((result) => {
+      /**
+       * result is an array of objects representing the lead tracker for each quarter
+       * each object has a 'plays' property which is the form of an array
+       * result.map(...) extracts that array containing the plays and adds it into another array
+       * concat.apply() flattens the array of arrays into a single array
+       */
+      const leadTrackerArray = [].concat.apply([], result.map(quarter => quarter.plays))
+      return leadTrackerArray
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 }
 
-// '/stats/playbyplay?GameID=0021700844&StartPeriod=1&EndPeriod=14
-
-// boxscore
-// date/game_id
-// https://data.nba.net/prod/v1/20180212/0021700844_boxscore.json
+// http://stats.nba.com/stats/boxscoresummaryv2?GameID=0021700865
+// http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=10000&GameID=0021700865&RangeType=0&Season=2017-18&SeasonType=Regular+Season&StartPeriod=1&StartRange=0
+// https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/2017/scores/gamedetail/0021700865_gamedetail.json
 
 // lead tracker
 // date/game_id/_quarter
