@@ -66,8 +66,8 @@ class PlayByPlay extends Component<Props> {
   // }
 
   _renderPlay(play) {
-    const homeTeam = this.props.homeTeam.teamID
-    const awayTeam = this.props.awayTeam.teamID
+    const homeTeam = this.props.homeTeam.abbreviation
+    const awayTeam = this.props.awayTeam.abbreviation
     const quarter = 'Q' + play.item.quarter
     const time = play.item.cl
     const playerID = play.item.pid
