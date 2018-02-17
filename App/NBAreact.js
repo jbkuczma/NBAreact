@@ -118,7 +118,7 @@ const ScoresStack = StackNavigator({
 export default TabNavigator({
   Scores: { screen: ScoresStack },
   Standings: { screen: StandingsScreen },
-  Teams: { screen: TeamsScreen }
+  // Teams: { screen: TeamsScreen }
 },{
   tabBarOptions: {
     activeTintColor: '#F7971E',

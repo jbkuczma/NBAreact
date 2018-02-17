@@ -219,6 +219,20 @@ export default class NBA {
       console.log(error)
     })
   }
+
+  getMiniBoxscore = (gameID, date) => {
+    const dateArray = date.split('/')
+    let year = dateArray[2]
+    let day = dateArray[1]
+    let month = dateArray[0]
+
+    day = day.length === 1 ? '0' + day : day
+    month = month.length === 1 ? '0' + month : month
+
+    const formattedDate = year + month + day
+    const endpoint = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_mini_boxscore.json`
+    return this.nbaFetch(endpoint)
+  }
 }
 
 // http://stats.nba.com/stats/boxscoresummaryv2?GameID=0021700865
