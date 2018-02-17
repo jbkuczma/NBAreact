@@ -39,28 +39,58 @@ class TeamStats extends Component<Props> {
 
   _renderQuarterScoresChart() {
     return (
-      <View style={{ flexDirection: 'column' }}>
-        <View style={{ flexDirection: 'row' }}>
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={{ flex: 1, flexDirection: 'row', borderBottomColor: '#D1D1D1', borderBottomWidth: 1 }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.vTeam.triCode} </Text>
+          </View>
           {
-            this.state.miniBoxscore.basicGameData.vTeam.linescore.map((quarter) => {
-              return (
-                <Text style={styles.text}> {quarter.score} </Text>
-              )
-            })
+            this.state.miniBoxscore.basicGameData.vTeam.linescore.length > 0 ?
+              this.state.miniBoxscore.basicGameData.vTeam.linescore.map((quarter) => {
+                return (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.text}> {quarter.score} </Text>
+                  </View>
+                )
+              })
+            :
+              [0, 0, 0, 0, 0].map((value) => {
+                return (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.text}> {value} </Text>
+                  </View>
+                )
+              })
           }
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.vTeam.score} </Text>
           </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.triCode} </Text>
+          </View>
           {
-            this.state.miniBoxscore.basicGameData.hTeam.linescore.map((quarter) => {
-              return (
-                <Text style={styles.text}> {quarter.score} </Text>
-              )
-            })
+            this.state.miniBoxscore.basicGameData.hTeam.linescore.length > 0 ?
+              this.state.miniBoxscore.basicGameData.hTeam.linescore.map((quarter) => {
+                return (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.text}> {quarter.score} </Text>
+                  </View>
+                )
+              })
+            :
+              [0, 0, 0, 0, 0].map((value) => {
+                return (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.text}> {value} </Text>
+                  </View>
+                )
+              })
           }
-          <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.score} </Text>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.score} </Text>
+          </View>
         </View>
       </View>
     )
@@ -83,16 +113,18 @@ class TeamStats extends Component<Props> {
           (this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
 
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
-            <View style={styles.teamQuarterScores}>
-              <View style={styles.teamQuarterHeader}>
-                <Text style={styles.text}> Time in game (?) </Text>
-              </View>
-              <View style={styles.teamQuarterHeader}>
-                {/*
-                away
-                home
-                */}
-                {this._renderQuarterScoresChart()}
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={styles.teamQuarterScores}>
+                <View style={styles.teamQuarterHeader}>
+                  <Text style={styles.text}> Time in game (?) </Text>
+                </View>
+                <View style={styles.teamQuarterHeader}>
+                  {/*
+                  away
+                  home
+                  */}
+                  {this._renderQuarterScoresChart()}
+                </View>
               </View>
             </View>
             <View style={styles.leadTracker}>
@@ -134,24 +166,31 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#111111'
   },
+  /* quarter scores */
   teamQuarterScores: {
     flex: 1,
-    backgroundColor: 'yellow',
-    flexDirection: 'column'
-  },
-  leadTracker: {
-    flex: 2,
-    backgroundColor: 'orange',
-    flexDirection: 'row'
+    flexDirection: 'column',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10
   },
   teamQuarterHeader: {
     flex: 1,
     justifyContent: 'center'
   },
+  /******************/
+  /* lead tracker chart */
+  leadTracker: {
+    flex: 2,
+    backgroundColor: 'orange',
+    flexDirection: 'row'
+  },
   leadTrackerHeader: {
     flex: 1,
     justifyContent: 'center'
   },
+  /******************/
+  /* team comparison */
   teamComparison: {
     flex: 2,
     backgroundColor: 'red',
@@ -161,6 +200,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   }
+  /******************/
 })
 
 function mapStateToProps(state) {
