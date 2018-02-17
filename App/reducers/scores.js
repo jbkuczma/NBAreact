@@ -3,6 +3,7 @@ const initialState = {
 }
 
 const scores = (state = initialState, action) => {
+  console.log(action)
   switch(action.type) {
     case 'SCORES_FOR_DATE':
       return {

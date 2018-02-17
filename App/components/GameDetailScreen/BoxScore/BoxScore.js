@@ -6,7 +6,6 @@ import NBA from '../../../utils/nba'
 
 const headers = ['Player', 'Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'OREB', 'DREB', 'TOV', 'PF']
 
-
 class BoxScore extends Component<Props> {
 
   constructor() {
@@ -36,10 +35,6 @@ class BoxScore extends Component<Props> {
       this.setState({
         loading: false,
         boxscore: data.stats ? data.stats : {},
-        homeTeamID: data.basicGameData.hTeam.teamId,
-        awayTeamID: data.basicGameData.vTeam.teamId,
-        homeTeam: data.basicGameData.hTeam.triCode,
-        awayTeam: data.basicGameData.vTeam.triCode
       })
     })
   }
@@ -56,7 +51,7 @@ class BoxScore extends Component<Props> {
     if (players[0] === players[1] && players[0].personId === undefined && players[1].personId === undefined) {
       players.shift() // if we already have the headers as the first element, there will be a duplicate array of headers added. in that case one of the copies should be removed
     }
-    const teamToShowID = this.state.activeTeam === 'away' ? this.state.awayTeamID : this.state.homeTeamID
+    const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
@@ -84,13 +79,13 @@ class BoxScore extends Component<Props> {
       }
     })
 
+    // BUG: sometimes boxscore doesnt appear until you scorll
     return (
       <ScrollView style={{ flex: 1 }} horizontal={true}>
         <FlatList
           data={updatedPlayers}
-          renderItem={(player, idx) => (
+          renderItem={(player) => (
             <PlayerBoxCell
-              key={idx}
               player={player}
             />
           )}
@@ -104,20 +99,20 @@ class BoxScore extends Component<Props> {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
 
         {
-          this.state.awayTeam && this.state.awayTeam &&
+          this.props.awayTeam && this.props.awayTeam &&
           <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.teams}>
               <View style={styles.teamsButtons}>
                 <View style={[ styles.awayButton, this.state.activeTeam === 'away' ? styles.active : styles.inactive ]}>
                   <Button
-                    title={this.state.awayTeam}
+                    title={this.props.awayTeam.abbreviation}
                     color="#D3D3D3"
                     onPress={() => { this._selectTeam('away') }}
                   />
                 </View>
                 <View style={[ styles.homeButton, this.state.activeTeam === 'home' ? styles.active : styles.inactive ]}>
                   <Button
-                    title={this.state.homeTeam}
+                    title={this.props.homeTeam.abbreviation}
                     color="#D3D3D3"
                     onPress={() => { this._selectTeam('home') }}
                   />
@@ -183,9 +178,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    gameID: state.scores.selectedGame,
+    gameID: state.scores.selectedGame.gameID,
     date: state.date.date,
-    season: state.date.season
+    season: state.date.season,
+    homeTeamID: state.scores.selectedGame.homeTeam.teamID,
+    awayTeamID: state.scores.selectedGame.awayTeam.teamID,
+    homeTeam: state.scores.selectedGame.homeTeam,
+    awayTeam: state.scores.selectedGame.awayTeam
   }
 }
 
