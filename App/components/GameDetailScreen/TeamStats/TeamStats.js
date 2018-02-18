@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
+import TeamMap from '../../../utils/TeamMap'
 
 class TeamStats extends Component<Props> {
 
@@ -38,13 +39,20 @@ class TeamStats extends Component<Props> {
   }
 
   _renderQuarterScoresChart() {
+    const homeWins = this.state.miniBoxscore.basicGameData.hTeam.win
+    const homeLosses = this.state.miniBoxscore.basicGameData.hTeam.loss
+    const awayWins = this.state.miniBoxscore.basicGameData.vTeam.win
+    const awayLosses = this.state.miniBoxscore.basicGameData.vTeam.loss
+    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
+    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
+
     return (
       <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         {/* Header */}
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
           {
-            // space for team name header
-            [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'Final'].map((quarter) => {
+            // space for team name in header
+            [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'T'].map((quarter) => {
               return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.text}> {quarter} </Text>
@@ -56,7 +64,7 @@ class TeamStats extends Component<Props> {
         {/* End Header */}
         {/* Away Quarter Scores */}
         <View style={{ flex: 1, flexDirection: 'row', borderBottomColor: '#D1D1D1', borderBottomWidth: 1 }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: awayTeamColor }}>
             <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.vTeam.triCode} </Text>
           </View>
           {
@@ -84,7 +92,7 @@ class TeamStats extends Component<Props> {
         {/* End Away Quarter Scores */}
         {/* Home Quarter Scores */}
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: homeTeamColor }}>
             <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.triCode} </Text>
           </View>
           {
@@ -137,10 +145,6 @@ class TeamStats extends Component<Props> {
                   <Text style={styles.text}> Time in game (?) </Text>
                 </View>
                 <View style={styles.teamQuarterChart}>
-                  {/*
-                  away
-                  home
-                  */}
                   {this._renderQuarterScoresChart()}
                 </View>
               </View>
