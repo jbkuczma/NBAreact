@@ -3,6 +3,7 @@ import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator } from
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
+import LeadTracker from './LeadTracker'
 
 class TeamStats extends Component<Props> {
 
@@ -124,6 +125,9 @@ class TeamStats extends Component<Props> {
 
   render() {
     console.log(this.state)
+    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
+    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
+
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
@@ -150,25 +154,38 @@ class TeamStats extends Component<Props> {
               </View>
             </View>
             <View style={styles.leadTracker}>
-              <View style={styles.leadTrackerHeader}>
+              {/* {/* <View style={styles.leadTrackerHeader}>
                 <Text style={styles.text}> Lead Tracker </Text>
-              </View>
+              </View> */}
               <View style={styles.leadTrackerHeader}>
-                <Text style={styles.text}> Chart </Text>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Tracker </Text>
+                </View>
+                <LeadTracker
+                  homeTeamID={this.props.homeTeam.teamID}
+                  awayTeamID={this.props.awayTeam.teamID}
+                  homeTeamColor={homeTeamColor}
+                  awayTeamColor={awayTeamColor}
+                  leadtracker={this.state.leadTracker}
+                />
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Times Tied: {this.state.teamStats.timesTied} </Text>
+                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Changes: {this.state.teamStats.leadChanges} </Text>
+                </View>
               </View>
-              <View style={styles.leadTrackerHeader}>
-                {/* <Text style={styles.text}> Times Tied: {this.state.teamStats.timesTied} </Text>
-                <Text style={styles.text}> Lead Changes: {this.state.teamStats.leadChangs} </Text> */}
+              {/* <View style={styles.leadTrackerHeader}>
+                <Text style={styles.text}> Times Tied: {this.state.teamStats.timesTied} </Text>
+                <Text style={styles.text}> Lead Changes: {this.state.teamStats.leadChangs} </Text>
               </View>
               <View style={styles.leaedTrackerChart}>
 
-              </View>
+              </View> */}
             </View>
-            <View style={styles.teamComparison}>
+            {/* <View style={styles.teamComparison}>
               <View style={styles.teamComparisonHeader}>
                 <Text style={styles.text}> Team stats </Text>
               </View>
-            </View>
+            </View> */}
           </ScrollView>
         }
       </View>
@@ -206,9 +223,9 @@ const styles = StyleSheet.create({
   /******************/
   /* lead tracker chart */
   leadTracker: {
-    flex: 2,
-    backgroundColor: 'orange',
-    flexDirection: 'row'
+    flex: 3,
+    flexDirection: 'row',
+    marginTop: 15
   },
   leadTrackerHeader: {
     flex: 1,
