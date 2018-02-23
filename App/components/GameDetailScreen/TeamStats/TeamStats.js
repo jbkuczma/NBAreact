@@ -32,7 +32,7 @@ class TeamStats extends Component<Props> {
     ])
     .then((gameStats) => {
       this.setState({
-        teamStats: gameStats[0].stats ? gameStats[0].stats : {},
+        teamStats: gameStats[0].stats ? gameStats[0].stats : null,
         leadTracker: gameStats[1],
         miniBoxscore: gameStats[2],
         loading: false
@@ -141,7 +141,7 @@ class TeamStats extends Component<Props> {
           </View>
         }
         {
-          (this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
+          (this.state.teamStats && this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
 
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
             {/* <View style={{ flex: 1.5, flexDirection: 'row', marginBottom: 10 }}> */}
@@ -181,6 +181,12 @@ class TeamStats extends Component<Props> {
               />
             </View>
           </ScrollView>
+        }
+        {
+          (!this.state.loading && (!this.state.teamStats || !this.state.teamStats || !this.state.leadTracker || !this.state.miniBoxscore)) &&
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={styles.text}> Teams stats avaliable after tip off </Text>
+          </View>
         }
       </View>
     )
