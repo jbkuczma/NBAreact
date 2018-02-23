@@ -11,7 +11,8 @@ module.exports = {
     id: 1610612751,
     city: 'Brooklyn',
     team: 'Nets',
-    color: '#000',
+    // color: '#000',
+    color: '#777D84', // silver/gray color
     conf: 'Eastern',
     logo: require('../Assets/Images/bkn.png')
   },
@@ -100,7 +101,8 @@ module.exports = {
     id: 1610612746,
     city: 'Los Angeles',
     team: 'Clippers',
-    color: '#222',
+    color: '#ED174C',
+    color2: '#222',
     conf: 'Western',
     logo: require('../Assets/Images/lac.png')
   },
