@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
 import LeadTracker from './LeadTracker'
+import TeamStatsTable from './TeamStatsTable'
 
 class TeamStats extends Component<Props> {
 
@@ -143,7 +144,8 @@ class TeamStats extends Component<Props> {
           (this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
 
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
-            <View style={{ flex: 1.5, flexDirection: 'row', marginBottom: 10 }}>
+            {/* <View style={{ flex: 1.5, flexDirection: 'row', marginBottom: 10 }}> */}
+            <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
               <View style={styles.teamQuarterScores}>
                 <View style={styles.teamQuarterHeader}>
                   <Text style={styles.text}> Time in game (?) </Text>
@@ -154,11 +156,8 @@ class TeamStats extends Component<Props> {
               </View>
             </View>
             <View style={styles.leadTracker}>
-              {/* {/* <View style={styles.leadTrackerHeader}>
-                <Text style={styles.text}> Lead Tracker </Text>
-              </View> */}
               <View style={styles.leadTrackerHeader}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Tracker </Text>
                 </View>
                 <LeadTracker
@@ -168,24 +167,17 @@ class TeamStats extends Component<Props> {
                   awayTeamColor={awayTeamColor}
                   leadtracker={this.state.leadTracker}
                 />
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Times Tied: {this.state.teamStats.timesTied} </Text>
                   <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Changes: {this.state.teamStats.leadChanges} </Text>
                 </View>
               </View>
-              {/* <View style={styles.leadTrackerHeader}>
-                <Text style={styles.text}> Times Tied: {this.state.teamStats.timesTied} </Text>
-                <Text style={styles.text}> Lead Changes: {this.state.teamStats.leadChangs} </Text>
-              </View>
-              <View style={styles.leaedTrackerChart}>
-
-              </View> */}
             </View>
-            {/* <View style={styles.teamComparison}>
-              <View style={styles.teamComparisonHeader}>
-                <Text style={styles.text}> Team stats </Text>
-              </View>
-            </View> */}
+            <View style={styles.teamComparison}>
+              <TeamStatsTable
+                stats={this.state.teamStats}
+              />
+            </View>
           </ScrollView>
         }
       </View>
@@ -199,7 +191,7 @@ const styles = StyleSheet.create({
     color: '#D3D3D3'
   },
   teamStatsContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -223,9 +215,12 @@ const styles = StyleSheet.create({
   /******************/
   /* lead tracker chart */
   leadTracker: {
-    flex: 3,
+    // flex: 3
+    height: 260,
     flexDirection: 'row',
-    marginTop: 15
+    marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10
   },
   leadTrackerHeader: {
     flex: 1,
@@ -234,14 +229,14 @@ const styles = StyleSheet.create({
   /******************/
   /* team comparison */
   teamComparison: {
-    flex: 2,
-    backgroundColor: 'red',
+    flex: 1,
+    marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#D3D3D3',
     flexDirection: 'row'
   },
-  teamComparisonHeader: {
-    flex: 1,
-    justifyContent: 'center'
-  }
   /******************/
 })
 
