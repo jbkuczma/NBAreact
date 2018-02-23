@@ -175,6 +175,8 @@ class TeamStats extends Component<Props> {
             </View>
             <View style={styles.teamComparison}>
               <TeamStatsTable
+                awayTeamColor={awayTeamColor}
+                homeTeamColor={homeTeamColor}
                 stats={this.state.teamStats}
               />
             </View>
