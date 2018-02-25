@@ -64,12 +64,12 @@ import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
 
 const GameDetailNavigator = TabNavigator({
-  'Team Stats': { screen: TeamStats},
+  'Team Stats': { screen: TeamStats },
   'Boxscore': { screen: BoxScore },
   'Play by Play': { screen: PlayByPlay }
 }, {
   tabBarPosition: 'top',
-  swipeEnabled: true,
+  swipeEnabled: false,
   tabBarOptions: {
     activeTintColor: '#FFFFFF',
     inactiveTintColor: '#777777',
@@ -86,7 +86,7 @@ const GameDetailNavigator = TabNavigator({
       alignItems: 'center',
     },
     style:{
-      backgroundColor: '#1F1F22',
+      backgroundColor: '#1F1F22'
     },
     tabStyle: {
       justifyContent: 'center',
