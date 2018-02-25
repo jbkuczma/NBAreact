@@ -117,6 +117,11 @@ export default class NBA {
     return this.nbaFetch(url, true)
   }
 
+  getPlayers = (season) => {
+    const url = `https://data.nba.net/prod/v1/${season}/players.json`
+    return this.nbaFetch(url)
+  }
+
   getTeams = (year) => {
     // use 2017 for now
     const endpoint = `prod/v1/${year}/teams.json`
