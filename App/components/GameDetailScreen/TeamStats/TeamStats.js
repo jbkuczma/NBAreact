@@ -148,7 +148,14 @@ class TeamStats extends Component<Props> {
             <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
               <View style={styles.teamQuarterScores}>
                 <View style={styles.teamQuarterHeader}>
-                  <Text style={styles.text}> Q{this.state.miniBoxscore.basicGameData.period.current} {this.state.miniBoxscore.basicGameData.clock} </Text>
+                  {
+                    this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current != 0 ?
+                      <Text style={styles.text}> Q{this.state.miniBoxscore.basicGameData.period.current} {this.state.miniBoxscore.basicGameData.clock} </Text>
+                    :
+                      !this.state.miniBoxscore.basicGameData.clock ?
+                        <Text style={styles.text}> Final </Text> :
+                        <Text style={styles.text}> </Text> // game hasn't started
+                  }
                 </View>
                 <View style={styles.teamQuarterChart}>
                   {this._renderQuarterScoresChart()}
