@@ -12,7 +12,7 @@ class TeamStatsTable extends Component<Props> {
       homeTeamColor
     } = this.props
 
-    const statHeader = ['FG', 'FG%', 'FT', 'FT%', '3PT', '3PT%', 'ASSISTS', 'REBOUNDS', 'OFF REBOUNDS', 'TOV', 'STEALS', 'BLOCKS', 'FAST BREAK PTS', 'PTS IN PAINT', 'PTS OFF TOV']
+    const statHeader = ['FG', 'FG%', 'FT', 'FT%', '3PT', '3PT%', 'ASSISTS', 'REBOUNDS', 'OFF REBOUNDS', 'TOV', 'STEALS', 'BLOCKS', 'FAST BREAK PTS', 'PTS IN PAINT', 'PTS OFF TOV', 'BIGGEST LEAD']
     const statHeaderMapping = [
       {
         home: `${this.props.stats.hTeam.totals.fgm}-${this.props.stats.hTeam.totals.fga}`,
@@ -88,6 +88,12 @@ class TeamStatsTable extends Component<Props> {
         home: `${this.props.stats.hTeam.pointsOffTurnovers}`,
         away: `${this.props.stats.vTeam.pointsOffTurnovers}`,
         color: this.props.stats.hTeam.pointsOffTurnovers > this.props.stats.vTeam.pointsOffTurnovers ? homeTeamColor : awayTeamColor
+      }
+      ,
+      {
+        home: `${this.props.stats.hTeam.biggestLead}`,
+        away: `${this.props.stats.vTeam.biggestLead}`,
+        color: this.props.stats.hTeam.biggestLead > this.props.stats.vTeam.biggestLead ? homeTeamColor : awayTeamColor
       }
     ]
 
