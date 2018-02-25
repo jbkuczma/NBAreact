@@ -59,48 +59,30 @@ class BoxScore extends Component<Props> {
 
     const updatedPlayers = []
 
-    // modifying original array; playersToShow
-    // playersToShow.forEach((player, index, arr) => {
-    //   // skip header
-    //   if (index != 0) {
-    //     const obj = {
-    //       PlayerID: player.personId
-    //     }
-    //     this.nba.getPlayer(obj)
-    //     .then((data) => {
-    //       const newPlayerData = {
-    //         display_fi_last: data.CommonPlayerInfo[0].display_fi_last
-    //       }
-    //       player = {...player, ...newPlayerData}
-    //       // arr[index] = player
-    //       updatedPlayers.push(player)
-    //     })
-    //   } else {
-    //     updatedPlayers.push(player)
-    //   }
-    // })
-    playersToShow.forEach((player, index, arr) => {
-      // skip header
-      if (index != 0) {
-        this.nba.getPlayers(this.props.season)
-        .then((data) => {
-          const players = data.league.standard
+    this.nba.getPlayers(this.props.season)
+    .then((data) => {
+      const players = data.league.standard
+
+        // modifying original array; playersToShow
+      playersToShow.forEach((player, index, arr) => {
+        // skip header
+        if (index != 0) {
           const desiredPlayer = players.filter((somePlayer, index) => {
             return somePlayer.personId === player.personId
           })
+
           const newPlayerData = {
             display_fi_last: desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName
           }
+
           player = {...player, ...newPlayerData}
           // arr[index] = player
           updatedPlayers.push(player)
-        })
-      } else {
-        updatedPlayers.push(player)
-      }
+        } else {
+          updatedPlayers.push(player)
+        }
+      })
     })
-
-    console.log(updatedPlayers)
 
     return (
       <ScrollView style={{ flex: 1 }} horizontal={true}>
