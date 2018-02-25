@@ -73,10 +73,15 @@ class GameCell extends Component<Props> {
                 <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Final </Text>
               </View>
             :
-              <View style={styles.gameInfo}>
-                <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Tip off </Text>
-                <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {startTimeEastern} </Text>
-              </View>
+              period.isHalftime ?
+                <View style={styles.gameInfo}>
+                  <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Halftime </Text>
+                </View>
+              :
+                <View style={styles.gameInfo}>
+                  <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Tip off </Text>
+                  <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {startTimeEastern} </Text>
+                </View>
         }
         <View style={styles.homeTeam}>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

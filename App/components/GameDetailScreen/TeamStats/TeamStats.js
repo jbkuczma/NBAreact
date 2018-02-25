@@ -124,6 +124,22 @@ class TeamStats extends Component<Props> {
     )
   }
 
+  _renderGameStatus() {
+    const gameStatus = this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current != 0 ?
+      `Q${this.state.miniBoxscore.basicGameData.period.current} ${this.state.miniBoxscore.basicGameData.clock}`
+    :
+      !this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current === 4 ?
+        `Final`
+      :
+        !this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.isHalftime ?
+          `Halftime`
+        :
+          ` ` // game hasn't started
+    return (
+      <Text style={styles.text}> {gameStatus} </Text>
+    )
+  }
+
   render() {
     console.log(this.state)
     const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
@@ -148,14 +164,7 @@ class TeamStats extends Component<Props> {
             <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
               <View style={styles.teamQuarterScores}>
                 <View style={styles.teamQuarterHeader}>
-                  {
-                    this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current != 0 ?
-                      <Text style={styles.text}> Q{this.state.miniBoxscore.basicGameData.period.current} {this.state.miniBoxscore.basicGameData.clock} </Text>
-                    :
-                      !this.state.miniBoxscore.basicGameData.clock ?
-                        <Text style={styles.text}> Final </Text> :
-                        <Text style={styles.text}> </Text> // game hasn't started
-                  }
+                  { this._renderGameStatus() }
                 </View>
                 <View style={styles.teamQuarterChart}>
                   {this._renderQuarterScoresChart()}
