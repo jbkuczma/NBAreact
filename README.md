@@ -2,6 +2,7 @@
 ![](https://david-dm.org/jbkuczma/NBAreact.svg)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 # NBAreact
+## Currently being rewritten. See [branch v2.0_rewrite](https://github.com/jbkuczma/NBAreact/tree/v2.0_rewrite).
 An iOS and Android NBA app created with React Native (still in active development). Find a bug or want to leave feedback? Open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
 
 ![nbareact_ios_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact_iOS.gif)
