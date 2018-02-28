@@ -99,6 +99,7 @@ class StandingsScreen extends Component<Props> {
                 keyExtractor={team => team.teamId}
                 renderItem={(team) => (
                   <TeamCell
+                    navigator={this.props.navigation}
                     team={team}
                   />
                 )}

@@ -5,7 +5,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation'
 import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
-import TeamsScreen from './components/TeamsScreen'
+import TeamScreen from './components/TeamScreen'
 import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
@@ -62,9 +62,30 @@ const ScoresStack = StackNavigator({
   }
 })
 
+const StandingsStack = StackNavigator({
+  Home: {
+    screen: StandingsScreen,
+    navigationOptions: { header: null }
+  },
+  Team: {
+    screen: TeamScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
+})
+
 export default TabNavigator({
   Scores: { screen: ScoresStack },
-  Standings: { screen: StandingsScreen },
+  Standings: { screen: StandingsStack }
+  // Standings: { screen: StandingsScreen },
   // Teams: { screen: TeamsScreen }
 },{
   tabBarOptions: {

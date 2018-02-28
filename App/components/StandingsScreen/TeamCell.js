@@ -12,11 +12,16 @@ class TeamCell extends Component<Props> {
     return TeamMap[team]
   }
 
+  _selectTeam() {
+    // this.props.selectTeam(gameData)
+    this.props.navigator.navigate('Team')
+  }
 
   render() {
     const team = this.props.team.item
     return (
-      <View style={styles.teamcell}>
+      // <View style={styles.teamcell}>
+      <TouchableOpacity style={styles.teamcell} onPress={() => { this._selectTeam() }}>
         <View>
           <Text style={[styles.statcellText, {fontSize: 18}]}> {team.confRank} </Text>
         </View>
@@ -38,7 +43,7 @@ class TeamCell extends Component<Props> {
         <View style={styles.statcell}>
           <Text style={styles.statcellText}> {team.isWinStreak ? 'W' : 'L'}{team.streak} </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -77,7 +82,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    // selectTeam: (selectedTeam) => dispatch(selectedTeam(selectedTeam))
   }
 }
 
