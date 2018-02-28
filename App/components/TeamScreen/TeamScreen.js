@@ -78,7 +78,8 @@ class TeamScreen extends Component<Props> {
         {
           this.state.teamInfo && this.state.teamSeasonRanks ?
             <View style={styles.header}>
-              <View style={{ flex: 2, flexDirection: 'row' }}>
+              {/* begin team info */}
+              <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     style={styles.logo}
@@ -89,32 +90,32 @@ class TeamScreen extends Component<Props> {
                   <View  style={{ flex: 1 }}>
                     <Text style={styles.textPrimary}> {this.state.teamInfo.team_city} {this.state.teamInfo.team_name} </Text>
                   </View>
-                  <View  style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <View  style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={{ flex: 1 }}>
                       <Text style={styles.textSecondary}> Wins-{this.state.teamInfo.w} </Text>
+                      <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.conf_rank)} in the {this.state.teamInfo.team_conference} </Text>
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={styles.textSecondary}> Losses-{this.state.teamInfo.l} </Text>
+                      <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.div_rank)} in the {this.state.teamInfo.team_division} </Text>
                     </View>
-                  </View>
-                  <View  style={{ flex: 1 }}>
-                    <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.conf_rank)} in the {this.state.teamInfo.team_conference} </Text>
-                    <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.div_rank)} in the {this.state.teamInfo.team_division} </Text>
                   </View>
                 </View>
               </View>
+              {/* end team info */}
+              {/* begin team stat rankings */}
               <View style={styles.teamRanks}>
-                <View style={styles.teamRankCell}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
                   <Text style={styles.textPrimary}> PPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.pts_rank)}) </Text>
                 </View>
-                <View style={styles.teamRankCell}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
                   <Text style={styles.textPrimary}> OPPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.opp_pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.opp_pts_rank)}) </Text>
                 </View>
-                <View style={styles.teamRankCell}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
                   <Text style={styles.textPrimary}> RPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.reb_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.reb_rank)}) </Text>
@@ -125,6 +126,7 @@ class TeamScreen extends Component<Props> {
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.ast_rank)}) </Text>
                 </View>
               </View>
+              {/* end team stat rankings */}
             </View>
           :
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   header: {
-    height: 260,
+    height: 180,
     backgroundColor: '#171717',
     flexDirection: 'column'
   },
@@ -165,7 +167,9 @@ const styles = StyleSheet.create({
   teamRankCell: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10
   },
   logo: {
     height: 90,
