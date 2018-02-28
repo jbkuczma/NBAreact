@@ -78,27 +78,51 @@ class TeamScreen extends Component<Props> {
         {
           this.state.teamInfo && this.state.teamSeasonRanks ?
             <View style={styles.header}>
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Image
-                  style={styles.logo}
-                  source={this._getTeamFromTeamMap(this.props.teamID).logo}
-                />
+              <View style={{ flex: 2, flexDirection: 'row' }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    style={styles.logo}
+                    source={this._getTeamFromTeamMap(this.props.teamID).logo}
+                  />
+                </View>
+                <View style={{ flex: 2, flexDirection: 'column' }}>
+                  <View  style={{ flex: 1 }}>
+                    <Text style={styles.textPrimary}> {this.state.teamInfo.team_city} {this.state.teamInfo.team_name} </Text>
+                  </View>
+                  <View  style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.textSecondary}> Wins-{this.state.teamInfo.w} </Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.textSecondary}> Losses-{this.state.teamInfo.l} </Text>
+                    </View>
+                  </View>
+                  <View  style={{ flex: 1 }}>
+                    <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.conf_rank)} in the {this.state.teamInfo.team_conference} </Text>
+                    <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.div_rank)} in the {this.state.teamInfo.team_division} </Text>
+                  </View>
+                </View>
               </View>
-              <View style={{ flex: 2, flexDirection: 'column' }}>
-                <View  style={{ flex: 1 }}>
-                  <Text style={styles.headerTextPrimary}> {this.state.teamInfo.team_city} {this.state.teamInfo.team_name} </Text>
+              <View style={styles.teamRanks}>
+                <View style={styles.teamRankCell}>
+                  <Text style={styles.textPrimary}> PPG </Text>
+                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.pts_pg} </Text>
+                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.pts_rank)}) </Text>
                 </View>
-                <View  style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.headerTextSecondary}> Wins-{this.state.teamInfo.w} </Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.headerTextSecondary}> Losses-{this.state.teamInfo.l} </Text>
-                  </View>
+                <View style={styles.teamRankCell}>
+                  <Text style={styles.textPrimary}> OPPG </Text>
+                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.opp_pts_pg} </Text>
+                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.opp_pts_rank)}) </Text>
                 </View>
-                <View  style={{ flex: 1 }}>
-                  <Text style={styles.headerTextSecondary}> {this._getRank(this.state.teamInfo.conf_rank)} in the {this.state.teamInfo.team_conference} </Text>
-                  <Text style={styles.headerTextSecondary}> {this._getRank(this.state.teamInfo.div_rank)} in the {this.state.teamInfo.team_division} </Text>
+                <View style={styles.teamRankCell}>
+                  <Text style={styles.textPrimary}> RPG </Text>
+                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.reb_pg} </Text>
+                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.reb_rank)}) </Text>
+                </View>
+                <View style={styles.teamRankCell}>
+                  <Text style={styles.textPrimary}> APG </Text>
+                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.ast_pg} </Text>
+                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.ast_rank)}) </Text>
                 </View>
               </View>
             </View>
@@ -117,18 +141,31 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#D3D3D3'
   },
-  headerTextPrimary: {
+  textPrimary: {
     color: '#D3D3D3',
     fontSize: 22
   },
-  headerTextSecondary: {
+  textSecondary: {
     color: '#D3D3D3',
-    fontSize: 16
+    fontSize: 18
+  },
+  textThird: {
+    color: '#D3D3D3',
+    fontSize: 14
   },
   header: {
-    height: 120,
+    height: 260,
     backgroundColor: '#171717',
+    flexDirection: 'column'
+  },
+  teamRanks: {
+    flex: 1,
     flexDirection: 'row'
+  },
+  teamRankCell: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   logo: {
     height: 90,
