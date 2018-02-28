@@ -106,8 +106,23 @@ export default class NBA {
       obj = {...obj, ...defaults}
       const queryString = this.objectToQueryString(obj)
       const url = this.STATS_URL + endpoint + queryString
-      return this.nbaFetch()
+      return this.nbaFetch(url, true)
     }
+  }
+
+  getRoster = (obj) => {
+    // param {
+    //   teamID:
+    //   season:
+    // }
+    const endpoint = `stats/commonteamroster?`
+    const defaults = {
+      LeagueID: '00'
+    }
+    obj = {...obj, ...defaults}
+    const queryString = this.objectToQueryString(obj)
+    const url = this.STATS_URL + endpoint + queryString
+    return this.nbaFetch(url, true)
   }
 
   getPlayer = (obj) => {

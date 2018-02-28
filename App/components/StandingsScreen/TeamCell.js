@@ -25,7 +25,6 @@ class TeamCell extends Component<Props> {
   render() {
     const team = this.props.team.item
     return (
-      // <View style={styles.teamcell}>
       <TouchableOpacity style={styles.teamcell} onPress={() => { this._selectTeam() }}>
         <View>
           <Text style={[styles.statcellText, {fontSize: 18}]}> {team.confRank} </Text>
