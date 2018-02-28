@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
+import { selectTeam } from '../../actions/actions'
 import TeamMap from '../../utils/TeamMap'
 
 class TeamCell extends Component<Props> {
@@ -13,7 +14,11 @@ class TeamCell extends Component<Props> {
   }
 
   _selectTeam() {
-    // this.props.selectTeam(gameData)
+    const teamInfo = this.props.team.item
+    const team = {
+      teamID: teamInfo.teamId
+    }
+    this.props.selectTeam(team)
     this.props.navigator.navigate('Team')
   }
 
@@ -82,7 +87,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // selectTeam: (selectedTeam) => dispatch(selectedTeam(selectedTeam))
+    selectTeam: (selectedTeam) => dispatch(selectTeam(selectedTeam))
   }
 }
 

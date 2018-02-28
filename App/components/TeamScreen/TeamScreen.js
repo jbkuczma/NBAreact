@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class TeamScreen extends Component<Props> {
+class TeamScreen extends Component<Props> {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -10,3 +11,21 @@ export default class TeamScreen extends Component<Props> {
     )
   }
 }
+
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeamScreen)

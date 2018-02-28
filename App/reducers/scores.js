@@ -1,5 +1,6 @@
 const initialState = {
-  selectedGame: null
+  selectedGame: null,
+  selectedTeam: null
 }
 
 const scores = (state = initialState, action) => {
@@ -11,6 +12,10 @@ const scores = (state = initialState, action) => {
     case 'SELECT_GAME':
       return {
         ...state, selectedGame: action.selectedGame
+      }
+    case 'SELECT_TEAM':
+      return {
+        ...state, selectedTeam: action.selectedTeam
       }
     default:
       return state
