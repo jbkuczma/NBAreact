@@ -49,7 +49,7 @@ class Roster extends Component<Props> {
         </View>
         <View>
           <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
-          <Text style={styles.textPrimary}> {this._formatPosition(player.position)} </Text>
+          <Text style={styles.textSecondary}> {this._formatPosition(player.position)} </Text>
         </View>
       </View>
     )

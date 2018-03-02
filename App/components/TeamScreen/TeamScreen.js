@@ -67,7 +67,13 @@ class TeamScreen extends Component<Props> {
     })
   }
 
+  _getTeamColor(teamID) {
+
+  }
+
   render() {
+    const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
@@ -109,17 +115,17 @@ class TeamScreen extends Component<Props> {
               {/* end team info */}
               {/* begin team stat rankings */}
               <View style={styles.teamRanks}>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
                   <Text style={styles.textSecondary}> PPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.pts_rank)}) </Text>
                 </View>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
                   <Text style={styles.textSecondary}> OPPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.opp_pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.opp_pts_rank)}) </Text>
                 </View>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
+                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
                   <Text style={styles.textSecondary}> RPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.reb_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.reb_rank)}) </Text>
