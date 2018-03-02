@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
+import Roster from './Roster'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
@@ -13,7 +14,8 @@ class TeamScreen extends Component<Props> {
     this.state = {
       loading: true,
       teamInfo: null,
-      teamSeasonRanks: null
+      teamSeasonRanks: null,
+      teamRoster: null
     }
   }
 
@@ -42,28 +44,30 @@ class TeamScreen extends Component<Props> {
   }
 
   fetchTeam() {
-    const info = {
+    const teamInfo = {
       season: this.props.season,
       teamID: this.props.teamID
     }
+    const rosterInfo = {
+      season: this.props.season +  '-' + this.props.season.toString().substr(-2), // season has to be 2017-18
+      teamID: this.props.teamID
+    }
 
-    // Promise.all([
-    //   this.nba.getTeam(info),
-    //   this.nba.getRoster(info) // season has to be 2017-18
-    // ])
-    this.nba.getTeam(info)
+    Promise.all([
+      this.nba.getTeam(teamInfo),
+      this.nba.getRoster(rosterInfo)
+    ])
     .then((data) => {
-      console.log(data)
       this.setState({
         loading: false,
-        teamInfo: data.TeamInfoCommon[0],
-        teamSeasonRanks: data.TeamSeasonRanks[0]
+        teamInfo: data[0].TeamInfoCommon[0],
+        teamSeasonRanks: data[0].TeamSeasonRanks[0],
+        teamRoster: data[1].CommonTeamRoster
       })
     })
   }
 
   render() {
-    console.log(this.state)
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
@@ -76,7 +80,7 @@ class TeamScreen extends Component<Props> {
             </View>
         }
         {
-          this.state.teamInfo && this.state.teamSeasonRanks ?
+          this.state.teamInfo && this.state.teamSeasonRanks &&
             <View style={styles.header}>
               {/* begin team info */}
               <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -106,32 +110,34 @@ class TeamScreen extends Component<Props> {
               {/* begin team stat rankings */}
               <View style={styles.teamRanks}>
                 <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
-                  <Text style={styles.textPrimary}> PPG </Text>
+                  <Text style={styles.textSecondary}> PPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.pts_rank)}) </Text>
                 </View>
                 <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
-                  <Text style={styles.textPrimary}> OPPG </Text>
+                  <Text style={styles.textSecondary}> OPPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.opp_pts_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.opp_pts_rank)}) </Text>
                 </View>
                 <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: '#D3D3D3'}]}>
-                  <Text style={styles.textPrimary}> RPG </Text>
+                  <Text style={styles.textSecondary}> RPG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.reb_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.reb_rank)}) </Text>
                 </View>
                 <View style={styles.teamRankCell}>
-                  <Text style={styles.textPrimary}> APG </Text>
+                  <Text style={styles.textSecondary}> APG </Text>
                   <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.ast_pg} </Text>
                   <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.ast_rank)}) </Text>
                 </View>
               </View>
               {/* end team stat rankings */}
             </View>
-          :
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.text}> Error </Text>
-            </View>
+        }
+        {
+          this.state.teamRoster &&
+          <Roster
+            team={this.state.teamRoster}
+          />
         }
       </View>
     )
