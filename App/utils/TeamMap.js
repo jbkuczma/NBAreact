@@ -198,7 +198,7 @@ module.exports = {
     id: 1610612757,
     city: 'Portland',
     team: 'Trail Blazers',
-    color: '#000',
+    color: '#E13A3E',
     conf: 'Western',
     logo: require('../Assets/Images/por.png')
   },
