@@ -115,7 +115,7 @@ export default class PlayerBoxCell extends Component<Props> {
           </View>
           <View style={styles.boxscoreStatView}>
             <Text style={styles.boxscoreText}>
-              { this.props.player.item.turnovers }
+              { this.props.player.item.offReb }
             </Text>
           </View>
           <View style={styles.boxscoreStatView}>
@@ -125,7 +125,7 @@ export default class PlayerBoxCell extends Component<Props> {
           </View>
           <View style={styles.boxscoreStatView}>
             <Text style={styles.boxscoreText}>
-              { this.props.player.item.plusMinus }
+              { this.props.player.item.turnovers }
             </Text>
           </View>
           <View style={styles.boxscoreStatView}>
