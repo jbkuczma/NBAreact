@@ -46,6 +46,7 @@ export default class LeadTracker extends Component<Props> {
           formatLabel={ value => this._formatLabel(value) }
         />
         <BarChart
+          spacing={0}
           style={{ flex: 1, marginLeft: 15, marginRight: 15 }}
           data={ barData }
           contentInset={{ top: 30, bottom: 30 }}
