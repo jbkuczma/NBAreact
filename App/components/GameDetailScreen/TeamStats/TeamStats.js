@@ -48,13 +48,29 @@ class TeamStats extends Component<Props> {
     const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
     const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
 
+    // space for team name in header
+    let miniBoxscoreHeader = [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'T']
+
+    if (this.state.miniBoxscore.basicGameData.vTeam.linescore.length > 4 && this.state.miniBoxscore.basicGameData.hTeam.linescore.length > 4) {
+      const numberOfPeriods = this.state.miniBoxscore.basicGameData.vTeam.linescore.length
+      const numberOfOvertimes = numberOfPeriods - 4
+      // Q4 is at index 4
+      let overtimePeriodArrayIndex = 5
+
+      for (overtimePeriod = 1; overtimePeriod <= numberOfOvertimes; overtimePeriod++) {
+        const overtimePeriodString = `OT${overtimePeriod}`
+        // insert overtime string at specific index, remove 0 items from array while inserting
+        miniBoxscoreHeader.splice(overtimePeriodArrayIndex, 0, overtimePeriodString)
+        overtimePeriodArrayIndex+=1
+      }
+    }
+
     return (
       <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         {/* Header */}
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
           {
-            // space for team name in header
-            [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'T'].map((quarter) => {
+            miniBoxscoreHeader.map((quarter) => {
               return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.text}> {quarter} </Text>
