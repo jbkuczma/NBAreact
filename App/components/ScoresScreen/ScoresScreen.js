@@ -20,6 +20,7 @@ class ScoresScreen extends Component<Props> {
     this.state = {
       date: null,
       loading: true,
+      refresh: false,
       games: []
     }
   }
@@ -49,12 +50,22 @@ class ScoresScreen extends Component<Props> {
     .then((games) => {
       this.setState({
         loading: false,
+        refresh: false,
         date: this.props.date,
         games: games.games,
       })
     })
     .catch((error) => {
       console.log(error)
+    })
+  }
+
+  handleRefresh() {
+    this.setState({
+      refresh: true,
+      loading: true
+    }, () => {
+      this.fetchGames()
     })
   }
 
@@ -81,8 +92,8 @@ class ScoresScreen extends Component<Props> {
             (this.state.games && !this.state.loading) &&
             <FlatList
               data={this.state.games}
-              refreshing={this.state.loading}
-              onRefresh={() => { this.fetchGames() }}
+              refreshing={this.state.refresh}
+              onRefresh={() => { this.handleRefresh() }}
               renderItem={(teams) => (
                 <GameCell
                   navigator={this.props.navigation}
