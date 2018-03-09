@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
@@ -48,6 +48,62 @@ class PlayerScreen extends Component<Props> {
     )
   }
 
+  _renderGamelog() {
+    const stats = this.state.gameStats.playoffs.concat(this.state.gameStats.regularSeason)
+    return (
+      <FlatList
+        data={stats}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderGameStat}
+      />
+    )
+  }
+
+  _renderGameStat(game) {
+    console.log(game)
+    game = game.item
+    /**
+     * remove team from matchup
+     * ex: TOR @ NYK -> @ NYK
+     * ex: TOR vs. WAS -> vs WAS
+     */
+    const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
+
+    return (
+      <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text> </Text>
+          <Text style={styles.textSecondary}> {game.wl} </Text>
+        </View>
+        <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight: 10  }}>
+          <Text style={styles.textSecondary}> {game.game_date} </Text>
+          <Text style={styles.textSecondary}> {matchup} </Text>
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.textPrimary}>
+              {game.pts} <Text style={styles.textSecondary}>pts</Text>
+            </Text>
+          </View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.textPrimary}>
+              {game.reb} <Text style={styles.textSecondary}>reb</Text>
+            </Text>
+          </View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.textPrimary}>
+              {game.ast} <Text style={styles.textSecondary}>ast</Text>
+            </Text>
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+  _keyExtractor(game) {
+    return game.game_id
+  }
+
 
   render() {
     const {
@@ -89,7 +145,9 @@ class PlayerScreen extends Component<Props> {
         {
           !this.state.loading && this.state.gameStats &&
           <View style={styles.playerStatsContainer}>
-
+            {
+              this._renderGamelog()
+            }
           </View>
         }
       </View>

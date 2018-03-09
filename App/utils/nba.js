@@ -235,11 +235,10 @@ export default class NBA {
       this.nbaFetch(regularSeasonURL, true),
       this.nbaFetch(playoffURL, true),
     ]).then((result) => {
-      console.log(result)
-      console.log({
+      return {
         regularSeason: result[0].PlayerGameLog,
         playoffs: result[1].PlayerGameLog
-      })
+      }
       // const playerGameStats = [].concat.apply([], result.map(quarter => quarter.plays))
       // return leadTrackerArray
     })
@@ -268,11 +267,10 @@ export default class NBA {
       this.nbaFetch(regularSeasonURL, true),
       this.nbaFetch(playoffURL, true),
     ]).then((result) => {
-      console.log(result)
-      console.log({
+      return {
         regularSeason: result[0].PlayerGameLog,
         playoffs: result[1].PlayerGameLog
-      })
+      }
       // const playerGameStats = [].concat.apply([], result.map(quarter => quarter.plays))
       // return leadTrackerArray
     })
