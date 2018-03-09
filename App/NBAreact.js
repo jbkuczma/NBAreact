@@ -99,8 +99,6 @@ const StandingsStack = StackNavigator({
 export default TabNavigator({
   Scores: { screen: ScoresStack },
   Standings: { screen: StandingsStack }
-  // Standings: { screen: StandingsScreen },
-  // Teams: { screen: TeamsScreen }
 },{
   navigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
@@ -112,8 +110,6 @@ export default TabNavigator({
         iconName = require('./Assets/icons/trophy.png')
       }
 
-      // You can return any component that you like here! We usually use an
-      // icon component from react-native-vector-icons
       return <Image source={iconName} style={{ height: 42, width: 42, tintColor: tintColor }} />
     },
   }),

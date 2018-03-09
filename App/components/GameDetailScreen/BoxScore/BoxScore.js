@@ -85,32 +85,16 @@ class BoxScore extends Component<Props> {
     })
 
     return (
-      <ScrollView style={{ flex: 1 }} horizontal={true}>
-        <FlatList
-          data={updatedPlayers}
-          renderItem={(player) => (
-            <PlayerBoxCell
-              key={player.personId}
-              player={player}
-            />
-          )}
-        />
-      </ScrollView>
+      <FlatList
+        data={updatedPlayers}
+        renderItem={(player) => (
+          <PlayerBoxCell
+            key={player.personId}
+            player={player}
+          />
+        )}
+      />
     )
-
-    // BUG: sometimes boxscore doesnt appear until you scorll
-    // return (
-    //   <ScrollView style={{ flex: 1 }} horizontal={true}>
-    //     <FlatList
-    //       data={updatedPlayers}
-    //       renderItem={(player) => (
-    //         <PlayerBoxCell
-    //           player={player}
-    //         />
-    //       )}
-    //     />
-    //   </ScrollView>
-    // )
   }
 
   render() {
