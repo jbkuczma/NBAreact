@@ -25,8 +25,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-      "assets": [
-        "./App/Assets/fonts/"
-      ]
+    "assets": [
+      "./App/Assets/fonts/"
+    ]
   }
 }

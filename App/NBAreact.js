@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Image } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 
 import ScoresScreen from './components/ScoresScreen'
@@ -102,6 +102,21 @@ export default TabNavigator({
   // Standings: { screen: StandingsScreen },
   // Teams: { screen: TeamsScreen }
 },{
+  navigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused, tintColor }) => {
+      const { routeName } = navigation.state
+      let iconName
+      if (routeName === 'Scores') {
+        iconName = require('./Assets/icons/scoreboard.png')
+      } else if (routeName === 'Standings') {
+        iconName = require('./Assets/icons/trophy.png')
+      }
+
+      // You can return any component that you like here! We usually use an
+      // icon component from react-native-vector-icons
+      return <Image source={iconName} style={{ height: 42, width: 42, tintColor: tintColor }} />
+    },
+  }),
   tabBarOptions: {
     activeTintColor: '#F7971E',
     inactiveTintColor: 'gray',
