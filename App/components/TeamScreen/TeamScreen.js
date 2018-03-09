@@ -142,6 +142,7 @@ class TeamScreen extends Component<Props> {
         {
           this.state.teamRoster &&
           <Roster
+            navigator={this.props.navigation}
             team={this.state.teamRoster}
           />
         }
@@ -157,15 +158,18 @@ const styles = StyleSheet.create({
   },
   textPrimary: {
     color: '#D3D3D3',
-    fontSize: 22
+    fontSize: 22,
+    fontFamily: 'Rubik-Light'
   },
   textSecondary: {
     color: '#D3D3D3',
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: 'Rubik-Light'
   },
   textThird: {
     color: '#D3D3D3',
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: 'Rubik-Light'
   },
   header: {
     height: 180,

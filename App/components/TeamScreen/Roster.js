@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../utils/nba'
+import { selectPlayer } from '../../actions/actions'
 
 class Roster extends Component<Props> {
 
@@ -10,6 +11,15 @@ class Roster extends Component<Props> {
 
     this.nba = new NBA()
     this._renderPlayer = this._renderPlayer.bind(this)
+    this._selectPlayer = this._selectPlayer.bind(this)
+  }
+
+  _selectPlayer(player) {
+    const selectedPlayer = {
+      player: player
+    }
+    this.props.selectPlayer(selectedPlayer)
+    this.props.navigator.navigate('Player')
   }
 
   _formatPosition(position) {
@@ -36,11 +46,12 @@ class Roster extends Component<Props> {
   }
 
   _renderPlayer(player) {
+    // const _this = this
     player = player.item
     const playerImageURL = this.nba.getPlayerImage(player.player_id)
 
     return(
-      <View style={styles.playerCell}>
+      <TouchableOpacity style={styles.playerCell} onPress={() => this._selectPlayer(player)}>
         <View style={styles.imageContainer}>
           <Image
             style={styles.playerImage}
@@ -51,7 +62,7 @@ class Roster extends Component<Props> {
           <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
           <Text style={styles.textSecondary}> {this._formatPosition(player.position)} </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -101,7 +112,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // todo selectPlayer
+    selectPlayer: (selectedPlayer) => dispatch(selectPlayer(selectedPlayer))
   }
 }
 

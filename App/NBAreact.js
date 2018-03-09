@@ -6,6 +6,7 @@ import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
 import TeamScreen from './components/TeamScreen'
+import PlayerScreen from './components/PlayerScreen'
 import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
@@ -69,6 +70,19 @@ const StandingsStack = StackNavigator({
   },
   Team: {
     screen: TeamScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  },
+  Player: {
+    screen: PlayerScreen,
     navigationOptions: {
       headerTintColor: '#D3D3D3',
       headerStyle: {

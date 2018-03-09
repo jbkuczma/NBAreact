@@ -18,3 +18,10 @@ export function selectTeam(selectedTeam) {
     selectedTeam
   }
 }
+
+export function selectPlayer(selectedPlayer) {
+  return {
+    type: 'SELECT_PLAYER',
+    selectedPlayer
+  }
+}

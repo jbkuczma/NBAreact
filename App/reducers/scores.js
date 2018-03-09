@@ -17,6 +17,10 @@ const scores = (state = initialState, action) => {
       return {
         ...state, selectedTeam: action.selectedTeam
       }
+    case 'SELECT_PLAYER':
+      return {
+        ...state, selectedPlayer: action.selectedPlayer
+      }
     default:
       return state
   }
