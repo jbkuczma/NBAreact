@@ -89,7 +89,6 @@ export default class NBA {
 
     const url = `https://data.nba.net/prod/v2/${formattedDate}/scoreboard.json`
     return this.nbaFetch(url)
-    // https://data.nba.net/prod/v2/20180213/scoreboard.json // more update to date (?)
   }
 
   getTeam = (obj) => {
@@ -126,7 +125,6 @@ export default class NBA {
   }
 
   getPlayer = (obj) => {
-    // http://stats.nba.com/stats/commonplayerinfo?playerID=201942
     const queryString = this.objectToQueryString(obj)
     const url = this.STATS_URL + 'stats/commonplayerinfo?' + queryString
     return this.nbaFetch(url, true)
@@ -205,6 +203,84 @@ export default class NBA {
     return `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerID}.png`
   }
 
+  // http://data.nba.net/data/10s/prod/v1/2017/players/203507_profile.json
+  getPlayerCareerStats = (playerID, perMode='PerGame') => {
+    // permode - Totals, PerGame
+    const query = {
+      PlayerID: playerID,
+      PerMode: perMode
+    }
+    const endpoint = `stats/playerprofilev2?`
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(defaults)
+    return this.nbaFetch(url, true)
+  }
+
+  // could combine the following two together in the future
+  getCompletePlayerGameLog = (playerID) => {
+    const endpoint = `stats/playergamelog?`
+    const regularSeasonQuery = {
+      playerID: playerID,
+      season: 'ALL',
+      seasonType: 'Regular Season'
+    }
+    const playoffQuery = {
+      playerID: playerID,
+      season: 'ALL',
+      seasonType: 'Playoffs'
+    }
+    const regularSeasonURL = this.STATS_URL + endpoint + this.objectToQueryString(regularSeasonQuery)
+    const playoffURL = this.STATS_URL + endpoint + this.objectToQueryString(playoffQuery)
+
+    return Promise.all([
+      this.nbaFetch(regularSeasonURL, true),
+      this.nbaFetch(playoffURL, true),
+    ]).then((result) => {
+      console.log(result)
+      console.log({
+        regularSeason: result[0].PlayerGameLog,
+        playoffs: result[1].PlayerGameLog
+      })
+      // const playerGameStats = [].concat.apply([], result.map(quarter => quarter.plays))
+      // return leadTrackerArray
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  getSeasonPlayerGameLog = (playerID, season) => {
+    season = season +  '-' + season.toString().substr(-2)
+    const endpoint = `stats/playergamelog?`
+    const regularSeasonQuery = {
+      playerID: playerID,
+      season: season,
+      seasonType: 'Regular Season'
+    }
+    const playoffQuery = {
+      playerID: playerID,
+      season: season,
+      seasonType: 'Playoffs'
+    }
+    const regularSeasonURL = this.STATS_URL + endpoint + this.objectToQueryString(regularSeasonQuery)
+    const playoffURL = this.STATS_URL + endpoint + this.objectToQueryString(playoffQuery)
+
+    return Promise.all([
+      this.nbaFetch(regularSeasonURL, true),
+      this.nbaFetch(playoffURL, true),
+    ]).then((result) => {
+      console.log(result)
+      console.log({
+        regularSeason: result[0].PlayerGameLog,
+        playoffs: result[1].PlayerGameLog
+      })
+      // const playerGameStats = [].concat.apply([], result.map(quarter => quarter.plays))
+      // return leadTrackerArray
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   getLeadTrackerForQuarter = (gameID, date, quarter) => {
     const dateArray = date.split('/')
     let year = dateArray[2]
@@ -254,11 +330,3 @@ export default class NBA {
     return this.nbaFetch(endpoint)
   }
 }
-
-// http://stats.nba.com/stats/boxscoresummaryv2?GameID=0021700865
-// http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=10000&GameID=0021700865&RangeType=0&Season=2017-18&SeasonType=Regular+Season&StartPeriod=1&StartRange=0
-// https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/2017/scores/gamedetail/0021700865_gamedetail.json
-
-// lead tracker
-// date/game_id/_quarter
-// https://data.nba.net/prod/v1/20180212/0021700844_lead_tracker_1.json
