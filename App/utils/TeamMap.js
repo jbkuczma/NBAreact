@@ -166,7 +166,8 @@ module.exports = {
     id: 1610612760,
     city: 'Oklahoma City',
     team: 'Thunder',
-    color: '#F05133',
+    color: '#007AC1',
+    color2: '#F05133',
     conf: 'Western',
     logo: require('../Assets/Images/okc.png')
   },
