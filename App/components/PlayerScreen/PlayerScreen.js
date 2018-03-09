@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator, Image, FlatList } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator, Image, FlatList, Modal, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
@@ -18,7 +18,6 @@ class PlayerScreen extends Component<Props> {
 
   componentDidMount() {
     this.fetchPlayer()
-    console.log(this.props.player)
     this.nba.getSeasonPlayerGameLog(this.props.player.player_id, this.props.season)
     .then((results) => {
       this.setState({
@@ -44,7 +43,10 @@ class PlayerScreen extends Component<Props> {
     const inch = height.split('-')[1]
 
     return (
-      <Text style={styles.textPrimary}>{feet}<Text style={styles.textSecondary}>ft</Text> <Text style={styles.textPrimary}>{inch}</Text><Text style={styles.textSecondary}>in</Text> </Text>
+      <Text style={styles.textPrimary}>
+        {feet}<Text style={styles.textSecondary}>ft</Text>
+        {inch}<Text style={styles.textSecondary}>in</Text>
+      </Text>
     )
   }
 
@@ -60,7 +62,6 @@ class PlayerScreen extends Component<Props> {
   }
 
   _renderGameStat(game) {
-    console.log(game)
     game = game.item
     /**
      * remove team from matchup
@@ -70,7 +71,7 @@ class PlayerScreen extends Component<Props> {
     const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
 
     return (
-      <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
+      <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text> </Text>
           <Text style={styles.textSecondary}> {game.wl} </Text>
@@ -96,7 +97,7 @@ class PlayerScreen extends Component<Props> {
             </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -127,7 +128,7 @@ class PlayerScreen extends Component<Props> {
         }
         {
           !this.state.loading &&
-          <View style={styles.playerHeader}>
+          <View style={[styles.playerHeader, { borderBottomColor: teamColor, borderBottomWidth: 3 }]}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Image
                 style={styles.playerImage}
