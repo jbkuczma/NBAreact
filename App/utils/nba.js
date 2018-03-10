@@ -327,4 +327,36 @@ export default class NBA {
     const endpoint = `https://data.nba.net/prod/v1/${formattedDate}/${gameID}_mini_boxscore.json`
     return this.nbaFetch(endpoint)
   }
+
+  getTeamGamelog = (teamID, season) => {
+    season = season +  '-' + season.toString().substr(-2)
+    const endpoint = `stats/teamgamelog?`
+    const regularSeasonQuery = {
+      teamID: teamID,
+      season: season,
+      seasonType: 'Regular Season'
+    }
+    const playoffQuery = {
+      teamID: teamID,
+      season: season,
+      seasonType: 'Playoffs'
+    }
+    const regularSeasonURL = this.STATS_URL + endpoint + this.objectToQueryString(regularSeasonQuery)
+    const playoffURL = this.STATS_URL + endpoint + this.objectToQueryString(playoffQuery)
+
+    return Promise.all([
+      this.nbaFetch(regularSeasonURL, true),
+      this.nbaFetch(playoffURL, true),
+    ]).then((result) => {
+      return {
+        Games: {
+          regularSeason: result[0].TeamGameLog,
+          playoffs: result[1].TeamGameLog
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 }

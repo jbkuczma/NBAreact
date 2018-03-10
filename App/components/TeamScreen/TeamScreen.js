@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Roster from './Roster'
+import Games from './Games'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
@@ -15,7 +16,8 @@ class TeamScreen extends Component<Props> {
       loading: true,
       teamInfo: null,
       teamSeasonRanks: null,
-      teamRoster: null
+      teamRoster: null,
+      teamGamelog: null
     }
   }
 
@@ -55,20 +57,18 @@ class TeamScreen extends Component<Props> {
 
     Promise.all([
       this.nba.getTeam(teamInfo),
-      this.nba.getRoster(rosterInfo)
+      this.nba.getRoster(rosterInfo),
+      this.nba.getTeamGamelog(this.props.teamID, this.props.season)
     ])
     .then((data) => {
       this.setState({
         loading: false,
         teamInfo: data[0].TeamInfoCommon[0],
         teamSeasonRanks: data[0].TeamSeasonRanks[0],
-        teamRoster: data[1].CommonTeamRoster
+        teamRoster: data[1].CommonTeamRoster,
+        teamGamelog: data[2].Games
       })
     })
-  }
-
-  _getTeamColor(teamID) {
-
   }
 
   render() {
@@ -146,6 +146,12 @@ class TeamScreen extends Component<Props> {
             team={this.state.teamRoster}
           />
         }
+        {/* { TODO
+          this.state.teamGamelog &&
+          <Games
+            games={this.state.teamGamelog}
+          />
+        } */}
       </View>
     )
   }
