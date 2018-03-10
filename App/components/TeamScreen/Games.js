@@ -33,22 +33,7 @@ class Games extends Component<Props> {
           <Text style={styles.textSecondary}> {matchup} </Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-          {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.textPrimary}>
-              {game.pts} <Text style={styles.textSecondary}>pts</Text>
-            </Text>
-          </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.textPrimary}>
-              {game.reb} <Text style={styles.textSecondary}>reb</Text>
-            </Text>
-          </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.textPrimary}>
-              {game.ast} <Text style={styles.textSecondary}>ast</Text>
-            </Text>
-          </View> */}
-          <Text style={styles.textSecondary}> away score - home score </Text>
+          <Text style={styles.textSecondary}> away score - {game.pts} </Text>
         </View>
       </TouchableOpacity>
     )
@@ -56,7 +41,7 @@ class Games extends Component<Props> {
 
   render() {
     const games = this.props.games.playoffs.concat(this.props.games.regularSeason)
-    console.log(games)
+
     return (
       <FlatList
         data={games}
