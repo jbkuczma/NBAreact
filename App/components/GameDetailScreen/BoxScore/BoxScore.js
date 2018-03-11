@@ -132,20 +132,6 @@ class BoxScore extends Component<Props> {
           </View>
         }
         <View style={styles.boxscore}>
-          {/* {
-            this.state.loading ?
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <ActivityIndicator
-                  size="large"
-                  color="#F7971E"
-                />
-              </View>
-            :
-              Object.keys(this.state.boxscore).length === 0 ?
-                <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
-              :
-                this._createBoxscoreTable(this.state.boxscore)
-          } */}
           {
             this.state.loading &&
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
