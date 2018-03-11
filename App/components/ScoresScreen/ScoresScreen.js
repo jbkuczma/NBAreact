@@ -23,6 +23,8 @@ class ScoresScreen extends Component<Props> {
       refresh: false,
       games: []
     }
+
+    this.handleRefresh = this.handleRefresh.bind(this)
   }
 
   componentWillReceiveProps(props) {
@@ -42,7 +44,7 @@ class ScoresScreen extends Component<Props> {
   }
 
   shouldComponentUpdate(props, nextProps) {
-    return this.state.date != props.date
+    return this.state.date != props.date || this.state.refresh
   }
 
   fetchGames = () => {
@@ -62,8 +64,7 @@ class ScoresScreen extends Component<Props> {
 
   handleRefresh() {
     this.setState({
-      refresh: true,
-      loading: true
+      refresh: true
     }, () => {
       this.fetchGames()
     })
