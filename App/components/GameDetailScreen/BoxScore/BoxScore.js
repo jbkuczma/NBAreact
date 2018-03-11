@@ -19,11 +19,13 @@ class BoxScore extends Component<Props> {
       awayTeamStats: [],
       homeTeam: null,
       awayTeam: null,
+      playersInLeague: null,
       activeTeam: 'away'
     }
   }
 
   componentDidMount() {
+    this.getPlayers()
     this.fetchBoxscore()
   }
 
@@ -35,6 +37,15 @@ class BoxScore extends Component<Props> {
       this.setState({
         loading: false,
         boxscore: data.stats ? data.stats : {},
+      })
+    })
+  }
+
+  getPlayers() {
+    this.nba.getPlayers(this.props.season)
+    .then((data) => {
+      this.setState({
+        playersInLeague: data.league.standard
       })
     })
   }
@@ -58,30 +69,26 @@ class BoxScore extends Component<Props> {
     })
 
     const updatedPlayers = []
+    const playersInLeague = this.state.playersInLeague
 
-    this.nba.getPlayers(this.props.season)
-    .then((data) => {
-      const players = data.league.standard
+      // modifying original array; playersToShow
+    playersToShow.forEach((player, index, arr) => {
+      // skip header
+      if (index != 0) {
+        const desiredPlayer = playersInLeague.filter((somePlayer, index) => {
+          return somePlayer.personId === player.personId
+        })
 
-        // modifying original array; playersToShow
-      playersToShow.forEach((player, index, arr) => {
-        // skip header
-        if (index != 0) {
-          const desiredPlayer = players.filter((somePlayer, index) => {
-            return somePlayer.personId === player.personId
-          })
-
-          const newPlayerData = {
-            display_fi_last: desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName
-          }
-
-          player = {...player, ...newPlayerData}
-          // arr[index] = player
-          updatedPlayers.push(player)
-        } else {
-          updatedPlayers.push(player)
+        const newPlayerData = {
+          display_fi_last: desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName
         }
-      })
+
+        player = {...player, ...newPlayerData}
+        // arr[index] = player
+        updatedPlayers.push(player)
+      } else {
+        updatedPlayers.push(player)
+      }
     })
 
     return (
@@ -125,7 +132,7 @@ class BoxScore extends Component<Props> {
           </View>
         }
         <View style={styles.boxscore}>
-          {
+          {/* {
             this.state.loading ?
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <ActivityIndicator
@@ -138,6 +145,23 @@ class BoxScore extends Component<Props> {
                 <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
               :
                 this._createBoxscoreTable(this.state.boxscore)
+          } */}
+          {
+            this.state.loading &&
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator
+                  size="large"
+                  color="#F7971E"
+                />
+              </View>
+          }
+          {
+            !this.state.loading && this.state.boxscore.activePlayers && this.state.playersInLeague &&
+              this._createBoxscoreTable(this.state.boxscore)
+          }
+          {
+            !this.state.loading && !this.state.boxscore.activePlayers &&
+              <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
           }
         </View>
 
