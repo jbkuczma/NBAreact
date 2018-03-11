@@ -12,19 +12,13 @@ class PlayerScreen extends Component<Props> {
     this.nba = new NBA()
     this.state = {
       loading: true,
-      gameStats: null
+      gameStats: null,
+      careerStats: null
     }
   }
 
   componentDidMount() {
     this.fetchPlayer()
-    this.nba.getSeasonPlayerGameLog(this.props.player.player_id, this.props.season)
-    .then((results) => {
-      this.setState({
-        loading: false,
-        gameStats: results
-      })
-    })
   }
 
   _getTeamFromTeamMap(teamID) {
@@ -35,7 +29,18 @@ class PlayerScreen extends Component<Props> {
   }
 
   fetchPlayer() {
-
+    Promise.all([
+      this.nba.getSeasonPlayerGameLog(this.props.player.player_id, this.props.season),
+      this.nba.getPlayerDashboardByYear(this.props.player.player_id, this.props.season)
+    ])
+    .then((results) => {
+      console.log(results)
+      this.setState({
+        loading: false,
+        gameStats: results[0],
+        careerStats: results[1]
+      })
+    })
   }
 
   _formatHeight(height) {
@@ -145,7 +150,7 @@ class PlayerScreen extends Component<Props> {
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
           this.state.loading &&
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <ActivityIndicator
               size="large"
               color="#F7971E"
@@ -155,18 +160,45 @@ class PlayerScreen extends Component<Props> {
         {
           !this.state.loading &&
           <View style={[styles.playerHeader, { borderBottomColor: teamColor, borderBottomWidth: 3 }]}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Image
-                style={styles.playerImage}
-                source={{ uri: playerImageURL }}
-              />
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.defaultCenteredView}>
+                <Image
+                  style={styles.playerImage}
+                  source={{ uri: playerImageURL }}
+                />
+              </View>
+              <View  style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
+                <Text style={styles.textPrimary}> Years Pro: {player.exp} </Text>
+                <Text style={styles.textPrimary}> {this._formatHeight(player.height)} | {player.weight}<Text style={styles.textSecondary}>lbs</Text> </Text>
+                <Text style={styles.textSecondary}> {player.school} </Text>
+              </View>
             </View>
-            <View  style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
-              <Text style={styles.textPrimary}> Years Pro: {player.exp} </Text>
-              <Text style={styles.textPrimary}> {this._formatHeight(player.height)} | {player.weight}<Text style={styles.textSecondary}>lbs</Text> </Text>
-              <Text style={styles.textSecondary}> {player.school} </Text>
-            </View>
+            {
+              this.state.careerStats &&
+              <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
+                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
+                  <Text style={styles.textSecondary}>
+                    {this.state.careerStats.OverallPlayerDashboard[0].min} <Text style={styles.text}> MPG </Text>
+                  </Text>
+                </View>
+                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
+                  <Text style={styles.textSecondary}>
+                    {this.state.careerStats.OverallPlayerDashboard[0].pts} <Text style={styles.text}> PPG </Text>
+                  </Text>
+                </View>
+                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
+                  <Text style={styles.textSecondary}>
+                    {this.state.careerStats.OverallPlayerDashboard[0].reb} <Text style={styles.text}> RPG </Text>
+                  </Text>
+                </View>
+                <View style={styles.defaultCenteredView}>
+                  <Text style={styles.textSecondary}>
+                    {this.state.careerStats.OverallPlayerDashboard[0].ast} <Text style={styles.text}> APG </Text>
+                  </Text>
+                </View>
+              </View>
+            }
           </View>
         }
         {
@@ -183,9 +215,15 @@ class PlayerScreen extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  defaultCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   text: {
     textAlign: 'center',
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontSize: 14
   },
   playerImage: {
     height: 120,
@@ -207,7 +245,7 @@ const styles = StyleSheet.create({
     height: 180,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'column'
   },
   playerStatsContainer: {
     flex: 1

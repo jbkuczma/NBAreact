@@ -248,7 +248,7 @@ export default class NBA {
   }
 
   getSeasonPlayerGameLog = (playerID, season) => {
-    season = season +  '-' + season.toString().substr(-2)
+    season = season +  '-' + (parseInt(season.toString().substr(-2)) + 1)
     const endpoint = `stats/playergamelog?`
     const regularSeasonQuery = {
       playerID: playerID,
@@ -271,8 +271,6 @@ export default class NBA {
         regularSeason: result[0].PlayerGameLog,
         playoffs: result[1].PlayerGameLog
       }
-      // const playerGameStats = [].concat.apply([], result.map(quarter => quarter.plays))
-      // return leadTrackerArray
     })
     .catch((error) => {
       console.log(error)
@@ -359,4 +357,40 @@ export default class NBA {
       console.log(error)
     })
   }
+
+  getPlayerDashboardByYear = (playerID, season) => {
+    season = season +  '-' + (parseInt(season.toString().substr(-2)) + 1)
+    const endpoint = 'stats/playerdashboardbyyearoveryear?'
+    const query = {
+      DateFrom: '',
+      DateTo: '',
+      GameSegment: '',
+      LastNGames: '0',
+      LeagueID: '00',
+      Location: '',
+      MeasureType: 'Base',
+      Month: '0',
+      OpponentTeamID: '0',
+      Outcome: '',
+      PORound: '0',
+      PaceAdjust: 'N',
+      PerMode: 'PerGame',
+      Period: '0',
+      PlayerID: playerID,
+      PlusMinus: 'N',
+      Rank: 'N',
+      Season: season,
+      SeasonSegment: '',
+      SeasonType: 'Regular Season',
+      ShotClockRange: '',
+      Split: 'yoy',
+      VsConference: '',
+      VsDivision: ''
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    return this.nbaFetch(url, true)
+  }
+
+  // totals
+  // http://stats.nba.com/stats/playercareerstats?playerid=203507&permode=Totals
 }
