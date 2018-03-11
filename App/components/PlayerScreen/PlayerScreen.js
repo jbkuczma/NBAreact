@@ -103,9 +103,9 @@ class PlayerScreen extends Component<Props> {
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.game_date} </Text>
         </View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.textSecondary}> {game.wl} {matchup} </Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: 2, justifyContent: 'center' }}>
+            <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.wl} {matchup} </Text>
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.textPrimary}>
