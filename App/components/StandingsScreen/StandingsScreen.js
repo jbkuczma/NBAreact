@@ -42,7 +42,7 @@ class StandingsScreen extends Component<Props> {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
         <StatusBar
           barStyle="light-content"
         />

@@ -34,7 +34,7 @@ const GameDetailNavigator = TabNavigator({
       alignItems: 'center',
     },
     style:{
-      backgroundColor: '#1F1F22'
+      backgroundColor: '#111111'
     },
     tabStyle: {
       justifyContent: 'center',
