@@ -34,7 +34,6 @@ class PlayerScreen extends Component<Props> {
       this.nba.getPlayerDashboardByYear(this.props.player.player_id, this.props.season)
     ])
     .then((results) => {
-      console.log(results)
       this.setState({
         loading: false,
         gameStats: results[0],

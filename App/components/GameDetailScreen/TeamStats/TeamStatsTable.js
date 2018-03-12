@@ -100,7 +100,7 @@ class TeamStatsTable extends Component<Props> {
     return (
       statHeader.map((header, index) => {
         return (
-          <View style={{ flex: 1, flexDirection: 'row', height: 30, marginTop: 7 }}>
+          <View style={{ flex: 1, flexDirection: 'row', height: 30, marginTop: 7 }} key={index}>
             <View style={{ flex: 1, borderLeftWidth: 3, borderLeftColor: statHeaderMapping[index].color, marginBottom: 14 }}>
               <Text style={styles.text}> {header} </Text>
             </View>
@@ -119,7 +119,6 @@ class TeamStatsTable extends Component<Props> {
   }
 
   render() {
-    console.log(this.props.stats)
     return (
       <View style={{ flex: 1, flexDirection: 'column', marginTop: 10 }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -136,7 +135,7 @@ class TeamStatsTable extends Component<Props> {
           </View>
         </View>
         <View style={{ flex: 1, marginTop: 5 }}>
-          {this._renderRows()}
+          { this._renderRows() }
         </View>
       </View>
     )

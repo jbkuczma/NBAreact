@@ -70,9 +70,9 @@ class TeamStats extends Component<Props> {
         {/* Header */}
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
           {
-            miniBoxscoreHeader.map((quarter) => {
+            miniBoxscoreHeader.map((quarter, index) => {
               return (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
                   <Text style={styles.text}> {quarter} </Text>
                 </View>
               )
@@ -87,17 +87,17 @@ class TeamStats extends Component<Props> {
           </View>
           {
             this.state.miniBoxscore.basicGameData.vTeam.linescore.length > 0 ?
-              this.state.miniBoxscore.basicGameData.vTeam.linescore.map((quarter) => {
+              this.state.miniBoxscore.basicGameData.vTeam.linescore.map((quarter, index) => {
                 return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
                     <Text style={styles.text}> {quarter.score} </Text>
                   </View>
                 )
               })
             :
-              [0, 0, 0, 0].map((value) => {
+              [0, 0, 0, 0].map((value, index) => {
                 return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
                     <Text style={styles.text}> {value} </Text>
                   </View>
                 )
@@ -115,17 +115,17 @@ class TeamStats extends Component<Props> {
           </View>
           {
             this.state.miniBoxscore.basicGameData.hTeam.linescore.length > 0 ?
-              this.state.miniBoxscore.basicGameData.hTeam.linescore.map((quarter) => {
+              this.state.miniBoxscore.basicGameData.hTeam.linescore.map((quarter, index) => {
                 return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
                     <Text style={styles.text}> {quarter.score} </Text>
                   </View>
                 )
               })
             :
-              [0, 0, 0, 0].map((value) => {
+              [0, 0, 0, 0].map((value, index) => {
                 return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
                     <Text style={styles.text}> {value} </Text>
                   </View>
                 )
@@ -157,7 +157,6 @@ class TeamStats extends Component<Props> {
   }
 
   render() {
-    console.log(this.state)
     const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
     const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
 
@@ -176,14 +175,13 @@ class TeamStats extends Component<Props> {
           (this.state.teamStats && this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
 
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
-            {/* <View style={{ flex: 1.5, flexDirection: 'row', marginBottom: 10 }}> */}
             <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
               <View style={styles.teamQuarterScores}>
                 <View style={styles.teamQuarterHeader}>
                   { this._renderGameStatus() }
                 </View>
                 <View style={styles.teamQuarterChart}>
-                  {this._renderQuarterScoresChart()}
+                  { this._renderQuarterScoresChart() }
                 </View>
               </View>
             </View>
