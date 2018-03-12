@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Roster from './Roster'
 import Games from './Games'
+import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
@@ -78,12 +79,7 @@ class TeamScreen extends Component<Props> {
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
           this.state.loading &&
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <ActivityIndicator
-                size="large"
-                color="#F7971E"
-              />
-            </View>
+          <Loader />
         }
         {
           this.state.teamInfo && this.state.teamSeasonRanks &&

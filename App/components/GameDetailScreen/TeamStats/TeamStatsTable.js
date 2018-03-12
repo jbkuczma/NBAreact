@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'

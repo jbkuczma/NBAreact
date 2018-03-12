@@ -3,12 +3,12 @@ import {
   Text,
   View,
   FlatList,
-  ActivityIndicator,
   StatusBar
 } from 'react-native'
 import { connect } from 'react-redux'
 import Header from './Header'
 import GameCell from './GameCell'
+import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 
 class ScoresScreen extends Component<Props> {
@@ -82,12 +82,7 @@ class ScoresScreen extends Component<Props> {
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
             this.state.loading &&
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <ActivityIndicator
-                size="large"
-                color="#F7971E"
-              />
-            </View>
+            <Loader />
           }
           {
             (this.state.games && !this.state.loading) &&

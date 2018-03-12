@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
@@ -164,12 +164,7 @@ class TeamStats extends Component<Props> {
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
           this.state.loading &&
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator
-              size="large"
-              color="#F7971E"
-            />
-          </View>
+          <Loader />
         }
         {
           (this.state.teamStats && this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&

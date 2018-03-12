@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, ActivityIndicator, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
+import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import TeamCell from './TeamCell'
+import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 
 
@@ -49,12 +50,7 @@ class StandingsScreen extends Component<Props> {
         <View style={styles.statusBar} />
         {
           this.state.loading &&
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator
-              size="large"
-              color="#F7971E"
-            />
-          </View>
+          <Loader />
         }
         {
           (!this.state.loading && this.state.east && this.state.west) &&

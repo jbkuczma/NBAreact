@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator, Image, FlatList, Modal, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
@@ -149,12 +150,7 @@ class PlayerScreen extends Component<Props> {
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
           this.state.loading &&
-          <View style={styles.defaultCenteredView}>
-            <ActivityIndicator
-              size="large"
-              color="#F7971E"
-            />
-          </View>
+          <Loader />
         }
         {
           !this.state.loading &&

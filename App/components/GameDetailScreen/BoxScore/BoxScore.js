@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, FlatList, ScrollView, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, Button, FlatList, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import PlayerBoxCell from './PlayerBoxCell'
+import Loader from '../../common/Loader'
 import NBA from '../../../utils/nba'
 
 const headers = ['Player', 'Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'OREB', 'DREB', 'TOV', 'PF']
@@ -134,12 +135,7 @@ class BoxScore extends Component<Props> {
         <View style={styles.boxscore}>
           {
             this.state.loading &&
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <ActivityIndicator
-                  size="large"
-                  color="#F7971E"
-                />
-              </View>
+            <Loader />
           }
           {
             !this.state.loading && this.state.boxscore.activePlayers && this.state.playersInLeague &&
