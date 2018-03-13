@@ -1,4 +1,4 @@
-![](https://github.com/jbkuczma/NBAreact/blob/master/media/swish_github.png)
+![](https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_github.png)
 
 # NBAreact
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
