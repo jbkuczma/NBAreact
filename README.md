@@ -1,3 +1,5 @@
+![](https://github.com/jbkuczma/NBAreact/blob/master/media/swish_github.png)
+
 # NBAreact
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
 
@@ -11,6 +13,8 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 [Redux](https://redux.js.org/)
 
 [React-Native-SVG-Charts](https://github.com/JesperLekland/react-native-svg-charts)
+
+[Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
 
 # Getting Started
 
