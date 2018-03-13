@@ -120,4 +120,5 @@ export default TabNavigator({
       backgroundColor: '#171717',
     }
   },
+  tabBarPosition: 'bottom'
 })
