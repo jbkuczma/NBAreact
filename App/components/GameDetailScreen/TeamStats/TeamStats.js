@@ -3,6 +3,7 @@ import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions } from 'react
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
+import Loader from '../../common/Loader'
 import LeadTracker from './LeadTracker'
 import TeamStatsTable from './TeamStatsTable'
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, FlatList, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, Button, FlatList, ScrollView, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import PlayerBoxCell from './PlayerBoxCell'
 import Loader from '../../common/Loader'
@@ -117,14 +117,14 @@ class BoxScore extends Component<Props> {
                 <View style={[ styles.awayButton, this.state.activeTeam === 'away' ? styles.active : styles.inactive ]}>
                   <Button
                     title={this.props.awayTeam.abbreviation}
-                    color="#D3D3D3"
+                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('away') }}
                   />
                 </View>
                 <View style={[ styles.homeButton, this.state.activeTeam === 'home' ? styles.active : styles.inactive ]}>
                   <Button
                     title={this.props.homeTeam.abbreviation}
-                    color="#D3D3D3"
+                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('home') }}
                   />
                 </View>

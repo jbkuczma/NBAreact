@@ -61,14 +61,14 @@ class StandingsScreen extends Component<Props> {
                 <View style={[ styles.eastButton, this.state.conference === 'east' ? styles.active : styles.inactive ]}>
                   <Button
                     title="East"
-                    color="#D3D3D3"
+                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectConference('east') }}
                   />
                 </View>
                 <View style={[ styles.westButton, this.state.conference === 'west' ? styles.active : styles.inactive ]}>
                   <Button
                     title="West"
-                    color="#D3D3D3"
+                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectConference('west') }}
                   />
                 </View>
