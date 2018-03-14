@@ -117,14 +117,14 @@ class BoxScore extends Component<Props> {
                 <View style={[ styles.awayButton, this.state.activeTeam === 'away' ? styles.active : styles.inactive ]}>
                   <Button
                     title={this.props.awayTeam.abbreviation}
-                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
+                    color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('away') }}
                   />
                 </View>
                 <View style={[ styles.homeButton, this.state.activeTeam === 'home' ? styles.active : styles.inactive ]}>
                   <Button
                     title={this.props.homeTeam.abbreviation}
-                    color={Platform.OS === 'iOS' ? "#D3D3D3" : "#151516"}
+                    color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('home') }}
                   />
                 </View>
@@ -155,7 +155,7 @@ class BoxScore extends Component<Props> {
 
 const styles = StyleSheet.create({
   teams: {
-    flex: 1,
+    flex: 1
   },
   teamsButtons: {
     flexDirection: 'row',
@@ -165,11 +165,13 @@ const styles = StyleSheet.create({
   },
   awayButton: {
     flex: 1,
-    backgroundColor: '#151516'
+    backgroundColor: '#111111' // hack to hide space between tab navigator and team buttons
+    // backgroundColor: '#151516'
   },
   homeButton: {
     flex: 1,
-    backgroundColor: '#151516'
+    backgroundColor: '#111111'
+    // backgroundColor: '#151516'
   },
   active: {
     borderBottomWidth: 1,
