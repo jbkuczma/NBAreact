@@ -13,10 +13,8 @@
   </a>
 </p>
 
-# NBAreact
-An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
-
-## Update GIF and screenshots coming soon!
+# Swish
+An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
 
 # Libraries and Resources Used
 [React Native](https://github.com/facebook/react-native)
@@ -30,13 +28,22 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 [Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
 
 # Getting Started
-
-⭐️ this repo then:
-
-    git clone https://github.com/jbkuczma/NBAreact.git && cd NBAreact
-    npm install
-    npm link
-
-    react-native run-ios
-    or
-    react-native run-android (make sure an emulator is currently running)
+    
+  - Fork this repo
+  - Clone to your computer
+  
+        git clone https://github.com/USERNAME/NBAreact.git && cd NBAreact
+        
+  - Install and link dependencies
+  
+        npm install
+      
+        npm link
+  
+  - Run Simulator
+  
+        react-native run-ios
+      
+        react-native run-ios --simulator="iPhone X"
+      
+        react-native run-android (an emulator must be running first)
