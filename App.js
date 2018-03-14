@@ -27,4 +27,4 @@ const App = () => {
 
 export default App
 
-AppRegistry.registerComponent('NBAreact', () => App)
+AppRegistry.registerComponent('Swish', () => App)
