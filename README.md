@@ -1,46 +1,49 @@
-![](https://img.shields.io/github/issues/jbkuczma/NBAreact.svg?style=flat-square)
-![](https://david-dm.org/jbkuczma/NBAreact.svg)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
-# NBAreact
-## Currently being rewritten. See [branch v2.0_rewrite](https://github.com/jbkuczma/NBAreact/tree/v2.0_rewrite).
-An iOS and Android NBA app created with React Native (still in active development). Find a bug or want to leave feedback? Open an [issue](https://github.com/jbkuczma/NBAreact/issues)!
+<p align="center">
+  <img src="https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_app.png">
+</p>
 
-![nbareact_ios_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact_iOS.gif)
-![nbareact_android_demo](https://github.com/jbkuczma/NBAreact/blob/master/NBAreact_Android.gif)
+![](https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_github.png)
 
-# Resources Used
+<p align="center">
+  <a href="">
+     <img src="https://img.shields.io/badge/%F0%9F%8F%80-This%20Is%20Why%20We%20Play-blue.svg?&style=flat-square" alt="This Is Why We Play">
+  </a>
+  <a href="https://github.com/jbkuczma/NBAreact/issues">
+    <img src="https://img.shields.io/github/issues/jbkuczma/NBAreact.svg?style=flat-square" alt="GitHub issues">
+  </a>
+</p>
+
+# Swish
+An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
+
+# Libraries and Resources Used
 [React Native](https://github.com/facebook/react-native)
 
-[React-Native-Router-Flux](https://github.com/aksonov/react-native-router-flux)
+[React Navigation](https://reactnavigation.org/)
 
-[React-Native-Scrollable-Tab-View](https://github.com/skv-headless/react-native-scrollable-tab-view)
+[Redux](https://redux.js.org/)
 
-[React-Native-Datepicker](https://github.com/xgfe/react-native-datepicker)
+[React-Native-SVG-Charts](https://github.com/JesperLekland/react-native-svg-charts)
 
-[Drawing charts in React-Native without any library](https://medium.com/@wwayne_me/let-s-drawing-charts-in-react-native-without-any-library-4c20ba38d8ab#.omrlj0xpx)
-
-[Create a custom splash screen](https://medium.com/@jvlobo/change-default-launch-screen-in-react-native-ios-app-544f94f1e947#.pnt190kb8)
-
-[Icon Template](https://appicontemplate.com/ios9/)
-
-[Basketball used in Icon](https://www.iconfinder.com/icons/315758/basketball_icon)
-
-[Android Icons](http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html)
-
-[iOS Icons](https://makeappicon.com/)
-
-# Endpoints
-
-Endpoints used to retrieve data can be viewed [here](https://github.com/jbkuczma/NBAreact/blob/master/docs/ENDPOINTS.md).
+[Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
 
 # Getting Started
-
-⭐️ this repo then:
-
-    npm install -g react-native-cli
-    git clone https://github.com/jbkuczma/NBAreact.git && cd NBAreact
-    npm install
-
-    react-native run-ios
-    or
-    react-native run-android (make sure an emulator is currently running)
+    
+  - Fork this repo
+  - Clone to your computer
+  
+        git clone https://github.com/USERNAME/NBAreact.git && cd NBAreact
+        
+  - Install and link dependencies
+  
+        npm install
+      
+        npm link
+  
+  - Run Simulator
+  
+        react-native run-ios
+      
+        react-native run-ios --simulator="iPhone X"
+      
+        react-native run-android (an emulator must be running first)

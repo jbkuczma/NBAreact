@@ -1,45 +1,124 @@
-/* eslint-disable semi, space-before-function-paren, space-before-blocks*/
-import React from 'react';
-import {
-  StyleSheet
-} from 'react-native';
+import React, { Component } from 'react'
+import { Text, View, Image } from 'react-native'
+import { StackNavigator, TabNavigator } from 'react-navigation'
 
-import {Scene, Router} from 'react-native-router-flux';
+import ScoresScreen from './components/ScoresScreen'
+import GameDetailScreen from './components/GameDetailScreen'
+import StandingsScreen from './components/StandingsScreen'
+import TeamScreen from './components/TeamScreen'
+import PlayerScreen from './components/PlayerScreen'
+import TeamStats from './components/GameDetailScreen/TeamStats'
+import BoxScore from './components/GameDetailScreen/BoxScore'
+import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
 
-import MainWindow from './Views/Main/MainWindow';
-import GameStatsPage from './Views/Game/GameStatsPage';
-import TeamStatsPage from './Views/Team/TeamStatsPage';
-import IndividualPlayerPage from './Views/Player/IndividualPlayerPage';
-
-var STORE = require('./Utilities/Store');
-
-class NBAreact extends React.Component {
-  render() {
-    return (
-      <Router>
-        <Scene key='root'>
-          <Scene key='Main' component={MainWindow} initial={true} hideNavBar={true} />
-          <Scene key='GameStats' component={GameStatsPage} hideNavBar={false} navigationBarStyle={styles.gameStatsPageTab} />
-          <Scene key='TeamStats' component={TeamStatsPage} hideNavBar={false} navigationBarStyle={styles.teamPageTab} backButtonImage={require('./Assets/Images/back_button_white.png')}/>
-          <Scene key='IndividualPlayerPage' component={IndividualPlayerPage} hideNavBar={false} navigationBarStyle={styles.playerTab} />
-        </Scene>
-      </Router>
-    )
-  }
-};
-
-var styles = StyleSheet.create({
-  gameStatsPageTab: {
-    backgroundColor: '#03A9F4'
+const GameDetailNavigator = TabNavigator({
+  'Team Stats': { screen: TeamStats },
+  'Boxscore': { screen: BoxScore },
+  'Play by Play': { screen: PlayByPlay }
+}, {
+  tabBarPosition: 'top',
+  swipeEnabled: false,
+  tabBarOptions: {
+    activeTintColor: '#FFFFFF',
+    inactiveTintColor: '#777777',
+    inactiveBackgroundColor: '#151516',
+    activeBackgroundColor: '#171717',
+    showIcon: false,
+    indicatorStyle: {
+      borderBottomColor: '#F7971E',
+      borderBottomWidth: 2,
+    },
+    labelStyle:{
+      fontSize: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    style:{
+      backgroundColor: '#111111'
+    },
+    tabStyle: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
   },
-  teamPageTab: {
-    backgroundColor: STORE.navBarColorForTeamPage
-  },
-  playerTab: {
-    backgroundColor: '#000',
-    borderBottomWidth: 0
-  }
-});
+})
 
-module.exports = NBAreact;
-/* eslint-enable semi, space-before-function-paren, space-before-blocks*/
+const ScoresStack = StackNavigator({
+  Home: {
+    screen: ScoresScreen,
+    navigationOptions: { header: null }
+  },
+  Game: {
+    screen: GameDetailNavigator,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
+})
+
+const StandingsStack = StackNavigator({
+  Home: {
+    screen: StandingsScreen,
+    navigationOptions: { header: null }
+  },
+  Team: {
+    screen: TeamScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  },
+  Player: {
+    screen: PlayerScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
+})
+
+export default TabNavigator({
+  Scores: { screen: ScoresStack },
+  Standings: { screen: StandingsStack }
+},{
+  navigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused, tintColor }) => {
+      const { routeName } = navigation.state
+      let iconName
+      if (routeName === 'Scores') {
+        iconName = require('./Assets/icons/scoreboard.png')
+      } else if (routeName === 'Standings') {
+        iconName = require('./Assets/icons/trophy.png')
+      }
+
+      return <Image source={iconName} style={{ height: 42, width: 42, tintColor: tintColor }} />
+    },
+  }),
+  tabBarOptions: {
+    activeTintColor: '#F7971E',
+    inactiveTintColor: 'gray',
+    style: {
+      backgroundColor: '#171717',
+    }
+  },
+  tabBarPosition: 'bottom'
+})

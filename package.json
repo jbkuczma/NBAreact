@@ -1,23 +1,32 @@
 {
   "name": "NBAreact",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "standard --verbose | snazzy"
+    "test": "jest"
   },
   "dependencies": {
-    "moment-timezone": ">=0.5.4",
-    "react": "15.4.1",
-    "react-native": "0.42.3",
-    "react-native-datepicker": ">=1.2.2",
-    "react-native-router-flux": "3.30.0",
-    "react-native-scrollable-tab-view": "^0.7.4",
-    "react-redux": "^5.0.5",
+    "react": "16.2.0",
+    "react-native": "0.53.0",
+    "react-native-svg": "^6.2.2",
+    "react-native-svg-charts": "^3.0.1",
+    "react-navigation": "^1.0.3",
+    "react-redux": "^5.0.6",
     "redux": "^3.7.2"
   },
   "devDependencies": {
-    "snazzy": "^4.0.0",
-    "standard": "^7.1.2"
+    "babel-jest": "22.1.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.1.4",
+    "react-test-renderer": "16.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./App/Assets/fonts/"
+    ]
   }
 }
