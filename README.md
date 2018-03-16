@@ -16,7 +16,11 @@
 # Swish
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
 
-# Libraries and Resources Used
+# Download
+- iOS - Coming soon!
+- Android - Coming soon!
+
+## Libraries Used
 [React Native](https://github.com/facebook/react-native)
 
 [React Navigation](https://reactnavigation.org/)
@@ -25,14 +29,14 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 
 [React-Native-SVG-Charts](https://github.com/JesperLekland/react-native-svg-charts)
 
+## Resources Used
 [Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
 
 # Getting Started
     
-  - Fork this repo
-  - Clone to your computer
+  - Fork (optional) and clone repo
   
-        git clone https://github.com/USERNAME/NBAreact.git && cd NBAreact
+        git clone https://github.com/jbkuczma/NBAreact.git && cd NBAreact
         
   - Install and link dependencies
   
@@ -40,7 +44,7 @@ An iOS and Android NBA app created with React Native. If you would like to reque
       
         npm link
   
-  - Run Simulator
+  - Run
   
         react-native run-ios
       
