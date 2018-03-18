@@ -20,6 +20,15 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 - iOS - Coming soon!
 - Android - Coming soon!
 
+## Features
+- Scores for in-progress and completed games
+- Detailed play by play
+- Full team and player stats
+- Conference rankings
+- Videos and highlights (coming soon)
+- League leaders (coming soon)
+- Compare stats for two players (coming soon)
+
 ## Libraries Used
 [React Native](https://github.com/facebook/react-native)
 
@@ -28,6 +37,8 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 [Redux](https://redux.js.org/)
 
 [React-Native-SVG-Charts](https://github.com/JesperLekland/react-native-svg-charts)
+
+[nba.js](https://github.com/kshvmdn/nba.js) (custom and modified implementation to work with React Native)
 
 ## Resources Used
 [Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
