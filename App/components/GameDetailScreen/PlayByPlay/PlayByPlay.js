@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, StyleSheet } from 'react-native'
+import { Text, View, FlatList, StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
+import TeamMap from '../../../utils/TeamMap'
 
 class PlayByPlay extends Component<Props> {
 
@@ -30,6 +31,8 @@ class PlayByPlay extends Component<Props> {
   }
 
   _cleanPlays(obj) {
+    // obj is an array of quarter objects - each object representing one quarter in the game with an arary of the plays for that quarter
+    // instead of returning an array of quarter objects, we are going to return an array of play objects
     return Object.keys(obj).map(function(idx) {
       const quarter = obj[idx].p
       const plays = obj[idx].pla
@@ -39,60 +42,59 @@ class PlayByPlay extends Component<Props> {
     })
   }
 
-  // _renderPlayOld(play) {
-  //   const quarter = play.item.period
-  //   const time = play.item.pctimestring
-  //   const h = play.item.homedescription
-  //   const v = play.item.visitordescription
-  //   const timeString = 'Q' + quarter + ' ' + time
-  //   const playString = h && v ? h + '\n' + v :
-  //                       h && !v ? h :
-  //                         !h && v ? v :
-  //                           !h && !v ? '' : ''
-  //   return (
-  //     <View style={styles.playcell}>
-  //       <View style={{ flex: 1 }}>
-  //         <Text style={{textAlign: 'center'}}>
-  //           {timeString}
-  //         </Text>
-  //       </View>
-  //       <View style={{ flex: 4 }}>
-  //         <Text style={{textAlign: 'center'}}>
-  //           {playString}
-  //         </Text>
-  //       </View>
-  //     </View>
-  //   )
-  // }
-
   _renderPlay(play) {
     const homeTeam = this.props.homeTeam.abbreviation
+    const homeLogo = TeamMap[homeTeam.toLowerCase()].logo
+    const homeScore = play.item.hs
     const awayTeam = this.props.awayTeam.abbreviation
+    const awayLogo = TeamMap[awayTeam.toLowerCase()].logo
+    const awayScore = play.item.vs
     const quarter = 'Q' + play.item.quarter
     const time = play.item.cl
     const playerID = play.item.pid
     let description = play.item.de
     let timeString = ''
+    const logoToUse = description.includes(homeTeam)
+      ? homeLogo : description.includes(awayTeam)
+      ? awayLogo : ''
+    const gameScore = awayScore + '-' + homeScore
 
     if (description !== 'Start Period' || description !== 'End Period') {
       timeString = quarter + ' ' + time
     }
 
+    // some of the descriptions will have [TOR 122-110] or [NYK], this regex removes the brackets and the text within them
+    description = description.replace(/ *\[[^]*\] */g, '')
+
     return (
       <View style={styles.playcell}>
-        <View style={{ flex: 3, marginLeft: 10 }}>
-          <Text style={styles.playByPlayText}>
-            { description.includes(awayTeam) ? description : '' }
-          </Text>
-        </View>
         <View style={{ flex: 1 }}>
-          <Text style={styles.playByPlayText}>
-            {timeString}
-          </Text>
+          <View style={{borderBottomColor: '#FD8505', borderBottomWidth: 1, marginBottom: 5 }}>
+            <Text style={styles.playByPlayText}>
+              { quarter }
+            </Text>
+            <Text style={styles.playByPlayText}>
+              { time }
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.playByPlayText}>
+              { gameScore }
+            </Text>
+          </View>
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            source={logoToUse}
+            style={{
+              height: 40,
+              width: 40
+            }}
+          />
         </View>
         <View style={{ flex: 3, marginRight: 10 }}>
           <Text style={styles.playByPlayText}>
-            { description.includes(homeTeam) ? description : '' }
+            { description }
           </Text>
         </View>
       </View>
@@ -132,8 +134,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     height: 100,
-    // backgroundColor: '#1F1F1F',
-    // backgroundColor: '#212121',
     backgroundColor: '#141414',
     marginTop: 5,
     marginBottom: 5,
