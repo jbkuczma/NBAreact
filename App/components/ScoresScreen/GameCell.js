@@ -26,14 +26,42 @@ class GameCell extends Component<Props> {
     this.props.navigator.navigate('Game')
   }
 
+  _renderGameStatus() {
+    const {
+      clock,
+      period,
+      startTimeEastern
+    } = this.props.teams.item
+
+    return (
+      clock && period.current != 0 ?
+        <View style={styles.gameInfo}>
+          <Text style={[ styles.text, {fontSize: 20 }]}> Q{period.current} </Text>
+          <Text style={[ styles.text, { fontSize: 16 }]}> {clock} </Text>
+        </View>
+      :
+      this.props.teams.item.endTimeUTC ?
+        <View style={styles.gameInfo}>
+          <Text style={[ styles.text, {fontSize: 20 }]}> Final </Text>
+        </View>
+      :
+      period.isHalftime ?
+        <View style={styles.gameInfo}>
+          <Text style={[ styles.text, {fontSize: 20 }]}> Halftime </Text>
+        </View>
+      :
+      <View style={styles.gameInfo}>
+        <Text style={[ styles.text, {fontSize: 20 }]}> Tip off </Text>
+        <Text style={[ styles.text, { fontSize: 16 }]}> {startTimeEastern} </Text>
+      </View>
+    )
+  }
+
   render() {
 
     const {
       hTeam,
-      vTeam,
-      clock,
-      period,
-      startTimeEastern
+      vTeam
     } = this.props.teams.item
 
     const awayTeamColor = TeamMap[vTeam.triCode.toLowerCase()] ? TeamMap[vTeam.triCode.toLowerCase()].color : '#1C3F80'
@@ -49,7 +77,7 @@ class GameCell extends Component<Props> {
         </View>
         <View style={styles.gamecell}>
         <View style={styles.awayTeam}>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <View>
               <Image
                 style={styles.logo}
@@ -57,37 +85,18 @@ class GameCell extends Component<Props> {
               />
             </View>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {vTeam.score} </Text>
           </View>
         </View>
         {
-          clock && period.current != 0 ?
-            <View style={styles.gameInfo}>
-              <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Q{period.current} </Text>
-              <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {clock} </Text>
-            </View>
-          :
-            this.props.teams.item.endTimeUTC ?
-              <View style={styles.gameInfo}>
-                <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Final </Text>
-              </View>
-            :
-              period.isHalftime ?
-                <View style={styles.gameInfo}>
-                  <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Halftime </Text>
-                </View>
-              :
-                <View style={styles.gameInfo}>
-                  <Text style={{ fontSize: 20, textAlign: 'center', color: '#D3D3D3' }}> Tip off </Text>
-                  <Text style={{ fontSize: 16, textAlign: 'center', color: '#D3D3D3' }}> {startTimeEastern} </Text>
-                </View>
+          this._renderGameStatus()
         }
         <View style={styles.homeTeam}>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {hTeam.score} </Text>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <View>
               <Image
                 style={styles.logo}
@@ -103,6 +112,15 @@ class GameCell extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    textAlign: 'center',
+    color: '#D3D3D3'
+  },
+  defaultCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   colorbar: {
     marginTop: 12,
     marginLeft: 10,
