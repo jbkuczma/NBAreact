@@ -6,6 +6,7 @@ import TeamMap from '../../../utils/TeamMap'
 import Loader from '../../common/Loader'
 import LeadTracker from './LeadTracker'
 import TeamStatsTable from './TeamStatsTable'
+import QuarterScores from './QuarterScores'
 
 class TeamStats extends Component<Props> {
 
@@ -40,123 +41,7 @@ class TeamStats extends Component<Props> {
       })
     })
   }
-
-  _renderQuarterScoresChart() {
-    const homeWins = this.state.miniBoxscore.basicGameData.hTeam.win
-    const homeLosses = this.state.miniBoxscore.basicGameData.hTeam.loss
-    const awayWins = this.state.miniBoxscore.basicGameData.vTeam.win
-    const awayLosses = this.state.miniBoxscore.basicGameData.vTeam.loss
-    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
-    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
-
-    // space for team name in header
-    let miniBoxscoreHeader = [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'T']
-
-    if (this.state.miniBoxscore.basicGameData.vTeam.linescore.length > 4 && this.state.miniBoxscore.basicGameData.hTeam.linescore.length > 4) {
-      const numberOfPeriods = this.state.miniBoxscore.basicGameData.vTeam.linescore.length
-      const numberOfOvertimes = numberOfPeriods - 4
-      // Q4 is at index 4
-      let overtimePeriodArrayIndex = 5
-
-      for (overtimePeriod = 1; overtimePeriod <= numberOfOvertimes; overtimePeriod++) {
-        const overtimePeriodString = `OT${overtimePeriod}`
-        // insert overtime string at specific index, remove 0 items from array while inserting
-        miniBoxscoreHeader.splice(overtimePeriodArrayIndex, 0, overtimePeriodString)
-        overtimePeriodArrayIndex+=1
-      }
-    }
-
-    return (
-      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        {/* Header */}
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-          {
-            miniBoxscoreHeader.map((quarter, index) => {
-              return (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
-                  <Text style={styles.text}> {quarter} </Text>
-                </View>
-              )
-            })
-          }
-        </View>
-        {/* End Header */}
-        {/* Away Quarter Scores */}
-        <View style={{ flex: 1, flexDirection: 'row', borderBottomColor: '#D1D1D1', borderBottomWidth: 1 }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: awayTeamColor }}>
-            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.vTeam.triCode} </Text>
-          </View>
-          {
-            this.state.miniBoxscore.basicGameData.vTeam.linescore.length > 0 ?
-              this.state.miniBoxscore.basicGameData.vTeam.linescore.map((quarter, index) => {
-                return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
-                    <Text style={styles.text}> {quarter.score} </Text>
-                  </View>
-                )
-              })
-            :
-              [0, 0, 0, 0].map((value, index) => {
-                return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
-                    <Text style={styles.text}> {value} </Text>
-                  </View>
-                )
-              })
-          }
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.vTeam.score || 0} </Text>
-          </View>
-        </View>
-        {/* End Away Quarter Scores */}
-        {/* Home Quarter Scores */}
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: homeTeamColor }}>
-            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.triCode} </Text>
-          </View>
-          {
-            this.state.miniBoxscore.basicGameData.hTeam.linescore.length > 0 ?
-              this.state.miniBoxscore.basicGameData.hTeam.linescore.map((quarter, index) => {
-                return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
-                    <Text style={styles.text}> {quarter.score} </Text>
-                  </View>
-                )
-              })
-            :
-              [0, 0, 0, 0].map((value, index) => {
-                return (
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key={index}>
-                    <Text style={styles.text}> {value} </Text>
-                  </View>
-                )
-              })
-          }
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.text}> {this.state.miniBoxscore.basicGameData.hTeam.score || 0} </Text>
-          </View>
-        </View>
-        {/* End Home Quarter Scores */}
-      </View>
-    )
-  }
-
-  _renderGameStatus() {
-    const gameStatus = this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current != 0 ?
-      `Q${this.state.miniBoxscore.basicGameData.period.current} ${this.state.miniBoxscore.basicGameData.clock}`
-    :
-      !this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.current === 4 ?
-        `Final`
-      :
-        !this.state.miniBoxscore.basicGameData.clock && this.state.miniBoxscore.basicGameData.period.isHalftime ?
-          `Halftime`
-        :
-          ` ` // game hasn't started
-    return (
-      <Text style={styles.text}> {gameStatus} </Text>
-    )
-  }
-
+  
   render() {
     const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
     const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
@@ -171,20 +56,13 @@ class TeamStats extends Component<Props> {
           (this.state.teamStats && this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
 
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
-            <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
-              <View style={styles.teamQuarterScores}>
-                <View style={styles.teamQuarterHeader}>
-                  { this._renderGameStatus() }
-                </View>
-                <View style={styles.teamQuarterChart}>
-                  { this._renderQuarterScoresChart() }
-                </View>
-              </View>
-            </View>
+            <QuarterScores
+              miniBoxscore={this.state.miniBoxscore}
+            />
             <View style={styles.leadTracker}>
               <View style={styles.leadTrackerHeader}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Tracker </Text>
+                  <Text style={styles.text18pt}> Lead Tracker </Text>
                 </View>
                 <LeadTracker
                   homeTeamID={this.props.homeTeam.teamID}
@@ -194,8 +72,8 @@ class TeamStats extends Component<Props> {
                   leadtracker={this.state.leadTracker}
                 />
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Times Tied: {this.state.teamStats.timesTied} </Text>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3', fontSize: 18 }}> Lead Changes: {this.state.teamStats.leadChanges} </Text>
+                  <Text style={styles.text18pt}> Times Tied: {this.state.teamStats.timesTied} </Text>
+                  <Text style={styles.text18pt}> Lead Changes: {this.state.teamStats.leadChanges} </Text>
                 </View>
               </View>
             </View>
@@ -210,7 +88,7 @@ class TeamStats extends Component<Props> {
         }
         {
           (!this.state.loading && (!this.state.teamStats || !this.state.teamStats || !this.state.leadTracker || !this.state.miniBoxscore)) &&
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.defaultCenteredView}>
             <Text style={styles.text}> Teams stats avaliable after tip off </Text>
           </View>
         }
@@ -223,6 +101,16 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: '#D3D3D3'
+  },
+  text18pt: {
+    textAlign: 'center',
+    color: '#D3D3D3',
+    fontSize: 18
+  },
+  defaultCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   teamStatsContainer: {
     // flex: 1,
