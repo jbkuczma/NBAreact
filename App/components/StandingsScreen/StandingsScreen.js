@@ -41,6 +41,26 @@ class StandingsScreen extends Component<Props> {
     })
   }
 
+  _renderHeader() {
+    const headers = ['Rank', 'Wins', 'Loss', 'GB', 'Streak']
+    return (
+      <View style={styles.header}>
+      {
+        headers.map((header, index) => {
+          // only apply margin to first header
+          const marginLeft = index === 0 ? 10 : 0
+
+          return (
+            <View style={[styles.headerLabelView, { marginLeft: marginLeft }]} key={ index }>
+              <Text style={styles.headerLabelText}> { header } </Text>
+            </View>
+          )
+        })
+      }
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
@@ -73,23 +93,9 @@ class StandingsScreen extends Component<Props> {
                   />
                 </View>
               </View>
-              <View style={styles.header}>
-                <View style={{ flex: 1, marginLeft: 10 }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Rank </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Wins </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Loss </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> GB </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Streak </Text>
-                </View>
-              </View>
+              {
+                this._renderHeader()
+              }
               <FlatList
                 data={this.state.conference === 'east' ? this.state.east : this.state.west}
                 keyExtractor={team => team.teamId}
@@ -141,6 +147,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     marginBottom: 10
+  },
+  headerLabelView: {
+    flex: 1
+  },
+  headerLabelText: {
+    textAlign: 'center',
+    color: '#D3D3D3'
   }
 })
 
