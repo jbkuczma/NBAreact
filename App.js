@@ -3,17 +3,21 @@ import {
   AppRegistry
 } from 'react-native'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import logger from 'redux-logger'
 import NBA from './App/reducers'
 
 import { getFormattedDate } from './App/utils/date'
 
 const store = createStore(
-  NBA
+  NBA,
+  applyMiddleware(logger)
 )
 
-console.log(store.getState())
-console.disableYellowBox = true // for development
+if(__DEV__) {
+  console.disableYellowBox = true
+  console.log(store.getState()) 
+}
 
 import NBAreact from './App/NBAreact'
 
