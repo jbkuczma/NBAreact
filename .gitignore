@@ -55,3 +55,8 @@ buck-out/
 # VScode
 #
 .vscode/
+
+# iOS bundled
+ios/main.jsbundle
+ios/main.jsbundle.meta
+ios/assets

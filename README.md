@@ -43,22 +43,26 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 ## Resources Used
 [Set Splash Screen iOS](https://medium.com/the-react-native-log/change-default-launch-screen-in-react-native-ios-app-544f94f1e947)
 
+[Test your React Native App on your iPhone](https://medium.com/react-native-development/deploying-a-react-native-app-for-ios-pt-1-a79dfd15acb8)
+
+[How to Submit to the App Store](https://clearbridgemobile.com/how-to-submit-an-app-to-the-app-store/)
+
 # Getting Started
-    
+
   - Fork (optional) and clone repo
-  
+
         git clone https://github.com/jbkuczma/NBAreact.git && cd NBAreact
-        
+
   - Install and link dependencies
-  
+
         npm install
-      
+
         npm link
-  
+
   - Run
-  
+
         react-native run-ios
-      
+
         react-native run-ios --simulator="iPhone X"
-      
+
         react-native run-android (an emulator must be running first)

@@ -1310,7 +1310,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.james.kuczmarski.NBAreact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jameskuczmarski.swish;
 				PRODUCT_NAME = NBAreact;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1335,7 +1335,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.james.kuczmarski.NBAreact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jameskuczmarski.swish;
 				PRODUCT_NAME = NBAreact;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
