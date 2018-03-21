@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import TeamMap from '../../../utils/TeamMap'
-import Loader from '../../common/Loader'
 
 class QuarterScores extends Component<Props> {
 
@@ -38,14 +37,7 @@ class QuarterScores extends Component<Props> {
     )
   }
 
-  _renderQuarterScoresChart() {
-    const homeWins = this.props.miniBoxscore.basicGameData.hTeam.win
-    const homeLosses = this.props.miniBoxscore.basicGameData.hTeam.loss
-    const awayWins = this.props.miniBoxscore.basicGameData.vTeam.win
-    const awayLosses = this.props.miniBoxscore.basicGameData.vTeam.loss
-    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
-    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
-
+  createMiniBoxscoreHeader() {
     // space for team name in header
     let miniBoxscoreHeader = [' ', 'Q1', 'Q2', 'Q3', 'Q4', 'T']
 
@@ -62,6 +54,14 @@ class QuarterScores extends Component<Props> {
         overtimePeriodArrayIndex+=1
       }
     }
+
+    return miniBoxscoreHeader
+  }
+
+  _renderQuarterScoresChart() {
+    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
+    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
+    const miniBoxscoreHeader = this.createMiniBoxscoreHeader()
 
     return (
       <View style={[ styles.defaultCenteredView, { flexDirection: 'column' }]}>
@@ -98,25 +98,28 @@ class QuarterScores extends Component<Props> {
   }
 
   _renderGameStatus() {
-    const gameStatus = this.props.miniBoxscore.basicGameData.clock && this.props.miniBoxscore.basicGameData.period.current != 0 ?
-      `Q${this.props.miniBoxscore.basicGameData.period.current} ${this.props.miniBoxscore.basicGameData.clock}`
-    :
-      !this.props.miniBoxscore.basicGameData.clock && this.props.miniBoxscore.basicGameData.period.current === 4 ?
-        `Final`
-      :
-        !this.props.miniBoxscore.basicGameData.clock && this.props.miniBoxscore.basicGameData.period.isHalftime ?
-          `Halftime`
-        :
-          ` ` // game hasn't started
+    const clock = this.props.miniBoxscore.basicGameData.clock
+    const period = this.props.miniBoxscore.basicGameData.period
+    let gameStatus =  ` ` // game hasn't started
+
+    if (clock && period.current != 0) {
+      gameStatus = `Q${period.current} ${clock}`
+    }
+    else if (!clock) {
+      if (period.current === 4) {
+        gameStatus = `Final`
+      }
+      else if (period.isHalftime) {
+        gameStatus = `Halftime`
+      }
+    }
+
     return (
       <Text style={styles.text}> {gameStatus} </Text>
     )
   }
 
   render() {
-    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
-    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
-
     return (
       <View style={{ height: 120, flexDirection: 'row', marginBottom: 10 }}>
         <View style={styles.teamQuarterScores}>
@@ -162,10 +165,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    gameID: state.scores.selectedGame.gameID,
     awayTeam: state.scores.selectedGame.awayTeam,
     homeTeam: state.scores.selectedGame.homeTeam,
-    date: state.date.date
   }
 }
 
