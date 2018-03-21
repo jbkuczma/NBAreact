@@ -6,6 +6,48 @@ import TeamMap from '../../../utils/TeamMap'
 
 class TeamStatsTable extends Component<Props> {
 
+  createStatHeaderMapArray(team) {
+    return [
+      `${team.totals.fgm}-${team.totals.fga}`,
+      `${team.totals.fgp}%`,
+      `${team.totals.ftm}-${team.totals.fta}`,
+      `${team.totals.ftp}%`,
+      `${team.totals.tpm}-${team.totals.tpa}`,
+      `${team.totals.tpp}%`,
+      `${team.totals.assists}`,
+      `${team.totals.totReb}`,
+      `${team.totals.offReb}`,
+      `${team.totals.turnovers}`,
+      `${team.totals.steals}`,
+      `${team.totals.blocks}`,
+      `${team.fastBreakPoints}`,
+      `${team.pointsInPaint}`,
+      `${team.pointsOffTurnovers}`,
+      `${team.biggestLead}`
+    ]
+  }
+
+  createStatHeaderColorMapArray(awayTeam, homeTeam, awayTeamColor, homeTeamColor) {
+    return [
+      parseInt(homeTeam.totals.fgm)         > parseInt(awayTeam.totals.fgm)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.fgp)         > parseInt(awayTeam.totals.fgp)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.ftm)         > parseInt(awayTeam.totals.ftm)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.ftp)         > parseInt(awayTeam.totals.ftp)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.tpm)         > parseInt(awayTeam.totals.tpm)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.tpp)         > parseInt(awayTeam.totals.tpp)         ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.assists)     > parseInt(awayTeam.totals.assists)     ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.totReb)      > parseInt(awayTeam.totals.totReb)      ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.offReb)      > parseInt(awayTeam.totals.offReb)      ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.turnovers)   < parseInt(awayTeam.totals.turnovers)   ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.steals)      > parseInt(awayTeam.totals.steals)      ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.totals.blocks)      > parseInt(awayTeam.totals.blocks)      ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.fastBreakPoints)    > parseInt(awayTeam.fastBreakPoints)    ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.pointsInPaint)      > parseInt(awayTeam.pointsInPaint)      ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.pointsOffTurnovers) > parseInt(awayTeam.pointsOffTurnovers) ? homeTeamColor : awayTeamColor,
+      parseInt(homeTeam.biggestLead)        > parseInt(awayTeam.biggestLead)        ? homeTeamColor : awayTeamColor
+    ]
+  }
+
   _renderRows() {
     const {
       awayTeamColor,
@@ -13,103 +55,23 @@ class TeamStatsTable extends Component<Props> {
     } = this.props
 
     const statHeader = ['FG', 'FG%', 'FT', 'FT%', '3PT', '3PT%', 'ASSISTS', 'REBOUNDS', 'OFF REBOUNDS', 'TOV', 'STEALS', 'BLOCKS', 'FAST BREAK PTS', 'PTS IN PAINT', 'PTS OFF TOV', 'BIGGEST LEAD']
-    const statHeaderMapping = [
-      {
-        home: `${this.props.stats.hTeam.totals.fgm}-${this.props.stats.hTeam.totals.fga}`,
-        away: `${this.props.stats.vTeam.totals.fgm}-${this.props.stats.vTeam.totals.fga}`,
-        color: this.props.stats.hTeam.totals.fgm > this.props.stats.vTeam.totals.fgm ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.fgp}%`,
-        away: `${this.props.stats.vTeam.totals.fgp}%`,
-        color: this.props.stats.hTeam.totals.fgp > this.props.stats.vTeam.totals.fgp ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.ftm}-${this.props.stats.hTeam.totals.fta}`,
-        away: `${this.props.stats.vTeam.totals.ftm}-${this.props.stats.vTeam.totals.fta}`,
-        color: this.props.stats.hTeam.totals.ftm > this.props.stats.vTeam.totals.ftm ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.ftp}%`,
-        away: `${this.props.stats.vTeam.totals.ftp}%`,
-        color: this.props.stats.hTeam.totals.ftp > this.props.stats.vTeam.totals.ftp ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.tpm}-${this.props.stats.hTeam.totals.tpa}`,
-        away: `${this.props.stats.vTeam.totals.tpm}-${this.props.stats.vTeam.totals.tpa}`,
-        color: this.props.stats.hTeam.totals.tpm > this.props.stats.vTeam.totals.tpm ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.tpp}%`,
-        away: `${this.props.stats.vTeam.totals.tpp}%`,
-        color: this.props.stats.hTeam.totals.tpp > this.props.stats.vTeam.totals.tpp ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.assists}`,
-        away: `${this.props.stats.vTeam.totals.assists}`,
-        color: this.props.stats.hTeam.totals.assists > this.props.stats.vTeam.totals.assists ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.totReb}`,
-        away: `${this.props.stats.vTeam.totals.totReb}`,
-        color: this.props.stats.hTeam.totals.totReb > this.props.stats.vTeam.totals.totReb ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.offReb}`,
-        away: `${this.props.stats.vTeam.totals.offReb}`,
-        color: this.props.stats.hTeam.totals.offReb > this.props.stats.vTeam.totals.offReb ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.turnovers}`,
-        away: `${this.props.stats.vTeam.totals.turnovers}`,
-        color: this.props.stats.hTeam.totals.turnovers < this.props.stats.vTeam.totals.turnovers ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.steals}`,
-        away: `${this.props.stats.vTeam.totals.steals}`,
-        color: this.props.stats.hTeam.totals.steals > this.props.stats.vTeam.totals.steals ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.totals.blocks}`,
-        away: `${this.props.stats.vTeam.totals.blocks}`,
-        color: this.props.stats.hTeam.totals.blocks > this.props.stats.vTeam.totals.blocks ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.fastBreakPoints}`,
-        away: `${this.props.stats.vTeam.fastBreakPoints}`,
-        color: this.props.stats.hTeam.fastBreakPoints > this.props.stats.vTeam.fastBreakPoints ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.pointsInPaint}`,
-        away: `${this.props.stats.vTeam.pointsInPaint}`,
-        color: this.props.stats.hTeam.pointsInPaint > this.props.stats.vTeam.pointsInPaint ? homeTeamColor : awayTeamColor
-      },
-      {
-        home: `${this.props.stats.hTeam.pointsOffTurnovers}`,
-        away: `${this.props.stats.vTeam.pointsOffTurnovers}`,
-        color: this.props.stats.hTeam.pointsOffTurnovers > this.props.stats.vTeam.pointsOffTurnovers ? homeTeamColor : awayTeamColor
-      }
-      ,
-      {
-        home: `${this.props.stats.hTeam.biggestLead}`,
-        away: `${this.props.stats.vTeam.biggestLead}`,
-        color: this.props.stats.hTeam.biggestLead > this.props.stats.vTeam.biggestLead ? homeTeamColor : awayTeamColor
-      }
-    ]
+    const awayTeamStatMap = this.createStatHeaderMapArray(this.props.stats.vTeam)
+    const homeTeamStatMap = this.createStatHeaderMapArray(this.props.stats.hTeam)
+    const colorMap = this.createStatHeaderColorMapArray(this.props.stats.vTeam, this.props.stats.hTeam, awayTeamColor, homeTeamColor)
 
     return (
       statHeader.map((header, index) => {
         return (
           <View style={{ flex: 1, flexDirection: 'row', height: 30, marginTop: 7 }} key={index}>
-            <View style={{ flex: 1, borderLeftWidth: 3, borderLeftColor: statHeaderMapping[index].color, marginBottom: 14 }}>
+            <View style={{ flex: 1, borderLeftWidth: 3, borderLeftColor: colorMap[index], marginBottom: 14 }}>
               <Text style={styles.text}> {header} </Text>
             </View>
             <View style={{ flex: 2, flexDirection: 'row' }}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}> {statHeaderMapping[index].away} </Text>
+                <Text style={styles.text}> {awayTeamStatMap[index]} </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}> {statHeaderMapping[index].home} </Text>
+                <Text style={styles.text}> {homeTeamStatMap[index]} </Text>
               </View>
             </View>
           </View>
