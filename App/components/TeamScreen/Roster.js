@@ -46,22 +46,38 @@ class Roster extends Component<Props> {
   }
 
   _renderPlayer(player) {
-    // const _this = this
     player = player.item
-    const playerImageURL = this.nba.getPlayerImage(player.player_id)
+    // const playerImageURL = this.nba.getPlayerImage(player.player_id)
+    const playerImageURL = null
 
     return(
       <TouchableOpacity style={styles.playerCell} onPress={() => this._selectPlayer(player)}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.playerImage}
-            source={{ uri: playerImageURL }}
-          />
-        </View>
-        <View>
+        {
+          playerImageURL &&
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.playerImage}
+              source={{ uri: playerImageURL }}
+            />
+          </View>
+        }
+        {/* <View>
           <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
           <Text style={styles.textSecondary}> {this._formatPosition(player.position)} </Text>
+        </View> */}
+        {/*  */}
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.textSecondary}> #{player.num} </Text>
+          </View>
+          <View style={{ flex: 2 }}>
+            <Text style={styles.textSecondary}> {player.player} </Text>
+          </View>
+          <View style={{ flex: 2 }}>
+          <Text style={styles.textSecondary}> {this._formatPosition(player.position)} </Text>
+          </View>
         </View>
+        {/*  */}
       </TouchableOpacity>
     )
   }
@@ -69,7 +85,7 @@ class Roster extends Component<Props> {
   render() {
     return (
       <FlatList
-        numColumns={2}
+        // numColumns={2}
         data={this.props.team}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderPlayer}
@@ -91,7 +107,14 @@ const styles = StyleSheet.create({
   },
   playerCell: {
     flex: 1,
-    marginTop: 5
+    marginTop: 5,
+    height: 45,
+    borderBottomColor: '#333333',
+    borderBottomWidth: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   imageContainer: {
     justifyContent: 'center',

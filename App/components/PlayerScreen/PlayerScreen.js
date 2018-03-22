@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity, Platform, Button } from 'react-native'
 import { connect } from 'react-redux'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
@@ -68,6 +68,7 @@ class PlayerScreen extends Component<Props> {
 
   _renderGameStat(game) {
     game = game.item
+    console.log(game)
     /**
      * remove team from matchup
      * ex: TOR @ NYK -> @ NYK
@@ -144,7 +145,8 @@ class PlayerScreen extends Component<Props> {
     } = this.props
 
     const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
-    const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
+    // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
+    const playerImageURL = null
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
@@ -156,12 +158,14 @@ class PlayerScreen extends Component<Props> {
           !this.state.loading &&
           <View style={[styles.playerHeader, { borderBottomColor: teamColor, borderBottomWidth: 3 }]}>
             <View style={{ flexDirection: 'row' }}>
-              <View style={styles.defaultCenteredView}>
-                <Image
-                  style={styles.playerImage}
-                  source={{ uri: playerImageURL }}
-                />
-              </View>
+              { playerImageURL &&
+                <View style={styles.defaultCenteredView}>
+                  <Image
+                    style={styles.playerImage}
+                    source={{ uri: playerImageURL }}
+                  />
+                </View>
+              }
               <View  style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
                 <Text style={styles.textPrimary}> Years Pro: {player.exp} </Text>

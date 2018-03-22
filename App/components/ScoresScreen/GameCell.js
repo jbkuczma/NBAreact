@@ -4,6 +4,32 @@ import { connect } from 'react-redux'
 import { selectGame } from '../../actions/actions'
 import TeamMap from '../../utils/TeamMap'
 
+const TeamSection = ({style, team, logo, flip}) => (
+  <View style={[styles.team, style]}>
+    {
+      flip &&
+      <View style={styles.defaultCenteredView}>
+        <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {team.score} </Text>
+      </View>
+    }
+    <View style={styles.defaultCenteredView}>
+      <View>
+        <Image
+          style={styles.logo}
+          source={logo}
+        />
+        <Text style={styles.text}> {team.triCode} </Text>
+      </View>
+    </View>
+    {
+      !flip &&
+      <View style={styles.defaultCenteredView}>
+        <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {team.score} </Text>
+      </View>
+    }
+  </View>
+)
+
 class GameCell extends Component<Props> {
 
   _selectGame() {
@@ -76,35 +102,21 @@ class GameCell extends Component<Props> {
           <View style={{ flex: 1, backgroundColor: homeTeamColor, borderTopRightRadius: 12 }} />
         </View>
         <View style={styles.gamecell}>
-        <View style={styles.awayTeam}>
-          <View style={styles.defaultCenteredView}>
-            <View>
-              <Image
-                style={styles.logo}
-                source={awayTeamLogo}
-              />
-            </View>
-          </View>
-          <View style={styles.defaultCenteredView}>
-            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {vTeam.score} </Text>
-          </View>
-        </View>
-        {
-          this._renderGameStatus()
-        }
-        <View style={styles.homeTeam}>
-          <View style={styles.defaultCenteredView}>
-            <Text style={{ fontSize: 22, color: '#D3D3D3' }}> {hTeam.score} </Text>
-          </View>
-          <View style={styles.defaultCenteredView}>
-            <View>
-              <Image
-                style={styles.logo}
-                source={homeTeamLogo}
-              />
-            </View>
-          </View>
-        </View>
+          <TeamSection
+            style={styles.awayTeam}
+            team={vTeam}
+            logo={awayTeamLogo}
+            flip={false}
+          />
+          {
+            this._renderGameStatus()
+          }
+          <TeamSection
+            style={styles.homeTeam}
+            team={hTeam}
+            logo={homeTeamLogo}
+            flip={true}
+          />
         </View>
       </TouchableOpacity>
     )
@@ -142,11 +154,16 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },
-  awayTeam: {
+  team: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  homeTeam: {
+    marginRight: 10
+  },
+  awayTeam: {
     marginLeft: 10
   },
   gameInfo: {
@@ -154,13 +171,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column'
-  },
-  homeTeam: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginRight: 10
   },
   logo: {
     height: 60,
