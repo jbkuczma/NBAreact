@@ -54,9 +54,10 @@ class PlayByPlay extends Component<Props> {
     const playerID = play.item.pid
     let description = play.item.de
     let timeString = ''
-    const logoToUse = description.includes(homeTeam)
-      ? homeLogo : description.includes(awayTeam)
-      ? awayLogo : ''
+    // const logoToUse = description.includes(homeTeam)
+    //   ? homeLogo : description.includes(awayTeam)
+    //   ? awayLogo : ''
+    const logoToUse = null
     const gameScore = awayScore + '-' + homeScore
 
     if (description !== 'Start Period' || description !== 'End Period') {
@@ -84,13 +85,16 @@ class PlayByPlay extends Component<Props> {
           </View>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Image
-            source={logoToUse}
-            style={{
-              height: 40,
-              width: 40
-            }}
-          />
+          {
+            logoToUse &&
+            <Image
+              source={logoToUse}
+              style={{
+                height: 40,
+                width: 40
+              }}
+            />
+          }
         </View>
         <View style={{ flex: 3, marginRight: 10 }}>
           <Text style={styles.playByPlayText}>
