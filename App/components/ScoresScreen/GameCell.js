@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { selectGame } from '../../actions/actions'
 import TeamMap from '../../utils/TeamMap'
 
-const TeamSection = ({style, team, logo, flip}) => (
+const TeamSection = ({style, team, teamColor, logo, flip}) => (
   <View style={[styles.team, style]}>
     {
       flip &&
@@ -14,11 +14,11 @@ const TeamSection = ({style, team, logo, flip}) => (
     }
     <View style={styles.defaultCenteredView}>
       <View>
-        <Image
+        {/* <Image
           style={styles.logo}
           source={logo}
-        />
-        <Text style={styles.text}> {team.triCode} </Text>
+        /> */}
+        <Text style={[styles.text, { fontSize: 22, color: teamColor }]}> {team.triCode} </Text>
       </View>
     </View>
     {
@@ -105,6 +105,7 @@ class GameCell extends Component<Props> {
           <TeamSection
             style={styles.awayTeam}
             team={vTeam}
+            teamColor={awayTeamColor}
             logo={awayTeamLogo}
             flip={false}
           />
@@ -114,6 +115,7 @@ class GameCell extends Component<Props> {
           <TeamSection
             style={styles.homeTeam}
             team={hTeam}
+            teamColor={homeTeamColor}
             logo={homeTeamLogo}
             flip={true}
           />

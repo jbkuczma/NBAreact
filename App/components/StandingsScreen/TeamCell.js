@@ -30,10 +30,11 @@ class TeamCell extends Component<Props> {
           <Text style={[styles.statcellText, {fontSize: 18}]}> {team.confRank} </Text>
         </View>
         <View style={styles.statcell}>
-          <Image
+          {/* <Image
             style={styles.logo}
             source={this._getTeamFromTeamMap(team.teamId).logo}
-          />
+          /> */}
+          <Text style={{ textAlign: 'center', color: this._getTeamFromTeamMap(team.teamId).color, size: 16 }}> {this._getTeamFromTeamMap(team.teamId).team} </Text>
         </View>
         <View style={styles.statcell}>
           <Text style={styles.statcellText}> {team.win} </Text>

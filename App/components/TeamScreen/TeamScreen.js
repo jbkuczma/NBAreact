@@ -74,6 +74,8 @@ class TeamScreen extends Component<Props> {
 
   render() {
     const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    // const teamLogo = this._getTeamFromTeamMap(this.props.teamID).logo
+    const teamLogo = null
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
@@ -87,10 +89,13 @@ class TeamScreen extends Component<Props> {
               {/* begin team info */}
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Image
-                    style={styles.logo}
-                    source={this._getTeamFromTeamMap(this.props.teamID).logo}
-                  />
+                  {
+                    teamLogo &&
+                    <Image
+                      style={styles.logo}
+                      source={teamLogo}
+                    />
+                  }
                 </View>
                 <View style={{ flex: 2, flexDirection: 'column' }}>
                   <View  style={{ flex: 1 }}>
