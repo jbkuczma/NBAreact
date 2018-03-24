@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
 import { connect } from 'react-redux'
+import { getPlayersInLeague } from '../../actions/actions'
 import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
@@ -21,21 +22,22 @@ class LeagueLeaders extends Component<Props> {
   }
 
   componentDidMount() {
-    this.setState({
-      category: this.props.category
-    }, () => {
-      this.getLeagueLeaders()
-    })
+    this.props.getPlayers(this.props.season)
+    this.setCategoryAndUpdate(this.props.category)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.category != this.props.category) {
-      this.setState({
-        category: nextProps.category
-      }, () => {
-        this.getLeagueLeaders()
-      })
+      this.setCategoryAndUpdate(nextProps.category)
     }
+  }
+
+  setCategoryAndUpdate(category) {
+    this.setState({
+      category: category
+    }, () => {
+      this.getLeagueLeaders()
+    })
   }
 
   getLeagueLeaders = () => {
@@ -107,7 +109,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    getPlayers: (season) => dispatch(getPlayersInLeague(season))
   }
 }
 

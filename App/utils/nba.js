@@ -403,7 +403,6 @@ export default class NBA {
       StatCategory: category
     }
     const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
-    console.log(url)
     return this.nbaFetch(url, true)
   }
 

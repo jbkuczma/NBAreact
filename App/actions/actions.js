@@ -1,3 +1,7 @@
+import NBA from '../utils/nba'
+
+this.nba = new NBA()
+
 export function changeDate(date) {
   return {
     type: 'CHANGE_DATE',
@@ -30,5 +34,19 @@ export function selectCategory(selectedCategory) {
   return {
     type: 'SELECT_CATEGORY',
     selectedCategory
+  }
+}
+
+export const getPlayersInLeague = (season) => {
+  return (dispatch, getStats) => {
+    return (
+      this.nba.getPlayers(season)
+      .then((data) => {
+        dispatch({
+          type: 'PLAYERS_SUCCESS',
+          payload: data.league.standard
+        })
+      })
+    )
   }
 }

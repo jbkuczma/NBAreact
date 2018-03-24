@@ -24,13 +24,11 @@ class BoxScore extends Component<Props> {
       awayTeamStats: [],
       homeTeam: null,
       awayTeam: null,
-      playersInLeague: null,
       activeTeam: 'away'
     }
   }
 
   componentDidMount() {
-    this.getPlayers()
     this.fetchBoxscore()
   }
 
@@ -42,15 +40,6 @@ class BoxScore extends Component<Props> {
       this.setState({
         loading: false,
         boxscore: data.stats ? data.stats : {},
-      })
-    })
-  }
-
-  getPlayers() {
-    this.nba.getPlayers(this.props.season)
-    .then((data) => {
-      this.setState({
-        playersInLeague: data.league.standard
       })
     })
   }
@@ -74,7 +63,7 @@ class BoxScore extends Component<Props> {
     })
 
     const updatedPlayers = []
-    const playersInLeague = this.state.playersInLeague
+    const playersInLeague = this.props.playersInLeague
 
       // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
@@ -142,7 +131,7 @@ class BoxScore extends Component<Props> {
             <Loader />
           }
           {
-            !this.state.loading && this.state.boxscore.activePlayers && this.state.playersInLeague &&
+            !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
               this._createBoxscoreTable(this.state.boxscore)
           }
           {
@@ -199,7 +188,8 @@ function mapStateToProps(state) {
     homeTeamID: state.scores.selectedGame.homeTeam.teamID,
     awayTeamID: state.scores.selectedGame.awayTeam.teamID,
     homeTeam: state.scores.selectedGame.homeTeam,
-    awayTeam: state.scores.selectedGame.awayTeam
+    awayTeam: state.scores.selectedGame.awayTeam.season,
+    playersInLeague: stats.league.playersInLeague
   }
 }
 
