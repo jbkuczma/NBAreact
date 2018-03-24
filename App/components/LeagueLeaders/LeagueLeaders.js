@@ -1,9 +1,33 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
+import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList, Picker } from 'react-native'
 import { connect } from 'react-redux'
+import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 
+// const categories = [
+//   {
+//     label: 'Points',
+//     value: 'points'
+//   },
+//   {
+//     label: 'Rebounds',
+//     value: 'rebounds'
+//   },
+//   {
+//     label: 'Assists',
+//     value: 'assists'
+//   },
+//   {
+//     label: 'Blocks',
+//     value: 'blocks'
+//   },
+//   {
+//     label: 'Steals',
+//     value: 'steals'
+//   },
+// ]
+const categories = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks']
 
 class LeagueLeaders extends Component<Props> {
 
@@ -12,8 +36,8 @@ class LeagueLeaders extends Component<Props> {
 
     this.nba = new NBA()
     this.state = {
-      loading: true,
-      category: ''
+      loading: false,
+      category: 'Points'
     }
   }
 
@@ -25,12 +49,14 @@ class LeagueLeaders extends Component<Props> {
   }
 
   _selectCategory(category) {
-
+    this.setState({
+      category: category
+    })
   }
 
   render() {
     return (
-      <View style={styles.body}>
+      <View style={[styles.body, styles.defaultCenteredView]}>
         <StatusBar
           barStyle="light-content"
         />
@@ -39,7 +65,14 @@ class LeagueLeaders extends Component<Props> {
           this.state.loading &&
           <Loader />
         }
-        <View><Text> test </Text></View>
+        <View style={styles.picker}>
+          <View style={{flex: 1}}>
+            <CategoryPicker
+              options={categories}
+            />
+          </View>
+        </View>
+
       </View>
     )
   }
@@ -47,15 +80,28 @@ class LeagueLeaders extends Component<Props> {
 
 const styles = StyleSheet.create({
   body: {
+    backgroundColor: '#111111'
+  },
+  defaultCenteredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#111111'
+  },
+  text: {
+    textAlign: 'center',
+    // color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   },
   statusBar: {
     height: (Platform.OS === 'ios') ? 45 : 0,
     backgroundColor: '#F7971E'
   },
+  picker: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    marginLeft: 20
+  }
 })
 
 function mapStateToProps(state) {

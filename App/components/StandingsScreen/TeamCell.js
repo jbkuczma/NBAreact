@@ -34,7 +34,7 @@ class TeamCell extends Component<Props> {
             style={styles.logo}
             source={this._getTeamFromTeamMap(team.teamId).logo}
           /> */}
-          <Text style={{ textAlign: 'center', color: this._getTeamFromTeamMap(team.teamId).color, size: 16 }}> {this._getTeamFromTeamMap(team.teamId).team} </Text>
+          <Text style={{ textAlign: 'center', color: this._getTeamFromTeamMap(team.teamId).color, fontSize: 16 }}> {this._getTeamFromTeamMap(team.teamId).team} </Text>
         </View>
         <View style={styles.statcell}>
           <Text style={styles.statcellText}> {team.win} </Text>

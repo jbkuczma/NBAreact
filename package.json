@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-modal-dropdown": "^0.6.2",
     "react-native-svg": "^6.2.2",
     "react-native-svg-charts": "^3.0.1",
     "react-navigation": "^1.0.3",
