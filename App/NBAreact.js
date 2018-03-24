@@ -12,6 +12,8 @@ import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
 import LeagueLeaders from './components/LeagueLeaders'
 
+import SearchBar from './components/common/SearchBar'
+
 const GameDetailNavigator = TabNavigator({
   'Team Stats': { screen: TeamStats },
   'Boxscore': { screen: BoxScore },
@@ -100,7 +102,14 @@ const StandingsStack = StackNavigator({
 const LeagueLeadersStack = StackNavigator({
   Home: {
     screen: LeagueLeaders,
-    navigationOptions: { header: null }
+    navigationOptions: {
+      header: <SearchBar />,
+      // header: null
+      // header: TODO: add searchinput with drop down filter list of players
+      headerStyle: {
+        // backgroundColor: '#111111'
+      }
+    }
   },
   Player: {
     screen: PlayerScreen,
