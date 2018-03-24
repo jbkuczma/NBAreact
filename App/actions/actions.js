@@ -25,3 +25,10 @@ export function selectPlayer(selectedPlayer) {
     selectedPlayer
   }
 }
+
+export function selectCategory(selectedCategory) {
+  return {
+    type: 'SELECT_CATEGORY',
+    selectedCategory
+  }
+}
