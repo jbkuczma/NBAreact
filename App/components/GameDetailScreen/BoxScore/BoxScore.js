@@ -101,9 +101,8 @@ class BoxScore extends Component<Props> {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
-
         {
-          this.props.awayTeam && this.props.awayTeam &&
+          this.props.awayTeam && this.props.homeTeam &&
           <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.teams}>
               <View style={styles.teamsButtons}>
@@ -188,8 +187,8 @@ function mapStateToProps(state) {
     homeTeamID: state.scores.selectedGame.homeTeam.teamID,
     awayTeamID: state.scores.selectedGame.awayTeam.teamID,
     homeTeam: state.scores.selectedGame.homeTeam,
-    awayTeam: state.scores.selectedGame.awayTeam.season,
-    playersInLeague: stats.league.playersInLeague
+    awayTeam: state.scores.selectedGame.awayTeam,
+    playersInLeague: state.league.playersInLeague
   }
 }
 
