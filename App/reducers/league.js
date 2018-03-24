@@ -1,12 +1,25 @@
+const categoryMap = {
+  Points: 'PTS',
+  Minutes: 'MIN',
+  OffensiveRebounds: 'OREB',
+  DefensiveRebounds: 'DREB',
+  Rebounds: 'REB',
+  Assists: 'AST',
+  Steals: 'STL',
+  Blocks: 'BLK',
+  Turnovers: 'TOV',
+  Efficiency: 'EFF'
+}
+
 const initialState = {
-  category: 'Points',
+  category: { label: 'Points', value: 'PTS' }
 }
 
 const league = (state = initialState, action) => {
   switch(action.type) {
     case 'SELECT_CATEGORY':
       return {
-        ...state, category: action.selectedCategory
+        ...state, category: { label: action.selectedCategory, value: categoryMap[action.selectedCategory.replace(' ', '')] }
       }
     default:
       return state

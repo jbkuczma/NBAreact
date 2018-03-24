@@ -391,6 +391,24 @@ export default class NBA {
     return this.nbaFetch(url, true)
   }
 
+  getLeagueLeaders = (season, category) => {
+    season = season +  '-' + (parseInt(season.toString().substr(-2)) + 1)
+    const endpoint = 'stats/leagueleaders?'
+    const query = {
+      LeagueID: '00',
+      PerMode: 'PerGame', //
+      Scope: 'S', // S or Rookie
+      Season: season,
+      SeasonType: 'Regular Season',
+      StatCategory: category
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    console.log(url)
+    return this.nbaFetch(url, true)
+  }
+
   // totals
   // http://stats.nba.com/stats/playercareerstats?playerid=203507&permode=Totals
+  // videos
+  // https://api.nba.net/0/league/video?games=0021700992&count=&accessToken=
 }

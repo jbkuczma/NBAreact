@@ -1,33 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList, Picker } from 'react-native'
+import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 
-// const categories = [
-//   {
-//     label: 'Points',
-//     value: 'points'
-//   },
-//   {
-//     label: 'Rebounds',
-//     value: 'rebounds'
-//   },
-//   {
-//     label: 'Assists',
-//     value: 'assists'
-//   },
-//   {
-//     label: 'Blocks',
-//     value: 'blocks'
-//   },
-//   {
-//     label: 'Steals',
-//     value: 'steals'
-//   },
-// ]
-const categories = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks']
+const categories = ['Points', 'Rebounds', 'Offensive Rebounds', 'Defensive Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
 
 class LeagueLeaders extends Component<Props> {
 
@@ -37,20 +15,35 @@ class LeagueLeaders extends Component<Props> {
     this.nba = new NBA()
     this.state = {
       loading: false,
-      category: 'Points'
+      category: null,
+      leaders: []
     }
   }
 
   componentDidMount() {
+    this.setState({
+      category: this.props.category
+    }, () => {
+      this.getLeagueLeaders()
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category != this.props.category) {
+      this.setState({
+        category: nextProps.category
+      }, () => {
+        this.getLeagueLeaders()
+      })
+    }
   }
 
   getLeagueLeaders = () => {
-
-  }
-
-  _selectCategory(category) {
-    this.setState({
-      category: category
+    this.nba.getLeagueLeaders(this.props.season, this.props.categoryValue)
+    .then((data) => {
+      this.setState({
+        leaders: data.leagueLeaders
+      })
     })
   }
 
@@ -106,7 +99,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    season: state.date.season
+    season: state.date.season,
+    category: state.league.category.label,
+    categoryValue: state.league.category.value
   }
 }
 

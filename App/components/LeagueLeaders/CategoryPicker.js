@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    category: state.league.category
+    category: state.league.category.label,
+    categoryValue: state.league.category.value
   }
 }
 
