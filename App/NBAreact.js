@@ -10,6 +10,7 @@ import PlayerScreen from './components/PlayerScreen'
 import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
+import LeagueLeaders from './components/LeagueLeaders'
 
 const GameDetailNavigator = TabNavigator({
   'Team Stats': { screen: TeamStats },
@@ -96,9 +97,30 @@ const StandingsStack = StackNavigator({
   }
 })
 
+const LeagueLeadersStack = StackNavigator({
+  Home: {
+    screen: LeagueLeaders,
+    navigationOptions: { header: null }
+  },
+  Player: {
+    screen: PlayerScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
+})
+
 export default TabNavigator({
   Scores: { screen: ScoresStack },
-  Standings: { screen: StandingsStack }
+  Standings: { screen: StandingsStack },
+  Leaders: { screen: LeagueLeadersStack }
 },{
   navigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
