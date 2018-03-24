@@ -10,6 +10,10 @@ import QuarterScores from './QuarterScores'
 
 class TeamStats extends Component<Props> {
 
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: `${navigation.state.params.title}`
+  })
+
   constructor() {
     super()
 
@@ -41,7 +45,7 @@ class TeamStats extends Component<Props> {
       })
     })
   }
-  
+
   render() {
     const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
     const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'

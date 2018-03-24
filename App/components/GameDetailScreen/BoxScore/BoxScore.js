@@ -9,6 +9,10 @@ const headers = ['Player', 'Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-
 
 class BoxScore extends Component<Props> {
 
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: `${navigation.state.params.title}`
+  })
+
   constructor() {
     super()
 

@@ -49,7 +49,7 @@ class GameCell extends Component<Props> {
     }
 
     this.props.selectGame(gameData)
-    this.props.navigator.navigate('Game')
+    this.props.navigator.navigate('Game', { title: `${awayTeam} vs ${homeTeam}`})
   }
 
   _renderGameStatus() {
