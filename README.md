@@ -12,12 +12,17 @@
     <img src="https://img.shields.io/github/issues/jbkuczma/NBAreact.svg?style=flat-square" alt="GitHub issues">
   </a>
 </p>
+<p align="center">
+  <a href="https://itunes.apple.com/us/app/swish-basketball-stats/id1361567861">
+    <img alt="Download on the App Store" title="App Store" src="http://i.imgur.com/0n2zqHD.png" width="200">
+  </a>
+</p>
 
 # Swish
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
 
 # Download
-- iOS - Coming soon!
+- iOS - Download [here](https://itunes.apple.com/us/app/swish-basketball-stats/id1361567861)!
 - Android - Coming soon!
 
 ## Features
