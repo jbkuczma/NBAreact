@@ -37,8 +37,9 @@ export function selectCategory(selectedCategory) {
   }
 }
 
-export const getPlayersInLeague = (season) => {
-  return (dispatch, getStats) => {
+export const getPlayersInLeague = () => {
+  return (dispatch, getState) => {
+    const season = getState().date.season
     return (
       this.nba.getPlayers(season)
       .then((data) => {

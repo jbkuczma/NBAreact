@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'react-native'
+import { Text, View, StyleSheet, Platform, StatusBar, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { getPlayersInLeague } from '../../actions/actions'
 import CategoryPicker from './CategoryPicker'
@@ -15,14 +15,17 @@ class LeagueLeaders extends Component<Props> {
 
     this.nba = new NBA()
     this.state = {
-      loading: false,
+      loading: true,
       category: null,
-      leaders: []
+      leaders: null
     }
+
+    this._keyExtractor = this._keyExtractor.bind(this)
+    this._renderItem = this._renderItem.bind(this)
   }
 
   componentDidMount() {
-    this.props.getPlayers(this.props.season)
+    this.props.getPlayers()
     this.setCategoryAndUpdate(this.props.category)
   }
 
@@ -44,9 +47,50 @@ class LeagueLeaders extends Component<Props> {
     this.nba.getLeagueLeaders(this.props.season, this.props.categoryValue)
     .then((data) => {
       this.setState({
-        leaders: data.leagueLeaders
+        loading: false,
+        leaders: data.LeagueLeaders
       })
     })
+  }
+
+  _keyExtractor(item) {
+    return item.player_id.toString()
+  }
+
+  _renderHeader() {
+    const header = ['Rank', 'Player', 'GP', 'MPG', this.props.categoryValue]
+    return (
+      <View style={styles.header}>
+        {
+          header.map((header, idx) => {
+            const flexValue = header === 'Player' ? 2 : 1
+            return(
+              <View style={{ flex: flexValue }} key={idx}>
+                <Text style={styles.text}> {header} </Text>
+              </View>
+            )
+          })
+        }
+      </View>
+    )
+  }
+
+  _renderItem({ item, index }) {
+    const propertiesToRender = ['rank', 'player', 'gp', 'min', this.props.categoryValue.toLowerCase()]
+    return (
+      <View style={[styles.cell, styles.defaultCenteredView]}>
+        {
+          propertiesToRender.map((property) => {
+            const flexValue = property === 'player' ? 2 : 1
+            return (
+              <View style={[styles.defaultCenteredView, { flex: flexValue }]}>
+                <Text style={styles.text}> {item[property]} </Text>
+              </View>
+            )
+          })
+        }
+      </View>
+    )
   }
 
   render() {
@@ -67,7 +111,19 @@ class LeagueLeaders extends Component<Props> {
             />
           </View>
         </View>
-
+        <View style={[styles.defaultCenteredView, { flexDirection: 'row' }]}>
+          {
+            !this.state.loading && this.state.leaders &&
+            <View style={styles.leadersList}>
+              { this._renderHeader() }
+              <FlatList
+                data={this.state.leaders.slice(0, 50)}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+              />
+            </View>
+          }
+        </View>
       </View>
     )
   }
@@ -84,7 +140,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    // color: '#D3D3D3',
+    color: '#D3D3D3',
     fontFamily: 'Rubik-Light'
   },
   statusBar: {
@@ -92,10 +148,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7971E'
   },
   picker: {
-    flex: 1,
     justifyContent: 'flex-start',
     flexDirection: 'row',
     marginLeft: 20
+  },
+  leadersList: {
+    flex: 1,
+    marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  cell: {
+    flex: 1,
+    height: 60,
+    flexDirection: 'row'
+  },
+  header: {
+    flexDirection: 'row'
   }
 })
 
@@ -109,7 +178,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPlayers: (season) => dispatch(getPlayersInLeague(season))
+    getPlayers: () => dispatch(getPlayersInLeague())
   }
 }
 
