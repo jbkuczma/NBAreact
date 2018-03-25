@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Platform, StatusBar, FlatList } from 'react-native'
+import { Text, View, StyleSheet, Platform, StatusBar, FlatList, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { getPlayersInLeague } from '../../actions/actions'
 import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
+import FadeInView from '../common/FadeInView'
 import NBA from '../../utils/nba'
 
 const categories = ['Points', 'Rebounds', 'Offensive Rebounds', 'Defensive Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
@@ -17,7 +18,8 @@ class LeagueLeaders extends Component<Props> {
     this.state = {
       loading: true,
       category: null,
-      leaders: null
+      leaders: null,
+      hasNewData: false
     }
 
     this._keyExtractor = this._keyExtractor.bind(this)
@@ -37,7 +39,8 @@ class LeagueLeaders extends Component<Props> {
 
   setCategoryAndUpdate(category) {
     this.setState({
-      category: category
+      category: category,
+      hasNewData: true
     }, () => {
       this.getLeagueLeaders()
     })
@@ -48,6 +51,7 @@ class LeagueLeaders extends Component<Props> {
     .then((data) => {
       this.setState({
         loading: false,
+        hasNewData: false,
         leaders: data.LeagueLeaders
       })
     })
@@ -114,14 +118,19 @@ class LeagueLeaders extends Component<Props> {
         <View style={[styles.defaultCenteredView, { flexDirection: 'row' }]}>
           {
             !this.state.loading && this.state.leaders &&
-            <View style={styles.leadersList}>
+            <FadeInView
+              duration={500}
+              delay={500}
+              fadeAgain={this.state.hasNewData}
+              style={styles.leadersList}
+            >
               { this._renderHeader() }
               <FlatList
                 data={this.state.leaders.slice(0, 50)}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
               />
-            </View>
+            </FadeInView>
           }
         </View>
       </View>
