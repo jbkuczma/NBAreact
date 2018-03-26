@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Platform, StatusBar, FlatList, Animated } from 'react-native'
+import { Text, View, StyleSheet, Platform, StatusBar, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getPlayersInLeague } from '../../actions/actions'
 import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
 import FadeInView from '../common/FadeInView'
 import NBA from '../../utils/nba'
+import { selectPlayer } from '../../actions/actions'
 
 const categories = ['Points', 'Rebounds', 'Offensive Rebounds', 'Defensive Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
 
@@ -57,6 +58,15 @@ class LeagueLeaders extends Component<Props> {
     })
   }
 
+  _selectPlayer(player) {
+    const selectedPlayer = {
+      player: player
+    }
+    // error: can't read teamID property
+    // this.props.selectPlayer(selectedPlayer)
+    // this.props.navigation.navigate('Player')
+  }
+
   _keyExtractor(item) {
     return item.player_id.toString()
   }
@@ -82,7 +92,7 @@ class LeagueLeaders extends Component<Props> {
   _renderItem({ item, index }) {
     const propertiesToRender = ['rank', 'player', 'gp', 'min', this.props.categoryValue.toLowerCase()]
     return (
-      <View style={[styles.cell, styles.defaultCenteredView]}>
+      <TouchableOpacity style={[styles.cell, styles.defaultCenteredView]} onPress={() => this._selectPlayer(item)}>
         {
           propertiesToRender.map((property) => {
             const flexValue = property === 'player' ? 2 : 1
@@ -93,7 +103,7 @@ class LeagueLeaders extends Component<Props> {
             )
           })
         }
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -108,6 +118,7 @@ class LeagueLeaders extends Component<Props> {
           this.state.loading &&
           <Loader />
         }
+        
         <View style={styles.picker}>
           <View style={{flex: 1}}>
             <CategoryPicker
@@ -187,7 +198,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPlayers: () => dispatch(getPlayersInLeague())
+    getPlayers: () => dispatch(getPlayersInLeague()),
+    selectPlayer: (selectedPlayer) => dispatch(selectPlayer(selectedPlayer))
   }
 }
 
