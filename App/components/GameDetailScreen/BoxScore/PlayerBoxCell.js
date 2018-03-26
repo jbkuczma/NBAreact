@@ -21,118 +21,25 @@ export default class PlayerBoxCell extends Component<Props> {
         </View>
       )
     } else {
+      const categories = [
+        'display_fi_last', 'pos', 'min', 'points', 'assists', 'totReb','steals', 'blocks',
+        'plusMinus', 'fgm', 'fga', 'fgp', 'tpm', 'tpa', 'tpp', 'ftm', 'fta', 'ftp', 'offReb',
+        'defReb', 'turnovers', 'pFouls'
+      ]
       return (
         <View style= {{ flex: 1, flexDirection: 'row' }}>
-          <View style={styles.boxscoreStatNameView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.display_fi_last }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.pos }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.min }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.points }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.assists }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.totReb }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.steals }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.blocks }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.plusMinus }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.fgm }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.fga }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.fgp }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.tpm }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.tpa }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.tpp }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.ftm }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.fta }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.ftp }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.offReb }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.defReb }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.turnovers }
-            </Text>
-          </View>
-          <View style={styles.boxscoreStatView}>
-            <Text style={styles.boxscoreText}>
-              { this.props.player.item.pFouls }
-            </Text>
-          </View>
+          {
+            categories.map((category, idx) => {
+              const viewStyle = category === 'display_fi_last' ? styles.boxscoreStatNameView : styles.boxscoreStatView
+              return (
+                <View style={viewStyle} key={idx}>
+                  <Text style={styles.boxscoreText}>
+                    { this.props.player.item[category] }
+                  </Text>
+                </View>
+              )
+            })
+          }
         </View>
       )
     }
