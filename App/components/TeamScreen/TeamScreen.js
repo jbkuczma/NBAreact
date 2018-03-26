@@ -5,6 +5,7 @@ import Roster from './Roster'
 import Games from './Games'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
+import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
 class TeamScreen extends Component<Props> {
@@ -24,13 +25,6 @@ class TeamScreen extends Component<Props> {
 
   componentDidMount() {
     this.fetchTeam()
-  }
-
-  _getTeamFromTeamMap(teamID) {
-    const team = Object.keys(TeamMap).find((x) => {
-      return TeamMap[x].id == teamID
-    })
-    return TeamMap[team]
   }
 
   _getRank(number) {
@@ -73,7 +67,7 @@ class TeamScreen extends Component<Props> {
   }
 
   render() {
-    const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
     // const teamLogo = this._getTeamFromTeamMap(this.props.teamID).logo
     const teamLogo = null
 

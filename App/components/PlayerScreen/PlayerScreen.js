@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity, Platf
 import { connect } from 'react-redux'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
+import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
 class PlayerScreen extends Component<Props> {
@@ -22,17 +23,11 @@ class PlayerScreen extends Component<Props> {
     this.fetchPlayer()
   }
 
-  _getTeamFromTeamMap(teamID) {
-    const team = Object.keys(TeamMap).find((x) => {
-      return TeamMap[x].id == teamID
-    })
-    return TeamMap[team]
-  }
-
   fetchPlayer() {
+    const playerID = this.props.player.player_id || this.props.player.personId // player_id is provided from roster, personId is provided from searching for a player
     Promise.all([
-      this.nba.getSeasonPlayerGameLog(this.props.player.player_id, this.props.season),
-      this.nba.getPlayerDashboardByYear(this.props.player.player_id, this.props.season)
+      this.nba.getSeasonPlayerGameLog(playerID, this.props.season),
+      this.nba.getPlayerDashboardByYear(playerID, this.props.season)
     ])
     .then((results) => {
       this.setState({
@@ -68,7 +63,6 @@ class PlayerScreen extends Component<Props> {
 
   _renderGameStat(game) {
     game = game.item
-    console.log(game)
     /**
      * remove team from matchup
      * ex: TOR @ NYK -> @ NYK
@@ -144,7 +138,7 @@ class PlayerScreen extends Component<Props> {
       teamID
     } = this.props
 
-    const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
     // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
     const playerImageURL = null
 

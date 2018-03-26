@@ -1,6 +1,8 @@
 // implementation of nba.js by @kshvmdn
 // original implementation used an external library for network requests, this uses fetch()
 
+import TeamMap from './TeamMap'
+
 export default class NBA {
   constructor() {
     this.STATS_URL = `https://stats.nba.com/`
@@ -412,4 +414,11 @@ export default class NBA {
   // https://api.nba.net/0/league/video?games=0021700992&count=&accessToken=
 
   // http://stats.nba.com/events/?flag=1&GameID=0021700992&GameEventID=9&Season=2017-18&title=Kornet%201%27%20Putback%20Dunk%20(2%20PTS)&sct=plot
+}
+
+export const getTeamFromTeamMap = (teamID) => {
+  const team = Object.keys(TeamMap).find((x) => {
+    return TeamMap[x].id == teamID
+  })
+  return TeamMap[team]
 }
