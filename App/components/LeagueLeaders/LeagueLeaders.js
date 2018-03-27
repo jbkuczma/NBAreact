@@ -5,12 +5,17 @@ import { getPlayersInLeague } from '../../actions/actions'
 import CategoryPicker from './CategoryPicker'
 import Loader from '../common/Loader'
 import FadeInView from '../common/FadeInView'
+import SearchBar from '../common/SearchBar'
 import NBA from '../../utils/nba'
-import { selectPlayer } from '../../actions/actions'
+import { selectPlayer, selectTeam } from '../../actions/actions'
 
 const categories = ['Points', 'Rebounds', 'Offensive Rebounds', 'Defensive Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
 
 class LeagueLeaders extends Component<Props> {
+
+  static navigationOptions = ({ navigation }) => ({
+    header: <SearchBar navigation={navigation} />
+  })
 
   constructor() {
     super()
@@ -59,12 +64,20 @@ class LeagueLeaders extends Component<Props> {
   }
 
   _selectPlayer(player) {
+    const thePlayer = this.props.playersInLeague.filter((_player) => {
+      return parseInt(_player.personId) === parseInt(player.player_id)
+    })[0]
+
     const selectedPlayer = {
-      player: player
+      player: thePlayer
     }
-    // error: can't read teamID property
-    // this.props.selectPlayer(selectedPlayer)
-    // this.props.navigation.navigate('Player')
+    const teamID = {
+      teamID: thePlayer.teamId
+    }
+
+    this.props.setTeam(teamID)
+    this.props.selectPlayer(selectedPlayer)
+    this.props.navigation.navigate('Player')
   }
 
   _keyExtractor(item) {
@@ -118,7 +131,7 @@ class LeagueLeaders extends Component<Props> {
           this.state.loading &&
           <Loader />
         }
-        
+
         <View style={styles.picker}>
           <View style={{flex: 1}}>
             <CategoryPicker
@@ -192,13 +205,15 @@ function mapStateToProps(state) {
   return {
     season: state.date.season,
     category: state.league.category.label,
-    categoryValue: state.league.category.value
+    categoryValue: state.league.category.value,
+    playersInLeague: state.league.playersInLeague
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getPlayers: () => dispatch(getPlayersInLeague()),
+    setTeam: (teamID) => dispatch(selectTeam(teamID)),
     selectPlayer: (selectedPlayer) => dispatch(selectPlayer(selectedPlayer))
   }
 }

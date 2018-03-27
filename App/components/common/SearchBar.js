@@ -6,10 +6,12 @@ import {
   Platform,
   Text,
   FlatList,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 import { isIphoneX } from '../../utils/device'
+import { selectPlayer, selectTeam } from '../../actions/actions'
 
 class SearchBar extends Component {
 
@@ -26,6 +28,7 @@ class SearchBar extends Component {
     this._handleTextInputFocus = this._handleTextInputFocus.bind(this)
     this._handleTextInputBlur = this._handleTextInputBlur.bind(this)
     this._handleTextChange = this._handleTextChange.bind(this)
+    this._renderItem = this._renderItem.bind(this)
   }
 
   _handleTextInputFocus() {
@@ -40,7 +43,6 @@ class SearchBar extends Component {
     })
   }
 
-  /////
   _keyExtractor(item) {
     return item.personId
   }
@@ -52,9 +54,9 @@ class SearchBar extends Component {
     const currentTeamID = teamsPlayedOn.length > 0 ? teamsPlayedOn[teamsPlayedOn.length-1].teamId : null// get last item in teams array
 
     return(
-      <View style={[styles.defaultCenteredView, styles.suggestionCell]}>
+      <TouchableOpacity style={[styles.defaultCenteredView, styles.suggestionCell]} onPress={() => this._selectPlayer(item)}>
         <Text style={styles.text}> {firstName} {lastName} </Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -79,7 +81,19 @@ class SearchBar extends Component {
       })
     }
   }
-  ////
+
+  _selectPlayer(player) {
+    const selectedPlayer = {
+      player: player
+    }
+    const selectedPlayerTeam = {
+      teamID: player.teamId
+    }
+
+    this.props.selectPlayer(selectedPlayer)
+    this.props.setTeam(selectedPlayerTeam)
+    this.props.navigation.navigate('Player')
+  }
 
   render() {
     return (
@@ -175,7 +189,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    selectPlayer: (selectedPlayer) => dispatch(selectPlayer(selectedPlayer)),
+    setTeam: (teamID) => dispatch(selectTeam(teamID))
   }
 }
 
