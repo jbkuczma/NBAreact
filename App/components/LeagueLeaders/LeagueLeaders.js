@@ -9,7 +9,7 @@ import SearchBar from '../common/SearchBar'
 import NBA from '../../utils/nba'
 import { selectPlayer, selectTeam } from '../../actions/actions'
 
-const categories = ['Points', 'Rebounds', 'Offensive Rebounds', 'Defensive Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
+const categories = ['Points', 'Rebounds', 'Assists', 'Offensive Rebounds', 'Defensive Rebounds', 'Steals', 'Blocks', 'Turnovers', 'Efficiency', 'Minutes']
 
 class LeagueLeaders extends Component<Props> {
 
@@ -131,20 +131,22 @@ class LeagueLeaders extends Component<Props> {
           this.state.loading &&
           <Loader />
         }
-
-        <View style={styles.picker}>
-          <View style={{flex: 1}}>
-            <CategoryPicker
-              options={categories}
-            />
+        {
+          !this.state.loading &&
+          <View style={styles.picker}>
+            <View style={{flex: 1}}>
+              <CategoryPicker
+                options={categories}
+              />
+            </View>
           </View>
-        </View>
+        }
         <View style={[styles.defaultCenteredView, { flexDirection: 'row' }]}>
           {
             !this.state.loading && this.state.leaders &&
             <FadeInView
-              duration={500}
-              delay={500}
+              duration={700}
+              delay={50}
               fadeAgain={this.state.hasNewData}
               style={styles.leadersList}
             >

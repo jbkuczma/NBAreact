@@ -12,7 +12,18 @@ export default class FadeInView extends Component<Props> {
     }
   }
 
-  performFade(toValue, duration, delay, onComplete) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.fadeAgain) {
+      this.animation(0, (() => { this.animation(1) }))
+    }
+  }
+
+  componentDidMount() {
+    this.animation(1)
+  }
+
+  animation(toValue, onComplete) {
+    const { duration, delay } = this.props
     const { viewOpacity } = this.state
 
     Animated.timing(
@@ -23,30 +34,7 @@ export default class FadeInView extends Component<Props> {
         delay,
         useNativeDriver: true
       }
-    ).start()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { viewOpacity } = this.state
-    const { duration, delay } = this.props
-
-    if (nextProps.fadeAgain) {
-      Animated.timing(
-        viewOpacity,
-        {
-          toValue: 0,
-          duration: 50,
-          useNativeDriver: true
-        }
-      ).start(() => {
-        this.performFade(1, duration, delay)
-      })
-    }
-  }
-
-  componentDidMount() {
-    const { duration, delay } = this.props
-    this.performFade(1, duration, delay)
+    ).start(onComplete || (() => {}))
   }
 
   render() {
@@ -62,9 +50,9 @@ export default class FadeInView extends Component<Props> {
 }
 
 FadeInView.propTypes = {
+  fadeAgain: PropTypes.bool,
   duration: PropTypes.number,
   delay: PropTypes.number,
-  fadeAgain: PropTypes.bool,
   style: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
@@ -76,7 +64,7 @@ FadeInView.propTypes = {
 }
 
 FadeInView.defaultProps = {
+  fadeAgain: false,
   duration: 500,
-  delay: 0,
-  fadeAgain: false
+  delay: 0
 }
