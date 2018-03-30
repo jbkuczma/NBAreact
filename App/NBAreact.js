@@ -103,9 +103,6 @@ const LeagueLeadersStack = StackNavigator({
   Home: {
     screen: LeagueLeaders,
     navigationOptions: {
-      header: <SearchBar />,
-      // header: null
-      // header: TODO: add searchinput with drop down filter list of players
       headerStyle: {
         // backgroundColor: '#111111'
       }
@@ -135,13 +132,17 @@ export default TabNavigator({
     tabBarIcon: ({ focused, tintColor }) => {
       const { routeName } = navigation.state
       let iconName
+      let iconStyle = { height: 42, width: 42 }
       if (routeName === 'Scores') {
         iconName = require('./Assets/icons/scoreboard.png')
       } else if (routeName === 'Standings') {
         iconName = require('./Assets/icons/trophy.png')
+      } else if (routeName === 'Leaders') {
+        iconName = require('./Assets/icons/bars.png')
+        iconStyle = { height: 28, width: 28 }
       }
 
-      return <Image source={iconName} style={{ height: 42, width: 42, tintColor: tintColor }} />
+      return <Image source={iconName} style={[ iconStyle, { tintColor: tintColor }]} />
     },
   }),
   tabBarOptions: {
