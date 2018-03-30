@@ -5,18 +5,20 @@ import {
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 import NBA from './App/reducers'
 
 import { getFormattedDate } from './App/utils/date'
 
 const store = createStore(
   NBA,
-  applyMiddleware(logger)
+  applyMiddleware(logger),
+  applyMiddleware(thunk)
 )
 
 if(__DEV__) {
   console.disableYellowBox = true
-  console.log(store.getState()) 
+  console.log(store.getState())
 }
 
 import NBAreact from './App/NBAreact'

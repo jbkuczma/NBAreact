@@ -10,6 +10,9 @@ import PlayerScreen from './components/PlayerScreen'
 import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
+import LeagueLeaders from './components/LeagueLeaders'
+
+import SearchBar from './components/common/SearchBar'
 
 const GameDetailNavigator = TabNavigator({
   'Team Stats': { screen: TeamStats },
@@ -96,21 +99,50 @@ const StandingsStack = StackNavigator({
   }
 })
 
+const LeagueLeadersStack = StackNavigator({
+  Home: {
+    screen: LeagueLeaders,
+    navigationOptions: {
+      headerStyle: {
+        // backgroundColor: '#111111'
+      }
+    }
+  },
+  Player: {
+    screen: PlayerScreen,
+    navigationOptions: {
+      headerTintColor: '#D3D3D3',
+      headerStyle: {
+        backgroundColor: '#171717',
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      }
+    }
+  }
+})
+
 export default TabNavigator({
   Scores: { screen: ScoresStack },
-  Standings: { screen: StandingsStack }
+  Standings: { screen: StandingsStack },
+  Leaders: { screen: LeagueLeadersStack }
 },{
   navigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
       const { routeName } = navigation.state
       let iconName
+      let iconStyle = { height: 42, width: 42 }
       if (routeName === 'Scores') {
         iconName = require('./Assets/icons/scoreboard.png')
       } else if (routeName === 'Standings') {
         iconName = require('./Assets/icons/trophy.png')
+      } else if (routeName === 'Leaders') {
+        iconName = require('./Assets/icons/bars.png')
+        iconStyle = { height: 28, width: 28 }
       }
 
-      return <Image source={iconName} style={{ height: 42, width: 42, tintColor: tintColor }} />
+      return <Image source={iconName} style={[ iconStyle, { tintColor: tintColor }]} />
     },
   }),
   tabBarOptions: {

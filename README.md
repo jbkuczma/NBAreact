@@ -41,7 +41,11 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 
 [Redux](https://redux.js.org/)
 
+[Redux Thunk](https://github.com/gaearon/redux-thunk)
+
 [React-Native-SVG-Charts](https://github.com/JesperLekland/react-native-svg-charts)
+
+[React-Native-Modal-Dropdown](https://github.com/sohobloo/react-native-modal-dropdown)
 
 [nba.js](https://github.com/kshvmdn/nba.js) (custom and modified implementation to work with React Native)
 

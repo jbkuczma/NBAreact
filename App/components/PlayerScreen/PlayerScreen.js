@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity, Platf
 import { connect } from 'react-redux'
 import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
+import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
 class PlayerScreen extends Component<Props> {
@@ -22,17 +23,11 @@ class PlayerScreen extends Component<Props> {
     this.fetchPlayer()
   }
 
-  _getTeamFromTeamMap(teamID) {
-    const team = Object.keys(TeamMap).find((x) => {
-      return TeamMap[x].id == teamID
-    })
-    return TeamMap[team]
-  }
-
   fetchPlayer() {
+    const playerID = this.props.player.player_id || this.props.player.personId // player_id is provided from roster, personId is provided from searching for a player
     Promise.all([
-      this.nba.getSeasonPlayerGameLog(this.props.player.player_id, this.props.season),
-      this.nba.getPlayerDashboardByYear(this.props.player.player_id, this.props.season)
+      this.nba.getSeasonPlayerGameLog(playerID, this.props.season),
+      this.nba.getPlayerDashboardByYear(playerID, this.props.season)
     ])
     .then((results) => {
       this.setState({
@@ -43,9 +38,9 @@ class PlayerScreen extends Component<Props> {
     })
   }
 
-  _formatHeight(height) {
-    const feet = height.split('-')[0]
-    const inch = height.split('-')[1]
+  _formatHeight() {
+    const feet = this.props.player.height ? this.props.player.height.split('-')[0] : this.props.player.heightFeet
+    const inch = this.props.player.height ? this.props.player.height.split('-')[1] : this.props.player.heightInches
 
     return (
       <Text style={styles.textPrimary}>
@@ -68,7 +63,6 @@ class PlayerScreen extends Component<Props> {
 
   _renderGameStat(game) {
     game = game.item
-    console.log(game)
     /**
      * remove team from matchup
      * ex: TOR @ NYK -> @ NYK
@@ -87,17 +81,17 @@ class PlayerScreen extends Component<Props> {
       //     <Text style={styles.textSecondary}> {matchup} </Text>
       //   </View>
       //   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-      //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      //     <View style={styles.defaultCenteredView}>
       //       <Text style={styles.textPrimary}>
       //         {game.pts} <Text style={styles.textSecondary}>pts</Text>
       //       </Text>
       //     </View>
-      //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      //     <View style={styles.defaultCenteredView}>
       //       <Text style={styles.textPrimary}>
       //         {game.reb} <Text style={styles.textSecondary}>reb</Text>
       //       </Text>
       //     </View>
-      //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      //     <View style={styles.defaultCenteredView}>
       //       <Text style={styles.textPrimary}>
       //         {game.ast} <Text style={styles.textSecondary}>ast</Text>
       //       </Text>
@@ -105,25 +99,24 @@ class PlayerScreen extends Component<Props> {
       //   </View>
       // </TouchableOpacity>
       <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }}>
-        {/* <View style={{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'  }}> */}
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.game_date} </Text>
         </View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <View style={[styles.defaultCenteredView, { flexDirection: 'row' }]}>
           <View style={{ flex: 2, justifyContent: 'center' }}>
             <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.wl} {matchup} </Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.defaultCenteredView}>
             <Text style={styles.textPrimary}>
               {game.pts} <Text style={styles.textSecondary}>pts</Text>
             </Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.defaultCenteredView}>
             <Text style={styles.textPrimary}>
               {game.reb} <Text style={styles.textSecondary}>reb</Text>
             </Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.defaultCenteredView}>
             <Text style={styles.textPrimary}>
               {game.ast} <Text style={styles.textSecondary}>ast</Text>
             </Text>
@@ -144,9 +137,16 @@ class PlayerScreen extends Component<Props> {
       teamID
     } = this.props
 
-    const teamColor = this._getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
     // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
     const playerImageURL = null
+
+    // from roster screen | from search player & league leaders
+    const playerName = this.props.player.player   || this.props.player.firstName + ' ' + this.props.player.lastName
+    const playerWeight = this.props.player.weight || this.props.player.weightPounds
+    const experience = this.props.player.exp      || this.props.player.yearsPro
+    const school = this.props.player.school       || this.props.player.collegeName
+    const number = this.props.player.num          || this.props.player.jersey
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
@@ -167,10 +167,10 @@ class PlayerScreen extends Component<Props> {
                 </View>
               }
               <View  style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={styles.textPrimary}> #{player.num} {player.player} </Text>
-                <Text style={styles.textPrimary}> Years Pro: {player.exp} </Text>
-                <Text style={styles.textPrimary}> {this._formatHeight(player.height)} | {player.weight}<Text style={styles.textSecondary}>lbs</Text> </Text>
-                <Text style={styles.textSecondary}> {player.school} </Text>
+                <Text style={styles.textPrimary}> #{number} {playerName} </Text>
+                <Text style={styles.textPrimary}> Years Pro: {experience} </Text>
+                <Text style={styles.textPrimary}> {this._formatHeight()} | {playerWeight}<Text style={styles.textSecondary}>lbs</Text> </Text>
+                <Text style={styles.textSecondary}> {school} </Text>
               </View>
             </View>
             {

@@ -6,6 +6,10 @@ import TeamMap from '../../../utils/TeamMap'
 
 class PlayByPlay extends Component<Props> {
 
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: `${navigation.state.params.title}`
+  })
+
   constructor() {
     super()
 

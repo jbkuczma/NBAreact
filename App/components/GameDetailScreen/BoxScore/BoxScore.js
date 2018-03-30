@@ -9,6 +9,10 @@ const headers = ['Player', 'Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-
 
 class BoxScore extends Component<Props> {
 
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: `${navigation.state.params.title}`
+  })
+
   constructor() {
     super()
 
@@ -20,13 +24,11 @@ class BoxScore extends Component<Props> {
       awayTeamStats: [],
       homeTeam: null,
       awayTeam: null,
-      playersInLeague: null,
       activeTeam: 'away'
     }
   }
 
   componentDidMount() {
-    this.getPlayers()
     this.fetchBoxscore()
   }
 
@@ -38,15 +40,6 @@ class BoxScore extends Component<Props> {
       this.setState({
         loading: false,
         boxscore: data.stats ? data.stats : {},
-      })
-    })
-  }
-
-  getPlayers() {
-    this.nba.getPlayers(this.props.season)
-    .then((data) => {
-      this.setState({
-        playersInLeague: data.league.standard
       })
     })
   }
@@ -70,7 +63,7 @@ class BoxScore extends Component<Props> {
     })
 
     const updatedPlayers = []
-    const playersInLeague = this.state.playersInLeague
+    const playersInLeague = this.props.playersInLeague
 
       // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
@@ -108,9 +101,8 @@ class BoxScore extends Component<Props> {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
-
         {
-          this.props.awayTeam && this.props.awayTeam &&
+          this.props.awayTeam && this.props.homeTeam &&
           <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.teams}>
               <View style={styles.teamsButtons}>
@@ -138,7 +130,7 @@ class BoxScore extends Component<Props> {
             <Loader />
           }
           {
-            !this.state.loading && this.state.boxscore.activePlayers && this.state.playersInLeague &&
+            !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
               this._createBoxscoreTable(this.state.boxscore)
           }
           {
@@ -195,7 +187,8 @@ function mapStateToProps(state) {
     homeTeamID: state.scores.selectedGame.homeTeam.teamID,
     awayTeamID: state.scores.selectedGame.awayTeam.teamID,
     homeTeam: state.scores.selectedGame.homeTeam,
-    awayTeam: state.scores.selectedGame.awayTeam
+    awayTeam: state.scores.selectedGame.awayTeam,
+    playersInLeague: state.league.playersInLeague
   }
 }
 

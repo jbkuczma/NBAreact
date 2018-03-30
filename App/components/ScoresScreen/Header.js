@@ -18,8 +18,8 @@ class Header extends Component<Props> {
     this.handleDateChange = this.handleDateChange.bind(this)
   }
 
+  // desired output: Tuesday, Oct 10
   formatDate() {
-    // ex, Tuesday, Oct 10
     const date = new Date(this.props.date)
     const dateArray = date.toDateString().split(' ')
     // 0 - week day, 1 - month, 2 - date
@@ -27,51 +27,52 @@ class Header extends Component<Props> {
   }
 
   handleDateChange(type) {
+    let date = new Date(this.props.date)
+
     if (type === 'next') {
-      const date = new Date(this.props.date)
-      const nextDate = new Date(date.getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString()
-      this.props.changeDateToNextDate(nextDate)
+      date = new Date(date.getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString()
     }
     else if (type === 'previous') {
-      const date = new Date(this.props.date)
-      const previousDate = new Date(date.getTime() - (24 * 60 * 60 * 1000)).toLocaleDateString()
-      this.props.changeDateToPreviousDate(previousDate)
+      date = new Date(date.getTime() - (24 * 60 * 60 * 1000)).toLocaleDateString()
     }
-    else if (type === 'other') {
-      const newDate = this.props.date
-      this.props.changeDateToDate(newDate)
-    }
+
+    this.props.changeDateToNewDate(date)
+  }
+
+  getNumberOfGamesText() {
+    return this.props.numberOfGames === 0 ? `There are no games today`
+      : this.props.numberOfGames === 1 ? `There is 1 game today`
+      : `There are ${this.props.numberOfGames} games today`
+  }
+
+  _renderArrow(direction) {
+    const handler = direction === '<' ? 'previous' : 'next'
+    return (
+      <TouchableOpacity onPress={() => { this.handleDateChange(handler) }}>
+        <View>
+          <Text style={{fontSize: 36}}> { direction } </Text>
+        </View>
+      </TouchableOpacity>
+    )
   }
 
   render() {
-
-    const numberOfGamesText = this.props.numberOfGames === 0 ? `There are no games today` :
-      this.props.numberOfGames === 1 ? `There is 1 game today` : `There are ${this.props.numberOfGames} games today`
-
     return (
       <View>
         <View style={styles.statusBar} />
         <View style={styles.dateCointainer}>
-          <TouchableOpacity onPress={() => { this.handleDateChange('previous') }}>
-            <View>
-              <Text style={{fontSize: 36}}> {'<'} </Text>
-            </View>
-          </TouchableOpacity>
+          { this._renderArrow('<') }
           <TouchableOpacity style={styles.dateCointainerMiddle} onPress={() => { this.handleDateChange('other') }}>
             <View style={{flex: 1}} >
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 18, color: '#FFFFFF'}}> {this.formatDate()} </Text>
+              <View style={styles.defaultCenteredView}>
+                <Text style={{fontSize: 18, color: '#FFFFFF'}}> { this.formatDate() } </Text>
               </View>
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 16, color: '#FFFFFF'}}> {numberOfGamesText} </Text>
+              <View style={styles.defaultCenteredView}>
+                <Text style={{fontSize: 16, color: '#FFFFFF'}}> { this.getNumberOfGamesText() } </Text>
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.handleDateChange('next') }}>
-            <View>
-              <Text style={{fontSize: 36}}> {'>'} </Text>
-            </View>
-          </TouchableOpacity>
+          { this._renderArrow('>') }
         </View>
       </View>
     )
@@ -79,28 +80,25 @@ class Header extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  defaultCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   statusBar: {
     height: (Platform.OS === 'ios') ? 45 : 0,
     backgroundColor: '#F7971E'
-    // backgroundColor: '#000000'
   },
   dateCointainer: {
     height: 75,
     backgroundColor: '#F7971E',
-    // backgroundColor: '#000000',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center'
   },
-  dateCointainerLeft: {
-
-  },
   dateCointainerMiddle: {
     justifyContent: 'center',
     flexDirection: 'column',
-  },
-  dateCointainerRight: {
-
   }
 })
 
@@ -112,9 +110,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeDateToPreviousDate: (date) => dispatch(changeDate(date)),
-    changeDateToNextDate: (date) => dispatch(changeDate(date)),
-    changeDateToDate: (date) => dispatch(changeDate(date))
+    changeDateToNewDate: (date) => dispatch(changeDate(date))
   }
 }
 
