@@ -55,7 +55,9 @@ FadeInView.propTypes = {
   delay: PropTypes.number,
   style: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.object
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number
   ]),
   children: PropTypes.oneOfType([
     PropTypes.array,

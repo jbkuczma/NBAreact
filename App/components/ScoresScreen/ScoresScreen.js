@@ -70,6 +70,10 @@ class ScoresScreen extends Component<Props> {
     })
   }
 
+  _keyExtractor(item) {
+    return item.gameId
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -90,6 +94,7 @@ class ScoresScreen extends Component<Props> {
               data={this.state.games}
               refreshing={this.state.refresh}
               onRefresh={() => { this.handleRefresh() }}
+              keyExtractor={this._keyExtractor}
               renderItem={(teams) => (
                 <GameCell
                   navigator={this.props.navigation}

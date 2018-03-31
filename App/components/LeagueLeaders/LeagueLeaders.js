@@ -107,10 +107,10 @@ class LeagueLeaders extends Component<Props> {
     return (
       <TouchableOpacity style={[styles.cell, styles.defaultCenteredView]} onPress={() => this._selectPlayer(item)}>
         {
-          propertiesToRender.map((property) => {
+          propertiesToRender.map((property, index) => {
             const flexValue = property === 'player' ? 2 : 1
             return (
-              <View style={[styles.defaultCenteredView, { flex: flexValue }]}>
+              <View style={[styles.defaultCenteredView, { flex: flexValue }]} key={index}>
                 <Text style={styles.text}> {item[property]} </Text>
               </View>
             )
