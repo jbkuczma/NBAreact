@@ -15,7 +15,8 @@ class PlayerScreen extends Component<Props> {
     this.state = {
       loading: true,
       gameStats: null,
-      careerStats: null
+      careerStats: null,
+      statsToShow: 'current'
     }
   }
 
@@ -130,6 +131,11 @@ class PlayerScreen extends Component<Props> {
     return game.game_id
   }
 
+  _selectStatsToShow(statsToShow) {
+    this.setState({
+      statsToShow: statsToShow
+    })
+  }
 
   render() {
     const {
@@ -201,6 +207,25 @@ class PlayerScreen extends Component<Props> {
           </View>
         }
         {
+          !this.state.loading &&
+          <View style={styles.buttons}>
+            <View style={[ styles.button, this.state.statsToShow === 'current' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Current Season"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectStatsToShow('current') }}
+              />
+            </View>
+            <View style={[ styles.button, this.state.statsToShow === 'career' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Career Stats"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectStatsToShow('career') }}
+              />
+            </View>
+          </View>
+        }
+        {
           !this.state.loading && this.state.gameStats &&
           <View style={styles.playerStatsContainer}>
             {
@@ -248,7 +273,20 @@ const styles = StyleSheet.create({
   },
   playerStatsContainer: {
     flex: 1
-  }
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#111111'
+  },
+  inactive: {
+
+  },
 })
 
 function mapStateToProps(state) {
