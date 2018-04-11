@@ -5,6 +5,7 @@ import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
+import CareerStatsTable from './CareerStatsTable';
 
 class PlayerScreen extends Component<Props> {
 
@@ -58,6 +59,15 @@ class PlayerScreen extends Component<Props> {
         data={stats}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderGameStat}
+      />
+    )
+  }
+
+  _renderCareerStats() {
+    const stats = this.state.careerStats
+    return (
+      <CareerStatsTable
+        stats={stats}
       />
     )
   }
@@ -229,7 +239,10 @@ class PlayerScreen extends Component<Props> {
           !this.state.loading && this.state.gameStats &&
           <View style={styles.playerStatsContainer}>
             {
-              this._renderGamelog()
+              this.state.statsToShow === 'current' ?
+                this._renderGamelog()
+              :
+                this._renderCareerStats()
             }
           </View>
         }
