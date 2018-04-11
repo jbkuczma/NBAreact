@@ -72,29 +72,32 @@ class CareerStatsTable extends Component<Props> {
 
   _renderYearByYear = () => {
     let stats = this.props.stats.ByYearPlayerDashboard
-    const header = this.createHeader()
 
-    if (stats[0].group_value) {
-      stats.unshift(header)
-    }
+    // appears if a player played on  ultiple teams during a season
+    stats = stats.filter((year) => {
+      return year.team_abbreviation !== 'TOT'
+    })
+
+    const header = this.createHeader()
 
     return (
       <FlatList
         data={stats}
         keyExtractor={this._keyExtractor}
-        renderItem={this._renderYear}
+        renderItem={this._renderRow}
+        ListHeaderComponent={this._renderRow(header)}
       />
     )
   }
 
-  _renderYear = (year) => {
-    year = year.item
-    const yearArray = year.group_value !== undefined ? this.createYearMap(year) : year
+  _renderRow = (row) => {
+    row = row.item || row
+    const rowArray = row.group_value !== undefined ? this.createYearMap(row) : row
 
     return (
       <View style={styles.row}>
         {
-          yearArray.map((stat, index) => {
+          rowArray.map((stat, index) => {
             const width = index === 0 ? 80 : 50
             const border = index < 24 ? { borderRightWidth: 1, borderRightColor: '#D3D3D3' } : { }
             return (
