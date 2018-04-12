@@ -154,7 +154,7 @@ class PlayerScreen extends Component<Props> {
     } = this.props
 
     const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
-    // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
+    // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id || this.props.player.personId)
     const playerImageURL = null
 
     // from roster screen | from search player & league leaders
