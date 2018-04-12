@@ -20,15 +20,17 @@ class TeamCell extends Component<Props> {
     const team = this.props.team.item
     return (
       <TouchableOpacity style={styles.teamcell} onPress={() => { this._selectTeam() }}>
-        <View>
-          <Text style={[styles.statcellText, {fontSize: 18}]}> {team.confRank} </Text>
-        </View>
-        <View style={styles.statcell}>
-          {/* <Image
-            style={styles.logo}
-            source={this._getTeamFromTeamMap(team.teamId).logo}
-          /> */}
-          <Text style={{ textAlign: 'center', color: getTeamFromTeamMap(team.teamId).color, fontSize: 16 }}> {getTeamFromTeamMap(team.teamId).team} </Text>
+        <View style={[styles.statcell, { flex: 2, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }]}>
+          <View>
+            <Text style={[styles.statcellText, {fontSize: 16}]}> {team.confRank} </Text>
+          </View>
+          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+            {/* <Image
+              style={styles.logo}
+              source={getTeamFromTeamMap(team.teamId).logo}
+            /> */}
+            <Text style={{ textAlign: 'center', color: getTeamFromTeamMap(team.teamId).color, fontSize: 16 }}> {getTeamFromTeamMap(team.teamId).team} </Text>
+          </View>
         </View>
         <View style={styles.statcell}>
           <Text style={styles.statcellText}> {team.win} </Text>
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   },
   statcellText: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
     color: '#D3D3D3'
   }
 })
