@@ -51,18 +51,21 @@ class TeamScreen extends Component<Props> {
       teamID: this.props.teamID
     }
 
+    const teamName = getTeamFromTeamMap(this.props.teamID).team.toLowerCase()
+
     Promise.all([
       this.nba.getTeam(teamInfo),
       this.nba.getRoster(rosterInfo),
-      this.nba.getTeamGamelog(this.props.teamID, this.props.season)
+      this.nba.getTeamSchedule(this.props.season, teamName)
     ])
     .then((data) => {
+      console.log(data)
       this.setState({
         loading: false,
         teamInfo: data[0].TeamInfoCommon[0],
         teamSeasonRanks: data[0].TeamSeasonRanks[0],
         teamRoster: data[1].CommonTeamRoster,
-        teamGamelog: data[2].Games
+        teamGamelog: data[2].league.standard
       })
     })
   }

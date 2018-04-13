@@ -408,6 +408,13 @@ export default class NBA {
     return this.nbaFetch(url, true)
   }
 
+  getTeamSchedule = (season, teamName) => {
+    const endpoint = `data/10s/prod/v1/${season}/teams/${teamName}/schedule.json`
+    const url = this.DATA_URL + endpoint
+    console.log(url)
+    return this.nbaFetch(url)
+  }
+
   // totals
   // http://stats.nba.com/stats/playercareerstats?playerid=203507&permode=Totals
   // videos
