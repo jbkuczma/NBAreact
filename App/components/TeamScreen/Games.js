@@ -41,7 +41,7 @@ class Games extends Component<Props> {
 
   render() {
     const games = this.props.games.playoffs.concat(this.props.games.regularSeason)
-
+    console.log(games)
     return (
       <FlatList
         data={games}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import Roster from './Roster'
 import Games from './Games'
@@ -19,7 +19,8 @@ class TeamScreen extends Component<Props> {
       teamInfo: null,
       teamSeasonRanks: null,
       teamRoster: null,
-      teamGamelog: null
+      teamGamelog: null,
+      pageToShow: 'roster'
     }
   }
 
@@ -63,6 +64,12 @@ class TeamScreen extends Component<Props> {
         teamRoster: data[1].CommonTeamRoster,
         teamGamelog: data[2].Games
       })
+    })
+  }
+
+  _selectPageToShow(pageToShow) {
+    this.setState({
+      pageToShow: pageToShow
     })
   }
 
@@ -135,11 +142,37 @@ class TeamScreen extends Component<Props> {
             </View>
         }
         {
-          this.state.teamRoster &&
-          <Roster
-            navigator={this.props.navigation}
-            team={this.state.teamRoster}
-          />
+          !this.state.loading &&
+          <View style={styles.buttons}>
+            <View style={[ styles.button, this.state.pageToShow === 'roster' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Roster"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectPageToShow('roster') }}
+              />
+            </View>
+            <View style={[ styles.button, this.state.pageToShow === 'games' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Games"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectPageToShow('games') }}
+              />
+            </View>
+          </View>
+        }
+        {
+          !this.state.loading && this.state.teamRoster && this.state.pageToShow === 'roster' ?
+            <Roster
+              navigator={this.props.navigation}
+              team={this.state.teamRoster}
+            />
+          :
+          !this.state.loading && this.state.teamGamelog  && this.state.pageToShow === 'games' ?
+            <Games
+              games={this.state.teamGamelog}
+            />
+          :
+            <View></View>
         }
         {/* { TODO
           this.state.teamGamelog &&
@@ -191,7 +224,20 @@ const styles = StyleSheet.create({
   logo: {
     height: 90,
     width: 90,
-  }
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#111111'
+  },
+  inactive: {
+
+  },
 })
 
 function mapStateToProps(state) {
