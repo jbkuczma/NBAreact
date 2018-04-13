@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import NBA, { getTeamFromTeamMap } from '../../utils/nba'
+import TeamMap from '../../utils/TeamMap'
 import { formatDateString } from '../../utils/date'
+import { selectGame } from '../../actions/actions'
 
 class Games extends Component<Props> {
 
@@ -13,8 +15,36 @@ class Games extends Component<Props> {
     this._renderGame = this._renderGame.bind(this)
   }
 
+  getTeamAbbreviation(teamID) {
+    return Object.keys(TeamMap).find((x) => {
+      return TeamMap[x].id == teamID
+    }).toUpperCase()
+  }
+
+  _selectGame(game) {
+    // get key of according to team id
+    const homeTeamAbbreviation = this.getTeamAbbreviation(game.hTeam.teamId)
+    const awayTeamAbbreviation = this.getTeamAbbreviation(game.vTeam.teamId)
+
+    const selectedGame = {
+      awayTeam: {
+        abbreviation: awayTeamAbbreviation,
+        teamID: game.vTeam.teamId
+      },
+      homeTeam: {
+        abbreviation: homeTeamAbbreviation,
+        teamID: game.hTeam.teamId
+      },
+      gameID: game.gameId
+    }
+
+    // @BUG - can navigate to screen but loading doesnt end since endpoints used on game screen are reliant on the specific date of the game
+    // this.props.selectGame(selectedGame)
+    // this.props.navigator.navigate('Game', { title: `${awayTeamAbbreviation} vs ${homeTeamAbbreviation}`})
+  }
+
   _keyExtractor(game){
-    return game.game_id
+    return game.gameId
   }
 
   _renderGame(game) {
@@ -30,7 +60,7 @@ class Games extends Component<Props> {
     const date = formatDateString(game.startDateEastern)
 
     return(
-      <TouchableOpacity style={styles.gameCell}>
+      <TouchableOpacity style={styles.gameCell} onPress={() => { this._selectGame(game) }}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.textSecondary}> {outcome} </Text>
         </View>
@@ -89,7 +119,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    selectGame: (selectedGame) => dispatch(selectGame(selectedGame))
   }
 }
 

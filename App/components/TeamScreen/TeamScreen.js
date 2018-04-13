@@ -78,7 +78,7 @@ class TeamScreen extends Component<Props> {
 
   render() {
     const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
-    // const teamLogo = this._getTeamFromTeamMap(this.props.teamID).logo
+    // const teamLogo = getTeamFromTeamMap(this.props.teamID).logo
     const teamLogo = null
 
     return (

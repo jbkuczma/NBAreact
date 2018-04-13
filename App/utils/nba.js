@@ -411,7 +411,6 @@ export default class NBA {
   getTeamSchedule = (season, teamName) => {
     const endpoint = `data/10s/prod/v1/${season}/teams/${teamName}/schedule.json`
     const url = this.DATA_URL + endpoint
-    console.log(url)
     return this.nbaFetch(url)
   }
 

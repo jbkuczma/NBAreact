@@ -42,7 +42,7 @@ class Roster extends Component<Props> {
   }
 
   _keyExtractor(player){
-    return player.player_id
+    return player.player_id.toString()
   }
 
   _renderPlayer(player) {
