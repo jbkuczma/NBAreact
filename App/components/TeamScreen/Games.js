@@ -64,17 +64,23 @@ class Games extends Component<Props> {
     const outcome = isSelectedTeamHome ? (parseInt(homeScore) > parseInt(awayScore) ? 'W' : 'L') : (parseInt(awayScore) > parseInt(homeScore) ? 'W' : 'L')
     const matchup = isSelectedTeamHome ? `vs ${awayTeam}` : `@ ${homeTeam}`
     const date = formatDateString(game.startDateEastern)
+    const nugget = game.nugget.text
 
     return(
       <TouchableOpacity style={styles.gameCell} onPress={() => { this._selectGame(game) }}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.textSecondary}> {outcome} </Text>
+        <View style={{ flexDirection: 'row', flex: 2 }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.textSecondary}> {outcome} </Text>
+          </View>
+          <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: 10 }}>
+            <Text style={styles.textSecondary}> {date} {matchup} </Text>
+          </View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginRight: 5 }}>
+            <Text style={styles.textSecondary}> {awayScore} - {homeScore} </Text>
+          </View>
         </View>
-        <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: 10 }}>
-          <Text style={styles.textSecondary}> {date} {matchup} </Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginRight: 5 }}>
-          <Text style={styles.textSecondary}> {awayScore} - {homeScore} </Text>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.textSecondary, { fontSize: 14, color: '#C7C7C7' }]}> {nugget} </Text>
         </View>
       </TouchableOpacity>
     )
@@ -108,7 +114,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Light'
   },
   gameCell: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginLeft: 10,
     marginRight: 10,
     height: 65,
