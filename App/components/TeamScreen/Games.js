@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import NBA, { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 import { formatDateString } from '../../utils/date'
-import { selectGame } from '../../actions/actions'
+import { selectGame, changeDate } from '../../actions/actions'
 
 class Games extends Component<Props> {
 
@@ -38,9 +38,15 @@ class Games extends Component<Props> {
       gameID: game.gameId
     }
 
-    // @BUG - can navigate to screen but loading doesnt end since endpoints used on game screen are reliant on the specific date of the game
-    // this.props.selectGame(selectedGame)
-    // this.props.navigator.navigate('Game', { title: `${awayTeamAbbreviation} vs ${homeTeamAbbreviation}`})
+    let dateOfGame = game.startDateEastern
+    const year     = dateOfGame.substring(0,4)
+    const month    = dateOfGame.substring(4,6)
+    const day      = dateOfGame.substring(6,8)
+    dateOfGame     = month + '/' + day + '/' + year
+
+    this.props.changeDate(dateOfGame)
+    this.props.selectGame(selectedGame)
+    this.props.navigator.navigate('Game', { title: `${awayTeamAbbreviation} vs ${homeTeamAbbreviation}`})
   }
 
   _keyExtractor(game){
@@ -119,6 +125,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    changeDate: (date) => dispatch(changeDate(date)),
     selectGame: (selectedGame) => dispatch(selectGame(selectedGame))
   }
 }
