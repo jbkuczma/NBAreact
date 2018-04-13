@@ -18,26 +18,8 @@ class Games extends Component<Props> {
   }
 
   _renderGame(game) {
-    // const _this = this
     game = game.item
 
-    // const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
-
-    // return(
-    //   <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
-    //     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-    //       <Text> </Text>
-    //       <Text style={styles.textSecondary}> {game.wl} </Text>
-    //     </View>
-    //     <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight: 10  }}>
-    //       <Text style={styles.textSecondary}> {game.game_date} </Text>
-    //       <Text style={styles.textSecondary}> {matchup} </Text>
-    //     </View>
-    //     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-    //       <Text style={styles.textSecondary}> away score - {game.pts} </Text>
-    //     </View>
-    //   </TouchableOpacity>
-    // )
     const homeTeam = getTeamFromTeamMap(game.hTeam.teamId).team
     const awayTeam = getTeamFromTeamMap(game.vTeam.teamId).team
     const isSelectedTeamHome = game.hTeam.teamId === this.props.teamID
@@ -48,16 +30,14 @@ class Games extends Component<Props> {
     const date = formatDateString(game.startDateEastern)
 
     return(
-      <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
+      <TouchableOpacity style={styles.gameCell}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text> </Text>
           <Text style={styles.textSecondary}> {outcome} </Text>
         </View>
-        <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight: 10  }}>
-          <Text style={styles.textSecondary}> {date} </Text>
-          <Text style={styles.textSecondary}> {matchup} </Text>
+        <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: 10 }}>
+          <Text style={styles.textSecondary}> {date} {matchup} </Text>
         </View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginRight: 5 }}>
           <Text style={styles.textSecondary}> {awayScore} - {homeScore} </Text>
         </View>
       </TouchableOpacity>
@@ -65,11 +45,11 @@ class Games extends Component<Props> {
   }
 
   render() {
-    // const games = this.props.games.playoffs.concat(this.props.games.regularSeason)
+    // only show completed games
     const games = this.props.games.filter((game) => {
       return game.statusNum === 3
     }).reverse()
-    console.log(games)
+
     return (
       <FlatList
         data={games}
@@ -92,8 +72,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Light'
   },
   gameCell: {
-    flex: 1,
-    marginTop: 5
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginRight: 10,
+    height: 65,
+    borderBottomColor: '#333333',
+    borderBottomWidth: 1,
   },
 })
 

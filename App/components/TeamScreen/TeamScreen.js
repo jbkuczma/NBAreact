@@ -172,17 +172,12 @@ class TeamScreen extends Component<Props> {
           :
           !this.state.loading && this.state.teamGamelog  && this.state.pageToShow === 'games' ?
             <Games
+              navigator={this.props.navigation}
               games={this.state.teamGamelog}
             />
           :
             <View></View>
         }
-        {/* { TODO
-          this.state.teamGamelog &&
-          <Games
-            games={this.state.teamGamelog}
-          />
-        } */}
       </View>
     )
   }
