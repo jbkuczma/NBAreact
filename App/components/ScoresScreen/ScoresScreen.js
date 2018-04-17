@@ -65,7 +65,6 @@ class ScoresScreen extends Component<Props> {
   handleRefresh() {
     // only allow refreshing on the current date - past and future games dont need to have refresh abilities
     if (this.props.date === this.props.currentDate) {
-      console.log('here')
       this.setState({
         refresh: true
       }, () => {

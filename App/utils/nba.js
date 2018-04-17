@@ -419,6 +419,9 @@ export default class NBA {
   // videos
   // https://api.nba.net/0/league/video?games=0021700992&count=&accessToken=
 
+  // averages for team
+  // https://data.nba.net/prod/v1/2017/team_stats_rankings.json
+
   // http://stats.nba.com/events/?flag=1&GameID=0021700992&GameEventID=9&Season=2017-18&title=Kornet%201%27%20Putback%20Dunk%20(2%20PTS)&sct=plot
 }
 

@@ -51,7 +51,11 @@ class TeamScreen extends Component<Props> {
       teamID: this.props.teamID
     }
 
-    const teamName = getTeamFromTeamMap(this.props.teamID).team.toLowerCase()
+    let teamName = getTeamFromTeamMap(this.props.teamID).team.toLowerCase()
+
+    // special cases
+    teamName = teamName === '76ers' ? 'sixers' : teamName
+    teamName = teamName === 'trail blazers' ? 'blazers' : teamName
 
     Promise.all([
       this.nba.getTeam(teamInfo),
@@ -59,7 +63,6 @@ class TeamScreen extends Component<Props> {
       this.nba.getTeamSchedule(this.props.season, teamName)
     ])
     .then((data) => {
-      console.log(data)
       this.setState({
         loading: false,
         teamInfo: data[0].TeamInfoCommon[0],
