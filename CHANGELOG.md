@@ -2,7 +2,7 @@
 
 All notable changes to Swish will be documented here
 
-# 2.2 (In development)
+# 2.2 (4-18-2018)
 
 - Career stats for players added (#51)
 - Past game scores for a team added (#61)

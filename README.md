@@ -30,8 +30,8 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 - Detailed play by play
 - Full team and player stats
 - Conference rankings
+- League leaders
 - Videos and highlights (coming soon)
-- League leaders (coming soon)
 - Compare stats for two players (coming soon)
 
 ## Libraries Used
