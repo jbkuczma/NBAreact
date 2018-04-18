@@ -408,10 +408,19 @@ export default class NBA {
     return this.nbaFetch(url, true)
   }
 
+  getTeamSchedule = (season, teamName) => {
+    const endpoint = `data/10s/prod/v1/${season}/teams/${teamName}/schedule.json`
+    const url = this.DATA_URL + endpoint
+    return this.nbaFetch(url)
+  }
+
   // totals
   // http://stats.nba.com/stats/playercareerstats?playerid=203507&permode=Totals
   // videos
   // https://api.nba.net/0/league/video?games=0021700992&count=&accessToken=
+
+  // averages for team
+  // https://data.nba.net/prod/v1/2017/team_stats_rankings.json
 
   // http://stats.nba.com/events/?flag=1&GameID=0021700992&GameEventID=9&Season=2017-18&title=Kornet%201%27%20Putback%20Dunk%20(2%20PTS)&sct=plot
 }

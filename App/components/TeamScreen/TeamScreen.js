@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import Roster from './Roster'
 import Games from './Games'
@@ -19,7 +19,8 @@ class TeamScreen extends Component<Props> {
       teamInfo: null,
       teamSeasonRanks: null,
       teamRoster: null,
-      teamGamelog: null
+      teamGamelog: null,
+      pageToShow: 'roster'
     }
   }
 
@@ -50,10 +51,16 @@ class TeamScreen extends Component<Props> {
       teamID: this.props.teamID
     }
 
+    let teamName = getTeamFromTeamMap(this.props.teamID).team.toLowerCase()
+
+    // special cases
+    teamName = teamName === '76ers' ? 'sixers' : teamName
+    teamName = teamName === 'trail blazers' ? 'blazers' : teamName
+
     Promise.all([
       this.nba.getTeam(teamInfo),
       this.nba.getRoster(rosterInfo),
-      this.nba.getTeamGamelog(this.props.teamID, this.props.season)
+      this.nba.getTeamSchedule(this.props.season, teamName)
     ])
     .then((data) => {
       this.setState({
@@ -61,14 +68,20 @@ class TeamScreen extends Component<Props> {
         teamInfo: data[0].TeamInfoCommon[0],
         teamSeasonRanks: data[0].TeamSeasonRanks[0],
         teamRoster: data[1].CommonTeamRoster,
-        teamGamelog: data[2].Games
+        teamGamelog: data[2].league.standard
       })
+    })
+  }
+
+  _selectPageToShow(pageToShow) {
+    this.setState({
+      pageToShow: pageToShow
     })
   }
 
   render() {
     const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
-    // const teamLogo = this._getTeamFromTeamMap(this.props.teamID).logo
+    // const teamLogo = getTeamFromTeamMap(this.props.teamID).logo
     const teamLogo = null
 
     return (
@@ -135,18 +148,39 @@ class TeamScreen extends Component<Props> {
             </View>
         }
         {
-          this.state.teamRoster &&
-          <Roster
-            navigator={this.props.navigation}
-            team={this.state.teamRoster}
-          />
+          !this.state.loading &&
+          <View style={styles.buttons}>
+            <View style={[ styles.button, this.state.pageToShow === 'roster' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Roster"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectPageToShow('roster') }}
+              />
+            </View>
+            <View style={[ styles.button, this.state.pageToShow === 'games' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Games"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectPageToShow('games') }}
+              />
+            </View>
+          </View>
         }
-        {/* { TODO
-          this.state.teamGamelog &&
-          <Games
-            games={this.state.teamGamelog}
-          />
-        } */}
+        {
+          !this.state.loading && this.state.teamRoster && this.state.pageToShow === 'roster' ?
+            <Roster
+              navigator={this.props.navigation}
+              team={this.state.teamRoster}
+            />
+          :
+          !this.state.loading && this.state.teamGamelog  && this.state.pageToShow === 'games' ?
+            <Games
+              navigator={this.props.navigation}
+              games={this.state.teamGamelog}
+            />
+          :
+            <View></View>
+        }
       </View>
     )
   }
@@ -191,7 +225,20 @@ const styles = StyleSheet.create({
   logo: {
     height: 90,
     width: 90,
-  }
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#111111'
+  },
+  inactive: {
+
+  },
 })
 
 function mapStateToProps(state) {

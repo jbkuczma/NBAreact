@@ -5,6 +5,7 @@ import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
+import CareerStatsTable from './CareerStatsTable';
 
 class PlayerScreen extends Component<Props> {
 
@@ -15,7 +16,8 @@ class PlayerScreen extends Component<Props> {
     this.state = {
       loading: true,
       gameStats: null,
-      careerStats: null
+      careerStats: null,
+      statsToShow: 'current'
     }
   }
 
@@ -57,6 +59,15 @@ class PlayerScreen extends Component<Props> {
         data={stats}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderGameStat}
+      />
+    )
+  }
+
+  _renderCareerStats() {
+    const stats = this.state.careerStats
+    return (
+      <CareerStatsTable
+        stats={stats}
       />
     )
   }
@@ -130,6 +141,11 @@ class PlayerScreen extends Component<Props> {
     return game.game_id
   }
 
+  _selectStatsToShow(statsToShow) {
+    this.setState({
+      statsToShow: statsToShow
+    })
+  }
 
   render() {
     const {
@@ -138,7 +154,7 @@ class PlayerScreen extends Component<Props> {
     } = this.props
 
     const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
-    // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id)
+    // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id || this.props.player.personId)
     const playerImageURL = null
 
     // from roster screen | from search player & league leaders
@@ -201,10 +217,32 @@ class PlayerScreen extends Component<Props> {
           </View>
         }
         {
+          !this.state.loading &&
+          <View style={styles.buttons}>
+            <View style={[ styles.button, this.state.statsToShow === 'current' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Current Season"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectStatsToShow('current') }}
+              />
+            </View>
+            <View style={[ styles.button, this.state.statsToShow === 'career' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+              <Button
+                title="Career Stats"
+                color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
+                onPress={() => { this._selectStatsToShow('career') }}
+              />
+            </View>
+          </View>
+        }
+        {
           !this.state.loading && this.state.gameStats &&
           <View style={styles.playerStatsContainer}>
             {
-              this._renderGamelog()
+              this.state.statsToShow === 'current' ?
+                this._renderGamelog()
+              :
+                this._renderCareerStats()
             }
           </View>
         }
@@ -248,7 +286,20 @@ const styles = StyleSheet.create({
   },
   playerStatsContainer: {
     flex: 1
-  }
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#111111'
+  },
+  inactive: {
+
+  },
 })
 
 function mapStateToProps(state) {

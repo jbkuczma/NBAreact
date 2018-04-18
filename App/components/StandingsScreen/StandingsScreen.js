@@ -49,9 +49,10 @@ class StandingsScreen extends Component<Props> {
         headers.map((header, index) => {
           // only apply margin to first header
           const marginLeft = index === 0 ? 10 : 0
+          const flex = index === 0 ? 2 : 1
 
           return (
-            <View style={[styles.headerLabelView, { marginLeft: marginLeft }]} key={ index }>
+            <View style={[styles.headerLabelView, { marginLeft: marginLeft, flex: flex }]} key={ index }>
               <Text style={styles.headerLabelText}> { header } </Text>
             </View>
           )
