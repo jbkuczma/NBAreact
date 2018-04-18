@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
@@ -8,10 +8,24 @@ import LeadTracker from './LeadTracker'
 import TeamStatsTable from './TeamStatsTable'
 import QuarterScores from './QuarterScores'
 
+const RefreshButton = ({ handleRefresh }) => (
+  <TouchableOpacity style={{ marginRight: 20 }} onPress={handleRefresh}>
+    <Image
+      source={require('../../../Assets/icons/refresh.png')}
+      style={{ height: 24, width: 24, tintColor: '#D3D3D3' }}
+    />
+  </TouchableOpacity>
+)
+
 class TeamStats extends Component<Props> {
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: `${navigation.state.params.title}`
+    headerTitle: `${navigation.state.params.title}`,
+    headerRight: (
+      <RefreshButton
+        handleRefresh={navigation.state.params.handleRefresh}
+      />
+    )
   })
 
   constructor() {
@@ -27,10 +41,12 @@ class TeamStats extends Component<Props> {
   }
 
   componentDidMount() {
+    // we can now call fetchGameStats via navigation.state.params.handleRefresh
+    this.props.navigation.setParams({ handleRefresh: this.fetchGameStats })
     this.fetchGameStats()
   }
 
-  fetchGameStats() {
+  fetchGameStats = () => {
     Promise.all([
       this.nba.getBoxscore(this.props.gameID, this.props.date),
       this.nba.getLeadTrackerForGame(this.props.gameID, this.props.date),
