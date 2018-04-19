@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image, Animated, Easing } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
@@ -28,8 +28,7 @@ class TeamStats extends Component<Props> {
       teamStats: null,
       leadTracker: [],
       miniBoxscore: null,
-      loading: true,
-      refreshing: false
+      loading: true
     }
   }
 
@@ -40,7 +39,6 @@ class TeamStats extends Component<Props> {
   }
 
   fetchGameStats = () => {
-    console.log('fetch')
     Promise.all([
       this.nba.getBoxscore(this.props.gameID, this.props.date),
       this.nba.getLeadTrackerForGame(this.props.gameID, this.props.date),
@@ -51,8 +49,7 @@ class TeamStats extends Component<Props> {
         teamStats: gameStats[0].stats ? gameStats[0].stats : null,
         leadTracker: gameStats[1],
         miniBoxscore: gameStats[2],
-        loading: false,
-        refreshing: false
+        loading: false
       })
     })
   }
