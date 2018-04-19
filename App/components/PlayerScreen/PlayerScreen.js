@@ -74,6 +74,7 @@ class PlayerScreen extends Component<Props> {
 
   _renderGameStat(game) {
     game = game.item
+    console.log(game)
     /**
      * remove team from matchup
      * ex: TOR @ NYK -> @ NYK
@@ -82,34 +83,7 @@ class PlayerScreen extends Component<Props> {
     const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
 
     return (
-      // <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10, height: 100 }}>
-      //   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-      //     <Text> </Text>
-      //     <Text style={styles.textSecondary}> {game.wl} </Text>
-      //   </View>
-      //   <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight: 10  }}>
-      //     <Text style={styles.textSecondary}> {game.game_date} </Text>
-      //     <Text style={styles.textSecondary}> {matchup} </Text>
-      //   </View>
-      //   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-      //     <View style={styles.defaultCenteredView}>
-      //       <Text style={styles.textPrimary}>
-      //         {game.pts} <Text style={styles.textSecondary}>pts</Text>
-      //       </Text>
-      //     </View>
-      //     <View style={styles.defaultCenteredView}>
-      //       <Text style={styles.textPrimary}>
-      //         {game.reb} <Text style={styles.textSecondary}>reb</Text>
-      //       </Text>
-      //     </View>
-      //     <View style={styles.defaultCenteredView}>
-      //       <Text style={styles.textPrimary}>
-      //         {game.ast} <Text style={styles.textSecondary}>ast</Text>
-      //       </Text>
-      //     </View>
-      //   </View>
-      // </TouchableOpacity>
-      <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }}>
+      <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }} onPress={() => { console.log('go to detail screen') }}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.game_date} </Text>
         </View>
