@@ -1,21 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image, Animated, Easing } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
 import Loader from '../../common/Loader'
+import RefreshButton from '../../common/RefreshButton'
 import LeadTracker from './LeadTracker'
 import TeamStatsTable from './TeamStatsTable'
 import QuarterScores from './QuarterScores'
-
-const RefreshButton = ({ handleRefresh }) => (
-  <TouchableOpacity style={{ marginRight: 20 }} onPress={handleRefresh}>
-    <Image
-      source={require('../../../Assets/icons/refresh.png')}
-      style={{ height: 24, width: 24, tintColor: '#D3D3D3' }}
-    />
-  </TouchableOpacity>
-)
 
 class TeamStats extends Component<Props> {
 
@@ -36,7 +28,8 @@ class TeamStats extends Component<Props> {
       teamStats: null,
       leadTracker: [],
       miniBoxscore: null,
-      loading: true
+      loading: true,
+      refreshing: false
     }
   }
 
@@ -47,6 +40,7 @@ class TeamStats extends Component<Props> {
   }
 
   fetchGameStats = () => {
+    console.log('fetch')
     Promise.all([
       this.nba.getBoxscore(this.props.gameID, this.props.date),
       this.nba.getLeadTrackerForGame(this.props.gameID, this.props.date),
@@ -57,7 +51,8 @@ class TeamStats extends Component<Props> {
         teamStats: gameStats[0].stats ? gameStats[0].stats : null,
         leadTracker: gameStats[1],
         miniBoxscore: gameStats[2],
-        loading: false
+        loading: false,
+        refreshing: false
       })
     })
   }
