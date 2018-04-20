@@ -72,9 +72,18 @@ class PlayerScreen extends Component<Props> {
     )
   }
 
-  _renderGameStat(game) {
+  _goToGame = (gameStats) => {
+    const gameStatsForPlayer = {
+      gameStats: gameStats
+    }
+
+    // this.props.selectGameForPlayer(gameStats)
+    this.props.navigation.navigate('PlayerGameDetail', { stats: gameStats })
+  }
+
+  _renderGameStat = (game) => {
     game = game.item
-    console.log(game)
+
     /**
      * remove team from matchup
      * ex: TOR @ NYK -> @ NYK
@@ -83,7 +92,7 @@ class PlayerScreen extends Component<Props> {
     const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
 
     return (
-      <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }} onPress={() => { console.log('go to detail screen') }}>
+      <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }} onPress={() => { this._goToGame(game) }}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.game_date} </Text>
         </View>
