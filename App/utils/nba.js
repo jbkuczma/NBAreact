@@ -414,6 +414,107 @@ export default class NBA {
     return this.nbaFetch(url)
   }
 
+  ///////
+  getBoxscoreAdvanced = (gameID) => {
+    const endpoint = `stats/boxscoreadvancedv2?`
+    const query = {
+      EndPeriod: 0,
+      EndRange: 0,
+      GameId: gameID,
+      RangeType: 0,
+      StartPeriod: 0,
+      StartRange: 0
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    return this.nbaFetch(url, true)
+  }
+
+  getBoxscoreMisc = (gameID) => {
+    const endpoint = `stats/boxscoremiscv2?`
+    const query = {
+      EndPeriod: 0,
+      EndRange: 0,
+      GameId: gameID,
+      RangeType: 0,
+      StartPeriod: 0,
+      StartRange: 0
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    return this.nbaFetch(url, true)
+  }
+
+  getBoxscoreUsage = (gameID) => {
+    const endpoint = `stats/boxscoreusagev2?`
+    const query = {
+      EndPeriod: 0,
+      EndRange: 0,
+      GameId: gameID,
+      RangeType: 0,
+      StartPeriod: 0,
+      StartRange: 0
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    return this.nbaFetch(url, true)
+  }
+
+  getBoxscoreHustle = (gameID) => {
+    const endpoint = `stats/hustlestatsboxscore?gameid=${gameID}`
+    const url = this.STATS_URL + endpoint
+    return this.nbaFetch(url, true)
+  }
+
+  getBoxscorePlayerTrack = (gameID) => {
+    const endpoint = `stats/boxscoreplayertrackv2?`
+    const query = {
+      EndPeriod: 0,
+      EndRange: 0,
+      GameId: gameID,
+      RangeType: 0,
+      StartPeriod: 0,
+      StartRange: 0
+    }
+    const url = this.STATS_URL + endpoint + this.objectToQueryString(query)
+    return this.nbaFetch(url, true)
+  }
+  ///////
+
+  getAdditionalBoxscoreStatsForPlayer = (gameID, playerID) => {
+    return Promise.all([
+      this.getBoxscoreAdvanced(gameID),
+      this.getBoxscoreMisc(gameID),
+      this.getBoxscoreUsage(gameID),
+      this.getBoxscoreHustle(gameID),
+      this.getBoxscorePlayerTrack(gameID),
+    ]).then((result) => {
+      // remove any data that doesn't pertain to specified player
+      result.filter((obj) => {
+        for (let key in obj) {
+          // don't care about any team stats returned from endpoints in this method
+          if (key.match(/Player/)) {
+            let values = obj[key]
+
+            // find corresponding player
+            obj[key] = values.filter((o) => {
+              return o.player_id === playerID
+            })
+          } else {
+            delete obj[key] // remove unnecessary key
+          }
+        }
+      })
+      return {
+        BoxscoreAdvanced: result[0].PlayerStats[0],
+        BoxscoreMisc: result[1].sqlPlayersMisc[0],
+        BoxscoreUsage: result[2].sqlPlayersUsage[0],
+        BoxscoreHustle: result[3].PlayerStats[0],
+        BoxscorePlayerTrack: result[4].PlayerStats[0]
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   // totals
   // http://stats.nba.com/stats/playercareerstats?playerid=203507&permode=Totals
   // videos
