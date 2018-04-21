@@ -187,7 +187,7 @@ class PlayerGameDetailScreen extends Component<Props> {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: '#111111' }}>
+      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: '#111111' }} style={{ backgroundColor: '#111111' }}>
         {
           this.state.loading &&
           <Loader />
