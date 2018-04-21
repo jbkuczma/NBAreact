@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
 import PropTypes from 'prop-types'
 
+
 export default class DonutChart extends Component<Props> {
   render() {
     const { label, data } = this.props
@@ -13,9 +14,9 @@ export default class DonutChart extends Component<Props> {
           <Text style={styles.text}> {label} </Text>
         </View>
         <PieChart
-          outterRadius="100%"
-          innerRadius="80%"
-          padAngle={0}
+          outterRadius={this.props.outterRadius}
+          innerRadius={this.props.innerRadius}
+          padAngle={this.props.padAngle}
           style={{ height: 200 }}
           data={ data }
         />
@@ -47,11 +48,20 @@ const styles= StyleSheet.create({
 })
 
 DonutChart.propTypes = {
-  size: PropTypes.string,
-  color: PropTypes.string
+  outterRadius: PropTypes.string,
+  innerRadius: PropTypes.string,
+  label: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string.isRequired,
+    key: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+  })).isRequired,
+  padAngle: PropTypes.number
 }
 
 DonutChart.defaultProps = {
-  size: 'large',
-  color: '#F7971E'
+  outterRadius: '100%',
+  innerRadius: '80%',
+  label: '',
+  padAngle: 0
 }
