@@ -34,7 +34,8 @@ const styles= StyleSheet.create({
   text: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   },
   label: {
     position: 'absolute',

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import Loader from '../common/Loader'
 import DonutChart from '../common/DonutChart'
-import HorizontalBarChart from '../common/BarChart'
+import VerticalBarChart from '../common/BarChart'
 import Circle from '../common/Circle'
 import { connect } from 'react-redux'
 import NBA, { getTeamFromTeamMap } from '../../utils/nba'
@@ -172,20 +172,14 @@ class PlayerGameDetailScreen extends Component<Props> {
     const blocks = stats.blk
     const steals = stats.stl
     const turnovers = stats.tov
-    // const data = [
-    //   {value: points,    label: 'Points'},
-    //   {value: assists,   label: 'Assists'},
-    //   {value: rebounds,  label: 'Rebounds'},
-    //   {value: blocks,    label: 'Blocks'},
-    //   {value: steals,    label: 'Steals'},
-    //   {value: turnovers, label: 'Turnovers'}
-    // ]
-    const data = [points, assists, rebounds, blocks, steals, turnovers]
+    const data = [rebounds, assists, turnovers, blocks, steals]
+    const labels = ['REB', 'AST', 'TOV', 'BLK', 'STL']
 
     return (
       <View style={[styles.defaultCenteredView, { flexDirection: 'row' }]}>
-        <HorizontalBarChart
+        <VerticalBarChart
           data={data}
+          xAxisLabels={labels}
         />
       </View>
     )
@@ -203,6 +197,7 @@ class PlayerGameDetailScreen extends Component<Props> {
           <View style={styles.defaultCenteredView}>
             { this._createScoringGraphs() }
             { this._createShootingGraphs() }
+            { this._createStatBarChart() }
           </View>
         }
       </ScrollView>
