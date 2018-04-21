@@ -2,7 +2,20 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { selectGame } from '../../actions/actions'
+import Circle from '../common/Circle'
 import TeamMap from '../../utils/TeamMap'
+
+const TeamCircle = ({ teamName, teamColor }) => (
+  <Circle color={teamColor} height={65} width={65} borderRadius={170}>
+    <View style={styles.defaultCenteredView}>
+      <Circle color='#111111' height={60} width={60} borderRadius={120}>
+        <View style={styles.defaultCenteredView}>
+          <Text style={styles.text}> {teamName} </Text>
+        </View>
+      </Circle>
+    </View>
+  </Circle>
+)
 
 const TeamSection = ({style, team, teamColor, logo, flip}) => (
   <View style={[styles.team, style]}>
@@ -18,7 +31,10 @@ const TeamSection = ({style, team, teamColor, logo, flip}) => (
           style={styles.logo}
           source={logo}
         /> */}
-        <Text style={[styles.text, { fontSize: 22, color: teamColor }]}> {team.triCode} </Text>
+        <TeamCircle
+          teamColor={teamColor}
+          teamName={team.triCode}
+        />
       </View>
     </View>
     {
@@ -109,9 +125,7 @@ class GameCell extends Component<Props> {
             logo={awayTeamLogo}
             flip={false}
           />
-          {
-            this._renderGameStatus()
-          }
+          { this._renderGameStatus() }
           <TeamSection
             style={styles.homeTeam}
             team={hTeam}
