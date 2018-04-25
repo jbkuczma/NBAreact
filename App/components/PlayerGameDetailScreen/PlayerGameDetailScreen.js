@@ -187,20 +187,22 @@ class PlayerGameDetailScreen extends Component<Props> {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: '#111111' }} style={{ backgroundColor: '#111111' }}>
+      <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
           this.state.loading &&
           <Loader />
         }
-        {
-          !this.state.loading && this.state.boxscoreAdvanced &&
-          <View style={styles.defaultCenteredView}>
-            { this._createScoringGraphs() }
-            { this._createShootingGraphs() }
-            { this._createStatBarChart() }
-          </View>
-        }
-      </ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollview}>
+          {
+            !this.state.loading && this.state.boxscoreAdvanced &&
+            <View style={styles.defaultCenteredView}>
+              { this._createScoringGraphs() }
+              { this._createShootingGraphs() }
+              { this._createStatBarChart() }
+            </View>
+          }
+        </ScrollView>
+      </View>
     )
   }
 }
@@ -210,6 +212,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  scrollview: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
   },
   text: {
     fontSize: 16,
