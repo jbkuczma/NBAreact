@@ -131,7 +131,9 @@ class BoxScore extends Component<Props> {
           }
           {
             !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
-              this._createBoxscoreTable(this.state.boxscore)
+              <ScrollView horizontal={true} contentContainerStyle={{justifyContent: 'center', alignItems: 'center',flexDirection: 'column'}}>
+                { this._createBoxscoreTable(this.state.boxscore) }
+              </ScrollView>
           }
           {
             !this.state.loading && !this.state.boxscore.activePlayers &&
