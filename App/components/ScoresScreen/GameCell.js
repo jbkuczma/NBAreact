@@ -10,7 +10,7 @@ const TeamCircle = ({ teamName, teamColor }) => (
     <View style={styles.defaultCenteredView}>
       <Circle color='#111111' height={60} width={60} borderRadius={120}>
         <View style={styles.defaultCenteredView}>
-          <Text style={styles.text}> {teamName} </Text>
+          <Text style={[styles.text, { fontSize: 15 }]}> {teamName} </Text>
         </View>
       </Circle>
     </View>

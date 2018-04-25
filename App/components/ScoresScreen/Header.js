@@ -35,6 +35,9 @@ class Header extends Component<Props> {
     else if (type === 'previous') {
       date = new Date(date.getTime() - (24 * 60 * 60 * 1000)).toLocaleDateString()
     }
+    else if (type === 'today') {
+      date = this.props.currentDate
+    }
 
     this.props.changeDateToNewDate(date)
   }
@@ -62,7 +65,7 @@ class Header extends Component<Props> {
         <View style={styles.statusBar} />
         <View style={styles.dateCointainer}>
           { this._renderArrow('<') }
-          <TouchableOpacity style={styles.dateCointainerMiddle} onPress={() => { this.handleDateChange('other') }}>
+          <TouchableOpacity style={styles.dateCointainerMiddle} onPress={() => { this.handleDateChange('today') }}>
             <View style={{flex: 1}} >
               <View style={styles.defaultCenteredView}>
                 <Text style={{fontSize: 18, color: '#FFFFFF'}}> { this.formatDate() } </Text>
@@ -104,7 +107,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    date: state.date.date
+    date: state.date.date,
+    currentDate: state.date.currentDate
   }
 }
 
