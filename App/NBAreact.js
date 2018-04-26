@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation'
 
 import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
@@ -132,6 +132,21 @@ export default TabNavigator({
 
       return <Image source={iconName} style={[ iconStyle, { tintColor: tintColor }]} />
     },
+
+    // NOTE: this works as intended however there are side effects that I'm not comfortable releasing yet
+    // tabBarOnPress: ({ scene, jumpToIndex }) => {
+    //   const { route, focused, index } = scene
+    //   if (focused) {
+    //     if (route.index > 0) {
+    //       const { routeName, key } = route.routes[1]
+    //       navigation.dispatch(
+    //         NavigationActions.back({ key })
+    //       )
+    //     }
+    //   } else {
+    //     jumpToIndex(index)
+    //   }
+    // },
   }),
   tabBarOptions: {
     activeTintColor: '#F7971E',
