@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
   statcellText: {
     textAlign: 'center',
     fontSize: 18,
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   }
 })
 

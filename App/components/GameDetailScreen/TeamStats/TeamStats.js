@@ -112,12 +112,14 @@ class TeamStats extends Component<Props> {
 const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   },
   text18pt: {
     textAlign: 'center',
     color: '#D3D3D3',
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: 'Rubik-Light'
   },
   defaultCenteredView: {
     flex: 1,

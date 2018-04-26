@@ -98,12 +98,14 @@ const styles = StyleSheet.create({
   textPrimary: {
     textAlign: 'center',
     color: '#D3D3D3',
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: 'Rubik-Light'
   },
   textSecondary: {
     textAlign: 'center',
     color: '#D3D3D3',
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: 'Rubik-Light'
   },
   playerCell: {
     flex: 1,

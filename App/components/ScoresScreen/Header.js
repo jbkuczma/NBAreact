@@ -53,7 +53,7 @@ class Header extends Component<Props> {
     return (
       <TouchableOpacity onPress={() => { this.handleDateChange(handler) }}>
         <View>
-          <Text style={{fontSize: 36}}> { direction } </Text>
+          <Text style={{fontSize: 36, fontFamily: 'Rubik-Light'}}> { direction } </Text>
         </View>
       </TouchableOpacity>
     )
@@ -68,10 +68,10 @@ class Header extends Component<Props> {
           <TouchableOpacity style={styles.dateCointainerMiddle} onPress={() => { this.handleDateChange('today') }}>
             <View style={{flex: 1}} >
               <View style={styles.defaultCenteredView}>
-                <Text style={{fontSize: 18, color: '#FFFFFF'}}> { this.formatDate() } </Text>
+                <Text style={{fontSize: 18, color: '#FFFFFF', fontFamily: 'Rubik-Light'}}> { this.formatDate() } </Text>
               </View>
               <View style={styles.defaultCenteredView}>
-                <Text style={{fontSize: 16, color: '#FFFFFF'}}> { this.getNumberOfGamesText() } </Text>
+                <Text style={{fontSize: 16, color: '#FFFFFF', fontFamily: 'Rubik-Light'}}> { this.getNumberOfGamesText() } </Text>
               </View>
             </View>
           </TouchableOpacity>
