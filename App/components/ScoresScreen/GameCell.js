@@ -6,9 +6,9 @@ import Circle from '../common/Circle'
 import TeamMap from '../../utils/TeamMap'
 
 const TeamCircle = ({ teamName, teamColor }) => (
-  <Circle color={teamColor} height={65} width={65} borderRadius={170}>
+  <Circle color={teamColor} height={60} width={60} borderRadius={120}>
     <View style={styles.defaultCenteredView}>
-      <Circle color='#111111' height={60} width={60} borderRadius={120}>
+      <Circle color='#111111' height={55} width={55} borderRadius={110}>
         <View style={styles.defaultCenteredView}>
           <Text style={[styles.text, { fontSize: 15 }]}> {teamName} </Text>
         </View>
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 120,
     backgroundColor: '#141414',
-    // backgroundColor: '#212121',
     flexDirection: 'row',
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -184,7 +183,6 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   gameInfo: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column'
