@@ -2,7 +2,7 @@
 
 All notable changes to Swish will be documented here
 
-# 2.3 (In development)
+# 2.3 (5-6-2018)
 
 - Added a new screen that displays graphs for various player stats during a specific game (#49)
 - Add refresh capabilities to the game detail screen (#63)
