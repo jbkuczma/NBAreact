@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   },
   boxscoreText: {
     textAlign: 'center',
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   },
   boxscoreStatNameView: {
     width: 140,

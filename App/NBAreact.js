@@ -1,18 +1,30 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation'
 
 import ScoresScreen from './components/ScoresScreen'
 import GameDetailScreen from './components/GameDetailScreen'
 import StandingsScreen from './components/StandingsScreen'
 import TeamScreen from './components/TeamScreen'
 import PlayerScreen from './components/PlayerScreen'
+import PlayerGameDetailScreen from './components/PlayerGameDetailScreen'
 import TeamStats from './components/GameDetailScreen/TeamStats'
 import BoxScore from './components/GameDetailScreen/BoxScore'
 import PlayByPlay from './components/GameDetailScreen/PlayByPlay'
 import LeagueLeaders from './components/LeagueLeaders'
 
 import SearchBar from './components/common/SearchBar'
+
+const defaultNavigationOptions = {
+  headerTintColor: '#D3D3D3',
+  headerStyle: {
+    backgroundColor: '#171717',
+    borderBottomWidth: 0
+  },
+  headerTitleStyle: {
+    fontSize: 18,
+  }
+}
 
 const GameDetailNavigator = TabNavigator({
   'Team Stats': { screen: TeamStats },
@@ -53,16 +65,7 @@ const ScoresStack = StackNavigator({
   },
   Game: {
     screen: GameDetailNavigator,
-    navigationOptions: {
-      headerTintColor: '#D3D3D3',
-      headerStyle: {
-        backgroundColor: '#171717',
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      }
-    }
+    navigationOptions: defaultNavigationOptions
   }
 })
 
@@ -73,42 +76,19 @@ const StandingsStack = StackNavigator({
   },
   Team: {
     screen: TeamScreen,
-    navigationOptions: {
-      headerTintColor: '#D3D3D3',
-      headerStyle: {
-        backgroundColor: '#171717',
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      }
-    }
+    navigationOptions: defaultNavigationOptions
   },
   Player: {
     screen: PlayerScreen,
-    navigationOptions: {
-      headerTintColor: '#D3D3D3',
-      headerStyle: {
-        backgroundColor: '#171717',
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      }
-    }
+    navigationOptions: defaultNavigationOptions
   },
   Game: {
     screen: GameDetailNavigator,
-    navigationOptions: {
-      headerTintColor: '#D3D3D3',
-      headerStyle: {
-        backgroundColor: '#171717',
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      }
-    }
+    navigationOptions: defaultNavigationOptions
+  },
+  PlayerGameDetail: {
+    screen: PlayerGameDetailScreen,
+    navigationOptions: defaultNavigationOptions
   }
 })
 
@@ -123,16 +103,11 @@ const LeagueLeadersStack = StackNavigator({
   },
   Player: {
     screen: PlayerScreen,
-    navigationOptions: {
-      headerTintColor: '#D3D3D3',
-      headerStyle: {
-        backgroundColor: '#171717',
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      }
-    }
+    navigationOptions: defaultNavigationOptions
+  },
+  PlayerGameDetail: {
+    screen: PlayerGameDetailScreen,
+    navigationOptions: defaultNavigationOptions
   }
 })
 
@@ -157,6 +132,21 @@ export default TabNavigator({
 
       return <Image source={iconName} style={[ iconStyle, { tintColor: tintColor }]} />
     },
+
+    // NOTE: this works as intended however there are side effects that I'm not comfortable releasing yet
+    // tabBarOnPress: ({ scene, jumpToIndex }) => {
+    //   const { route, focused, index } = scene
+    //   if (focused) {
+    //     if (route.index > 0) {
+    //       const { routeName, key } = route.routes[1]
+    //       navigation.dispatch(
+    //         NavigationActions.back({ key })
+    //       )
+    //     }
+    //   } else {
+    //     jumpToIndex(index)
+    //   }
+    // },
   }),
   tabBarOptions: {
     activeTintColor: '#F7971E',

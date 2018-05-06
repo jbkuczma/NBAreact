@@ -135,7 +135,8 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: '#D3D3D3',
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: 'Rubik-Light'
   },
   row: {
     flex: 1,

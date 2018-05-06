@@ -2,6 +2,14 @@
 
 All notable changes to Swish will be documented here
 
+# 2.3 (In development)
+
+- Added a new screen that displays graphs for various player stats during a specific game (#49)
+- Add refresh capabilities to the game detail screen (#63)
+- Show a circle with the team's name and team color in a game cell instead of just the team (#66)
+- Fixed a bug where clicking the date in the scores screen header would crash the app
+- Fixed a bug where the boxscore wouldn scroll horizontally on iOS but not Android (#58)
+
 # 2.2 (4-18-2018)
 
 - Career stats for players added (#51)

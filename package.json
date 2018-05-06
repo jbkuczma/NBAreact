@@ -1,11 +1,12 @@
 {
   "name": "NBAreact",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:android": "react-native run-android",
     "start:ios": "react-native run-ios",
+    "start:iphone8plus": "react-native run-ios --simulator='iPhone 8 Plus'",
     "start:iphoneX": "react-native run-ios --simulator='iPhone X'",
     "test": "jest"
   },

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
 import Loader from '../../common/Loader'
+import RefreshButton from '../../common/RefreshButton'
 import LeadTracker from './LeadTracker'
 import TeamStatsTable from './TeamStatsTable'
 import QuarterScores from './QuarterScores'
@@ -11,7 +12,12 @@ import QuarterScores from './QuarterScores'
 class TeamStats extends Component<Props> {
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: `${navigation.state.params.title}`
+    headerTitle: `${navigation.state.params.title}`,
+    headerRight: (
+      <RefreshButton
+        handleRefresh={navigation.state.params.handleRefresh}
+      />
+    )
   })
 
   constructor() {
@@ -27,10 +33,12 @@ class TeamStats extends Component<Props> {
   }
 
   componentDidMount() {
+    // we can now call fetchGameStats via navigation.state.params.handleRefresh
+    this.props.navigation.setParams({ handleRefresh: this.fetchGameStats })
     this.fetchGameStats()
   }
 
-  fetchGameStats() {
+  fetchGameStats = () => {
     Promise.all([
       this.nba.getBoxscore(this.props.gameID, this.props.date),
       this.nba.getLeadTrackerForGame(this.props.gameID, this.props.date),
@@ -104,12 +112,14 @@ class TeamStats extends Component<Props> {
 const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
-    color: '#D3D3D3'
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   },
   text18pt: {
     textAlign: 'center',
     color: '#D3D3D3',
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: 'Rubik-Light'
   },
   defaultCenteredView: {
     flex: 1,
