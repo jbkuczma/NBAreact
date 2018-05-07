@@ -4,6 +4,24 @@ import { connect } from 'react-redux'
 import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 
+const TeamHeaderRecord = ({ teamInfo, getRank }) => (
+  <View style={{ flex: 2, flexDirection: 'column' }}>
+    <View style={{ flex: 1 }}>
+      <Text style={styles.textPrimary}> {teamInfo.team_city} {teamInfo.team_name} </Text>
+    </View>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
+        <Text style={styles.textSecondary}> Wins-{teamInfo.w} </Text>
+        <Text style={styles.textThird}> {getRank(teamInfo.conf_rank)} in the {teamInfo.team_conference} </Text>
+      </View>
+      <View style={{ flex: 1 }}>
+        <Text style={styles.textSecondary}> Losses-{teamInfo.l} </Text>
+        <Text style={styles.textThird}> {getRank(teamInfo.div_rank)} in the {teamInfo.team_division} </Text>
+      </View>
+    </View>
+  </View>
+)
+
 class TeamHeader extends Component<Props> {
 
   constructor() {
@@ -29,26 +47,10 @@ class TeamHeader extends Component<Props> {
     const teamLogo = null
 
     const teamStatsToRender = [
-      {
-        label: 'PPG',
-        stat: this.props.teamSeasonRanks.pts_pg,
-        rank: this.props.teamSeasonRanks.pts_rank
-      },
-      {
-        label: 'OPP PPG',
-        stat: this.props.teamSeasonRanks.opp_pts_pg,
-        rank: this.props.teamSeasonRanks.opp_pts_rank
-      },
-      {
-        label: 'RPG',
-        stat: this.props.teamSeasonRanks.reb_pg,
-        rank: this.props.teamSeasonRanks.reb_rank
-      },
-      {
-        label: 'APG',
-        stat: this.props.teamSeasonRanks.ast_pg,
-        rank: this.props.teamSeasonRanks.ast_rank
-      }
+      { label: 'PPG',     stat: this.props.teamSeasonRanks.pts_pg,     rank: this.props.teamSeasonRanks.pts_rank },
+      { label: 'OPP PPG', stat: this.props.teamSeasonRanks.opp_pts_pg, rank: this.props.teamSeasonRanks.opp_pts_rank },
+      { label: 'RPG',     stat: this.props.teamSeasonRanks.reb_pg,     rank: this.props.teamSeasonRanks.reb_rank },
+      { label: 'APG',     stat: this.props.teamSeasonRanks.ast_pg,     rank: this.props.teamSeasonRanks.ast_rank }
     ]
 
     return (
@@ -64,21 +66,10 @@ class TeamHeader extends Component<Props> {
               />
             }
           </View>
-          <View style={{ flex: 2, flexDirection: 'column' }}>
-            <View  style={{ flex: 1 }}>
-              <Text style={styles.textPrimary}> {this.props.teamInfo.team_city} {this.props.teamInfo.team_name} </Text>
-            </View>
-            <View  style={{ flex: 1, flexDirection: 'row' }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.textSecondary}> Wins-{this.props.teamInfo.w} </Text>
-                <Text style={styles.textThird}> {this._getRank(this.props.teamInfo.conf_rank)} in the {this.props.teamInfo.team_conference} </Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.textSecondary}> Losses-{this.props.teamInfo.l} </Text>
-                <Text style={styles.textThird}> {this._getRank(this.props.teamInfo.div_rank)} in the {this.props.teamInfo.team_division} </Text>
-              </View>
-            </View>
-          </View>
+          <TeamHeaderRecord
+            teamInfo={this.props.teamInfo}
+            getRank={this._getRank}
+          />
         </View>
         {/* end team info */}
         {/* begin team stat rankings */}

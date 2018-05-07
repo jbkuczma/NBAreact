@@ -29,19 +29,6 @@ class TeamScreen extends Component<Props> {
     this.fetchTeam()
   }
 
-  _getRank(number) {
-    switch (parseInt(number)){
-      case 1:
-        return '1st'
-      case 2:
-        return '2nd'
-      case 3:
-        return '3rd'
-      default:
-        return number + 'th'
-    }
-  }
-
   fetchTeam() {
     const teamInfo = {
       season: this.props.season,
