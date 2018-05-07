@@ -7,6 +7,7 @@ import Loader from '../common/Loader'
 import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
+import TeamHeader from './TeamHeader';
 
 class TeamScreen extends Component<Props> {
 
@@ -92,60 +93,10 @@ class TeamScreen extends Component<Props> {
         }
         {
           this.state.teamInfo && this.state.teamSeasonRanks &&
-            <View style={styles.header}>
-              {/* begin team info */}
-              <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  {
-                    teamLogo &&
-                    <Image
-                      style={styles.logo}
-                      source={teamLogo}
-                    />
-                  }
-                </View>
-                <View style={{ flex: 2, flexDirection: 'column' }}>
-                  <View  style={{ flex: 1 }}>
-                    <Text style={styles.textPrimary}> {this.state.teamInfo.team_city} {this.state.teamInfo.team_name} </Text>
-                  </View>
-                  <View  style={{ flex: 1, flexDirection: 'row' }}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.textSecondary}> Wins-{this.state.teamInfo.w} </Text>
-                      <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.conf_rank)} in the {this.state.teamInfo.team_conference} </Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.textSecondary}> Losses-{this.state.teamInfo.l} </Text>
-                      <Text style={styles.textThird}> {this._getRank(this.state.teamInfo.div_rank)} in the {this.state.teamInfo.team_division} </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              {/* end team info */}
-              {/* begin team stat rankings */}
-              <View style={styles.teamRanks}>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
-                  <Text style={styles.textSecondary}> PPG </Text>
-                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.pts_pg} </Text>
-                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.pts_rank)}) </Text>
-                </View>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
-                  <Text style={styles.textSecondary}> OPPG </Text>
-                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.opp_pts_pg} </Text>
-                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.opp_pts_rank)}) </Text>
-                </View>
-                <View style={[styles.teamRankCell, { borderRightWidth: 1, borderRightColor: teamColor}]}>
-                  <Text style={styles.textSecondary}> RPG </Text>
-                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.reb_pg} </Text>
-                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.reb_rank)}) </Text>
-                </View>
-                <View style={styles.teamRankCell}>
-                  <Text style={styles.textSecondary}> APG </Text>
-                  <Text style={styles.textSecondary}> {this.state.teamSeasonRanks.ast_pg} </Text>
-                  <Text style={styles.textThird}> ({this._getRank(this.state.teamSeasonRanks.ast_rank)}) </Text>
-                </View>
-              </View>
-              {/* end team stat rankings */}
-            </View>
+            <TeamHeader
+              teamInfo={this.state.teamInfo}
+              teamSeasonRanks={this.state.teamSeasonRanks}
+            />
         }
         {
           !this.state.loading &&
