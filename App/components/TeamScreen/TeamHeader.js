@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import Roster from './Roster'
-import Games from './Games'
-import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
 import TeamMap from '../../utils/TeamMap'
 

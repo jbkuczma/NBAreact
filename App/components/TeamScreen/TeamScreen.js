@@ -138,45 +138,6 @@ class TeamScreen extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    color: '#D3D3D3'
-  },
-  textPrimary: {
-    color: '#D3D3D3',
-    fontSize: 22,
-    fontFamily: 'Rubik-Light'
-  },
-  textSecondary: {
-    color: '#D3D3D3',
-    fontSize: 18,
-    fontFamily: 'Rubik-Light'
-  },
-  textThird: {
-    color: '#D3D3D3',
-    fontSize: 14,
-    fontFamily: 'Rubik-Light'
-  },
-  header: {
-    height: 180,
-    backgroundColor: '#171717',
-    flexDirection: 'column'
-  },
-  teamRanks: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  teamRankCell: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 10
-  },
-  logo: {
-    height: 90,
-    width: 90,
-  },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'center',
