@@ -90,6 +90,11 @@ class PlayerScreen extends Component<Props> {
      * ex: TOR vs. WAS -> vs WAS
      */
     const matchup = game.matchup.match(/(@|vs\.)\s[a-zA-Z]+/)[0].replace('.', '')
+    const stats = [
+      { stat: game.pts, text: 'pts' },
+      { stat: game.reb, text: 'reb' },
+      { stat: game.ast, text: 'ast' }
+    ]
 
     return (
       <TouchableOpacity style={{ flexDirection: 'column', marginLeft: 10, marginRight: 10, height: 100, borderBottomColor: '#444444', borderBottomWidth: 1 }} onPress={() => { this._goToGame(game) }}>
@@ -100,21 +105,17 @@ class PlayerScreen extends Component<Props> {
           <View style={{ flex: 2, justifyContent: 'center' }}>
             <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.wl} {matchup} </Text>
           </View>
-          <View style={styles.defaultCenteredView}>
-            <Text style={styles.textPrimary}>
-              {game.pts} <Text style={styles.textSecondary}>pts</Text>
-            </Text>
-          </View>
-          <View style={styles.defaultCenteredView}>
-            <Text style={styles.textPrimary}>
-              {game.reb} <Text style={styles.textSecondary}>reb</Text>
-            </Text>
-          </View>
-          <View style={styles.defaultCenteredView}>
-            <Text style={styles.textPrimary}>
-              {game.ast} <Text style={styles.textSecondary}>ast</Text>
-            </Text>
-          </View>
+          {
+            stats.map((stat, index) => {
+              return (
+                <View style={styles.defaultCenteredView} key={index}>
+                  <Text style={styles.textPrimary}>
+                    {stat.stat} <Text style={styles.textSecondary}>{stat.text}</Text>
+                  </Text>
+                </View>
+              )
+            })
+          }
         </View>
       </TouchableOpacity>
     )
@@ -147,6 +148,13 @@ class PlayerScreen extends Component<Props> {
     const school = this.props.player.school       || this.props.player.collegeName
     const number = this.props.player.num          || this.props.player.jersey
 
+    const seasonAverages = this.state.careerStats ? [
+      { stat: this.state.careerStats.OverallPlayerDashboard[0].min, text: 'MPG' },
+      { stat: this.state.careerStats.OverallPlayerDashboard[0].pts, text: 'PPG' },
+      { stat: this.state.careerStats.OverallPlayerDashboard[0].reb, text: 'RPG' },
+      { stat: this.state.careerStats.OverallPlayerDashboard[0].ast, text: 'APG' }
+    ] : []
+
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
@@ -175,26 +183,18 @@ class PlayerScreen extends Component<Props> {
             {
               this.state.careerStats &&
               <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
-                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
-                  <Text style={styles.textSecondary}>
-                    {this.state.careerStats.OverallPlayerDashboard[0].min} <Text style={styles.text}> MPG </Text>
-                  </Text>
-                </View>
-                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
-                  <Text style={styles.textSecondary}>
-                    {this.state.careerStats.OverallPlayerDashboard[0].pts} <Text style={styles.text}> PPG </Text>
-                  </Text>
-                </View>
-                <View style={[styles.defaultCenteredView, { borderRightColor: teamColor, borderRightWidth: 1 }]}>
-                  <Text style={styles.textSecondary}>
-                    {this.state.careerStats.OverallPlayerDashboard[0].reb} <Text style={styles.text}> RPG </Text>
-                  </Text>
-                </View>
-                <View style={styles.defaultCenteredView}>
-                  <Text style={styles.textSecondary}>
-                    {this.state.careerStats.OverallPlayerDashboard[0].ast} <Text style={styles.text}> APG </Text>
-                  </Text>
-                </View>
+                {
+                  seasonAverages.map((stat, index) => {
+                    const extraStyle = index < seasonAverages.length - 1 ? { borderRightColor: teamColor, borderRightWidth: 1 } : { }
+                    return (
+                      <View style={[styles.defaultCenteredView, extraStyle]} key={index}>
+                        <Text style={styles.textSecondary}>
+                          {stat.stat} <Text style={styles.text}> {stat.text} </Text>
+                        </Text>
+                      </View>
+                    )
+                  })
+                }
               </View>
             }
           </View>
