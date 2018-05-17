@@ -299,8 +299,11 @@ export default class NBA {
       this.getLeadTrackerForQuarter(gameID, date, 2),
       this.getLeadTrackerForQuarter(gameID, date, 3),
       this.getLeadTrackerForQuarter(gameID, date, 4),
+      this.getLeadTrackerForQuarter(gameID, date, 5),
+      this.getLeadTrackerForQuarter(gameID, date, 6),
     ]).then((result) => {
       /**
+       * NOTE: currently accounts for 2 overtime periods
        * result is an array of objects representing the lead tracker for each quarter
        * each object has a 'plays' property which is the form of an array
        * result.map(...) extracts that array containing the plays and adds it into another array
