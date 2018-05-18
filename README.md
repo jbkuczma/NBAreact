@@ -26,13 +26,15 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 - Android - Coming soon!
 
 ## Features
-- Scores for in-progress and completed games
+- Scores and stats for in-progress and completed games
 - Detailed play by play
-- Full team and player stats
+- Full team stats for a season
+- Full player stats for a season and over their career
+- Detailed player game stat graphs
 - Conference rankings
 - League leaders
 - Videos and highlights (coming soon)
-- Compare stats for two players (coming soon)
+- Compare two players (coming soon)
 
 ## Libraries Used
 [React Native](https://github.com/facebook/react-native)
