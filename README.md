@@ -21,7 +21,7 @@
 # Swish
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
 
-# Download
+## Download
 - iOS - Download [here](https://itunes.apple.com/us/app/swish-basketball-stats/id1361567861)!
 - Android - Coming soon!
 
@@ -72,8 +72,8 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 
   - Run
 
-        react-native run-ios
+        npm run start:ios
 
-        react-native run-ios --simulator="iPhone X"
+        npm run start:iphoneX
 
-        react-native run-android (an emulator must be running first)
+        npm run start:android (an emulator must be running first)

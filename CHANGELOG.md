@@ -2,6 +2,10 @@
 
 All notable changes to Swish will be documented here
 
+# 2.4 (In development)
+- Tapping a tab button will take you to its initial screen (#55)
+- Fix bug where the LeadTracker graph would not show overtime (#70)
+
 # 2.3 (5-6-2018)
 
 - Added a new screen that displays graphs for various player stats during a specific game (#49)
