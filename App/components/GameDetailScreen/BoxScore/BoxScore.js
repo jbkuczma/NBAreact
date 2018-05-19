@@ -89,17 +89,23 @@ class BoxScore extends Component<Props> {
 
       // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
-      const desiredPlayer = playersInLeague.filter((somePlayer, index) => {
-        return somePlayer.personId === player.personId
-      })
+      // skip header (first element)
+      if (player.personId) {
+        const desiredPlayer = playersInLeague.filter((somePlayer, index) => {
+          return somePlayer.personId === player.personId
+        })
 
-      const newPlayerData = {
-        display_fi_last: desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName
+        // edge case: Nene
+        const name = desiredPlayer[0].lastName ? desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName : desiredPlayer[0].firstName
+
+        const newPlayerData = {
+          display_fi_last: name
+        }
+
+        player = {...player, ...newPlayerData}
+        // arr[index] = player
+        updatedPlayers.push(player)
       }
-
-      player = {...player, ...newPlayerData}
-      // arr[index] = player
-      updatedPlayers.push(player)
     })
 
     return (
