@@ -104,14 +104,14 @@ class BoxScore extends Component<Props> {
 
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
-        <View style={{ padding: 10, justifyContent: 'center', alignItems: 'center', borderBottomColor: '#D1D1D1', borderBottomWidth: 1, width: 140 }}>
-          <Text style={{ color: '#D3D3D3' }}> Player </Text>
+        <View style={[styles.playerNameCell, { borderBottomColor: '#D1D1D1', borderBottomWidth: 1 }]}>
+          <Text style={styles.text}> Player </Text>
         </View>
         {
           updatedPlayers.map((player, idx) => {
             return (
-              <View style={{ padding: 10, justifyContent: 'center', alignItems: 'center', width: 140 }} key={idx}>
-                <Text style={{ color: '#D3D3D3' }}> {player.display_fi_last} </Text>
+              <View style={styles.playerNameCell} key={idx}>
+                <Text style={styles.text}> {player.display_fi_last} </Text>
               </View>
             )
           })
@@ -153,19 +153,20 @@ class BoxScore extends Component<Props> {
           }
           {
             !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
-              // BUG: not showing all players since it overflows and can't scroll
-              <View style={{ flexDirection: 'row' }}>
-                <View style={{ width: 140 }}>
-                  { this._createPlayerlist() }
-                </View>
-                <ScrollView horizontal={true} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                  { this._createBoxscoreTable() }
+              <View>
+                <ScrollView horizontal={false}  contentContainerStyle={{ flexDirection: 'row' }}>
+                  <View style={{ width: 140 }}>
+                    { this._createPlayerlist() }
+                  </View>
+                  <ScrollView horizontal={true} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    { this._createBoxscoreTable() }
+                  </ScrollView>
                 </ScrollView>
               </View>
           }
           {
             !this.state.loading && !this.state.boxscore.activePlayers &&
-              <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
+              <Text style={styles.text}> Boxscore available after tip off </Text>
           }
         </View>
       </View>
@@ -204,6 +205,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  playerNameCell: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 140
+  },
+  text: {
+    textAlign: 'center',
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   }
 })
 
