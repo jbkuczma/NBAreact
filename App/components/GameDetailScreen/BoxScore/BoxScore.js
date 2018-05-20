@@ -164,7 +164,7 @@ class BoxScore extends Component<Props> {
                   <View style={{ width: 140 }}>
                     { this._createPlayerlist() }
                   </View>
-                  <ScrollView horizontal={true} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                  <ScrollView horizontal={true} indicatorStyle='white' showsHorizontalScrollIndicator={true} bounces={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     { this._createBoxscoreTable() }
                   </ScrollView>
                 </ScrollView>
