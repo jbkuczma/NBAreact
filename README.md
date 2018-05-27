@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_app.png">
+  <img src="https://github.com/jbkuczma/NBAreact/blob/master/media/swish_app.png">
 </p>
 
-![](https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_github.png)
+![](https://github.com/jbkuczma/NBAreact/blob/master/media/swish_github.png)
 
 <p align="center">
   <a href="">
