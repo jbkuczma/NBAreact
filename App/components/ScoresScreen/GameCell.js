@@ -82,7 +82,7 @@ class GameCell extends Component<Props> {
           <Text style={[ styles.text, { fontSize: 16 }]}> {clock} </Text>
         </View>
       :
-      this.props.teams.item.endTimeUTC ?
+      this.props.teams.item.endTimeUTC || this.props.teams.item.statusNum === 3 ?
         <View style={styles.gameInfo}>
           <Text style={[ styles.text, {fontSize: 20 }]}> Final </Text>
         </View>
