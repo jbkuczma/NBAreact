@@ -5,7 +5,7 @@ import PlayerBoxCell from './PlayerBoxCell'
 import Loader from '../../common/Loader'
 import NBA from '../../../utils/nba'
 
-const headers = ['Player', 'Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'OREB', 'DREB', 'TOV', 'PF']
+const headers = ['Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'OREB', 'DREB', 'TOV', 'PF']
 
 class BoxScore extends Component<Props> {
 
@@ -50,12 +50,34 @@ class BoxScore extends Component<Props> {
     })
   }
 
-  _createBoxscoreTable(stats) {
-    let players = stats.activePlayers
+  _createBoxscoreTable() {
+    let players = this.state.boxscore.activePlayers
     players.unshift(headers) // make the headers the first element
     if (players[0] === players[1] && players[0].personId === undefined && players[1].personId === undefined) {
       players.shift() // if we already have the headers as the first element, there will be a duplicate array of headers added. in that case one of the copies should be removed
     }
+
+    const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
+    const playersToShow = players.filter((player) => {
+      return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
+    })
+
+    return (
+      <FlatList
+        data={playersToShow}
+        scrollEnabled={false}
+        renderItem={(player) => (
+          <PlayerBoxCell
+            key={player.personId}
+            player={player}
+          />
+        )}
+      />
+    )
+  }
+
+  _createPlayerlist() {
+    let players = this.state.boxscore.activePlayers
 
     const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
     const playersToShow = players.filter((player) => {
@@ -67,34 +89,40 @@ class BoxScore extends Component<Props> {
 
       // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
-      // skip header
-      if (index != 0) {
+      // skip header (first element)
+      if (player.personId) {
         const desiredPlayer = playersInLeague.filter((somePlayer, index) => {
           return somePlayer.personId === player.personId
         })
 
+        // edge case: Nene
+        const name = desiredPlayer[0].lastName ? desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName : desiredPlayer[0].firstName
+
         const newPlayerData = {
-          display_fi_last: desiredPlayer[0].firstName.charAt(0) + '. ' + desiredPlayer[0].lastName
+          display_fi_last: name
         }
 
         player = {...player, ...newPlayerData}
         // arr[index] = player
         updatedPlayers.push(player)
-      } else {
-        updatedPlayers.push(player)
       }
     })
 
     return (
-      <FlatList
-        data={updatedPlayers}
-        renderItem={(player) => (
-          <PlayerBoxCell
-            key={player.personId}
-            player={player}
-          />
-        )}
-      />
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={[styles.playerNameCell, { borderBottomColor: '#D1D1D1', borderBottomWidth: 1 }]}>
+          <Text style={styles.text}> Player </Text>
+        </View>
+        {
+          updatedPlayers.map((player, idx) => {
+            return (
+              <View style={styles.playerNameCell} key={idx}>
+                <Text style={styles.text}> {player.display_fi_last} </Text>
+              </View>
+            )
+          })
+        }
+      </View>
     )
   }
 
@@ -131,18 +159,23 @@ class BoxScore extends Component<Props> {
           }
           {
             !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
-              <ScrollView horizontal={true} contentContainerStyle={{justifyContent: 'center', alignItems: 'center',flexDirection: 'column'}}>
-                { this._createBoxscoreTable(this.state.boxscore) }
-              </ScrollView>
+              <View>
+                <ScrollView horizontal={false}  contentContainerStyle={{ flexDirection: 'row' }}>
+                  <View style={{ width: 140 }}>
+                    { this._createPlayerlist() }
+                  </View>
+                  <ScrollView horizontal={true} indicatorStyle='white' showsHorizontalScrollIndicator={true} bounces={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    { this._createBoxscoreTable() }
+                  </ScrollView>
+                </ScrollView>
+              </View>
           }
           {
             !this.state.loading && !this.state.boxscore.activePlayers &&
-              <Text style={{ textAlign: 'center', color: '#D3D3D3' }}> Boxscore available after tip off </Text>
+              <Text style={styles.text}> Boxscore available after tip off </Text>
           }
         </View>
-
       </View>
-
     )
   }
 }
@@ -178,6 +211,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  playerNameCell: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 140
+  },
+  text: {
+    textAlign: 'center',
+    color: '#D3D3D3',
+    fontFamily: 'Rubik-Light'
   }
 })
 

@@ -2,6 +2,13 @@
 
 All notable changes to Swish will be documented here
 
+# 2.4 (5-27-2018)
+- Tapping a tab button will take you to its initial screen (#55)
+- Fix bug where the LeadTracker graph would not show overtime (#70)
+- Player name column in a boxscore is now fixed; only stats are now scrollable (#72)
+- Fixed bug where completed games were showing their tip-off time (#75)
+- Add iPad support (#68)
+
 # 2.3 (5-6-2018)
 
 - Added a new screen that displays graphs for various player stats during a specific game (#49)

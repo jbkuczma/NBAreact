@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_app.png">
+  <img src="https://github.com/jbkuczma/NBAreact/blob/master/media/swish_app.png">
 </p>
 
-![](https://github.com/jbkuczma/NBAreact/blob/v2.0_rewrite/media/swish_github.png)
+![](https://github.com/jbkuczma/NBAreact/blob/master/media/swish_github.png)
 
 <p align="center">
   <a href="">
@@ -21,18 +21,20 @@
 # Swish
 An iOS and Android NBA app created with React Native. If you would like to request a feature, find a bug, have a question, or would like to leave feedback, open an [issue](https://github.com/jbkuczma/NBAreact/issues)! ⭐️ this repo to show support!
 
-# Download
+## Download
 - iOS - Download [here](https://itunes.apple.com/us/app/swish-basketball-stats/id1361567861)!
 - Android - Coming soon!
 
 ## Features
-- Scores for in-progress and completed games
+- Scores and stats for in-progress and completed games
 - Detailed play by play
-- Full team and player stats
+- Full team stats for a season
+- Full player stats for a season and over their career
+- Detailed player game stat graphs
 - Conference rankings
 - League leaders
 - Videos and highlights (coming soon)
-- Compare stats for two players (coming soon)
+- Compare two players (coming soon)
 
 ## Libraries Used
 [React Native](https://github.com/facebook/react-native)
@@ -70,8 +72,8 @@ An iOS and Android NBA app created with React Native. If you would like to reque
 
   - Run
 
-        react-native run-ios
+        npm run start:ios
 
-        react-native run-ios --simulator="iPhone X"
+        npm run start:iphoneX
 
-        react-native run-android (an emulator must be running first)
+        npm run start:android (an emulator must be running first)

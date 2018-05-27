@@ -67,6 +67,33 @@ class TeamScreen extends Component<Props> {
     })
   }
 
+  _renderSelectedPage() {
+    const {
+      loading,
+      teamRoster,
+      teamGamelog,
+      pageToShow
+    } = this.state
+
+    const page = pageToShow === 'roster' ?
+      <Roster
+        navigator={this.props.navigation}
+        team={teamRoster}
+      />
+    :
+      <Games
+        navigator={this.props.navigation}
+        games={teamGamelog}
+      />
+
+    return (
+      !loading && teamRoster && teamGamelog ?
+        page
+      :
+        <View />
+    )
+  }
+
   render() {
     const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
     // const teamLogo = getTeamFromTeamMap(this.props.teamID).logo
@@ -104,21 +131,7 @@ class TeamScreen extends Component<Props> {
             </View>
           </View>
         }
-        {
-          !this.state.loading && this.state.teamRoster && this.state.pageToShow === 'roster' ?
-            <Roster
-              navigator={this.props.navigation}
-              team={this.state.teamRoster}
-            />
-          :
-          !this.state.loading && this.state.teamGamelog  && this.state.pageToShow === 'games' ?
-            <Games
-              navigator={this.props.navigation}
-              games={this.state.teamGamelog}
-            />
-          :
-            <View></View>
-        }
+        { this._renderSelectedPage() }
       </View>
     )
   }

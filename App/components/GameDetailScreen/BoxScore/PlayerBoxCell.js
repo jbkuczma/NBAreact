@@ -22,7 +22,7 @@ export default class PlayerBoxCell extends Component<Props> {
       )
     } else {
       const categories = [
-        'display_fi_last', 'pos', 'min', 'points', 'assists', 'totReb','steals', 'blocks',
+        'pos', 'min', 'points', 'assists', 'totReb','steals', 'blocks',
         'plusMinus', 'fgm', 'fga', 'fgp', 'tpm', 'tpa', 'tpp', 'ftm', 'fta', 'ftp', 'offReb',
         'defReb', 'turnovers', 'pFouls'
       ]
