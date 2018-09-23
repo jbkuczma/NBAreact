@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import PlayerBoxCell from './PlayerBoxCell'
 import Loader from '../../common/Loader'
 import NBA from '../../../utils/nba'
-
-const headers = ['Pos', 'Min', 'Pts', 'Ast', 'Reb', 'Stl', 'Blk', '+/-', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'OREB', 'DREB', 'TOV', 'PF']
+import { BOXSCORE_HEADERS } from './headers'
 
 class BoxScore extends Component<Props> {
 
@@ -52,7 +51,7 @@ class BoxScore extends Component<Props> {
 
   _createBoxscoreTable() {
     let players = this.state.boxscore.activePlayers
-    players.unshift(headers) // make the headers the first element
+    players.unshift(BOXSCORE_HEADERS) // make the headers the first element
     if (players[0] === players[1] && players[0].personId === undefined && players[1].personId === undefined) {
       players.shift() // if we already have the headers as the first element, there will be a duplicate array of headers added. in that case one of the copies should be removed
     }
