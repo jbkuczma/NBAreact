@@ -33,12 +33,15 @@ class ScoresScreen extends Component<Props> {
     this.fetchGames()
   }
 
-  componentDidUpdate = () => {
-    this.fetchGames()
+  componentDidUpdate = (prevProps) => {
+    if (this.props.games !== prevProps.games && prevProps.games.length === 0) {
+      this.fetchGames()
+    }
   }
 
-  shouldComponentUpdate = (props, nextProps) => {
-    return this.state.date != props.date || this.state.refresh
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (this.props.games.length === 0 && nextProps.games.length > 0) { return true };
+    return this.state.date != nextProps.date || this.state.refresh
   }
 
   fetchGames = () => {
