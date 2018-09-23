@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  Text,
   View,
   FlatList,
   StatusBar
@@ -9,14 +8,12 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import GameCell from './GameCell'
 import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
 
 class ScoresScreen extends Component<Props> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
       date: null,
       loading: true,

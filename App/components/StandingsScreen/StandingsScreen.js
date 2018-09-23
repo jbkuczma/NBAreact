@@ -3,42 +3,29 @@ import { Text, View, StyleSheet, Button, Platform, StatusBar, FlatList } from 'r
 import { connect } from 'react-redux'
 import TeamCell from './TeamCell'
 import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
-
 
 class StandingsScreen extends Component<Props> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
-      loading: true,
+      isLoading: true,
       conference: 'east',
-      east: [],
-      west: []
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.getLeagueStandings()
   }
 
-  getLeagueStandings = () => {
-    this.nba.getLeagueStandings()
-    .then((data) => {
-      this.setState({
-        east: data.league.standard.conference.east,
-        west: data.league.standard.conference.west,
-        loading: false
-      })
-    })
+  getLeagueStandings = async () => {
+    await this.props.getLeagueStandings();
+    this.setState({ isLoading: false });
   }
 
   _selectConference(conference) {
-    this.setState({
-      conference: conference
-    })
+    this.setState({ conference: conference })
   }
 
   _renderHeader() {
@@ -63,19 +50,15 @@ class StandingsScreen extends Component<Props> {
   }
 
   render() {
+    const { conference, isLoading } = this.state;
+    const { easternStandings, westernStandings } = this.props;
+
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
-        <StatusBar
-          barStyle="light-content"
-        />
+        <StatusBar barStyle='light-content' />
         <View style={styles.statusBar} />
-        {
-          this.state.loading &&
-          <Loader />
-        }
-        {
-          (!this.state.loading && this.state.east && this.state.west) &&
-
+        { isLoading && <Loader /> }
+        { !isLoading &&
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.conferenceStandings}>
               <View style={styles.conferenceButtons}>
@@ -94,11 +77,9 @@ class StandingsScreen extends Component<Props> {
                   />
                 </View>
               </View>
-              {
-                this._renderHeader()
-              }
+              { this._renderHeader() }
               <FlatList
-                data={this.state.conference === 'east' ? this.state.east : this.state.west}
+                data={conference === 'east' ? easternStandings : westernStandings}
                 keyExtractor={team => team.teamId}
                 renderItem={(team) => (
                   <TeamCell
@@ -161,13 +142,15 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    season: state.date.season
+    season: state.date.season,
+    easternStandings: state.league.standings.east,
+    westernStandings: state.league.standings.west
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    getLeagueStandings: () => dispatch({ type: 'GET_LEAGUE_STANDINGS' })
   }
 }
 
