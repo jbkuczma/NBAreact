@@ -214,7 +214,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPlayers: () => dispatch(getPlayersInLeague()),
+    getPlayers: () => dispatch({ type: 'GET_PLAYERS_IN_LEAUGE' }),
     setTeam: (teamID) => dispatch(selectTeam(teamID)),
     selectPlayer: (selectedPlayer) => dispatch(selectPlayer(selectedPlayer))
   }
