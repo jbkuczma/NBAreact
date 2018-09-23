@@ -1,6 +1,7 @@
 const initialState = {
   selectedGame: null,
-  selectedTeam: null
+  selectedTeam: null,
+  games: []
 }
 
 const scores = (state = initialState, action) => {
