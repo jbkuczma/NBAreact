@@ -1,48 +1,24 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, FlatList, Modal, TouchableOpacity, Platform, Button } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, Platform, Button } from 'react-native'
 import { connect } from 'react-redux'
 import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
-import TeamMap from '../../utils/TeamMap'
 import CareerStatsTable from './CareerStatsTable';
 
 class PlayerScreen extends Component<Props> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
-      loading: true,
-      gameStats: null,
-      careerStats: null,
       statsToShow: 'current'
     }
   }
 
-  componentDidMount() {
-    this.fetchPlayer()
-  }
-
-  fetchPlayer() {
-    const playerID = this.props.player.player_id || this.props.player.personId // player_id is provided from roster, personId is provided from searching for a player
-    Promise.all([
-      this.nba.getSeasonPlayerGameLog(playerID, this.props.season),
-      this.nba.getPlayerDashboardByYear(playerID, this.props.season)
-    ])
-    .then((results) => {
-      this.setState({
-        loading: false,
-        gameStats: results[0],
-        careerStats: results[1]
-      })
-    })
-  }
-
   _formatHeight() {
-    const feet = this.props.player.height ? this.props.player.height.split('-')[0] : this.props.player.heightFeet
-    const inch = this.props.player.height ? this.props.player.height.split('-')[1] : this.props.player.heightInches
+    const { player } = this.props
+    const feet = player.height ? player.height.split('-')[0] : player.heightFeet
+    const inch = player.height ? player.height.split('-')[1] : player.heightInches
 
     return (
       <Text style={styles.textPrimary}>
@@ -53,7 +29,8 @@ class PlayerScreen extends Component<Props> {
   }
 
   _renderGamelog() {
-    const stats = this.state.gameStats.playoffs.concat(this.state.gameStats.regularSeason)
+    const { gameStats } = this.props
+    const stats = gameStats.playoffs.concat(gameStats.regularSeason)
     return (
       <FlatList
         data={stats}
@@ -64,10 +41,10 @@ class PlayerScreen extends Component<Props> {
   }
 
   _renderCareerStats() {
-    const stats = this.state.careerStats
+    const { careerStats } = this.props
     return (
       <CareerStatsTable
-        stats={stats}
+        stats={careerStats}
       />
     )
   }
@@ -105,8 +82,7 @@ class PlayerScreen extends Component<Props> {
           <View style={{ flex: 2, justifyContent: 'center' }}>
             <Text style={[styles.textSecondary, { textAlign: 'left'}]}> {game.wl} {matchup} </Text>
           </View>
-          {
-            stats.map((stat, index) => {
+          { stats.map((stat, index) => {
               return (
                 <View style={styles.defaultCenteredView} key={index}>
                   <Text style={styles.textPrimary}>
@@ -132,37 +108,31 @@ class PlayerScreen extends Component<Props> {
   }
 
   render() {
-    const {
-      player,
-      teamID
-    } = this.props
+    const { player, teamID, careerStats, gameStats, fetchingPlayer } = this.props
+    const { statsToShow } = this.state
 
-    const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    const teamColor = getTeamFromTeamMap(teamID).color // default color could be '#BE0E2C'
     // const playerImageURL = this.nba.getPlayerImage(this.props.player.player_id || this.props.player.personId)
     const playerImageURL = null
 
     // from roster screen | from search player & league leaders
-    const playerName = this.props.player.player   || this.props.player.firstName + ' ' + this.props.player.lastName
-    const playerWeight = this.props.player.weight || this.props.player.weightPounds
-    const experience = this.props.player.exp      || this.props.player.yearsPro
-    const school = this.props.player.school       || this.props.player.collegeName
-    const number = this.props.player.num          || this.props.player.jersey
+    const playerName = player.player   || player.firstName + ' ' + player.lastName
+    const playerWeight = player.weight || player.weightPounds
+    const experience = player.exp      || player.yearsPro
+    const school = player.school       || player.collegeName
+    const number = player.num          || player.jersey
 
-    const seasonAverages = this.state.careerStats ? [
-      { stat: this.state.careerStats.OverallPlayerDashboard[0].min, text: 'MPG' },
-      { stat: this.state.careerStats.OverallPlayerDashboard[0].pts, text: 'PPG' },
-      { stat: this.state.careerStats.OverallPlayerDashboard[0].reb, text: 'RPG' },
-      { stat: this.state.careerStats.OverallPlayerDashboard[0].ast, text: 'APG' }
+    const seasonAverages = careerStats ? [
+      { stat: careerStats.OverallPlayerDashboard[0].min, text: 'MPG' },
+      { stat: careerStats.OverallPlayerDashboard[0].pts, text: 'PPG' },
+      { stat: careerStats.OverallPlayerDashboard[0].reb, text: 'RPG' },
+      { stat: careerStats.OverallPlayerDashboard[0].ast, text: 'APG' }
     ] : []
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
-        {
-          this.state.loading &&
-          <Loader />
-        }
-        {
-          !this.state.loading &&
+        { fetchingPlayer && <Loader /> }
+        { !fetchingPlayer &&
           <View style={[styles.playerHeader, { borderBottomColor: teamColor, borderBottomWidth: 3 }]}>
             <View style={{ flexDirection: 'row' }}>
               { playerImageURL &&
@@ -180,11 +150,9 @@ class PlayerScreen extends Component<Props> {
                 <Text style={styles.textSecondary}> {school} </Text>
               </View>
             </View>
-            {
-              this.state.careerStats &&
+            { careerStats &&
               <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
-                {
-                  seasonAverages.map((stat, index) => {
+                { seasonAverages.map((stat, index) => {
                     const extraStyle = index < seasonAverages.length - 1 ? { borderRightColor: teamColor, borderRightWidth: 1 } : { }
                     return (
                       <View style={[styles.defaultCenteredView, extraStyle]} key={index}>
@@ -199,17 +167,16 @@ class PlayerScreen extends Component<Props> {
             }
           </View>
         }
-        {
-          !this.state.loading &&
+        { !fetchingPlayer &&
           <View style={styles.buttons}>
-            <View style={[ styles.button, this.state.statsToShow === 'current' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+            <View style={[ styles.button, statsToShow === 'current' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
               <Button
                 title="Current Season"
                 color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
                 onPress={() => { this._selectStatsToShow('current') }}
               />
             </View>
-            <View style={[ styles.button, this.state.statsToShow === 'career' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
+            <View style={[ styles.button, statsToShow === 'career' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
               <Button
                 title="Career Stats"
                 color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
@@ -219,14 +186,9 @@ class PlayerScreen extends Component<Props> {
           </View>
         }
         {
-          !this.state.loading && this.state.gameStats &&
+          !fetchingPlayer && gameStats &&
           <View style={styles.playerStatsContainer}>
-            {
-              this.state.statsToShow === 'current' ?
-                this._renderGamelog()
-              :
-                this._renderCareerStats()
-            }
+            { statsToShow === 'current' ? this._renderGamelog() : this._renderCareerStats() }
           </View>
         }
       </View>
@@ -290,7 +252,10 @@ function mapStateToProps(state) {
   return {
     season: state.date.season,
     teamID: state.scores.selectedTeam.teamID,
-    player: state.scores.selectedPlayer.player
+    player: state.scores.selectedPlayer.player,
+    fetchingPlayer: state.player.fetchingPlayer,
+    gameStats: state.player.gameStats,
+    careerStats: state.player.careerStats
   }
 }
 
