@@ -18,11 +18,23 @@ const player = (state = initialState, action) => {
         fetchingPlayer: true
       }
     }
+    case 'GET_ADVANCED_GAME_STATS_FAILURE':
     case 'GET_PLAYER_ERROR': {
       return {
         ...state,
         fetchingPlayer: false,
         error: action.error
+      }
+    }
+    case 'GET_ADVANCED_GAME_STATS_SUCCESS': {
+      return {
+        ...state,
+        fetchingPlayer: false,
+        boxscoreAdvanced: action.data.boxscoreAdvanced,
+        boxscoreMisc: action.data.boxscoreMisc,
+        boxscoreUsage: action.data.boxscoreUsage,
+        boxscoreHustle: action.data.boxscoreHustle,
+        boxscorePlayerTrack: action.data.boxscorePlayerTrack
       }
     }
     default:

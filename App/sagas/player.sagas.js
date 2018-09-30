@@ -26,6 +26,26 @@ function* getPlayer(payload) {
   }
 }
 
+function* getAdvancedGameStats(payload) {
+  try {
+    yield put({ type: 'FETCHING_PLAYER' })
+    const playerID = payload.playerID
+    const gameID = payload.gameID
+    const additionalBoxscore = yield this.nba.getAdditionalBoxscoreStatsForPlayer(gameID, playerID)
+    const data = {
+      boxscoreAdvanced: additionalBoxscore.BoxscoreAdvanced,
+      boxscoreMisc: additionalBoxscore.BoxscoreMisc,
+      boxscoreUsage: additionalBoxscore.BoxscoreUsage,
+      boxscoreHustle: additionalBoxscore.BoxscoreHustle,
+      boxscorePlayerTrack: additionalBoxscore.BoxscorePlayerTrack,
+    }
+    yield put({ type: 'GET_ADVANCED_GAME_STATS_SUCCESS', data })
+  } catch (error) {
+    yield put({ type: 'GET_ADVANCED_GAME_STATS_ERROR', error: error.message })
+  }
+}
+
 export const playerSagas = [
-  takeLatest('SELECT_PLAYER', getPlayer)
+  takeLatest('SELECT_PLAYER', getPlayer),
+  takeLatest('GET_ADVANCED_GAME_STATS', getAdvancedGameStats)
 ]
