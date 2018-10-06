@@ -30,14 +30,15 @@ function* getGameStats(payload) {
     const playByPlayResponseData = yield this.nba.getPlayByPlay(gameID, season)
     const teamStatsData = teamStatsResponseData
     const boxscoreData = boxscoreResponseData.stats || {};
-    const playByPlayData = playByPlayResponseData.g.pd // todo: clean data
+    const playByPlayData = playByPlayResponseData.g.pd
+    const cleanedPlayByPlay = yield call(cleanPlays, playByPlayData);
 
     yield put({
       type: 'GET_GAME_STATS_SUCCESS',
       data: {
         teamStatsData,
         boxscoreData,
-        playByPlayData
+        playByPlayData: cleanedPlayByPlay
       }
     })
   } catch (error) {
@@ -64,6 +65,25 @@ function* getTeamStatsForGame(gameID) {
 
   } catch (error) {
     yield put({ type: 'GET_TEAMS_STATS_FOR_GAME_FAILURE' })
+  }
+}
+
+// clean play by play and flatten
+function* cleanPlays(payload) {
+  try {
+    // obj is an array of quarter objects - each object representing one quarter in the game with an arary of the plays for that quarter
+    // instead of returning an array of quarter objects, we are going to return an array of play objects
+    const flattened = yield Object.keys(payload).map(idx => {
+      const quarter = payload[idx].p
+      const plays = payload[idx].pla
+      return plays.map((play) => {
+        return {...play, quarter: quarter }
+      })
+    })
+    // flatten array of arrays into a single array, show most recent play (end of array) first
+    return [].concat.apply([], flattened).reverse()
+  } catch(error) {
+    return payload;
   }
 }
 

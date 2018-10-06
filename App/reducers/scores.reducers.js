@@ -29,7 +29,7 @@ const scores = (state = initialState, action) => {
           ...state.selectedGame,
           teamStats: {...action.data.teamStatsData },
           boxscore: { ...action.data.boxscoreData },
-          playByPlay: { ...action.data.playByPlayData }
+          playByPlay: action.data.playByPlayData
         }
       }
     }
