@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, Button, FlatList, ScrollView, Platform } from '
 import { connect } from 'react-redux'
 import PlayerBoxCell from './PlayerBoxCell'
 import Loader from '../../common/Loader'
-import NBA from '../../../utils/nba'
 import { BOXSCORE_HEADERS } from './headers'
 
 class BoxScore extends Component<Props> {
@@ -12,51 +11,42 @@ class BoxScore extends Component<Props> {
     headerTitle: `${navigation.state.params.title}`
   })
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
       loading: true,
-      boxscore: {},
-      homeTeamStats: [],
-      awayTeamStats: [],
-      homeTeam: null,
-      awayTeam: null,
       activeTeam: 'away'
     }
   }
 
-  componentDidMount() {
-    this.fetchBoxscore()
+  componentDidUpdate = (prevProps) => {
+    const { loading } = this.state
+    const { playersInLeague, boxscore } = this.props
+    if (
+      loading &&
+      playersInLeague !== [] &&
+      boxscore !== {}
+    ) {
+      this.setState({ loading: false });
+    }
   }
 
-  fetchBoxscore() {
-    this.nba.getBoxscore(this.props.gameID, this.props.date)
-    .then((data) => {
-      const homePlayers = ''
-      const awayPlayers = ''
-      this.setState({
-        loading: false,
-        boxscore: data.stats ? data.stats : {},
-      })
-    })
-  }
-
-  _selectTeam(team) {
+  _selectTeam = (team) => {
     this.setState({
       activeTeam: team
     })
   }
 
-  _createBoxscoreTable() {
-    let players = this.state.boxscore.activePlayers
+  _createBoxscoreTable = () => {
+    const { boxscore, awayTeamID, homeTeamID } = this.props;
+    let players = boxscore.activePlayers
     players.unshift(BOXSCORE_HEADERS) // make the headers the first element
     if (players[0] === players[1] && players[0].personId === undefined && players[1].personId === undefined) {
       players.shift() // if we already have the headers as the first element, there will be a duplicate array of headers added. in that case one of the copies should be removed
     }
 
-    const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
+    const teamToShowID = this.state.activeTeam === 'away' ? awayTeamID : homeTeamID
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
@@ -75,16 +65,16 @@ class BoxScore extends Component<Props> {
     )
   }
 
-  _createPlayerlist() {
-    let players = this.state.boxscore.activePlayers
+  _createPlayerlist = () => {
+    const { boxscore, awayTeamID, homeTeamID, playersInLeague } = this.props;
+    let players = boxscore.activePlayers
 
-    const teamToShowID = this.state.activeTeam === 'away' ? this.props.awayTeamID : this.props.homeTeamID
+    const teamToShowID = this.state.activeTeam === 'away' ? awayTeamID : homeTeamID
     const playersToShow = players.filter((player) => {
       return player.personId === undefined || player.teamId === teamToShowID // include header array and players for specified team
     })
 
     const updatedPlayers = []
-    const playersInLeague = this.props.playersInLeague
 
       // modifying original array; playersToShow
     playersToShow.forEach((player, index, arr) => {
@@ -126,23 +116,24 @@ class BoxScore extends Component<Props> {
   }
 
   render() {
+    const { boxscore, awayTeam, homeTeam, playersInLeague } = this.props
+    const { loading } = this.state
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111111' }}>
-        {
-          this.props.awayTeam && this.props.homeTeam &&
+        { awayTeam && homeTeam &&
           <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={styles.teams}>
               <View style={styles.teamsButtons}>
                 <View style={[ styles.awayButton, this.state.activeTeam === 'away' ? styles.active : styles.inactive ]}>
                   <Button
-                    title={this.props.awayTeam.abbreviation}
+                    title={awayTeam.abbreviation}
                     color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('away') }}
                   />
                 </View>
                 <View style={[ styles.homeButton, this.state.activeTeam === 'home' ? styles.active : styles.inactive ]}>
                   <Button
-                    title={this.props.homeTeam.abbreviation}
+                    title={homeTeam.abbreviation}
                     color={Platform.OS === 'ios' ? "#D3D3D3" : "#151516"}
                     onPress={() => { this._selectTeam('home') }}
                   />
@@ -152,12 +143,8 @@ class BoxScore extends Component<Props> {
           </View>
         }
         <View style={styles.boxscore}>
-          {
-            this.state.loading &&
-            <Loader />
-          }
-          {
-            !this.state.loading && this.state.boxscore.activePlayers && this.props.playersInLeague &&
+          { loading && <Loader /> }
+          { !loading && boxscore.activePlayers && playersInLeague &&
               <View>
                 <ScrollView horizontal={false}  contentContainerStyle={{ flexDirection: 'row' }}>
                   <View style={{ width: 140 }}>
@@ -169,9 +156,8 @@ class BoxScore extends Component<Props> {
                 </ScrollView>
               </View>
           }
-          {
-            !this.state.loading && !this.state.boxscore.activePlayers &&
-              <Text style={styles.text}> Boxscore available after tip off </Text>
+          { !loading && !boxscore.activePlayers &&
+            <Text style={styles.text}> Boxscore available after tip off </Text>
           }
         </View>
       </View>
@@ -233,7 +219,8 @@ function mapStateToProps(state) {
     awayTeamID: state.scores.selectedGame.awayTeam.teamID,
     homeTeam: state.scores.selectedGame.homeTeam,
     awayTeam: state.scores.selectedGame.awayTeam,
-    playersInLeague: state.league.playersInLeague
+    playersInLeague: state.league.playersInLeague,
+    boxscore: state.scores.selectedGame.boxscore
   }
 }
 
