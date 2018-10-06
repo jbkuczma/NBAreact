@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList, StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
-import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
 
 class PlayByPlay extends Component<Props> {
@@ -9,42 +8,6 @@ class PlayByPlay extends Component<Props> {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: `${navigation.state.params.title}`
   })
-
-  constructor() {
-    super()
-
-    this.nba = new NBA()
-    this.state = {
-      plays: []
-    }
-  }
-
-  componentDidMount() {
-    this.fetchPlays()
-  }
-
-  fetchPlays() {
-    this.nba.getPlayByPlay(this.props.gameID, this.props.season)
-    .then((data) => {
-      let plays = this._cleanPlays(data.g.pd) // returns an array of arrays for each quarter
-      plays = [].concat.apply([], plays).reverse() // flatten array of arrays into a single array, show most recent play (end of array) first
-      this.setState({
-        plays: plays
-      })
-    })
-  }
-
-  _cleanPlays(obj) {
-    // obj is an array of quarter objects - each object representing one quarter in the game with an arary of the plays for that quarter
-    // instead of returning an array of quarter objects, we are going to return an array of play objects
-    return Object.keys(obj).map(function(idx) {
-      const quarter = obj[idx].p
-      const plays = obj[idx].pla
-      return plays.map((play) => {
-        return {...play, quarter: quarter }
-      })
-    })
-  }
 
   _renderPlay(play) {
     const homeTeam = this.props.homeTeam.abbreviation
@@ -110,12 +73,13 @@ class PlayByPlay extends Component<Props> {
   }
 
   render() {
+    const { playByPlay } = this.props;
+
     return (
       <View style={styles.playByPlayContainer}>
-        {
-          this.state.plays.length > 0 ?
+        { playByPlay !== undefined && playByPlay.length > 0 ?
             <FlatList
-              data={this.state.plays}
+              data={playByPlay}
               renderItem={(play) => this._renderPlay(play)}
             />
           :
@@ -161,7 +125,8 @@ function mapStateToProps(state) {
     date: state.date.date,
     season: state.date.season,
     homeTeam: state.scores.selectedGame.homeTeam,
-    awayTeam: state.scores.selectedGame.awayTeam
+    awayTeam: state.scores.selectedGame.awayTeam,
+    playByPlay: state.scores.selectedGame.playByPlay
   }
 }
 

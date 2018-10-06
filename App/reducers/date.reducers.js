@@ -2,8 +2,10 @@ import { getFormattedDate } from '../utils/date'
 
 const initialState = {
   season: 2017,
-  currentDate: getFormattedDate(),
-  date: getFormattedDate()
+  // currentDate: getFormattedDate(),
+  // date: getFormattedDate()
+  currentDate: '4/3/2018',
+  date: '4/3/2018'
 }
 
 const date = (state = initialState, action) => {

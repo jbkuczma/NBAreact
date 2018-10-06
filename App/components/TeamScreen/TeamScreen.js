@@ -1,93 +1,43 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, Button, Platform } from 'react-native'
+import { View, StyleSheet, Image, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import Roster from './Roster'
 import Games from './Games'
 import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
 import { getTeamFromTeamMap } from '../../utils/nba'
-import TeamMap from '../../utils/TeamMap'
 import TeamHeader from './TeamHeader';
 
 class TeamScreen extends Component<Props> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
-      loading: true,
-      teamInfo: null,
-      teamSeasonRanks: null,
-      teamRoster: null,
-      teamGamelog: null,
       pageToShow: 'roster'
     }
   }
 
-  componentDidMount() {
-    this.fetchTeam()
-  }
-
-  fetchTeam() {
-    const teamInfo = {
-      season: this.props.season,
-      teamID: this.props.teamID
-    }
-    const rosterInfo = {
-      season: this.props.season +  '-' + this.props.season.toString().substr(-2), // season has to be 2017-18
-      teamID: this.props.teamID
-    }
-
-    let teamName = getTeamFromTeamMap(this.props.teamID).team.toLowerCase()
-
-    // special cases
-    teamName = teamName === '76ers' ? 'sixers' : teamName
-    teamName = teamName === 'trail blazers' ? 'blazers' : teamName
-
-    Promise.all([
-      this.nba.getTeam(teamInfo),
-      this.nba.getRoster(rosterInfo),
-      this.nba.getTeamSchedule(this.props.season, teamName)
-    ])
-    .then((data) => {
-      this.setState({
-        loading: false,
-        teamInfo: data[0].TeamInfoCommon[0],
-        teamSeasonRanks: data[0].TeamSeasonRanks[0],
-        teamRoster: data[1].CommonTeamRoster,
-        teamGamelog: data[2].league.standard
-      })
-    })
-  }
-
   _selectPageToShow(pageToShow) {
-    this.setState({
-      pageToShow: pageToShow
-    })
+    this.setState({ pageToShow })
   }
 
   _renderSelectedPage() {
-    const {
-      loading,
-      teamRoster,
-      teamGamelog,
-      pageToShow
-    } = this.state
+    const { pageToShow } = this.state
+    const { fetchingTeam, roster, gamelog } = this.props
 
     const page = pageToShow === 'roster' ?
       <Roster
         navigator={this.props.navigation}
-        team={teamRoster}
+        team={roster}
       />
     :
       <Games
         navigator={this.props.navigation}
-        games={teamGamelog}
+        games={gamelog}
       />
 
     return (
-      !loading && teamRoster && teamGamelog ?
+      !fetchingTeam && roster && gamelog ?
         page
       :
         <View />
@@ -95,25 +45,26 @@ class TeamScreen extends Component<Props> {
   }
 
   render() {
-    const teamColor = getTeamFromTeamMap(this.props.teamID).color // default color could be '#BE0E2C'
+    const { fetchingTeam, info, seasonRanks, teamID } = this.props
+    const teamColor = getTeamFromTeamMap(teamID).color // default color could be '#BE0E2C'
     // const teamLogo = getTeamFromTeamMap(this.props.teamID).logo
     const teamLogo = null
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
         {
-          this.state.loading &&
+          fetchingTeam &&
           <Loader />
         }
         {
-          this.state.teamInfo && this.state.teamSeasonRanks &&
+          info && seasonRanks &&
             <TeamHeader
-              teamInfo={this.state.teamInfo}
-              teamSeasonRanks={this.state.teamSeasonRanks}
+              teamInfo={info}
+              teamSeasonRanks={seasonRanks}
             />
         }
         {
-          !this.state.loading &&
+          !fetchingTeam &&
           <View style={styles.buttons}>
             <View style={[ styles.button, this.state.pageToShow === 'roster' ? { borderBottomWidth: 2, borderBottomColor: teamColor } : styles.inactive ]}>
               <Button
@@ -156,7 +107,12 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     season: state.date.season,
-    teamID: state.scores.selectedTeam.teamID
+    teamID: state.scores.selectedTeam.teamID,
+    fetchingTeam: state.team.fetchingTeam,
+    info: state.team.info,
+    seasonRanks: state.team.seasonRanks,
+    roster: state.team.roster,
+    gamelog: state.team.gamelog
   }
 }
 

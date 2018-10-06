@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import NBA from '../../../utils/nba'
 import TeamMap from '../../../utils/TeamMap'
 import Loader from '../../common/Loader'
 import RefreshButton from '../../common/RefreshButton'
@@ -20,56 +19,50 @@ class TeamStats extends Component<Props> {
     )
   })
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
-      teamStats: null,
-      leadTracker: [],
-      miniBoxscore: null,
-      loading: true
+      isLoading: true
     }
   }
 
   componentDidMount() {
     // we can now call fetchGameStats via navigation.state.params.handleRefresh
     this.props.navigation.setParams({ handleRefresh: this.fetchGameStats })
-    this.fetchGameStats()
   }
 
-  fetchGameStats = () => {
-    Promise.all([
-      this.nba.getBoxscore(this.props.gameID, this.props.date),
-      this.nba.getLeadTrackerForGame(this.props.gameID, this.props.date),
-      this.nba.getMiniBoxscore(this.props.gameID, this.props.date)
-    ])
-    .then((gameStats) => {
-      this.setState({
-        teamStats: gameStats[0].stats ? gameStats[0].stats : null,
-        leadTracker: gameStats[1],
-        miniBoxscore: gameStats[2],
-        loading: false
-      })
-    })
+  componentDidUpdate = (prevProps, prevState) => {
+    if (
+      this.props.teamStats !== null &&
+      this.props.teamStats !== undefined &&
+      this.props.teamStats !== {} &&
+      prevProps.teamStats === undefined
+    ) {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
-    const awayTeamColor = TeamMap[this.props.awayTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
-    const homeTeamColor = TeamMap[this.props.homeTeam.abbreviation.toLowerCase()] ? TeamMap[this.props.homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
+    const { isLoading } = this.state;
+    let { teamStats, homeTeam, awayTeam } = this.props;
+    teamStats ? teamStats : null;
+
+    const awayTeamColor = TeamMap[awayTeam.abbreviation.toLowerCase()] ? TeamMap[awayTeam.abbreviation.toLowerCase()].color : '#1C3F80'
+    const homeTeamColor = TeamMap[homeTeam.abbreviation.toLowerCase()] ? TeamMap[homeTeam.abbreviation.toLowerCase()].color : '#BE0E2C'
+
+    let leadTracker = teamStats && teamStats.leadTracker ? teamStats.leadTracker : null;
+    let miniBoxscoreData = teamStats && teamStats.miniBoxscoreData ? teamStats.miniBoxscoreData : null;
+    let teamBoxscoreData = teamStats &&  teamStats.teamBoxscoreData ? teamStats.teamBoxscoreData : null;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
+        { isLoading && <Loader /> }
         {
-          this.state.loading &&
-          <Loader />
-        }
-        {
-          (this.state.teamStats && this.state.teamStats && this.state.leadTracker && this.state.miniBoxscore) &&
-
+          (teamStats && teamBoxscoreData && leadTracker && miniBoxscoreData) &&
           <ScrollView contentContainerStyle={styles.teamStatsContainer}>
             <QuarterScores
-              miniBoxscore={this.state.miniBoxscore}
+              miniBoxscore={miniBoxscoreData}
             />
             <View style={styles.leadTracker}>
               <View style={styles.leadTrackerHeader}>
@@ -77,15 +70,15 @@ class TeamStats extends Component<Props> {
                   <Text style={styles.text18pt}> Lead Tracker </Text>
                 </View>
                 <LeadTracker
-                  homeTeamID={this.props.homeTeam.teamID}
-                  awayTeamID={this.props.awayTeam.teamID}
+                  homeTeamID={homeTeam.teamID}
+                  awayTeamID={awayTeam.teamID}
                   homeTeamColor={homeTeamColor}
                   awayTeamColor={awayTeamColor}
-                  leadtracker={this.state.leadTracker}
+                  leadtracker={leadTracker}
                 />
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={styles.text18pt}> Times Tied: {this.state.teamStats.timesTied} </Text>
-                  <Text style={styles.text18pt}> Lead Changes: {this.state.teamStats.leadChanges} </Text>
+                  <Text style={styles.text18pt}> Times Tied: {teamStats.timesTied} </Text>
+                  <Text style={styles.text18pt}> Lead Changes: {teamStats.leadChanges} </Text>
                 </View>
               </View>
             </View>
@@ -93,13 +86,13 @@ class TeamStats extends Component<Props> {
               <TeamStatsTable
                 awayTeamColor={awayTeamColor}
                 homeTeamColor={homeTeamColor}
-                stats={this.state.teamStats}
+                stats={teamBoxscoreData}
               />
             </View>
           </ScrollView>
         }
         {
-          (!this.state.loading && (!this.state.teamStats || !this.state.teamStats || !this.state.leadTracker || !this.state.miniBoxscore)) &&
+          !isLoading && teamStats === {} &&
           <View style={styles.defaultCenteredView}>
             <Text style={styles.text}> Teams stats avaliable after tip off </Text>
           </View>
@@ -181,7 +174,8 @@ function mapStateToProps(state) {
     gameID: state.scores.selectedGame.gameID,
     awayTeam: state.scores.selectedGame.awayTeam,
     homeTeam: state.scores.selectedGame.homeTeam,
-    date: state.date.date
+    date: state.date.date,
+    teamStats: state.scores.selectedGame.teamStats
   }
 }
 

@@ -1,6 +1,7 @@
 const initialState = {
   selectedGame: null,
-  selectedTeam: null
+  selectedTeam: null,
+  games: []
 }
 
 const scores = (state = initialState, action) => {
@@ -21,6 +22,17 @@ const scores = (state = initialState, action) => {
       return {
         ...state, selectedPlayer: action.selectedPlayer
       }
+    case 'GET_GAME_STATS_SUCCESS': {
+      return {
+        ...state,
+        selectedGame: {
+          ...state.selectedGame,
+          teamStats: {...action.data.teamStatsData },
+          boxscore: { ...action.data.boxscoreData },
+          playByPlay: action.data.playByPlayData
+        }
+      }
+    }
     default:
       return state
   }

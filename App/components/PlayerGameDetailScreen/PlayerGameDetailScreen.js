@@ -5,7 +5,7 @@ import DonutChart from '../common/DonutChart'
 import VerticalBarChart from '../common/BarChart'
 import Circle from '../common/Circle'
 import { connect } from 'react-redux'
-import NBA, { getTeamFromTeamMap } from '../../utils/nba'
+import { getTeamFromTeamMap } from '../../utils/nba'
 import { adjustLuminance } from '../../utils/colors'
 
 class PlayerGameDetailScreen extends Component<Props> {
@@ -14,40 +14,17 @@ class PlayerGameDetailScreen extends Component<Props> {
     headerTitle: `${navigation.state.params.stats.game_date}`
   })
 
-  constructor() {
-    super()
-    this.nba = new NBA()
-    this.state = {
-      boxscoreAdvanced: null,
-      boxscoreMisc: null,
-      moxscoreUsage: null,
-      boxscoreHustle: null,
-      boxscorePlayerTrack: null,
-      loading: true,
-    }
-  }
-
   componentDidMount() {
     const playerID = this.props.navigation.state.params.stats.player_id
     const gameID = this.props.navigation.state.params.stats.game_id
-    console.log(this.props.navigation.state.params.stats)
 
-    this.nba.getAdditionalBoxscoreStatsForPlayer(gameID, playerID).then((data) => {
-      console.log(data)
-      this.setState({
-        boxscoreAdvanced: data.BoxscoreAdvanced,
-        boxscoreMisc: data.BoxscoreMisc,
-        boxscoreUsage: data.BoxscoreUsage,
-        boxscoreHustle: data.BoxscoreHustle,
-        boxscorePlayerTrack: data.BoxscorePlayerTrack,
-        loading: false
-      })
-    })
+    this.props.getAdditionalBoxscoreStatsForPlayer(playerID, gameID)
   }
 
   _createTimePlayedLabel() {
+    const { boxscoreAdvanced } = this.props
     const stats = this.props.navigation.state.params.stats
-    const minutesPlayed = this.state.boxscoreAdvanced.min
+    const minutesPlayed = boxscoreAdvanced.min
 
     return (
       <View style={{ flexDirection: 'row' }}>
@@ -61,7 +38,8 @@ class PlayerGameDetailScreen extends Component<Props> {
   }
 
   _createScoringGraphs() {
-    const teamColor = getTeamFromTeamMap(this.props.teamID).color
+    const { teamID } = this.props
+    const teamColor = getTeamFromTeamMap(teamID).color
     const stats = this.props.navigation.state.params.stats
     const points = stats.pts
     const ft_points = stats.ftm
@@ -118,7 +96,8 @@ class PlayerGameDetailScreen extends Component<Props> {
   }
 
   _createShootingGraphs() {
-    const teamColor = getTeamFromTeamMap(this.props.teamID).color
+    const { teamID } = this.props
+    const teamColor = getTeamFromTeamMap(teamID).color
     const teamColorDarken = adjustLuminance(teamColor, -0.5)
     const gameStats = this.props.navigation.state.params.stats
     const fg_percent = (gameStats.fg_pct  * 100).toFixed(1)
@@ -186,15 +165,12 @@ class PlayerGameDetailScreen extends Component<Props> {
   }
 
   render() {
+    const { fetchingPlayer, boxscoreAdvanced } = this.props
     return (
       <View style={{ flex: 1, backgroundColor: '#111111' }}>
-        {
-          this.state.loading &&
-          <Loader />
-        }
+        { fetchingPlayer && <Loader /> }
         <ScrollView contentContainerStyle={styles.scrollview}>
-          {
-            !this.state.loading && this.state.boxscoreAdvanced &&
+          { !fetchingPlayer && boxscoreAdvanced &&
             <View style={styles.defaultCenteredView}>
               { this._createScoringGraphs() }
               { this._createShootingGraphs() }
@@ -240,13 +216,19 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    teamID: state.scores.selectedTeam.teamID
+    teamID: state.scores.selectedTeam.teamID,
+    fetchingPlayer: state.player.fetchingPlayer,
+    boxscoreAdvanced: state.player.boxscoreAdvanced,
+    boxscoreMisc: state.player.boxscoreMisc,
+    boxscoreUsage: state.player.boxscoreUsage,
+    boxscoreHustle: state.player.boxscoreHustle,
+    boxscorePlayerTrack: state.player.boxscorePlayerTrack
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    getAdditionalBoxscoreStatsForPlayer: (playerID, gameID) => dispatch({ type: 'GET_ADVANCED_GAME_STATS', playerID, gameID })
   }
 }
 

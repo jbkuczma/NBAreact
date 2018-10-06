@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  Text,
   View,
   FlatList,
   StatusBar
@@ -9,25 +8,20 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import GameCell from './GameCell'
 import Loader from '../common/Loader'
-import NBA from '../../utils/nba'
 
 class ScoresScreen extends Component<Props> {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.nba = new NBA()
     this.state = {
       date: null,
       loading: true,
       refresh: false,
-      games: []
     }
-
-    this.handleRefresh = this.handleRefresh.bind(this)
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps = (props) => {
     if (props.date != this.state.date) {
       this.setState({
         loading: true
@@ -35,34 +29,34 @@ class ScoresScreen extends Component<Props> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount = () => {
     this.fetchGames()
   }
 
-  componentDidUpdate() {
-    this.fetchGames()
+  componentDidUpdate = (prevProps) => {
+    if (this.props.games !== prevProps.games && prevProps.games.length === 0) {
+      this.fetchGames()
+    }
   }
 
-  shouldComponentUpdate(props, nextProps) {
-    return this.state.date != props.date || this.state.refresh
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (this.props.games.length === 0 && nextProps.games.length > 0) { return true };
+    return this.state.date != nextProps.date || this.state.refresh
   }
 
   fetchGames = () => {
-    this.nba.getGames(this.props.date)
-    .then((games) => {
-      this.setState({
-        loading: false,
-        refresh: false,
-        date: this.props.date,
-        games: games.games,
-      })
-    })
-    .catch((error) => {
-      console.log(error)
+    const { date } = this.props;
+    this.props.getGames(date);
+
+    // handle
+    this.setState({
+      loading: false,
+      refresh: false,
+      date: date,
     })
   }
 
-  handleRefresh() {
+  handleRefresh = () => {
     // only allow refreshing on the current date - past and future games dont need to have refresh abilities
     if (this.props.date === this.props.currentDate) {
       this.setState({
@@ -73,18 +67,18 @@ class ScoresScreen extends Component<Props> {
     }
   }
 
-  _keyExtractor(item) {
+  _keyExtractor = (item) => {
     return item.gameId
   }
 
   render() {
+    const { games } = this.props;
+
     return (
       <View style={{flex: 1}}>
-        <StatusBar
-          barStyle="light-content"
-        />
+        <StatusBar barStyle='light-content' />
         <Header
-          numberOfGames={this.state.games.length}
+          numberOfGames={games.length}
         />
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
           {
@@ -92,9 +86,9 @@ class ScoresScreen extends Component<Props> {
             <Loader />
           }
           {
-            (this.state.games && !this.state.loading) &&
+            (games && !this.state.loading) &&
             <FlatList
-              data={this.state.games}
+              data={games}
               refreshing={this.state.refresh}
               onRefresh={() => { this.handleRefresh() }}
               keyExtractor={this._keyExtractor}
@@ -116,13 +110,14 @@ function mapStateToProps(state) {
   return {
     date: state.date.date,
     currentDate: state.date.currentDate,
-    season: state.date.season
+    season: state.date.season,
+    games: state.scores.games
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    getGames: (date) => dispatch({ type: 'GET_GAMES_REQUEST', date })
   }
 }
 

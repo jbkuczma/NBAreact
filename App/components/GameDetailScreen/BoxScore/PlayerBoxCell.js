@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button, FlatList, ScrollView } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
+import { CATEGORIES } from './headers'
 
 export default class PlayerBoxCell extends Component<Props> {
   render() {
-    if (this.props.player.item.personId === undefined) {
+    const { player } = this.props;
+
+    if (player.item.personId === undefined) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           {
@@ -21,20 +24,15 @@ export default class PlayerBoxCell extends Component<Props> {
         </View>
       )
     } else {
-      const categories = [
-        'pos', 'min', 'points', 'assists', 'totReb','steals', 'blocks',
-        'plusMinus', 'fgm', 'fga', 'fgp', 'tpm', 'tpa', 'tpp', 'ftm', 'fta', 'ftp', 'offReb',
-        'defReb', 'turnovers', 'pFouls'
-      ]
       return (
         <View style= {{ flex: 1, flexDirection: 'row' }}>
           {
-            categories.map((category, idx) => {
+            CATEGORIES.map((category, idx) => {
               const viewStyle = category === 'display_fi_last' ? styles.boxscoreStatNameView : styles.boxscoreStatView
               return (
                 <View style={viewStyle} key={idx}>
                   <Text style={styles.boxscoreText}>
-                    { this.props.player.item[category] }
+                    { player.item[category] }
                   </Text>
                 </View>
               )

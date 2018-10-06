@@ -13,7 +13,9 @@ const categoryMap = {
 
 const initialState = {
   category: { label: 'Points', value: 'PTS' },
-  playersInLeague: []
+  playersInLeague: [],
+  standings: {},
+  leagueLeaders: []
 }
 
 const league = (state = initialState, action) => {
@@ -31,6 +33,21 @@ const league = (state = initialState, action) => {
         ...state,
         playersInLeague: action.payload
       }
+    case 'STANDINGS_SUCCESS':
+      return {
+        ...state,
+        standings: {
+          ...state.standings,
+          east: action.easternStandings,
+          west: action.westernStandings
+        }
+      }
+    case 'GET_LEAGUE_LEADERS_SUCCESS': {
+      return {
+        ...state,
+        leagueLeaders: action.leagueLeaders
+      }
+    }
     default:
       return state
   }
