@@ -31,7 +31,19 @@ function* getStandings(payload) {
   }
 }
 
+function* getLeagueLeaders(payload) {
+  try {
+    const { season, category } = payload
+    const data = yield this.nba.getLeagueLeaders(season, category)
+    const leagueLeaders = data.LeagueLeaders
+    yield put({ type: 'GET_LEAGUE_LEADERS_SUCCESS', leagueLeaders });
+  } catch (error) {
+    yield put({ type: 'GET_LEAGUE_LEADERS_FAILURE' });
+  }
+}
+
 export const leagueSagas = [
   takeLatest('GET_PLAYERS_IN_LEAUGE', getPlayersInLeague),
-  takeLatest('GET_LEAGUE_STANDINGS', getStandings)
+  takeLatest('GET_LEAGUE_STANDINGS', getStandings),
+  takeLatest('GET_LEAGUE_LEADERS', getLeagueLeaders)
 ]
