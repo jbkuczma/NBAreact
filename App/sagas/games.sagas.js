@@ -88,6 +88,7 @@ function* cleanPlays(payload) {
 }
 
 export const gamesSagas = [
+  takeLatest('CHANGE_DATE', getGames),
   takeLatest('GET_GAMES_REQUEST', getGames),
   takeLatest('SELECT_GAME', getGameStats)
 ]

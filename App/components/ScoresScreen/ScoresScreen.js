@@ -21,14 +21,6 @@ class ScoresScreen extends Component<Props> {
     }
   }
 
-  componentWillReceiveProps = (props) => {
-    if (props.date != this.state.date) {
-      this.setState({
-        loading: true
-      })
-    }
-  }
-
   componentDidMount = () => {
     this.fetchGames()
   }
@@ -40,8 +32,7 @@ class ScoresScreen extends Component<Props> {
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
-    if (this.props.games.length === 0 && nextProps.games.length > 0) { return true };
-    return this.state.date != nextProps.date || this.state.refresh
+    return this.props.games !== nextProps.games;
   }
 
   fetchGames = () => {
